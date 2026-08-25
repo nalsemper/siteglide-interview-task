@@ -1,0 +1,15 @@
+query get_todo($id: ID!) {
+  records(
+    per_page: 1
+    page: 1
+    filter: {
+      table: { value: "module_985" }
+      id: { value: $id }
+    }
+  ) {
+    results {
+      id
+      properties
+    }
+  }
+}

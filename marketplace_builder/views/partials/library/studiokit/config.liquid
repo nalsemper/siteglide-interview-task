@@ -1,0 +1,82 @@
+---
+metadata:
+  name: StudioKit
+  type: tailwind
+  tailwind:
+    head:
+      content: |+
+        <script defer src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+        <script async id="sitegurus_forms_javascript_api" src="{{'modules/module_357/js/sitegurus_forms_javascript_api.js' | asset_url}}" charset="utf-8"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100;400;700&display=swap" rel="stylesheet" />
+
+        <!-- lite-youtube-embed for optimized video loading -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lite-youtube-embed/src/lite-yt-embed.css" />
+        <script defer src="https://cdn.jsdelivr.net/npm/lite-youtube-embed/src/lite-yt-embed.js"></script>
+
+        <style type="text/tailwindcss">
+          @custom-variant dark (&:where(.dark, .dark *));
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    tags: []
+    scripts:
+      content: "{% assign motion_version = siteglide_ui_kit_motion_version | default:
+        \"v1\" %}\n{% assign motion_default_variant = siteglide_ui_kit_motion_default_variant
+        | default: \"fade-up\" %}\n\n{% if motion_version != \"none\" %}\n\t{% capture
+        _default_types %}{% render \"library/studiokit/animations/defaults\" %}{%
+        endcapture %}\n\t{% capture _custom_types %}{% render \"library/studiokit/animations/custom\"
+        %}{% endcapture %}\n\n\t<script>\n\t\twindow.siteglideUiKitMotion = {\n\t\t\tdefaultVariantKey:
+        \"{{ motion_default_variant }}\",\n\t\t\tdefaultAnimationTypes: {{ _default_types
+        }},\n\t\t\tcustomAnimationTypes: {{ _custom_types }}\n\t\t};\n\t</script>\n\t{%
+        capture url_path %}modules/module_357/js/{{motion_version}}/animations/studio_motion.min.js{%
+        endcapture %}\n\t<script async src=\"{{ url_path | asset_url }}\"></script>\n{%
+        endif %}\n"
+    variables:
+      content: ''
+    categories:
+    - id: contact
+      name: Contact
+    - id: content
+      name: Content
+    - id: cta
+      name: Cta
+    - id: events
+      name: Events
+    - id: faq
+      name: Faq
+    - id: features
+      name: Features
+    - id: footer
+      name: Footer
+    - id: footers
+      name: Footers
+    - id: headers
+      name: Headers
+    - id: hero
+      name: Hero
+    - id: navigation
+      name: Navigation
+    - id: newsletter
+      name: Newsletter
+    - id: pricing
+      name: Pricing
+    - id: social_proof
+      name: Social Proof
+    - id: team
+      name: Team
+    - id: lw
+      name: Lw
+    collections:
+    - id: mono
+      name: Mono
+    - id: flowbite_free
+      name: Flowbite Free
+    - id: studiokit
+      name: StudioKit
+    global_fields: []
+  deprecated: false
+  default_theme: studiokit
+  library_version: 1.0.0
+  mapped_field_defaults_behaviour: legacy
+...
+---

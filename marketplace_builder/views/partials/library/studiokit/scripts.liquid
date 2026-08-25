@@ -1,0 +1,17 @@
+{% assign motion_version = siteglide_ui_kit_motion_version | default: "v1" %}
+{% assign motion_default_variant = siteglide_ui_kit_motion_default_variant | default: "fade-up" %}
+
+{% if motion_version != "none" %}
+	{% capture _default_types %}{% render "library/studiokit/animations/defaults" %}{% endcapture %}
+	{% capture _custom_types %}{% render "library/studiokit/animations/custom" %}{% endcapture %}
+
+	<script>
+		window.siteglideUiKitMotion = {
+			defaultVariantKey: "{{ motion_default_variant }}",
+			defaultAnimationTypes: {{ _default_types }},
+			customAnimationTypes: {{ _custom_types }}
+		};
+	</script>
+	{% capture url_path %}modules/module_357/js/{{motion_version}}/animations/studio_motion.min.js{% endcapture %}
+	<script async src="{{ url_path | asset_url }}"></script>
+{% endif %}

@@ -1,0 +1,104 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Subscriptions</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 textarea">
+						<div class="col">
+							<label for="module_field_14/subscription_1">Description</label>
+							<textarea class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_1'].name }}" rows="5" cols="30"></textarea>
+						</div>
+					</div>
+					<div class="row mt-4 image">
+						<div class="col">
+							<label for="module_field_14/subscription_2">Image</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_2'].name }}" type="hidden">
+							<input class="form-control sg-form-control" id="module_field_14/subscription_2_file" type="file" />
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_3">Product Code (SKU)</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_3'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_radio">
+						<div class="col">
+							<label for="module_field_14/subscription_4">Interval</label>
+							<div class="radio-container required">
+								<div class="radio">
+									<input id="module_field_14/subscription_4_days" name="{{ form_builder.fields.properties['module_field_14/subscription_4'].name }}" type="radio" value="days" />
+									<label for="module_field_14/subscription_4_days">days</label>
+								</div>
+								<div class="radio">
+									<input id="module_field_14/subscription_4_weeks" name="{{ form_builder.fields.properties['module_field_14/subscription_4'].name }}" type="radio" value="weeks" />
+									<label for="module_field_14/subscription_4_weeks">weeks</label>
+								</div>
+								<div class="radio">
+									<input id="module_field_14/subscription_4_months" name="{{ form_builder.fields.properties['module_field_14/subscription_4'].name }}" type="radio" value="months" />
+									<label for="module_field_14/subscription_4_months">months</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_5">Interval Count</label>
+							<input class="form-control sg-form-control required" name="{{ form_builder.fields.properties['module_field_14/subscription_5'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_6">Stripe Product ID (Live)</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_6'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_7">Stripe Product ID (Test)</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_7'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 select_multi">
+						<div class="col">
+							<label for="module_field_14/subscription_8">Secure Zones</label>
+							<select class="" name="{{ form_builder.fields.properties['module_field_14/subscription_8'].name }}[]" multiple>
+							</select>
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_9">Image Alt</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_9'].name }}" type="text">
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/subscription')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+<h3>Archive by Years</h3>
+<ul>
+	{% for year in blog_archive_years %}
+		<li>{{year.start | date: "%Y"}}</li>
+		<ul>
+			{% assign months_by_year = blog_archive_months | group_by: "year" %}
+			{% for month in months_by_year[year.start] %}
+				<li><a href="{{context.location.pathname}}?range_gte={{month.start}}&range_lt={{month.end}}&range_type=month">{{month.start | date: "%b" }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endfor %}
+</ul>
+
+<h3>Search by Date</h3>
+<form title="Search Blog by Date" id="blog-archive-search">
+	<div class="form-group">
+		<label for="range_gt">Start Date</label>
+		<input data-sg-blog="start-date" id="range_gt" name="range_gt" type="date">
+	</div>
+	<div class="form-group">
+		<label for="range_gt">End Date</label>
+		<input data-sg-blog="end-date" id="range_lte" name="range_lte" type="date">
+	</div>
+	<div class="form-group">
+		<input value="Search" class="btn btn-primary" type="submit" onclick="s_blog_date_search(s_blog_date_search_error)">
+	</div>
+</form>
+{% comment %}Add your custom error message here- it can be renamed by changing its name in the argument for the s_blog_date_search function and in the definition below.{% endcomment %}
+<script>
+	function s_blog_date_search_error() {
+		alert("Please enter valid dates before searching.");
+	}
+</script>

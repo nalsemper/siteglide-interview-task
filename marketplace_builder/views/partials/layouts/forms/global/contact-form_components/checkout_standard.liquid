@@ -1,0 +1,10 @@
+<div >
+  <div class="">
+    <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 d-block">Enter Payment Details</span>
+    <input {{attributes}} name="{{ form_builder.fields.properties.order_id.name }}" id="s_e_order_id" type="hidden" />
+    <input id="s_e_form" value="true" type="hidden">
+    <div class="form-control">
+      {%- include 'ecommerce/checkout_standard' -%}
+    </div>
+  </div>
+</div>

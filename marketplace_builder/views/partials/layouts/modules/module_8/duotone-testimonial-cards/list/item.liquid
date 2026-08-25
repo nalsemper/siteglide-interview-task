@@ -1,0 +1,36 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_8/duotone-testimonial-cards/list/wrapper.liquid
+  - views/partials/layouts/modules/module_8/duotone-testimonial-cards/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: duotone-testimonial-cards
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_8
+  studio_dynamic/layout_name: Duotone Testimonial Cards
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Gardening Testimonial Cards
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<article class="card flex h-full flex-col rounded-2xl bg-base-50 p-6 md:p-8 dark:bg-base-900/20" data-motion-card>
+  <div class="flex items-center gap-4">
+    {% if this['Image'] != blank %}
+      <img src="{{ this['Image'] | asset_url }}" alt="profile picture" class="h-12 w-12 rounded-full border border-base-200 object-cover dark:border-base-700">
+    {% endif %}
+    <div>
+      <h3>{{this['Job Title']}}</h3>
+      {% if this['Company Name'] != blank %}
+        <p class="text-xs uppercase tracking-[0.12em] text-neutral-500 mx-auto">{{this['Company Name']}}</p>
+      {% endif %}
+    </div>
+  </div>
+  <p class="mt-4 text-sm leading-relaxed text-neutral-400 mx-auto">
+    {{this['Quote'] | html_safe }}
+  </p>
+</article>
+  

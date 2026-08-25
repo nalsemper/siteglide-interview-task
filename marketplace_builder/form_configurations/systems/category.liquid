@@ -1,0 +1,166 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    system_detail_template:
+      name: system_detail_template
+      value: templates/blank_page
+      property_options:
+        virtual: true
+    system_detail_default_layout:
+      name: system_detail_default_layout
+      value: default
+      property_options:
+        virtual: true
+    system_path:
+      name: system_path
+      value: siteglide_system
+      property_options:
+        virtual: true
+    parent:
+      name: Parent
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      force: true
+      required: false
+      validation: {}
+    image:
+      name: Image
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      force: true
+      required: false
+      validation: {}
+    image_alt:
+      name: Image Alt
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      force: true
+      required: false
+      validation: {}
+    description:
+      name: Description
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      force: true
+      required: false
+      validation: {}
+    full_slug:
+      name: Full Slug
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      force: true
+      required: false
+      validation: {}
+    name:
+      name: name
+      type: string
+      required: false
+      validation: {}
+    slug:
+      name: slug
+      type: string
+      required: false
+      validation: {}
+    weighting:
+      name: weighting
+      type: integer
+      required: false
+      validation: {}
+    release_date:
+      name: release_date
+      type: integer
+      required: false
+      validation: {}
+    expiry_date:
+      name: expiry_date
+      type: integer
+      required: false
+      validation: {}
+    enabled:
+      name: enabled
+      type: boolean
+      required: false
+      validation: {}
+    category_array:
+      name: category_array
+      type: array
+      required: false
+      validation: {}
+    meta_title:
+      name: meta_title
+      type: string
+      required: false
+      validation: {}
+    meta_desc:
+      name: meta_desc
+      type: string
+      required: false
+      validation: {}
+    og_title:
+      name: og_title
+      type: string
+      required: false
+      validation: {}
+    og_desc:
+      name: og_desc
+      type: string
+      required: false
+      validation: {}
+    og_image:
+      name: og_image
+      type: string
+      required: false
+      validation: {}
+    og_type:
+      name: og_type
+      type: string
+      required: false
+      validation: {}
+    og_url:
+      name: og_url
+      type: string
+      required: false
+      validation: {}
+    twitter_type:
+      name: twitter_type
+      type: string
+      required: false
+      validation: {}
+    secure_zone_array:
+      name: secure_zone_array
+      type: array
+      required: false
+      validation: {}
+    location:
+      name: location
+      type: geojson
+      required: false
+      validation: {}
+    address:
+      name: address
+      type: string
+      required: false
+      validation: {}
+name: category
+resource: modules/siteglide_system/category
+resource_owner: anyone
+---
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/systems/category/form/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

@@ -1,0 +1,29 @@
+query list_todos(
+  $per_page: Int = 100
+  $page: Int = 1
+  $completed: Boolean
+  $keyword: String
+  $priority: String
+) {
+  records(
+    per_page: $per_page
+    page: $page
+    filter: {
+      table: { value: "module_985" }
+      properties: [
+        { name: "module_field_985_1", value_boolean: $completed }
+        { name: "module_field_985_3", value: $priority }
+        { name: "name", contains: $keyword }
+      ]
+    }
+    sort: { updated_at: { order: DESC } }
+  ) {
+    total_entries
+    results {
+      id
+      created_at
+      updated_at
+      properties
+    }
+  }
+}

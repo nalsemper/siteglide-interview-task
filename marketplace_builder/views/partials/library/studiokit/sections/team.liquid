@@ -1,0 +1,144 @@
+---
+metadata:
+  name: Team
+  class: section
+  lists:
+  - name: Team Members
+    type: team_members
+    fields:
+    - id: name
+      type: text
+      label: Name
+      default: Team Member
+      is_title: true
+    - id: role_line_1
+      type: text
+      label: Role Line 1
+      default: ROLE
+    - id: role_line_2
+      type: text
+      label: Role Line 2
+      default: ''
+    - id: photo
+      type: image_picker
+      label: Photo
+      default: ''
+    - id: photo_alt
+      type: text
+      label: Photo Alt Text
+      default: ''
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Team
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Meet our leadership team
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class="{{selection-index}}" data-motion-group>
+
+  <div class="container px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 md:pt-20 lg:pt-28">
+
+    <div data-motion-group>
+      {% if this.eyebrow != blank %}
+      <div class="mb-4 sm:mb-5 flex items-center gap-2.5 text-xs uppercase tracking-[0.2em]" data-motion-text>
+        <span class="h-2 w-2 rounded-full flex-none" aria-hidden="true"></span>
+        <span class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60">
+          {{ this.eyebrow }}
+        </span>
+      </div>
+      {% endif %}
+
+      <h2 class="max-w-2xl" data-motion-text>
+        {{ this.heading }}
+      </h2>
+    </div>
+
+    <div class="mt-8 sm:mt-10 lg:mt-12">
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6 pb-12 sm:pb-16"
+        data-motion-group
+      >
+
+        {% for item in lists.team_members %}
+
+        <article
+          data-studio-list="{{ item._list }}"
+          class="card flex flex-col h-full overflow-hidden rounded-3xl bg-base-50 dark:bg-base-900/20"
+          data-motion-card
+        >
+
+          <!-- Header -->
+          <div class="flex items-start justify-between gap-4 p-5 sm:p-6 min-h-[96px]">
+
+            <h3 class="flex-1 text-xl sm:text-2xl font-medium leading-tight text-base-900 dark:text-base-50 break-words">
+              {{ item.name }}
+            </h3>
+
+            <div class="shrink-0 text-right leading-relaxed pt-1">
+
+              {% if item.role_line_1 != blank %}
+              <span class="block text-[10px] uppercase tracking-[0.18em] text-base-400 dark:text-base-300 whitespace-nowrap">
+                {{ item.role_line_1 }}
+              </span>
+              {% endif %}
+
+              {% if item.role_line_2 != blank %}
+              <span class="block text-[10px] uppercase tracking-[0.18em] text-base-400 dark:text-base-300 whitespace-nowrap">
+                {{ item.role_line_2 }}
+              </span>
+              {% endif %}
+
+            </div>
+
+          </div>
+
+          <!-- Image -->
+          <div class="mt-auto px-0 pb-0">
+
+            <div class="overflow-hidden rounded-t-[2rem] h-64 sm:h-72 lg:h-80">
+
+              {% if item.photo != blank %}
+
+              {% include 'img',
+                path: item.photo,
+                classes: 'h-full w-full object-cover object-top',
+                attributes: 'alt="{{ item.photo_alt | default: item.name }}" loading="lazy"'
+              %}
+
+              {% else %}
+
+              <div class="flex h-full w-full items-end justify-center bg-base-200 dark:bg-base-800">
+                <span
+                  class="material-symbols-outlined text-7xl sm:text-8xl text-base-300 leading-none"
+                  aria-hidden="true"
+                >
+                  person
+                </span>
+              </div>
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        </article>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

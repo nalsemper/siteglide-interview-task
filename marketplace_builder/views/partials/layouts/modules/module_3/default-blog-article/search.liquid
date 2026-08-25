@@ -1,0 +1,61 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/item.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/edit.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/search.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/sidebar.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/archive.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/structured_data.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/boolean.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/date.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/file.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_radio.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/string.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/textarea.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/subheading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/heading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/array_custom.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/folder.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image_array.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_float.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_integer.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/default-blog-article.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-blog-article
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_3
+  studio_dynamic/layout_name: Default blog article
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default blog article
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<div class="mb-4">
+	<h4 class="text-lg dark:text-white mb-2">Keyword Search</h4>
+	<form action="{{blog_list_page_url}}"> 
+		<label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+		<div class="relative">
+      <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+        <span aria-hidden="true" class="material-symbols-outlined text-[20px] text-gray-500 dark:text-gray-400">search</span>
+        </div>
+				<input name="keyword" type="search" id="default-search" class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search the Blog" required="">
+				<button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+			</div>
+		</div>
+	</form>
+</div>

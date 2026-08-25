@@ -1,0 +1,98 @@
+---
+metadata:
+  name: Header Navigation
+  class: section
+  lists:
+  - name: Navigation Items
+    type: nav_items
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Home
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: logo_image
+    type: image_picker
+    label: Logo Image
+    default: ''
+  - id: logo_text
+    type: text
+    label: Logo Text
+    default: Flowbite
+  - id: login_button_text
+    type: text
+    label: Login Button Text
+    default: Log in
+  - id: login_button_url
+    type: url
+    label: Login Button URL
+    default: "#"
+  - id: get_started_button_text
+    type: text
+    label: Get Started Button Text
+    default: Get started
+  - id: get_started_button_url
+    type: url
+    label: Get Started Button URL
+    default: "#"
+  hide_on: []
+  category: navigation
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<header class=" {{selection-index}}">
+  <nav class="border-b border-base-200 bg-base-50 px-4 py-2.5 dark:border-base-700 dark:bg-base-900/20 lg:px-6">
+    <div class="mx-auto flex max-w-[96rem] flex-wrap items-center justify-between">
+
+      <a href="/" class="flex items-center gap-2">
+        {% if this.logo_image != blank %}
+          {% include 'img',
+            path: this.logo_image,
+            classes: 'h-8',
+            attributes: 'alt="{{ this.logo_text }}" loading="eager"'
+          %}
+        {% endif %}
+        {% if this.logo_text != blank %}
+          <span class="self-center text-xl font-semibold text-neutral-900 dark:text-neutral-50">{{ this.logo_text }}</span>
+        {% endif %}
+      </a>
+
+      <div class="flex items-center gap-2 lg:order-2">
+        {% if this.login_button_text != blank %}
+          <a href="{{ this.login_button_url }}" class="button-secondary px-4 py-2 text-sm">{{ this.login_button_text }}</a>
+        {% endif %}
+        {% if this.get_started_button_text != blank %}
+          <a href="{{ this.get_started_button_url }}" class="button px-4 py-2 text-sm">{{ this.get_started_button_text }}</a>
+        {% endif %}
+        <button
+          data-collapse-toggle="mobile-menu"
+          type="button"
+          class="inline-flex items-center rounded-lg p-2 text-neutral-500 hover:bg-base-100 focus:outline-none focus:ring-2 focus:ring-base-200 dark:text-neutral-400 dark:hover:bg-base-700 dark:focus:ring-base-600 lg:hidden"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          aria-label="Toggle menu"
+        >
+          <span class="material-symbols-outlined text-[24px] leading-none" aria-hidden="true">menu</span>
+        </button>
+      </div>
+
+      <div class="hidden w-full items-center justify-between lg:order-1 lg:flex lg:w-auto" id="mobile-menu">
+        <ul class="mt-4 flex flex-col gap-1 font-medium lg:mt-0 lg:flex-row lg:gap-6">
+          {% for item in lists.nav_items %}
+            <li data-studio-list="{{ item._list }}">
+              <a href="{{ item.link_url }}" class="block rounded-lg px-3 py-2 text-sm text-neutral-700 transition-colors hover:bg-base-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-base-800 dark:hover:text-neutral-50 lg:hover:bg-transparent">{{ item.link_text }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+</header>

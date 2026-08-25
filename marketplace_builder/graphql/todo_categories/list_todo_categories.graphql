@@ -1,0 +1,16 @@
+query list_todo_categories($per_page: Int = 100, $page: Int = 1) {
+  records(
+    per_page: $per_page
+    page: $page
+    filter: {
+      table: { value: "module_987" }
+    }
+    sort: { properties: [{ name: "module_field_987_2", order: ASC }] }
+  ) {
+    total_entries
+    results {
+      id
+      properties
+    }
+  }
+}

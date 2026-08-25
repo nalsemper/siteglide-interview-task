@@ -1,0 +1,79 @@
+---
+metadata:
+  name: Timeline
+  class: section
+  lists:
+  - name: Events
+    type: events
+    fields:
+    - id: title
+      type: text
+      label: Title
+      default: Application UI code in Tailwind CSS
+      is_title: true
+    - id: description
+      type: textarea
+      label: Description
+      default: Get access to over 20+ pages including a dashboard layout, charts,
+        kanban board, calendar, and pre-order E-commerce & Marketing pages.
+    - id: date
+      type: text
+      label: Date
+      default: February 2022
+    - id: button_text
+      type: text
+      label: Button Text
+      default: Learn more
+    - id: button_url
+      type: url
+      label: Button URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Events
+  hide_on: []
+  category: events
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+    </div>
+
+    <div class="mx-auto mt-12 max-w-2xl">
+      <ol class="relative ml-3 border-l border-base-200 dark:border-base-700" data-motion-group>
+        {% for item in lists.events %}
+          <li data-studio-list="{{ item._list }}" class="mb-10 ml-6" data-motion-card>
+            <div class="absolute -left-[7px] mt-1.5 h-3 w-3 rounded-full border-2 border-base-50 bg-base-300 dark:border-base-900 dark:bg-base-600"></div>
+            <time class="mb-1 block text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>{{ item.date }}</time>
+            <h3 class="!mb-1" data-motion-text>{{ item.title }}</h3>
+            {% if item.description != blank %}
+              <p class="!mb-4 text-sm" data-motion-text>{{ item.description }}</p>
+            {% endif %}
+            {% if item.button_text != blank and item.button_url != blank %}
+              <a href="{{ item.button_url }}" class="button-secondary inline-flex items-center gap-2 px-4 py-2 text-sm">
+                {{ item.button_text }}
+                <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+
+  </div>
+</section>

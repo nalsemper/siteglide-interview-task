@@ -1,0 +1,45 @@
+---
+layout: templates/1
+metadata:
+  studio:
+    order:
+    - default-product-detail
+    sections:
+      default-product-detail:
+        id: default-product-detail
+        data: {}
+        name: Default Product Detail
+        type: legacy_dynamic
+        title: default-product-detail
+        system:
+          id: 14/product
+          type: detail
+          layout: default-product-detail
+          admin_link: "/ecommerce/products"
+          liquid_tag: ecommerce/products
+          live_updates: false
+          section_name: Default Product Detail
+          schema_selector:
+            module_id: module_14
+            sub_module_id: '2'
+          physical_file_path: views/partials/layouts/modules/module_14/product/default-product-detail/detail/wrapper.liquid
+        mapping: {}
+        settings: {}
+        components: {}
+        component_order: []
+redirect_to: ''
+redirect_url: ''
+slug: siteglide-products
+---
+{% include 'modules/siteglide_system/constants' -%}
+{% assign is_detail_page = true %}
+{% export is_detail_page %}
+{%- assign _slug = context.location.pathname | replace: '/siteglide-products/', '' | replace: '/siteglide-products', '' -%}
+{%- if _slug == blank -%}
+  {%- response_status 404 -%}
+  {%- include '404' -%}
+{%- else -%}
+  {% include 'module', id: '14/product', type: 'detail', slug: _slug, layout: 'default', collection: 'true', model_seo: 'true' -%}
+  {% assign detail_data = context.exports['module_14/product'].data.result.items[0] %}
+  {% export detail_data %}
+{%- endif -%}

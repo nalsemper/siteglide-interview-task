@@ -1,0 +1,16 @@
+
+<div class="w-full file">
+  <div class="">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="{{field_id}}_file">{% if value != blank %}Change{% endif %} {{label}} {% if validation contains 'required' %}<span>*</span>{% endif %}</label>
+    <input {{attributes}} name="{{name}}" {% if label != blank %}data-sg-validation-label="{{label}}" data-sg-validation-id="{{field_id}}" {% endif %} id="{{field_id}}" type="hidden" value="{{value}}">
+    <input class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 mb-2 {% if validation != blank and value == blank %}{{validation}} valid:bg-success-50 valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700 valid:text-sm valid:rounded-lg valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-gray-700  dark:valid:border-success-400   group-focus-within:invalid:bg-danger-50  group-focus-within:invalid:border  group-focus-within:invalid:border-danger-500  group-focus-within:invalid:text-danger-900  group-focus-within:invalid:placeholder-danger-700  group-focus-within:invalid:focus:ring-danger-500   dark:group-focus-within:invalid:bg-gray-700  group-focus-within:invalid:focus:border-danger-500   dark:group-focus-within:invalid:text-danger-500   dark:group-focus-within:invalid:placeholder-danger-500   dark:group-focus-within:invalid:border-danger-500{% endif %}" {{validation}} id="{{field_id}}_file" type="file" accept="image/*" />
+    <div>
+      <img class="max-w-[8rem] h-auto mb-2 rounded-lg" {% if value != blank %}{% if value != blank %}src="{{value | asset_url }}"{% endif %}  alt="Current image, with file path: {{value}}"{% endif %} data-file-preview="{{field_id}}_file" {% if value != blank %}src="{{value | asset_url }}"{% endif %}>
+    </div>
+  </div>
+</div>
+<script>
+  if(typeof window.previewFile == 'function') {
+    document.querySelector('#{{form_html_id}} #{{field_id}}_file').addEventListener('change', window.previewFile);
+  }
+</script>

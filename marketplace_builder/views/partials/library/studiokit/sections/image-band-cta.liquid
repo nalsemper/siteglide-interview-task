@@ -1,0 +1,33 @@
+---
+metadata:
+  name: Image Band CTA
+  tags:
+  class: section
+  lists: []
+  fields:
+  - id: background_image
+    type: image_picker
+    label: Background Image
+    default: ''
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: mono
+  components: []
+  updated_at: 1781877695
+  global_data:
+  global_fields: []
+---
+<section class="@container  {{selection-index}} relative h-[100vh] overflow-hidden bg-neutral-950">
+  {% if this.background_image != blank %}
+    <div class="absolute inset-0">
+      {% include 'img',
+        path: this.background_image,
+        classes: 'w-full h-full object-cover',
+        attributes: 'alt="" aria-hidden="true" loading="lazy"'
+      %}
+    </div>
+  {% endif %}
+  <div class="absolute inset-0 bg-neutral-950/30"></div>
+</section>

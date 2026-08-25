@@ -1,0 +1,38 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/item.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/structured_data.liquid
+  - views/partials/layouts/pagination/default-author-detail2.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-author-detail2
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_6
+  studio_dynamic/layout_name: Default Author Detail2
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Author Detail
+  studio_dynamic/sub_module_id: '1'
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "dateCreated": "{{ this.create_date | date: '%Y-%m-%dT%H:%M:%S%z' }}", 
+  "dateModified": "{{ this.last_edit_date | date: '%Y-%m-%dT%H:%M:%S%z' }}", 
+  "mainEntity": {
+    "@type": "Person",
+    "name": "{{ this.properties.module_field_6_1 }}",
+    "identifier": "{{ this.id }}",
+    "description": "{{ this.properties.module_field_6_2 }}",
+    "image": "{{this.properties.module_field_6_4 | asset_url }}"
+  }
+}
+</script>
+

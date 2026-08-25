@@ -1,0 +1,51 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/form_1/default-register-page.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/boolean.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/checkout_standard.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/basic_payment.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/quote_only.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/subscription_detail.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/datasource_multi.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/datasource.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/date.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/email.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/file.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/image.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/hidden_fields.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/input_checkbox.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/input_radio.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/name_field.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/password.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/recaptcha.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/select_multi.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/select.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/string.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/textarea.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/subheading.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/heading.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/array_custom.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/folder.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/image_array.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/number_float.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/number_integer.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/email_edit.liquid
+  - views/partials/layouts/forms/form_1/default-register-page_components/password_edit.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: default-register-page
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Default register page
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default register page
+  studio_dynamic/sub_module_id: '1'
+---
+<input name="{{ form_builder.fields.properties.user_id.name }}" id="s_user_id" type="hidden" value="{{session.current_user.id}}" />
+<input class="upload_dir" value="{{_upload_dir}}" type="hidden">
+{% comment %} Override the redirect value if a dynamic redirect is required. {% endcomment %}
+<input id="s_redirect" value="{{custom_form_redirect | default: form_redirect}}" type="hidden">
+

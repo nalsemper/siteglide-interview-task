@@ -1,0 +1,81 @@
+---
+metadata:
+  name: Product Categories
+  class: section
+  lists:
+  - name: Categories
+    type: categories
+    fields:
+    - id: category_text
+      type: text
+      label: Category Name
+      default: Computer & Office
+      is_title: true
+    - id: category_url
+      type: url
+      label: Category URL
+      default: "#"
+    - id: category_icon
+      type: text
+      label: Icon Name
+      default: computer
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Shop by category
+  - id: button_text
+    type: text
+    label: Button Text
+    default: See more categories
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mb-8 flex flex-col gap-4 @md:flex-row @md:items-end @md:justify-between" data-motion-group>
+      <div>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h2 class="!mb-0" data-motion-text>{{ this.heading }}</h2>
+      </div>
+      {% if this.button_text != blank %}
+        <a href="{{ this.button_url }}" class="inline-flex flex-none items-center gap-1.5 text-sm font-medium text-primary-500 transition-colors hover:text-primary-400" data-motion-text>
+          {{ this.button_text }}
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 @sm:grid-cols-2 @md:grid-cols-3 @lg:grid-cols-4" data-motion-group>
+      {% for item in lists.categories %}
+        <a
+          data-studio-list="{{ item._list }}"
+          href="{{ item.category_url | default: '#' }}"
+          class="group flex items-center gap-3 rounded-2xl bg-base-50 px-4 py-3 transition-colors hover:bg-base-100 dark:bg-base-900/20 dark:hover:bg-base-800"
+          data-motion-card
+        >
+          {% if item.category_icon != blank %}
+            <span class="material-symbols-outlined flex-none text-xl text-neutral-500 transition-colors group-hover:text-primary-500" aria-hidden="true">{{ item.category_icon }}</span>
+          {% endif %}
+          <span class="text-sm font-medium text-neutral-900 dark:text-neutral-50">{{ item.category_text }}</span>
+        </a>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

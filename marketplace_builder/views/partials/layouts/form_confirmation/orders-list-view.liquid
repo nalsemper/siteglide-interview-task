@@ -1,0 +1,37 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/form_confirmation/orders-list-view.liquid
+  - views/partials/layouts/modules/module_14/order/orders-list-view/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_14/order/orders-list-view/detail/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: orders-list-view
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Orders list view
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Orders List View
+  studio_dynamic/sub_module_id: '8'
+  studio_dynamic/make_global_form: false
+---
+{% if form.properties.order_id %}
+  {% comment %} Form Submission is an eCommerce Order {% endcomment %}
+  {% include "ecommerce/order_details", layout: "orders-list-view" %}
+{% else %}
+  {% comment %} Form Submission is not an eCommerce Order {% endcomment %}
+  <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+    <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <div class="mx-auto max-w-3xl">
+        <h1 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Thanks for getting in touch!</h1>
+        <div class="mt-6 space-y-4 border-b border-t border-gray-200 py-8 dark:border-gray-700 sm:mt-8">
+          <p class="text-base font-normal text-gray-500 dark:text-gray-400">Nice to meet you {{this.name}}!</p>
+          <p class="text-base font-normal text-gray-500 dark:text-gray-400">We'll get back to your query as soon as possible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}

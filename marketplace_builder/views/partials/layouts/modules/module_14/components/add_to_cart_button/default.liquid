@@ -1,0 +1,7 @@
+{% if this.inventory.id == blank or this.inventory.quantity != '0' -%}
+  {% comment %}Button displayed when Product is in stock (or no inventory is set){% endcomment %}
+	<button class="btn btn-primary" onclick="s_e_cart_add({{this.id}})">Add to cart</button>
+{% else -%}
+  {% comment %}Content displayed when Product is out of stock{% endcomment %}
+  <button class="btn btn-secondary" disabled>Sold out</button>
+{% endif -%}

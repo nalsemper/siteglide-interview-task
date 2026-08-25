@@ -1,0 +1,84 @@
+---
+metadata:
+  name: Event Schedule
+  class: section
+  lists:
+  - name: Schedule
+    type: schedule
+    fields:
+    - id: event_title
+      type: text
+      label: Event Title
+      default: Opening remarks
+      is_title: true
+    - id: event_url
+      type: url
+      label: Event URL
+      default: "#"
+    - id: start_date
+      type: text
+      label: Start Time
+      default: '08:00'
+    - id: end_date
+      type: text
+      label: End Time
+      default: '09:00'
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Schedule
+  - id: link_text
+    type: text
+    label: Link Text
+    default: Learn more about our agenda
+  - id: link_url
+    type: url
+    label: Link URL
+    default: "#"
+  hide_on: []
+  category: events
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-3xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.link_text != blank %}
+        <a href="{{ this.link_url }}" class="inline-flex items-center gap-2 text-sm font-medium text-primary-500 transition-colors hover:text-primary-400" data-motion-text>
+          {{ this.link_text }}
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="mx-auto mt-12 max-w-3xl divide-y divide-base-200 dark:divide-base-700" data-motion-group>
+      {% for item in lists.schedule %}
+        <div data-studio-list="{{ item._list }}" class="flex flex-col gap-2 py-4 @sm:flex-row @sm:items-center @sm:gap-6" data-motion-card>
+          <p class="!mb-0 w-36 shrink-0 text-sm text-neutral-500 dark:text-neutral-400 @sm:text-right" data-motion-text>
+            {{ item.start_date }} – {{ item.end_date }}
+          </p>
+          <h3 class="!mb-0" data-motion-text>
+            {% if item.event_url != blank %}
+              <a href="{{ item.event_url }}" class="transition-colors hover:text-primary-500">{{ item.event_title }}</a>
+            {% else %}
+              {{ item.event_title }}
+            {% endif %}
+          </h3>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

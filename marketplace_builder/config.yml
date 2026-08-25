@@ -1,0 +1,33 @@
+---
+allow_data_clean:
+auto_manage_public_only_modules:
+cookies_same_site:
+default_layout: application
+disable_slow_query_log:
+do_not_add_return_to_to_authorization_policies: false
+escape_output_instead_of_sanitize: false
+graphql_argument_type_mismatch_mode: warning
+high_performance_sql_filtering: false
+html_format_exact_match:
+liquid_add_old_variables: true
+liquid_check_mode: warning
+liquid_raise_mode: false
+maintenance:
+modules_that_allow_delete_on_deploy: []
+redirect_trailing_slash: false
+reject_null_geojson_coordinates:
+require_table_for_record_delete_mutation: false
+safe_translate: false
+search_indexes:
+skip_elasticsearch: false
+slug_exact_match: false
+string_interpolation:
+sync_assets: false
+sync_translations: false
+theme_search_paths:
+track_manually_managed: false
+translation_keys_to_ignore: []
+validations_for_graph_queries: false
+websockets_require_csrf_token: false
+websockets_require_subscribed_partial:
+---

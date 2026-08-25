@@ -1,0 +1,43 @@
+<section class="large detail-view ecommerce">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<img src="{{this['Image'] | asset_url}}" class="img-fluid" />
+			</div>
+			<div class="col-lg-5 offset-lg-1">
+				<div>
+					<h2 class="product-title">{{this['name']}}</h2>
+					<p class="product-price" data-price-control="{{this.price.price_charge}}" data-currency-control="{{this.price.currency_symbol}}"></p>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								{% include 'ecommerce/product_attributes' name: 'example_attribute_name' layout: 'siteglide_example' -%}
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label>Quantity</label>
+								<input type="number" min="1" value="1" class="form-control" data-quantity-control />
+							</div>
+						</div>
+					</div>
+					<div class="form-group variants d-flex align-items-center mt-3 mb-3">
+						{% comment %} <label>Variants</label>
+						<a href="" class="variant-color var-1"></a>
+						<a href="" class="variant-color var-2"></a>
+						<a href="" class="variant-color var-3"></a> {% endcomment %}
+					</div>
+				</div>
+				<hr class="mt-4 mb-4" />
+				<h4>Product Description</h4>
+				{{this['Description']}}
+				{% include 'ecommerce/cart_add' -%}
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+	document.addEventListener('DOMContentLoaded', function(){
+		s_e_update_price();
+	});
+</script>

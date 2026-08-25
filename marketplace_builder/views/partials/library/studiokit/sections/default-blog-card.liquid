@@ -1,0 +1,154 @@
+---
+metadata:
+  name: Static Blog Cards
+  class: section
+  lists:
+  - name: Blog Posts
+    type: blog_posts
+    fields:
+    - id: post_title
+      type: text
+      label: Post Title
+      default: How to quickly deploy a static website
+      is_title: true
+    - id: post_content
+      type: textarea
+      label: Post Content
+      default: Static websites are now used to bootstrap lots of websites and are
+        becoming the basis for a variety of tools that even influence both web designers
+        and developers.
+    - id: author_image
+      type: image_picker
+      label: Author Image
+      default: ''
+    - id: author_image_alt
+      type: text
+      label: Author Image Alt Text
+      default: ''
+    - id: author_name
+      type: text
+      label: Author Name
+      default: Jese Leos
+    - id: link_url
+      type: url
+      label: Post Link URL
+      default: "#"
+    - id: category
+      type: select
+      label: Category
+      default: Tutorial
+      options:
+      - label: Tutorial
+        value: Tutorial
+      - label: Article
+        value: Article
+    - id: date
+      type: text
+      label: Date
+      default: 14 days ago
+    - id: read_more_text
+      type: text
+      label: Read More Text
+      default: Read more
+    - id: read_more_url
+      type: url
+      label: Read More URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Our Blog
+  - id: body
+    type: textarea
+    label: Body
+    default: We use an agile approach to test assumptions and connect with the needs
+      of your audience early and often.
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mb-10 flex flex-col gap-6 border-b border-base-200 pb-10 dark:border-base-600 @md:flex-row @md:items-end @md:justify-between" data-motion-group>
+      <div class="max-w-3xl">
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        {% if this.body != blank %}
+          <p data-motion-text>{{ this.body }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 @md:grid-cols-2" data-motion-group>
+      {% for item in lists.blog_posts %}
+        <article data-studio-list="{{ item._list }}" class="card group flex h-full flex-col overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20" data-motion-card>
+
+          <div class="flex flex-1 flex-col gap-4 p-6">
+
+            <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.12em] text-neutral-500">
+              <span class="inline-flex items-center gap-1.5">
+                {% if item.category == 'Tutorial' %}
+                  <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">play_circle</span>
+                {% elsif item.category == 'Article' %}
+                  <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">article</span>
+                {% endif %}
+                <span>{{ item.category }}</span>
+              </span>
+              <span class="inline-flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">calendar_today</span>
+                <span>{{ item.date }}</span>
+              </span>
+            </div>
+
+            <h3 class="!mb-0" data-motion-text>
+              {% if item.link_url != blank %}
+                <a href="{{ item.link_url }}" class="transition-colors hover:text-primary-500">{{ item.post_title }}</a>
+              {% else %}
+                {{ item.post_title }}
+              {% endif %}
+            </h3>
+
+            {% if item.post_content != blank %}
+              <p class="!mb-0 flex-1 text-sm leading-relaxed text-neutral-400" data-motion-text>{{ item.post_content }}</p>
+            {% endif %}
+
+            <div class="flex items-center justify-between pt-2">
+              {% if item.author_name != blank %}
+                <div class="flex items-center gap-3">
+                  {% if item.author_image != blank %}
+                    {% include 'img',
+                      path: item.author_image,
+                      classes: 'h-8 w-8 rounded-full object-cover',
+                      attributes: 'alt="{{ item.author_image_alt | default: item.author_name | default: "" }}" loading="lazy"'
+                    %}
+                  {% endif %}
+                  <span class="text-sm font-medium text-neutral-900 dark:text-neutral-50">{{ item.author_name }}</span>
+                </div>
+              {% endif %}
+              {% if item.read_more_url != blank %}
+                <a href="{{ item.read_more_url }}" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.12em] text-primary-400 transition-colors hover:text-primary-300">
+                  {{ item.read_more_text | default: 'Read more' }}
+                  <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+                </a>
+              {% endif %}
+            </div>
+
+          </div>
+
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

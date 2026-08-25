@@ -1,0 +1,27 @@
+mutation create_todo(
+  $name: String!
+  $completed: Boolean = false
+  $status_id: Int
+  $category_id: Int
+  $due_date: Int
+  $priority: String = "medium"
+  $notes: String
+) {
+  record_create(
+    record: {
+      table: "module_985"
+      properties: [
+        { name: "name", value: $name }
+        { name: "module_field_985_1", value_boolean: $completed }
+        { name: "module_field_985_2", value_int: $due_date }
+        { name: "module_field_985_3", value: $priority }
+        { name: "module_field_985_4", value: $notes }
+        { name: "module_field_985_5", value_int: $status_id }
+        { name: "module_field_985_6", value_int: $category_id }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

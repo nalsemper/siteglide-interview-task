@@ -1,0 +1,285 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/global/default-contact-form.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/boolean.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/checkout_standard.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/basic_payment.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/quote_only.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/subscription_detail.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/datasource_multi.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/datasource.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/date.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/email.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/file.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/image.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/hidden_fields.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/input_checkbox.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/input_radio.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/name_field.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/password.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/recaptcha.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/select_multi.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/select.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/string.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/textarea.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/subheading.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/heading.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/array_custom.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/folder.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/image_array.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/number_float.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/number_integer.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/email_edit.liquid
+  - views/partials/layouts/forms/global/default-contact-form_components/password_edit.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-contact-form
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Default Contact Form
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Contact Form
+  studio_dynamic/sub_module_id: '1'
+  studio_dynamic/make_global_form: true
+---
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% capture form_html_id %}form_{{sitebuilder_uniq_component_id}}{% endcapture %}
+
+<style>
+  /* Styles for Progress Bar and Spinner - Hooks into Siteglide JavaScript by watching for changes in form classes */
+
+
+
+#{{form_html_id}}.form_submitting #spinner_{{sitebuilder_uniq_component_id}} {
+  display: block !important;
+}
+
+#{{form_html_id}}:not([data-s-form-progress]) #progressContainer,#{{form_html_id}}[data-s-form-progress='0'] #progressContainer {
+  display: none;
+}
+
+#{{form_html_id}} #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 0%;
+  will-change: width;
+  transition: width 0.8s;
+  transition-timing-function: ease-out;
+}
+
+#{{form_html_id}}[data-s-form-progress='1'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 10%;
+}
+
+#{{form_html_id}}[data-s-form-progress='2'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 20%;
+}
+
+#{{form_html_id}}[data-s-form-progress='3'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 30%;
+}
+
+#{{form_html_id}}[data-s-form-progress='4'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 40%;
+}
+
+#{{form_html_id}}[data-s-form-progress='5'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 50%;
+}
+
+#{{form_html_id}}[data-s-form-progress='6'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 60%;
+}
+
+#{{form_html_id}}[data-s-form-progress='7'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 80%;
+}
+
+#{{form_html_id}}[data-s-form-progress='8'] #progressBar_{{sitebuilder_uniq_component_id}}{
+	width: 100%;
+}
+</style>
+
+<section data-motion-group>
+  <div class="container">
+    <div class="mx-auto flex max-w-lg flex-col gap-8 py-10 md:py-16">
+      <div class="card rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 md:p-8" data-motion-card>
+        {% comment %}Note- tailwind "group" class is added to the form after submission to allow validation variants.{% endcomment %}
+        {% form  html_id: form_html_id, html_class: "space-y-5 text-left" -%}
+          {% include "modules/module_357/front_end/v1/form_layout_fields", collection: 'true', disable_fields: "Name" %}
+          <div class="space-y-2" data-motion-group>
+            <p class="eyebrow_text" data-motion-text>Contact</p>
+            <h2 data-motion-text>{{context.exports.module_86.form_properties.form_name.value}}</h2>
+            <p class="text-sm text-neutral-400" data-motion-text>My Details</p>
+          </div>
+
+          <div>
+            {{context.exports.module_86.form_fields | html_safe: raw_text: true }}
+            {{context.exports.module_86.form_hidden | html_safe: raw_text: true }}
+          </div>
+          {% assign form_addresses = context.exports.module_86.form_addresses | parse_json %}
+          {% for address in form_addresses %}
+            <h2 data-motion-text>{{address[0]}}</h2>
+            <div>
+              {{address[1].html | html_safe: raw_text: true}}
+            </div>
+          {% endfor %}
+          {% if context.exports.module_86.form_payment != blank %}
+            <h2 data-motion-text>Payment Details</h2>
+            <div>
+              {{context.exports.module_86.form_payment | html_safe: raw_text: true }}
+            </div>
+          {% endif %}
+          {% if context.exports.module_86.form_recaptcha != blank %}
+            <div>
+              {{context.exports.module_86.form_recaptcha | html_safe: raw_text: true }}
+            </div>
+          {% endif %}
+          <div data-main-error class="hidden">
+            <div class="mb-4 rounded-xl bg-danger-100 p-4 text-sm text-danger-700 dark:bg-danger-200 dark:text-danger-800" role="alert">
+              <span class="font-medium">Error</span>
+              <span data-main-error-message><!-- Main Siteglide validation message will appear here. --></span>
+            </div>
+          </div>
+          <button type="submit" class="button w-full">
+            <div class="flex items-center justify-center gap-2">
+              <span>Submit</span>
+              <div id="spinner_{{sitebuilder_uniq_component_id}}" class="hidden">
+                <span class="material-symbols-outlined animate-spin text-lg leading-none text-primary-200">progress_activity</span>
+              </div>
+            </div>
+          </button>
+          <div id="progressContainer" class="h-2.5 w-full rounded-full bg-base-200 dark:bg-base-700">
+            <div id="progressBar_{{sitebuilder_uniq_component_id}}" class="h-2.5 rounded-full bg-primary-600"></div>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  /* The following optional script allows support for validation. If removing it, make sure to return the normal Siteglide submit function to the button. We use a self-executing function here so that variables and functions within are scoped only to this form. This allows each form to have its own editable, self-contained validation function. */
+  (function(){
+    //Make sure Sitegurus Form API is ready (used for checkboxes).
+    if(typeof sGCheckboxValidation == "function") {
+      initForm();
+    } else {
+      var forms_api_script = document.querySelector('#sitegurus_forms_javascript_api');
+      if(forms_api_script) {
+        forms_api_script.addEventListener('load', initForm);
+      } else {
+        console.error('Developer error: Make sure the async #sitegurus_forms_javascript_api script tag is included in the page.');
+      }
+    }
+    //Set up form
+    function initForm() {
+      var form_html_id = "{{form_html_id}}";
+      var form = document.querySelector('#'+form_html_id);
+      var submitButton = form.querySelector('button[type=submit]');
+      //Add BS support for checkboxes and radios to change events.
+      var checksAndRadios = form.querySelectorAll('.required input[type=checkbox],.required input[type=radio]');
+      checksAndRadios.forEach(
+        function(item) {
+          item.addEventListener('change', sGCheckboxValidation)
+        }
+      );
+      //Set initial radio validation
+      sGCheckboxValidation(null, {form});
+      //Define custom error function for Siteglide Form
+      function sGFormCustomError(error, error_details) {
+        //Get main error
+        if(error.code) {
+          if(error.code.length > 0) {
+            error = error.code[0];
+          } else {
+            error = s_error_formatter(error);
+          }
+        } else {
+          error = s_error_formatter(error);
+        }
+        //If main error is for a field that is missing a required value, give a human-friendly name.
+        var fields_for_validation = form.querySelectorAll('[data-sg-validation-label]'), field_validation_map = {}, field_validation_ids = [], required_fields = form.querySelectorAll('[required]');
+        fields_for_validation.forEach(function(field) {
+          field_validation_ids.push(field.dataset.sgValidationId);
+          field_validation_map[field.dataset.sgValidationId] = field.dataset.sgValidationLabel;
+        });
+        if(field_validation_ids.includes(error) || field_validation_ids.includes((error.replace(/\]\[\]/, '')))) {
+          error = `Please enter a value for the required fields marked above.`
+          //Use the commented line below instead if you want to print the first field with an error.
+          //error = `please enter a value for the following: ${field_validation_map[error]}.`;
+        } else if(error.includes('captcha')) {
+          error = `please confirm you are not a bot by completing the challenge.`;
+        }
+        //Display the errors
+        var formErrorContainer = form.querySelector('[data-main-error]');
+        if(error && formErrorContainer) {
+          formErrorContainer.classList.remove('hidden');
+          formErrorContainer.querySelector('[data-main-error-message]').textContent = error;
+        }
+        form.classList.add('group');
+        //Scroll to first error
+        var fieldError = form.querySelector('.input-error');
+        if(fieldError) {
+          fieldError.scrollIntoView({
+            block: "nearest"
+          });
+        }
+        //Clear custom validity errors from last submission.
+        var valid_fields = form.querySelectorAll('input,select,textarea');
+        valid_fields.forEach(
+          function(item) {
+            item.setCustomValidity("");
+          }
+        );
+        var invalid_fields = form.querySelectorAll('.input-error');
+        //Remove Siteglide error class for styling consistency in tailwind. Replace with custom validity if appropriate.
+        form.classList.add('was-submitted')
+        invalid_fields.forEach(function(field){
+          if(field.id == "s_email_edit" || field.id == "s_password_edit" || field.id == "s_password_edit_confirmation" || field.id == "s_email_edit_confirmation") {
+            field.setCustomValidity(error);
+          }
+          field.classList.remove('input-error');
+        });
+      }
+      //Change Siteglide Form Submit Function to an Event Listener
+      function sGFormSubmit(event) {
+        event.preventDefault();
+        //Changes checkbox requirements
+        sGCheckboxValidation(null, {form});
+        form.classList.remove('group');
+        var formErrorContainer = 
+        form.querySelector('[data-main-error]');
+        formErrorContainer.classList.add('hidden');
+        var formErrorContainer = form.querySelector('[data-main-error]');
+        formErrorContainer.classList.add('hidden');
+        //Handle submission of any TinyMCE rich text fields
+        if(typeof tinymce === 'object' && typeof window.sgRichTextConfig) {
+          window.sgRichTextConfig.forEach(
+            function(item) {
+              //Write rich text content to textarea field
+              item.textarea.textContent = item.editor.getContent();
+              //Apply Tailwind validation
+              var wrapper = item.textarea.closest('[data-sg-rich-text-wrapper]');
+              if(wrapper) {
+                const validClasses = ['bg-success-50', 'border-success-500', 'text-success-900', 'placeholder-success-700', 'focus:ring-success-500', 'focus:border-success-500', 'dark:border-success-400'];
+                const invalidClasses = ['bg-danger-50', 'border-danger-500', 'text-danger-900', 'placeholder-danger-700', 'focus:ring-danger-500', 'focus:border-danger-500', 'dark:text-danger-500', 'dark:placeholder-danger-500', 'dark:border-danger-500'];
+                if(item.textarea.classList.contains('required') && item.textarea.textContent.length <= 1) {
+                  wrapper.classList.remove(...validClasses);
+                  wrapper.classList.add(...invalidClasses);
+                } else {
+                  wrapper.classList.remove(...invalidClasses);
+                  wrapper.classList.add(...validClasses);
+                }
+              }
+            }
+          );
+        }
+        //Siteglide submit function
+        s_form_submit_v2(event.currentTarget, form_html_id, sGFormCustomError);
+      }
+      submitButton.addEventListener('click', sGFormSubmit);
+    }
+  })();
+</script>

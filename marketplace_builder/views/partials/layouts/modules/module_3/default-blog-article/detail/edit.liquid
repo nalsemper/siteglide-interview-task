@@ -1,0 +1,79 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/item.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/edit.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/search.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/sidebar.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/archive.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/structured_data.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/boolean.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/date.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/file.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_radio.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/string.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/textarea.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/subheading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/heading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/array_custom.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/folder.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image_array.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_float.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_integer.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/default-blog-article.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-blog-article
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_3
+  studio_dynamic/layout_name: Default blog article
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default blog article
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+  {% function settings = "modules/module_357/front_end/functions/v1/get_table_config", model_type: 'module', id: '3' %}
+  {% assign anyone_can_edit = settings.anyone_can_edit %}
+  {% assign secure_zone_match = false %}
+  {% if secure_zone_ids_can_edit != blank %}
+    {% assign secure_zone_ids_can_edit = secure_zone_ids_can_edit | split: "," %}
+    {% for sz in secure_zone_ids_can_edit %}
+      {% if context.exports.current_user['Secure Zones'] contains sz %}
+        {% assign secure_zone_match = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if secure_zone_match == true and anyone_can_edit == true %}
+    {% assign allow_edit = true %}
+  {% elsif anyone_can_edit == true and secure_zone_ids_can_edit == blank %}
+    {% assign allow_edit = true %}
+  {% elsif context.current_user.id == context.exports.module_3.data.result.items[0].creator.id %}
+    {% assign allow_edit = true %}
+  {% endif %}
+  {% if allow_edit == true %}
+    
+  {% else %}
+    <section class="">
+      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+        <div class="mx-auto max-w-screen-sm text-center">
+          <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500">401</h1>
+          <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">Not authorized to edit.</p>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+  {%- include 'module_form_edit', id: '3', layout: layout, enabled: 'true', resource_id: this.id -%}

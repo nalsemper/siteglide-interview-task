@@ -1,0 +1,44 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/default-events-details/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/detail/item.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/structured_data.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/search.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/sidebar.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/archive.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-events-details
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Default events details
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default events details
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<aside aria-label="Sidebar">
+  <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800 mb-4">
+    <div class="mb-4">
+      <h4 class="text-lg dark:text-white mb-2">Categories</h4>
+      <div>
+        {% for category in context.exports.categories.data %}
+          {% if category[1].parent == event_parent_category or event_parent_category == blank %}
+            <a class="bg-primary-100 hover:bg-primary-200 text-primary-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800 dark:hover:bg-primary-300" href="{{events_list_page_url}}?category={{category[0]}}">{{category[1].name | replace: " ", "&nbsp;"}}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% capture archive_layout %}{{layout}}{% endcapture %}
+    {%- include 'modules/siteglide_events/get/get_events_archive', archive_layout: archive_layout, archive_layout_type: "archive" -%}
+    
+    {% capture search %}layouts/modules/module_12/{{layout}}/search{% endcapture %}
+    {%- include search -%}
+    
+  </div>
+</aside>

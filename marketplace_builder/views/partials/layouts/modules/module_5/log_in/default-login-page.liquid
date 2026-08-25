@@ -1,0 +1,67 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_5/log_in/default-login-page.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-login-page
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_5
+  studio_dynamic/layout_name: Default login page
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default login page
+  studio_dynamic/sub_module_id: '1'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% assign sign_up_url = "/sign-up" %}
+{% comment %}---End Settings--- {% endcomment %}
+
+<section class=" ">
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+      <img class="w-auto h-8 mr-2 dark:hidden" src="{% if context.exports.company_information.properties.logo != blank %}{{context.exports.company_information.properties.logo | asset_url}}{% else %}https://flowbite.com/docs/images/logo.svg{% endif %}" alt="{{context.exports.company_information.properties.company_name}} logo">
+      <img class="w-auto h-8 mr-2 hidden dark:block" src="{% if context.exports.company_information.properties.logo_white != blank %}{{context.exports.company_information.properties.logo_white | asset_url}}{% else %}https://flowbite.com/docs/images/logo.svg{% endif %}" alt="{{context.exports.company_information.properties.company_name}} logo">
+    </a>
+    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Sign in to your account
+        </h1>
+        {% if context.current_user.id == blank %}
+          {% form html_class: 'space-y-4 md:space-y-6' -%}
+            <div>
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
+              <input name="{{ form_builder.fields.email.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" type="text" placeholder="john@example.com" autocomplete="email" id="email">
+            </div>
+            <div>
+              <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
+              <input id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" type="password" placeholder="Password" name="{{ form_builder.fields.password.name }}" autocomplete="existing_password" aria-label="password">
+            </div>
+            <div class="hidden p-4 mb-4 text-sm text-danger-700 bg-danger-100 rounded-lg dark:bg-danger-200 dark:text-danger-800 form-error" role="alert">
+              <!-- Siteglide error message goes here -->
+            </div>
+            <div class="flex justify-between">
+              <a class="text-sm text-primary-700 hover:underline dark:text-primary-500" href="/system/recover-password">Lost Password?</a>
+            </div>
+            <button class="w-full text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onclick="siteglide_login_process(this,'{{_redirect}}','{{_empty_error_msg}}')">Log In</button>
+            <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+              Not registered? <a class="text-primary-700 hover:underline dark:text-primary-500" href="{{sign_up_url}}">Create Account</a>
+            </div>
+          {% endform -%}
+        {% else %}
+          <div>
+            <div class="p-4 mb-4 text-sm text-warning-700 bg-warning-100 rounded-lg dark:bg-warning-200 dark:text-warning-800" role="alert">
+              <span class="font-medium">You're already logged in.</span>
+            </div>
+          </div>
+          <a class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-4" onclick="history.back()" href="javascript: void(0);">Back</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+

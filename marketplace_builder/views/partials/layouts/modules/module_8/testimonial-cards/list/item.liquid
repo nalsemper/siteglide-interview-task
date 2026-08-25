@@ -1,0 +1,38 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_8/testimonial-cards/list/wrapper.liquid
+  - views/partials/layouts/modules/module_8/testimonial-cards/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: testimonial-cards
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_8
+  studio_dynamic/layout_name: Testimonial cards
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Testimonial cards
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% assign modulo = forloop.index | modulo: 2 %}
+{% assign penultimate_item = _per_page | minus: 2 %}
+
+<figure class="card rounded-2xl bg-base-50 dark:bg-base-900/20 flex flex-col justify-center items-center p-8 text-center md:p-12 border-b border-base-200 dark:border-base-700 {% if modulo == 1 %}lg:border-r{% endif %} {% if forloop.index0 == penultimate_item or forloop.last %}lg:border-b-0{% endif %}" data-motion-card>
+  <blockquote class="mx-auto mb-8 max-w-2xl">
+    {{this['Quote'] | html_safe }}
+  </blockquote>
+  <figcaption class="flex justify-center items-center space-x-3">
+    {% if this['Image'] != blank %}
+      <img class="w-9 h-9 rounded-full" src="{{ this['Image'] | asset_url }}" alt="profile picture">
+    {% endif %}
+    <div class="space-y-0.5 font-medium text-left">
+      <div>{{this['name']}}</div>
+      {% if this['Job Title'] != blank %}
+        <div class="text-sm font-light text-neutral-500 dark:text-neutral-400">{{this['Job Title']}} {% if this['Company Name'] != blank %} at {{this['Company Name']}} {% endif %}</div>
+      {% endif %}
+    </div>
+  </figcaption>
+</figure>

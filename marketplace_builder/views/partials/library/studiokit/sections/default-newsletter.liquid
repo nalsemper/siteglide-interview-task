@@ -1,0 +1,88 @@
+---
+metadata:
+  name: Newsletter
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Sign up for our newsletter
+  - id: body
+    type: textarea
+    label: Body
+    default: Stay up to date with the roadmap progress, announcements and exclusive
+      discounts feel free to sign up with your email.
+  - id: email_label
+    type: text
+    label: Email Label
+    default: Email address
+  - id: email_placeholder
+    type: text
+    label: Email Placeholder
+    default: Enter your email
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Subscribe
+  - id: legal_text_part_1
+    type: text
+    label: Legal Text
+    default: We care about the protection of your data.
+  - id: privacy_policy_link_text
+    type: text
+    label: Privacy Policy Link Text
+    default: Read our Privacy Policy
+  - id: privacy_policy_url
+    type: url
+    label: Privacy Policy URL
+    default: "#"
+  hide_on: []
+  category: newsletter
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+      {% endif %}
+    </div>
+
+    <form action="#" class="mx-auto mt-8 max-w-lg" data-motion-group>
+      <div class="flex flex-col gap-3 @sm:flex-row">
+        <label for="newsletter-email" class="sr-only">{{ this.email_label }}</label>
+        <input
+          type="email"
+          id="newsletter-email"
+          name="email"
+          placeholder="{{ this.email_placeholder }}"
+          required
+          class="flex-1"
+        >
+        <button type="submit" class="button flex-none">{{ this.button_text }}</button>
+      </div>
+      {% if this.legal_text_part_1 != blank %}
+        <p class="mt-4 text-center text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>
+          {{ this.legal_text_part_1 }}
+          {% if this.privacy_policy_link_text != blank %}
+            <a href="{{ this.privacy_policy_url }}" class="font-medium text-primary-500 transition-colors hover:text-primary-400">{{ this.privacy_policy_link_text }}</a>.
+          {% endif %}
+        </p>
+      {% endif %}
+    </form>
+
+  </div>
+</section>

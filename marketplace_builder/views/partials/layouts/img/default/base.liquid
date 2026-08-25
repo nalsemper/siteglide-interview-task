@@ -1,0 +1,8 @@
+{% comment %} Optimised for responsive images up to a max-width, on smaller screens the image will be full-width {% endcomment %}
+{% comment %} Note - do not accidentally leave newlines inside any of the HTML attributes. {% endcomment %}
+{% assign max_width = width | default: "640" | replace_regex: "[^\d]", "", "", true | plus: 0 | downcase %}
+<img {{attributes | default: 'loading="lazy"'}}  {% if alt != blank %}alt="{{alt}}"{% endif %} class="{{classes}}"
+  style="max-width: {{max_width}}px"
+  src="{% render "img_url", path: path, options: 'format=auto' %}" sizes="(max-width: {{max_width}}px) 100vw, {{max_width}}px"
+  srcset="{%- render "img_url", path: path, options: 'format=auto,width=320,fit=scale-down' %} 320w,{%- render "img_url", path: path, options: 'format=auto,width=640,fit=scale-down' %} 640w,{%- render "img_url", path: path, options: 'format=auto,width=1280,fit=scale-down' %} 1280w,{%- render "img_url", path: path, options: 'format=auto,width=2560,fit=scale-down' %} 2560w"
+/>

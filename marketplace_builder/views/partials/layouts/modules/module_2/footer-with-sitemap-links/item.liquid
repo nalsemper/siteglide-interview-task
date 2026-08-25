@@ -1,0 +1,44 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/footer-with-sitemap-links/item.liquid
+  - views/partials/layouts/modules/module_2/footer-with-sitemap-links/wrapper.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: footer-with-sitemap-links
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Footer with sitemap links
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Sitemap links
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+  {%- comment -%} If this item has children, output the item as a heading. This layout does not support more than 2 levels of menu. {%- endcomment -%}
+  {%- if this['is_parent'] and _level == 1 -%}
+    <div>
+      <h2 class="mb-6 text-sm font-semibold text-gray-400 uppercase">{{this['link_name']}}</h2>
+      <ul >
+        {%- assign _next_level = _level | plus: 1 -%}
+        {%- include 'modules/siteglide_menu/get/get_items', level: _next_level, parent_id: this['forced_id'], item_layout: 'item' -%}
+      </ul>
+    </div>
+  {%- else -%}
+    {%- comment -%} Else output dropdown children or single item {%- endcomment -%}
+    {% if _level == 1 %}
+      <div>
+        <h2 class="mb-6 text-sm font-semibold text-gray-400 uppercase">{{this['link_name']}}</h2>
+        <ul >
+          <li class="mb-4">
+            <a class="hover:underline " {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">{{this['link_name']}}</a>
+          </li>
+        </ul>
+      </div>
+    {% else %}
+      <li class="mb-4">
+        <a class="hover:underline" {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">{{this['link_name']}}</a>
+      </li>
+    {% endif %}
+  {%- endif -%}

@@ -1,0 +1,70 @@
+---
+metadata:
+  name: Cards with Statistics
+  class: section
+  lists:
+  - name: Statistics
+    type: statistics
+    fields:
+    - id: value
+      type: text
+      label: Value
+      default: 40%
+    - id: title
+      type: text
+      label: Title
+      default: Reduction
+      is_title: true
+    - id: description
+      type: textarea
+      label: Description
+      default: in developer onboarding time*
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Transformation by the numbers
+  - id: footer_text
+    type: text
+    label: Footer Text
+    default: "* Results based on a composite organization of 1,800 developers using
+      GitHub over three years."
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-4 @md:grid-cols-3" data-motion-group>
+      {% for item in lists.statistics %}
+        <div data-studio-list="{{ item._list }}" class="card group flex flex-col items-center justify-center overflow-hidden rounded-2xl bg-base-50 p-8 text-center dark:bg-base-900/20 @md:p-12" data-motion-card>
+          <p class="!mb-2 !text-5xl !font-bold !leading-none text-primary-500 @md:!text-6xl" data-motion-text>{{ item.value }}</p>
+          <h3 class="!mb-2" data-motion-text>{{ item.title }}</h3>
+          {% if item.description != blank %}
+            <p class="!mb-0 text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>{{ item.description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if this.footer_text != blank %}
+      <p class="mx-auto mt-6 text-center text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>{{ this.footer_text }}</p>
+    {% endif %}
+
+  </div>
+</section>

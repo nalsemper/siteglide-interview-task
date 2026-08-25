@@ -1,0 +1,279 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart.liquid
+  - views/partials/layouts/modules/module_14/checkout/checkout-form-with-embedded-cart/empty.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/boolean.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/checkout_standard.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/basic_payment.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/quote_only.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/subscription_detail.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/datasource_multi.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/datasource.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/date.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/email.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/file.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/image.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/hidden_fields.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/input_checkbox.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/input_radio.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/name_field.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/password.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/recaptcha.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/select_multi.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/select.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/string.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/textarea.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/subheading.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/heading.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/array_custom.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/folder.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/image_array.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/number_float.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/number_integer.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/email_edit.liquid
+  - views/partials/layouts/forms/global/checkout-form-with-embedded-cart_components/password_edit.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: checkout-form-with-embedded-cart
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Checkout form with embedded cart
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Checkout form with embedded cart
+  studio_dynamic/sub_module_id: '7'
+  studio_dynamic/make_global_form: true
+---
+{% capture sitegurus_ui_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% capture form_html_id %}form_{{sitegurus_ui_uniq_component_id}}{% endcapture %}
+
+<style>
+  /* Styles for Progress Bar and Spinner - Hooks into Siteglide JavaScript by watching for changes in form classes */
+  #{{form_html_id}}.form_submitting #spinner_{{sitegurus_ui_uniq_component_id}} {
+    display: block !important;
+  }
+  #{{form_html_id}}[data-s-form-progress='0'] #progressBar_{{sitegurus_ui_uniq_component_id}},#{{form_html_id}} #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 0%;
+  }
+  #{{form_html_id}}[data-s-form-progress='1'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 10%;
+  }
+  #{{form_html_id}}[data-s-form-progress='2'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 20%;
+  }
+  #{{form_html_id}}[data-s-form-progress='3'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 30%;
+  }
+  #{{form_html_id}}[data-s-form-progress='4'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 40%;
+  }
+  #{{form_html_id}}[data-s-form-progress='5'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 50%;
+  }
+  #{{form_html_id}}[data-s-form-progress='6'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 60%;
+  }
+  #{{form_html_id}}[data-s-form-progress='7'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 80%;
+  }
+  #{{form_html_id}}[data-s-form-progress='8'] #progressBar_{{sitegurus_ui_uniq_component_id}}{
+    width: 100%;
+  }
+</style>
+
+<section data-motion-group>
+  <div class="container">
+    {% form html-id: form_html_id, html-class: "space-y-8" %}
+      <ol class="flex w-full max-w-2xl items-center text-center text-sm font-medium text-base-500 dark:text-base-400 sm:text-base">
+        <li class="after:border-1 flex items-center text-primary-600 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-base-200 dark:text-primary-400 dark:after:border-base-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
+          <span class="flex items-center after:mx-2 after:text-base-200 after:content-['/'] dark:after:text-base-500 sm:after:hidden">
+            <span class="material-symbols-outlined me-2 text-base leading-none" aria-hidden="true">check_circle</span>
+            Cart
+          </span>
+        </li>
+
+        <li class="after:border-1 flex items-center text-primary-600 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-base-200 dark:text-primary-400 dark:after:border-base-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
+          <span class="flex items-center after:mx-2 after:text-base-200 after:content-['/'] dark:after:text-base-500 sm:after:hidden">
+            <span class="material-symbols-outlined me-2 text-base leading-none" aria-hidden="true">check_circle</span>
+            Checkout
+          </span>
+        </li>
+
+        <li class="flex shrink-0 items-center">
+          <span class="material-symbols-outlined me-2 text-base leading-none" aria-hidden="true">check_circle</span>
+          Order Summary
+        </li>
+      </ol>
+
+      <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
+        <div class="min-w-0 flex-1 space-y-8">
+          <div class="card rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 md:p-8" data-motion-card>
+            <div class="space-y-2" data-motion-group>
+              <p class="eyebrow_text" data-motion-text>Checkout</p>
+              <h2 data-motion-text>Delivery Details</h2>
+              <p class="text-sm text-neutral-400" data-motion-text>This purchase requires an account. Entering your details below will log you in or create you an account if you are new.</p>
+            </div>
+          {% include "modules/module_357/front_end/v1/form_layout_fields", collection: 'true', disable_fields: "Name" %}
+            <div class="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {{context.exports.module_86.form_fields | html_safe: raw_text: true }}
+              {{context.exports.module_86.form_hidden | html_safe: raw_text: true }}
+              {% assign form_addresses = context.exports.module_86.form_addresses | parse_json %}
+              {% for address in form_addresses %}
+                {% if address[0] == blank %}
+                  {% continue %}
+                {% endif %}
+                <h3 class="block text-sm font-medium text-base-700 dark:text-base-200">{{address[0]}}</h3>
+                <div>
+                  {{address[1].html | html_safe: raw_text: true}}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
+          <div class="card rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 md:p-8" data-motion-card>
+            <div class="flow-root">
+              <div class="-my-3 divide-y divide-base-200 dark:divide-base-800">
+                <dl class="flex items-center justify-between gap-4 py-3">
+                  <dt class="text-base font-normal text-base-500 dark:text-base-400">Subtotal</dt>
+                  <dd class="text-base font-medium text-base-900 dark:text-white">{% include 'ecommerce/price_total_before_tax', format_type: 'formatted' -%}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4 py-3">
+                  <dt class="text-base font-normal text-base-500 dark:text-base-400">Shipping</dt>
+                  <dd class="text-base font-medium text-base-900 dark:text-white">{% include 'ecommerce/price_shipping', format_type: 'formatted' -%}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4 py-3">
+                  <dt class="text-base font-normal text-base-500 dark:text-base-400">Savings</dt>
+                  <dd class="text-base font-medium text-green-500">{% include 'ecommerce/price_total_reduction', format_type: 'formatted' -%}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4 py-3">
+                  <dt class="text-base font-normal text-base-500 dark:text-base-400">Tax</dt>
+                  <dd class="text-base font-medium text-base-900 dark:text-white">{% include 'ecommerce/price_total_tax_amount', format_type: 'formatted' -%}</dd>
+                </dl>
+                <dl class="flex items-center justify-between gap-4 py-3">
+                  <dt class="text-base font-bold text-base-900 dark:text-white">Total</dt>
+                  <dd class="text-base font-bold text-base-900 dark:text-white">{% include 'ecommerce/price_total', format_type: 'formatted' -%}</dd>
+                </dl>
+              </div>
+            </div>
+
+            <div class="mt-6 space-y-3">
+              {{context.exports.module_86.form_payment | html_safe: raw_text: true }}
+              <button type="submit" class="button w-full">
+                <div class="flex items-center justify-center gap-2">
+                  <span>Complete Payment</span>
+                  <div id="spinner_{{sitegurus_ui_uniq_component_id}}" class="hidden">
+                    <span class="material-symbols-outlined animate-spin text-lg leading-none text-primary-200">progress_activity</span>
+                  </div>
+                </div>
+              </button>
+              <div class="h-2.5 w-full rounded-full bg-base-200 dark:bg-base-700">
+                <div id="progressBar_{{sitegurus_ui_uniq_component_id}}" class="h-2.5 rounded-full bg-primary-600"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endform %}
+  </div>
+</section>
+
+{% if context.exports.sitebuilder.sweetalert == blank %}
+	<script id="sweetalert_script" async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	{% assign sweetalert = true %}
+	{% export sweetalert, namespace: "sitebuilder" %}
+{% endif %}
+
+<script>
+  (function () {
+    /* The following optional script allows support for validation. If removing it, make sure to return the normal Siteglide submit function to the button. */
+
+    //Make sure Sitegurus Form API is ready.
+    if(typeof sGCheckboxValidation == "function") {
+      initForm_{{sitegurus_ui_uniq_component_id}}();
+    } else {
+      var forms_api_script = document.querySelector('#sitegurus_forms_javascript_api');
+      if(forms_api_script) {
+        forms_api_script.addEventListener('load', initForm_{{sitegurus_ui_uniq_component_id}});
+      } else {
+        console.error('Make sure the async #sitegurus_forms_javascript_api script tag is included in the <head> of the page.')
+      }
+    }
+    //Set up Form JS
+    function initForm_{{sitegurus_ui_uniq_component_id}}() {
+      //Handle Stripe in dark mode
+      if(document.querySelector('html').classList.contains('dark')) {
+        window.stripe_style = {
+          base: {
+            color: '#ffffff', //Sets CSS property "color" of "base" variant
+            '::placeholder': {
+              color: '#ffffff' // Sets CSS property of placeholders within the "base" variant
+            }
+          },
+          complete: {
+            color: '#ffffff'
+          }
+        }
+      }
+      var form_html_id = "{{form_html_id}}";
+      var form = document.querySelector('#'+form_html_id);
+      var submitButton = form.querySelector('button[type=submit]');
+      //Add BS support for checkboxes and radios to change events.
+      var checksAndRadios = form.querySelectorAll('.required input[type=checkbox],.required input[type=radio]');
+      checksAndRadios.forEach(
+        function(item) {
+          item.addEventListener('change', sGCheckboxValidation)
+        }
+      );
+      //Set initial radio validation
+      sGCheckboxValidation(null, {form});
+      //Define custom error function for Siteglide Form
+      function sGFormCustomError(error, error_details) {
+        //Show main error
+        error = s_error_formatter(error);
+        swal.fire({
+          position: 'bottom-end',
+          icon: 'error',
+          title: error,
+          showConfirmButton: false,
+          toast: true,
+          width: '40em',
+          showCloseButton: true,
+          customClass: {
+            popup: 'flex items-center w-full max-w-xs p-4 text-base-500 bg-base-50 rounded-lg shadow dark:text-base-400 dark:bg-base-900/40', 
+            title: 'ms-3 text-sm font-normal',
+            closeButton: 'ms-auto -mx-1.5 -my-1.5 bg-base-50 text-base-500 hover:text-base-900 rounded-lg focus:ring-2 focus:ring-primary-300 p-1.5 hover:bg-base-100 inline-flex items-center justify-center h-8 w-8 dark:text-base-400 dark:hover:text-white dark:bg-base-900/40 dark:hover:bg-base-900/60',
+          },
+          allowEscapeKey: true,
+          allowOutsideClick: true,
+          
+          timer: 8000
+        });
+        form.classList.add('group');
+        //Scroll to first error
+        var fieldError = form.querySelector('.input-error');
+        if(fieldError) {
+          fieldError.scrollIntoView(true);
+        }
+        var invalid_fields = form.querySelectorAll('.input-error');
+        //Remove Siteglide error class for styling consistency in tailwind
+        form.classList.add('was-submitted')
+        invalid_fields.forEach(function(field){
+          field.classList.remove('input-error');
+        })
+      }
+      //Change Siteglide Form Submit Function to an Event Listener
+      function sGFormSubmit(event) {
+        event.preventDefault();
+        sGCheckboxValidation(null, {form});
+        form.classList.remove('group');
+        s_form_submit_v2(event.currentTarget,form_html_id, sGFormCustomError);
+      }
+      submitButton.addEventListener('click', sGFormSubmit);
+    }
+  })();
+</script>

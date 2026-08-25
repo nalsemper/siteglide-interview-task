@@ -1,0 +1,57 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/form_1/multi-part-form-section.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/boolean.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/checkout_standard.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/basic_payment.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/quote_only.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/subscription_detail.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/datasource_multi.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/datasource.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/date.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/email.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/file.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/image.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/hidden_fields.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/input_checkbox.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/input_radio.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/name_field.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/password.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/recaptcha.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/select_multi.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/select.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/string.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/textarea.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/subheading.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/heading.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/array_custom.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/folder.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/image_array.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/number_float.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/number_integer.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/email_edit.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section_components/password_edit.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: multi-part-form-section
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Multi-part form section
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Multi-part form section
+  studio_dynamic/sub_module_id: '1'
+---
+<fieldset {{attributes}} class=" radio-container {{validation}} col-span-6 sm:col-full">
+  {% if options.size > 1 %}<legend class="col-block mb-2 text-sm font-medium text-base-900 dark:text-base-200 ">{{label}} {% if validation contains 'required' %}<span>*</span>{% endif %}</legend>{% endif %}
+  {% for option in options %}
+    <div class="flex items-center {% unless forloop.last %}mb-4{% endunless %}">
+      <input {% if value == option %}checked{% endif %} class="w-4 h-4 text-primary-600 bg-base-100 border-base-200 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-base-900 focus:ring-2 dark:bg-base-900/40 dark:border-base-700  {% if validation != blank %} valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700   valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-base-900/40  dark:valid:border-success-400  group-focus-within:invalid:text-danger-700  dark:group-focus-within:invalid:text-danger-500 group-focus-within:invalid:border group-focus-within:invalid:border-danger-500 group-focus-within:invalid:focus:ring-danger-500 group-focus-within:invalid:focus:border-danger-500  dark:group-focus-within:invalid:border-danger-500{% endif %}" type="radio" name="{{name}}" {% if label != blank %}data-sg-validation-label="{{label}}" data-sg-validation-id="{{field_id}}" {% endif %} id="{{field_id}}_{{option}}" value="{{option}}">
+      {% comment %} valid:bg-success-50 {% endcomment %}
+      <label class="ml-2 text-sm font-medium text-base-900 dark:text-base-200" for="{{field_id}}_{{option}}">{% if options.size > 1 %}{{option}}{% else %}{{label}}{% endif %}</label>
+    </div>
+  {% endfor %}
+</fieldset>

@@ -1,0 +1,143 @@
+---
+metadata:
+  name: Footer with Sitemap
+  class: section
+  lists:
+  - name: Sitemap Links
+    type: sitemap_links
+    fields:
+    - id: list_title
+      type: text
+      label: List Group Title
+      default: Resources
+      is_title: true
+    - id: link_one_text
+      type: text
+      label: Link 1 Text
+      default: Link One
+    - id: link_one_url
+      type: url
+      label: Link 1 URL
+      default: "#"
+    - id: link_two_text
+      type: text
+      label: Link 2 Text
+      default: Link Two
+    - id: link_two_url
+      type: url
+      label: Link 2 URL
+      default: "#"
+    - id: link_three_text
+      type: text
+      label: Link 3 Text
+      default: Link Three
+    - id: link_three_url
+      type: url
+      label: Link 3 URL
+      default: "#"
+  fields:
+  - id: logo
+    type: image_picker
+    label: Logo
+    default: ''
+  - id: logo_name
+    type: text
+    label: Logo Name
+    default: Flowbite
+  - id: copyright_text
+    type: text
+    label: Copyright Text
+    default: "© 2024 Flowbite™. All Rights Reserved."
+  - id: facebook_url
+    type: url
+    label: Facebook URL
+    default: "#"
+  - id: twitter_url
+    type: url
+    label: Twitter URL
+    default: "#"
+  - id: github_url
+    type: url
+    label: Github URL
+    default: "#"
+  - id: dribbble_url
+    type: url
+    label: Dribbble URL
+    default: "#"
+  hide_on:
+  - header
+  category: footer
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<footer class="@container  {{selection-index}}">
+  <div class="container py-10 @md:py-12">
+
+    <div class="flex flex-col gap-8 @md:flex-row @md:justify-between">
+
+      <div class="mb-6 @md:mb-0">
+        <a href="/" class="inline-flex items-center gap-2">
+          {% if this.logo != blank %}
+            {% include 'img',
+              path: this.logo,
+              classes: 'h-8',
+              attributes: 'alt="{{ this.logo_name }}" loading="lazy"'
+            %}
+          {% endif %}
+          {% if this.logo_name != blank %}
+            <span class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">{{ this.logo_name }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 @sm:grid-cols-3">
+        {% for list_item in lists.sitemap_links %}
+          <div data-studio-list="{{ list_item._list }}">
+            <h6 class="mb-4">{{ list_item.list_title }}</h6>
+            <ul class="flex flex-col gap-3">
+              {% if list_item.link_one_text != blank %}
+                <li><a href="{{ list_item.link_one_url }}" class="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50">{{ list_item.link_one_text }}</a></li>
+              {% endif %}
+              {% if list_item.link_two_text != blank %}
+                <li><a href="{{ list_item.link_two_url }}" class="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50">{{ list_item.link_two_text }}</a></li>
+              {% endif %}
+              {% if list_item.link_three_text != blank %}
+                <li><a href="{{ list_item.link_three_url }}" class="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50">{{ list_item.link_three_text }}</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <div class="mt-8 border-t border-base-200 pt-8 dark:border-base-700 @sm:flex @sm:items-center @sm:justify-between">
+      <p class="!mb-0 text-sm text-neutral-500 dark:text-neutral-400">{{ this.copyright_text }}</p>
+      <div class="mt-4 flex items-center gap-5 @sm:mt-0">
+        {% if this.facebook_url != blank %}
+          <a href="{{ this.facebook_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="Facebook">
+            <iconify-icon icon="mdi:facebook" width="20" aria-hidden="true"></iconify-icon>
+          </a>
+        {% endif %}
+        {% if this.twitter_url != blank %}
+          <a href="{{ this.twitter_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="Twitter">
+            <iconify-icon icon="mdi:twitter" width="20" aria-hidden="true"></iconify-icon>
+          </a>
+        {% endif %}
+        {% if this.github_url != blank %}
+          <a href="{{ this.github_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="GitHub">
+            <iconify-icon icon="mdi:github" width="20" aria-hidden="true"></iconify-icon>
+          </a>
+        {% endif %}
+        {% if this.dribbble_url != blank %}
+          <a href="{{ this.dribbble_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="Dribbble">
+            <iconify-icon icon="mdi:dribbble" width="20" aria-hidden="true"></iconify-icon>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</footer>

@@ -1,0 +1,28 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Statuses API - Delete
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign id = params.id | default: '' | strip -%}
+
+{%- if id == blank -%}
+{"error":"Status id is required"}
+{%- else -%}
+  {%- graphql result = "todo_statuses/delete_todo_status", id: id -%}
+  {%- if result.record_delete.id == blank -%}
+{"error":"Failed to delete status"}
+  {%- else -%}
+{"success":true,"id":"{{ result.record_delete.id }}"}
+  {%- endif -%}
+{%- endif -%}

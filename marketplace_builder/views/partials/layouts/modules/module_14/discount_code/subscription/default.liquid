@@ -1,0 +1,43 @@
+<div class="form-group row discount">
+	{% if subscription_discount_already_redeemed != true %}
+		{% comment %} If the Subscription order has not yet been created, show an ordinary Discount Code Layout. {% endcomment %}
+		<div class="col-12 col-lg-7">
+			<label class="mb-3" for="s_e_discount_code">Discount Code</label>
+			<input class="form-control" id="s_e_discount_code" data-s-e-discount-code {% if discount_code != blank %}value="{{discount_code}}" readonly="true"{%- endif -%}>
+		</div>
+		<div class="col-12 col-lg-5 mt-4 align-self-end">
+			{%- if discount_code == blank -%}
+				<button class="btn btn-primary sg-btn sg-btn-primary" id="s_e_discount_apply" onclick="s_e_cart_discount_code({ spend: {{spend}}, error_cb: s_e_discount_error, reload: false });">Apply Code</button>
+			{%- else-%}
+				<button class="btn btn-primary sg-btn sg-btn-danger" id="s_e_discount_remove" onclick="s_e_cart_discount_code_remove({reload: false})">Remove Code</button>
+			{% endif %}
+		</div>
+		<div class="col-12 mt-4">
+			{%- if discount_code != blank -%}<p>Discount: <span style="color: red;">-{{this.price.currency_symbol}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: discount_amount -%}</span> per month for {{discount.number_of_months_to_discount}} {% if discount.number_of_months_to_discount == 1 %}month{% else %}months{% endif %}</p>{%- endif -%}
+			{%- if discount_code != blank and discount_minimum and discount_minimum != 0 -%}
+				<p class="mt-4">This code will only be valid on orders over: {{this.price.currency_symbol}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: discount_minimum -%}</p>
+			{%- endif -%}
+		</div>
+		<script>
+			function s_e_discount_error(error) {
+				console.log(error.type); /* an error code which you can use in your logic. */ 
+				console.log(error.message); /* A ready-drafted error message */
+				alert(error.message);
+			}
+		</script>
+	{% elsif subscription_discount_already_redeemed == true and rate_still_discounted == true %}
+		{% comment %} The Subscription Order has already been created and no further discounts can be applied now- you can use this block to give details on any discounts already redeemed on this order. This example won't continue to display after the discounted period ends- but you can remove the condition "rate_still_discounted == true" if you wish it to display after the discount ends too. {% endcomment %}
+		<div class="col-12 col-lg-7">
+			<label class="mb-3" for="s_e_discount_code">Discount Code</label>
+			<input class="form-control" id="s_e_discount_code" data-s-e-discount-code {% if discount_code != blank %}value="{{discount_code}}" readonly="true"{%- endif -%}>
+		</div>
+		<div class="col-12 col-lg-5 mt-4 align-self-end">
+		</div>
+		<div class="col-12 mt-4">
+			{%- if discount_code != blank -%}
+				<p>Discount redeemed: <span style="color: red;">{{this.price.currency_symbol}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: discount_amount -%}</span> per month for {{discount.number_of_months_to_discount}} {% if discount.number_of_months_to_discount == 1 %}month{% else %}months{% endif %} until {{subscription_order['Plan Discount Ends At'] | date: "%d/%m/%y"}}</p>
+				<p>Total Due: {{this.price.currency_symbol}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: discount.total_remaining -%}</p>
+			{%- endif -%}
+		</div>
+	{% endif %}
+</div>

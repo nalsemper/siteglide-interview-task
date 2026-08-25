@@ -1,0 +1,28 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_5/log_out/default-logout-button.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-logout-button
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_5
+  studio_dynamic/layout_name: Default Logout Button
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Logout Button
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------Logout redirect------ The URL the user will be redirected to after logging out. Default is current page, or the value of redirect paramter on logout button tag if set. {% endcomment %}
+{% assign logout_redirect = context.location.pathname | default: _redirect %}
+{% comment %} ---End Settings--- {% endcomment %}
+
+<div>
+  {% form %}
+    <button type="button" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onclick="siteglide_logout_process(this,'{{logout_redirect}}')">Log Out</button>
+  {% endform %}
+</div>

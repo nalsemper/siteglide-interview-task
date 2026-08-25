@@ -1,0 +1,112 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todos API - Create
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign name = params.name | default: '' | strip -%}
+{%- assign due_date_input = params.due_date | default: '' | strip -%}
+{%- assign priority = params.priority | default: 'medium' | strip | downcase -%}
+{%- assign notes = params.notes | default: '' | strip -%}
+{%- assign category_id = nil -%}
+{%- if params.category_id != blank and params.category_id != '0' -%}
+  {%- assign category_id = params.category_id | plus: 0 -%}
+{%- endif -%}
+
+{%- graphql todo_statuses_data = "todo_statuses/list_todo_statuses", per_page: 100, page: 1 -%}
+{%- assign todo_statuses = todo_statuses_data.records.results -%}
+{%- assign default_status_id = nil -%}
+{%- assign completed_status_id = nil -%}
+{%- for status in todo_statuses -%}
+  {%- if status.properties.module_field_986_3 == true and status.properties.module_field_986_1 != true -%}
+    {%- assign default_status_id = status.id -%}
+  {%- endif -%}
+  {%- if status.properties.module_field_986_1 == true and completed_status_id == nil -%}
+    {%- assign completed_status_id = status.id -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if default_status_id == nil -%}
+  {%- for status in todo_statuses -%}
+    {%- if status.properties.module_field_986_1 != true and default_status_id == nil -%}
+      {%- assign default_status_id = status.id -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- assign status_id = default_status_id | plus: 0 -%}
+{%- if params.status_id != blank -%}
+  {%- assign status_id = params.status_id | plus: 0 -%}
+{%- endif -%}
+{%- assign completed_bool = false -%}
+{%- for status in todo_statuses -%}
+  {%- assign status_id_str = status.id | append: '' -%}
+  {%- assign requested_status_id = status_id | append: '' -%}
+  {%- if status_id_str == requested_status_id -%}
+    {%- if status.properties.module_field_986_1 == true -%}
+      {%- assign completed_bool = true -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if name == blank -%}
+{"error":"Title is required"}
+{%- else -%}
+  {%- if priority == blank -%}
+    {%- assign priority = 'medium' -%}
+  {%- endif -%}
+
+  {%- capture due_date_unix -%}
+    {%- include 'todos/convert_due_date_to_unix', due_date_input: due_date_input -%}
+  {%- endcapture -%}
+  {%- assign due_date_unix = due_date_unix | strip -%}
+  {%- if due_date_unix == blank -%}
+    {%- assign due_date_unix = nil -%}
+  {%- else -%}
+    {%- assign due_date_unix = due_date_unix | plus: 0 -%}
+  {%- endif -%}
+
+  {%- if status_id == 0 -%}
+    {%- assign status_id = nil -%}
+  {%- endif -%}
+
+  {%- graphql result = "todos/create_todo", name: name, completed: completed_bool, status_id: status_id, category_id: category_id, due_date: due_date_unix, priority: priority, notes: notes -%}
+  {%- assign record = result.record_create -%}
+  {%- if record.id == blank -%}
+{"error":"Failed to create todo"}
+  {%- else -%}
+    {%- assign item_status_name = '' -%}
+    {%- assign item_status_color = '' -%}
+    {%- assign item_status_id = record.properties.module_field_985_5 | append: '' | strip -%}
+    {%- for status in todo_statuses -%}
+      {%- assign status_id_str = status.id | append: '' -%}
+      {%- if status_id_str == item_status_id -%}
+        {%- assign item_status_name = status.properties.name -%}
+        {%- assign item_status_color = status.properties.module_field_986_4 | default: '' -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- capture due_date_api -%}
+      {%- include 'todos/convert_due_date_from_unix', due_date_unix: record.properties.module_field_985_2 -%}
+    {%- endcapture -%}
+    {%- graphql categories_data = "todo_categories/list_todo_categories", per_page: 100, page: 1 -%}
+    {%- assign all_categories = categories_data.records.results -%}
+    {%- assign item_category_id = record.properties.module_field_985_6 | append: '' | strip -%}
+    {%- assign item_category_path = '' -%}
+    {%- if item_category_id != blank -%}
+      {%- capture item_category_path -%}
+        {%- include 'todos/build_category_path', category_id: item_category_id, categories: all_categories -%}
+      {%- endcapture -%}
+      {%- assign item_category_path = item_category_path | strip -%}
+    {%- endif -%}
+{"todo":{"id":"{{ record.id }}","name":{{ record.properties.name | json }},"completed":{% if record.properties.module_field_985_1 == true %}true{% else %}false{% endif %},"status_id":"{{ item_status_id }}","status_name":{{ item_status_name | json }},"status_color":{{ item_status_color | json }},"due_date":{{ due_date_api | strip | json }},"priority":{{ record.properties.module_field_985_3 | default: 'medium' | json }},"notes":{{ record.properties.module_field_985_4 | json }},"category_id":"{{ item_category_id }}","category_path":{{ item_category_path | json }}}}
+  {%- endif -%}
+{%- endif -%}

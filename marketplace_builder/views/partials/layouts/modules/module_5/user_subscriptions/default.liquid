@@ -1,0 +1,26 @@
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Date Started</th>
+		<th>Last Updated</th>
+		<th>SKU</th>
+		<th>Status</th>
+		<th>Price</th>
+		<th>Cancel/ Re-activate</th>
+	</tr>
+{%- for this in subscription_orders -%}
+	<tr>
+		<td>{{this.subscription.name}}</td>
+		<td>{{this.created_at | date: "%d/%m/%Y %H:%M"}}</td>
+		<td>{{this.last_edit_date | date: "%d/%m/%Y %H:%M"}}</td>
+		<td>{{this.subscription['Product Code (SKU)']}}</td>
+		<td>{{this.status}} {% if this.cancel_at_period_end == 'true' %}(will be cancelled at the end of this billing cycle){% endif %}</td>
+		<td>{{this.subscription.price.currency_symbol}}{{this.plan_chargeable_price_formatted}} (every {{this.plan.interval_count}} {{this.plan_interval}})</td>
+		<td>{%- if this.cancel_at_period_end != 'true' -%}
+			{%- include 'ecommerce/subscription_cancel', orderID: this.id -%}
+		{% elsif this.cancel_at_period_end == 'true' %}
+		  {%- include 'ecommerce/subscription_reactivate_cancelled', orderID: this.id -%}
+		{%- endif -%}</td>   
+	</tr>
+{%- endfor -%}  
+</table>

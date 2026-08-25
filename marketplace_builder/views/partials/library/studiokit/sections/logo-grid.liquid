@@ -1,0 +1,53 @@
+---
+metadata:
+  name: Logo Grid
+  class: section
+  lists:
+  - name: Logos
+    type: logos
+    fields:
+    - id: logo_image
+      type: image_picker
+      label: Logo Image
+      default: ''
+    - id: logo_alt
+      type: text
+      label: Logo Alt Text
+      default: Partner logo
+      is_title: true
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Backed by leading investors
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container py-20 text-center md:py-24">
+
+    {% if this.heading != blank %}
+      <h2 class="mx-auto max-w-xl" data-motion-text>{{ this.heading }}</h2>
+    {% endif %}
+
+    <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 md:gap-5 lg:gap-6">
+      {% for item in lists.logos %}
+        <div data-studio-list="{{ item._list }}" class="card group flex aspect-square items-center justify-center rounded-2xl bg-base-50 dark:bg-base-900/20 p-8 transition-colors duration-200 hover:bg-base-100 dark:bg-base-900/30 md:p-10" data-motion-card>
+          {% if item.logo_image != blank %}
+            {% include 'img',
+              path: item.logo_image,
+              classes: 'h-full w-full object-contain opacity-60 transition-opacity duration-200 group-hover:opacity-90',
+              attributes: 'alt="{{ item.logo_alt }}" loading="lazy"'
+            %}
+          {% else %}
+            <div class="h-8 w-24 rounded-sm bg-base-50 dark:bg-base-900/40"></div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

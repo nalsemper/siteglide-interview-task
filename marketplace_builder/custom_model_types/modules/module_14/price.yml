@@ -1,0 +1,12 @@
+---
+name: module_14/price
+properties:
+- name: module_field_14/price_1
+  type: string
+- name: module_field_14/price_2
+  type: string
+- name: module_field_14/price_3
+  type: string
+- name: module_field_14/price_4
+  type: string
+---

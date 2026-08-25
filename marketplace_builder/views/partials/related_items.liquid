@@ -1,0 +1,6 @@
+{% assign this_categories = this['category_array'] | join: ',' -%}
+{% include 'modules/siteglide_system/model'
+	type: 'list'
+	category_ids: this_categories
+	show_pagination: 'false'
+-%}

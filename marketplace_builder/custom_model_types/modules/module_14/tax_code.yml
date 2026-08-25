@@ -1,0 +1,46 @@
+---
+name: module_14/tax_code
+properties:
+- name: category_array
+  type: array
+- name: address
+  type: string
+- name: enabled
+  type: boolean
+- name: expiry_date
+  type: integer
+- name: location
+  type: geojson
+- name: meta_desc
+  type: string
+- name: meta_title
+  type: string
+- name: module_field_14/tax_code_1
+  type: string
+- name: module_field_14/tax_code_2
+  type: string
+- name: module_field_14/tax_code_3
+  type: float
+- name: name
+  type: string
+- name: og_desc
+  type: string
+- name: og_image
+  type: string
+- name: og_title
+  type: string
+- name: og_type
+  type: string
+- name: og_url
+  type: string
+- name: release_date
+  type: integer
+- name: secure_zone_array
+  type: array
+- name: slug
+  type: string
+- name: twitter_type
+  type: string
+- name: weighting
+  type: integer
+---

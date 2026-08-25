@@ -1,0 +1,14 @@
+
+
+<fieldset {{attributes}} class="checkbox-container {{validation}}">
+  {% if options.size > 1 %}<legend class="col-block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{label}} {% if validation contains 'required' %}<span>*</span>{% endif %}</legend>{% endif %}
+  {% for option in options %}
+    <div  class="flex items-center {% unless forloop.last %}mb-4{% endunless %}">
+      <input {{validation}}  {% if value contains option %}checked{% endif %} class="w-4 h-4 text-info-600 bg-gray-100 rounded border-gray-300 focus:ring-info-500 dark:focus:ring-info-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600  {% if validation != blank %} valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700   valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-gray-700  dark:valid:border-success-400  group-focus-within:invalid:text-danger-700  dark:group-focus-within:invalid:text-danger-500 group-focus-within:invalid:border group-focus-within:invalid:border-danger-500 group-focus-within:invalid:focus:ring-danger-500 group-focus-within:invalid:focus:border-danger-500  dark:group-focus-within:invalid:border-danger-500 {% endif %}" type="checkbox" name="{{name}}" {% if label != blank %}data-sg-validation-label="{{label}}" data-sg-validation-id="{{field_id}}" {% endif %} id="{{field_id}}_{{option}}" value="{{option}}">
+      {% comment %} valid:bg-success-50 {% endcomment %}
+      <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="{{field_id}}_{{option}}">{% if options.size > 1 %}{{option}}{% else %}{{label}}{% endif %}</label>
+
+    </div>
+  {% endfor %}
+</fieldset>
+

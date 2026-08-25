@@ -1,0 +1,26 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/form_confirmation/default-success-alert.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-success-alert
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s3
+  studio_dynamic/layout_name: Default success alert
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default success alert
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% if context.session.form_id != blank and context.session.form_fc != blank %}
+  <div class="p-4 mb-4 text-sm text-success-900 rounded-lg bg-success-50 dark:bg-gray-800 dark:text-success-400" role="alert">
+    <span class="font-medium">Thank you!</span> Thank you for your submission {{form.name}}! We've emailed you a confirmation and we'll get back to you as soon as possible.
+  </div>
+  {% comment %} Clear the notification for next page load. {% endcomment %}
+  {% session form_id = null %}
+  {% session form_fc = null %}
+{% endif %}

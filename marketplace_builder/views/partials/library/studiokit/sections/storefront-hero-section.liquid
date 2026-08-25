@@ -1,0 +1,116 @@
+---
+metadata:
+  name: Storefront Hero
+  class: section
+  lists:
+  - name: Logos
+    type: logos
+    fields:
+    - id: logo_image
+      type: image_picker
+      label: Logo Image
+      default: ''
+      is_title: true
+    - id: logo_url
+      type: url
+      label: Logo URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Limited Time Offer! Up to 50% OFF!
+  - id: body
+    type: textarea
+    label: Body
+    default: Don't Wait - Limited Stock at Unbeatable Prices!
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Shop Now
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  - id: image_light
+    type: image_picker
+    label: Main Image (Light Mode)
+    default: ''
+  - id: image_light_alt
+    type: text
+    label: Main Image Alt Text
+    default: Shopping illustration
+  - id: image_dark
+    type: image_picker
+    label: Main Image (Dark Mode)
+    default: ''
+  - id: image_dark_alt
+    type: text
+    label: Main Image Alt Text (Dark Mode)
+    default: Shopping illustration
+  hide_on: []
+  category: hero
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="grid items-center gap-8 @md:grid-cols-12 @md:gap-12" data-motion-group>
+
+      <div class="@md:col-span-7" data-motion-group>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h1 data-motion-text>{{ this.heading }}</h1>
+        {% if this.body != blank %}
+          <p data-motion-text>{{ this.body }}</p>
+        {% endif %}
+        {% if this.button_text != blank %}
+          <a href="{{ this.button_url }}" class="button">{{ this.button_text }}</a>
+        {% endif %}
+      </div>
+
+      <div class="@md:col-span-5" data-motion-card>
+        {% if this.image_light != blank %}
+          {% include 'img',
+            path: this.image_light,
+            classes: 'w-full dark:hidden',
+            attributes: 'alt="{{ this.image_light_alt | default: "" }}" loading="eager"'
+          %}
+        {% endif %}
+        {% if this.image_dark != blank %}
+          {% include 'img',
+            path: this.image_dark,
+            classes: 'hidden w-full dark:block',
+            attributes: 'alt="{{ this.image_dark_alt | default: "" }}" loading="eager"'
+          %}
+        {% endif %}
+      </div>
+
+    </div>
+
+    {% if lists.logos != blank %}
+      <div class="mt-12 grid grid-cols-2 gap-6 @sm:grid-cols-3 @lg:grid-cols-6" data-motion-group>
+        {% for item in lists.logos %}
+          <a href="{{ item.logo_url | default: '#' }}" data-studio-list="{{ item._list }}" class="group flex items-center justify-center" data-motion-card>
+            {% if item.logo_image != blank %}
+              {% include 'img',
+                path: item.logo_image,
+                classes: 'h-10 object-contain opacity-50 transition-opacity duration-200 group-hover:opacity-100',
+                attributes: 'alt="Logo" loading="lazy"'
+              %}
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>

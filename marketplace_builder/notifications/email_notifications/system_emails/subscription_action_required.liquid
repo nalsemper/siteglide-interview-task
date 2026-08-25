@@ -1,0 +1,19 @@
+---
+from: no-reply@example.com
+layout: mailer
+metadata:
+  id: 2
+  name: Subscription User Action Required
+  file_type: system_email
+name: subscription_action_required
+reply_to: no-reply@example.com
+subject: A subscription requires your attention before it can be processed
+to: "{{ data.subscription_order.related_user.email }}"
+trigger_condition: t
+unique_args: ''
+---
+<h1>Hi {{data.subscription_order.related_user.name}}</h1>
+
+<p>It has not been possible to complete the latest payment on your subscription {{data.subscription_order.subscription.name}}.</p>
+<p>Please follow the link to update or authorise your payment method as appropriate.</p>
+{% include 'ecommerce/subscriptions/subscription_system_page_link', button_text: "Authorise payment details", button_id: "authorisePayment" %}

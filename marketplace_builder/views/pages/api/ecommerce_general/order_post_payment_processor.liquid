@@ -1,0 +1,27 @@
+---
+authorization_policies:
+- modules/siteglide_system/csrf_request_valid
+- modules/siteglide_system/hcaptcha_valid
+- modules/siteglide_ecommerce/ecommerce_general
+default_layout: true
+format: json
+method: post
+---
+{%- comment -%} All incoming params from JS scripts {%- endcomment -%}
+{%- parse_json params -%}{{context.post_params}}{%- endparse_json -%}
+
+{%- comment -%} S0001 - SITEGLIDE DEFAULT - Check Payment Status {%- endcomment -%}
+{%- function
+	payment_status_handler = "modules/siteglide_ecommerce/ecommerce/functions/payment_status_handler"
+	_params: params
+-%}
+{%- comment -%} S0001 - END {%- endcomment -%}
+
+{%- comment -%} S0002 - SITEGLIDE DEFAULT - Update Order status, Inventory, and Discounts {%- endcomment -%}
+{%- function
+	order_complete_handler = "modules/siteglide_ecommerce/ecommerce/functions/order_complete_handler"
+	_params: params
+	payment_status_handler: payment_status_handler
+-%}
+{{order_complete_handler}}
+{%- comment -%} S0002 - END {%- endcomment -%}

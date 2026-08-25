@@ -1,0 +1,42 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product_attributes/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-product-detail
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Default Product Detail
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Product Detail
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Cart URL ------ {% endcomment %}
+{% assign cart_url = '/cart' %}
+{% comment %} ------Display Only Price Settings-------
+Siteglide's Products contain a Display Only Price which can be used flexibily. If your Products use the Display only Price to show original price before a global discount, you could set "show_display_price_crossed_out" to true. {% endcomment %}
+{% assign show_display_price_crossed_out = true %}
+
+{% comment %}----- Optional custom fields for product structured data -----{% endcomment %}
+{% comment %} Pass in the ID of each custom field which contains the dynamic data for this {% endcomment %}
+{% comment %} e.g. "module_field_custom_14/product_1" ------{% endcomment %}
+{% assign cf_product_brand = null %}
+
+{% comment %} ---End Settings--- {% endcomment %}
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+<section class=" ">
+	<div class="container max-w-screen-xl px-4 mx-auto 2xl:px-0">
+		{%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+	</div>
+</section>
+

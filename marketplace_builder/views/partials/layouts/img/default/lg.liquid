@@ -1,0 +1,7 @@
+{% comment %} Optimised for responsive images for the full width of the screen. No width argument accepted {% endcomment %}
+{% comment %} Note - do not accidentally leave newlines inside any of the HTML attributes. {% endcomment %}
+<img {{attributes | default: 'loading="lazy"'}} {% if alt != blank %}alt="{{alt}}"{% endif %} class="{{classes}}"
+  width="100%"
+  src="{%- render "img_url", path: path, options: 'format=auto' %}"
+  srcset="{%- render "img_url", path: path, options: 'format=auto,width=320,fit=scale-down' %} 320w,{%- render "img_url", path: path, options: 'format=auto,width=640,fit=scale-down' %} 640w,{%- render "img_url", path: path, options: 'format=auto,width=1280,fit=scale-down' %} 1280w,{%- render "img_url", path: path, options: 'format=auto,width=2560,fit=scale-down' %} 2560w"
+/>

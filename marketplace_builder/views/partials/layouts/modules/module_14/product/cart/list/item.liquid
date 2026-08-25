@@ -1,0 +1,27 @@
+<tr data-s-e-cart-id="{{this.cart_data.cart_id}}">
+	{% if this.inventory.id != blank and this.inventory.quantity == '0' and this.inventory.inventory_type == 'global' -%}
+		<td scope="row">
+			<img src="{{this['Image'] | asset_url }}" class="thumbnail" />
+			<div class="prod-desc">
+				<h5>{{this['name']}}</h5>
+			</div>
+		</td>
+		<td>{% include 'ecommerce/cart_product_attributes' -%}</td>
+		<td>Out of stock</td>
+		<td></td>
+		<td><button onclick="s_e_cart_remove(true,{{this.cart_data.cart_id}})"><i class="fas fa-times"></i></button></td>
+	{% else -%}
+		<td scope="row">
+			<img src="{{this['Image'] | asset_url }}" class="thumbnail" />
+			<div class="prod-desc">
+				<h5>{{this['name']}}</h5>
+			</div>
+		</td>
+		<td>{% include 'ecommerce/cart_product_attributes' -%}</td>
+		<td>
+			<input type="number" name="quantity" min="1" value="{{this.cart_data.quantity}}" onchange="s_e_cart_update_quantity(event.target.value,{{this.cart_data.cart_id}},'{{context.authenticity_token}}')">
+		</td>
+		<td>{{this.price.currency_symbol}}{{this.cart_data.price}}</td>
+		<td><button onclick="s_e_cart_remove(true,{{this.cart_data.cart_id}})"><i class="fas fa-times"></i></button></td>
+	{%- endif -%}
+</tr>

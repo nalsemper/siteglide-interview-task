@@ -1,0 +1,89 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Events</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 textarea">
+						<div class="col">
+							<label for="module_field_12_1">Description</label>
+							<textarea class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_12_1'].name }}" rows="5" cols="30"></textarea>
+						</div>
+					</div>
+					<div class="row mt-4 date">
+						<div class="col">
+							<label for="module_field_12_2">Event Start</label>
+							<input id="module_field_12_2" name="{{ form_builder.fields.properties['module_field_12_2'].name }}" type="number" style="display:none">
+							<input class="form-control sg-form-control" type="datetime-local" onchange="document.querySelector('#module_field_12_2').value=new Date(this.value).getTime()/1000">
+						</div>
+					</div>
+					<div class="row mt-4 date">
+						<div class="col">
+							<label for="module_field_12_3">Event End</label>
+							<input id="module_field_12_3" name="{{ form_builder.fields.properties['module_field_12_3'].name }}" type="number" style="display:none">
+							<input class="form-control sg-form-control" type="datetime-local" onchange="document.querySelector('#module_field_12_3').value=new Date(this.value).getTime()/1000">
+						</div>
+					</div>
+					<div class="row mt-4 datasource">
+						<div class="col">
+							<label for="module_field_12_4">Host</label>
+							{%- include 'module', id: '6', sort_type: 'properties.name', collection: 'true' -%}
+							<select class="" name="{{ form_builder.fields.properties['module_field_12_4'].name }}">
+								{% for item in context.exports['module_6'].data.result.items -%}
+									<option value="{{item.id}}">{{item.properties.name}}</option>
+								{% endfor -%}
+							</select>
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_12_6">Location - Address</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_12_6'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_12_7">Location - LatLong</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_12_7'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 datasource_multi">
+						<div class="col">
+							<label for="module_field_12_8">Tickets</label>
+							{%- include 'module', id: '14/product', sort_type: 'properties.name', collection: 'true' -%}
+							<select class="" name="{{ form_builder.fields.properties['module_field_12_8'].name }}[]" multiple>
+								{% for item in context.exports['module_14/product'].data.result.items -%}
+									<option value="{{item.id}}">{{item.properties.name}}</option>
+								{% endfor -%}
+							</select>
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_12')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

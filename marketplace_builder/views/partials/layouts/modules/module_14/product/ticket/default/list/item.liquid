@@ -1,0 +1,14 @@
+<div data-product-group class="card">
+    <div class="card-img background-image" style="background-image: url('{{this['Image'] | asset_url}}')" alt="{{this['Image'] | asset_url}}"></div>
+    <div class="card-body">
+        <h2 class="card-title">{{this['name']}}</h2>
+        <p>{{this.price.currency_symbol}}{{this.price.price_charge_formatted}}</p>        
+        <form>
+          <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" min="1" value="1" data-quantity-control id="quantity" />
+          </div>
+        </form>
+        {% include 'ecommerce/cart_add' -%}
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div>
+	{% form -%}
+		<div>
+			<label for="email">Email Address</label>
+			<input type="email" name="{{ form_builder.fields.email.name }}">
+		</div>
+		<div>
+			<label for="password">Password</label>
+			<input type="password" name="{{ form_builder.fields.password.name }}">
+		</div>
+		<button class="submitButton" type="button" onclick="siteglide_login_process(this,'{{_redirect}}','{{_empty_error_msg}}')">Log In</button>
+		<a href="/system/recover-password">Reset Password?</a>
+		<div class="form-error"></div>
+	{% endform -%}
+</div>

@@ -1,0 +1,88 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart.liquid
+  - views/partials/layouts/modules/module_14/checkout/checkout-form-with-embedded-cart/empty.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/boolean.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/checkout_standard.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/basic_payment.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/quote_only.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/subscription_detail.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/datasource_multi.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/datasource.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/date.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/email.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/file.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/image.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/hidden_fields.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/input_checkbox.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/input_radio.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/name_field.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/password.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/recaptcha.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/select_multi.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/select.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/string.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/textarea.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/subheading.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/heading.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/array_custom.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/folder.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/image_array.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/number_float.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/number_integer.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/email_edit.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/password_edit.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: checkout-form-with-embedded-cart
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Checkout form with embedded cart
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Checkout form with embedded cart
+  studio_dynamic/sub_module_id: '7'
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Shop Home URL ------ {% endcomment %}
+{% assign shop_home_url = "/" %}
+{% comment %} ---End Settings--- {% endcomment %}
+
+<section data-motion-group>
+  <div class="container">
+    <ol class="flex w-full max-w-2xl items-center text-center text-sm font-medium text-base-500 dark:text-base-400 sm:text-base">
+      <li class="after:border-1 flex items-center text-primary-600 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-base-200 dark:text-primary-400 dark:after:border-base-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
+        <span class="flex items-center after:mx-2 after:text-base-200 after:content-['/'] dark:after:text-base-500 sm:after:hidden">
+          <span class="material-symbols-outlined me-2 text-base leading-none" aria-hidden="true">check_circle</span>
+          Cart
+        </span>
+      </li>
+      <li class="after:border-1 flex items-center text-primary-600 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-base-200 dark:text-primary-400 dark:after:border-base-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
+        <span class="flex items-center after:mx-2 after:text-base-200 after:content-['/'] dark:after:text-base-500 sm:after:hidden">
+          <span class="material-symbols-outlined me-2 text-base leading-none" aria-hidden="true">check_circle</span>
+          Checkout
+        </span>
+      </li>
+
+      <li class="flex shrink-0 items-center">
+        <span class="material-symbols-outlined me-2 text-base leading-none" aria-hidden="true">check_circle</span>
+        Order Summary
+      </li>
+    </ol>
+    <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
+      <div class="min-w-0 flex-1 space-y-8">
+        <div class="card rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 md:p-8" data-motion-card>
+          <div class="space-y-3" data-motion-group>
+            <p class="eyebrow_text" data-motion-text>Checkout</p>
+            <h3 data-motion-text>Sorry! Your Cart is empty.</h3>
+            <p class="text-sm text-neutral-400" data-motion-text>Browse products and return here to finish your order.</p>
+          </div>
+          <a href="{{shop_home_url}}" class="button mt-5 w-full">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

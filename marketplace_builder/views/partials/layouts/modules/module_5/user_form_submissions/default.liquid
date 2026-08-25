@@ -1,0 +1,20 @@
+<h2>My Form Submissions</h2>
+
+<div class="sk-user-orders">
+	<table>
+		<thead>
+			<th>ID</th>
+			<th>Type</th>
+			<th>Date</th>
+		</thead>
+		<tbody>
+			{%- for this in submissions -%}
+				<tr>
+					<td>{{this.id}}</td>
+					<td>{{this.form_name}}</td>
+					<td>{{this.created_at | date: "%d/%m/%Y"}}</td>
+				</tr>
+			{%- endfor -%}
+		</tbody>
+	</table>
+</div>

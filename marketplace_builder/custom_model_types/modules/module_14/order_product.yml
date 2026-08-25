@@ -1,0 +1,32 @@
+---
+name: module_14/order_product
+properties:
+- name: module_field_14/order_product_1
+  type: string
+- name: module_field_14/order_product_10
+  type: string
+- name: module_field_14/order_product_11
+  type: string
+- name: module_field_14/order_product_12
+  type: string
+- name: module_field_14/order_product_13
+  type: string
+- name: module_field_14/order_product_14
+  type: string
+- name: module_field_14/order_product_2
+  type: string
+- name: module_field_14/order_product_3
+  type: string
+- name: module_field_14/order_product_4
+  type: string
+- name: module_field_14/order_product_5
+  type: string
+- name: module_field_14/order_product_6
+  type: string
+- name: module_field_14/order_product_7
+  type: string
+- name: module_field_14/order_product_8
+  type: string
+- name: module_field_14/order_product_9
+  type: string
+---

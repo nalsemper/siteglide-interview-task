@@ -1,0 +1,67 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Testimonials</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 image">
+						<div class="col">
+							<label for="module_field_8_1">Image</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_8_1'].name }}" type="hidden">
+							<input class="form-control sg-form-control" id="module_field_8_1_file" type="file" />
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_8_2">Job Title</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_8_2'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 textarea">
+						<div class="col">
+							<label for="module_field_8_3">Quote</label>
+							<textarea class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_8_3'].name }}" rows="5" cols="30"></textarea>
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_8_4">Company Name</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_8_4'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 image">
+						<div class="col">
+							<label for="module_field_8_5">Company Logo</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_8_5'].name }}" type="hidden">
+							<input class="form-control sg-form-control" id="module_field_8_5_file" type="file" />
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_8')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

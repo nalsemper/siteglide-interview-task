@@ -1,0 +1,82 @@
+{%- graphql statuses_data = "todo_statuses/list_todo_statuses", per_page: 100, page: 1 -%}
+{%- assign statuses = statuses_data.records.results -%}
+
+<section id="todo-statuses-app" class="todo-app-panel" data-api-base="/api/todo-statuses">
+  <header class="todo-app-panel__header">
+    <h1 class="todo-app-panel__title">Todo statuses</h1>
+    <p class="todo-app-panel__subtitle">Customise workflow statuses used on todos.</p>
+  </header>
+
+  <form id="status-add-form" class="status-add-form" autocomplete="off">
+    <div class="status-add-form__row">
+      <input type="text" name="name" class="status-add-form__input" placeholder="Status name" required maxlength="100" aria-label="Status name">
+      <input type="number" name="sort_order" class="status-add-form__number" value="0" min="0" step="1" aria-label="Sort order">
+      <input type="text" name="color" class="status-add-form__input status-add-form__color" placeholder="Color (optional)" maxlength="32" aria-label="Color">
+      <label class="status-add-form__check">
+        <input type="checkbox" name="is_completed" value="1">
+        Completed status
+      </label>
+      <label class="status-add-form__check">
+        <input type="checkbox" name="is_default" value="1">
+        Default status
+      </label>
+      <button type="submit" class="status-add-form__submit">Add status</button>
+    </div>
+  </form>
+
+  <div class="status-table-wrap">
+    <table class="status-table" aria-describedby="status-table-caption">
+      <caption id="status-table-caption" class="sr-only">Todo statuses</caption>
+      <thead>
+        <tr>
+          <th scope="col">
+            Name
+            {% include 'todos/bug_hint', bug: 7, hint: 'Status names can be edited here and are kept when you leave and return to this page.' %}
+          </th>
+          <th scope="col">Sort</th>
+          <th scope="col">Color</th>
+          <th scope="col">Completed</th>
+          <th scope="col">Default</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="status-table-body">
+        {%- for status in statuses -%}
+          <tr data-status-id="{{ status.id }}">
+            <td>
+              <input type="text" class="status-table__input" data-field="name" value="{{ status.properties.name }}" aria-label="Status name">
+            </td>
+            <td>
+              <input type="number" class="status-table__number" data-field="sort_order" value="{{ status.properties.module_field_986_2 | default: 0 }}" min="0" step="1" aria-label="Sort order">
+            </td>
+            <td>
+              <input type="text" class="status-table__input" data-field="color" value="{{ status.properties.module_field_986_4 }}" aria-label="Color">
+            </td>
+            <td class="status-table__center">
+              <input type="checkbox" data-field="is_completed"{% if status.properties.module_field_986_1 == true %} checked{% endif %} aria-label="Completed status">
+            </td>
+            <td class="status-table__center">
+              <input type="checkbox" data-field="is_default"{% if status.properties.module_field_986_3 == true %} checked{% endif %} aria-label="Default status">
+            </td>
+            <td class="status-table__actions">
+              <button type="button" class="status-table__delete" data-action="delete-status">Delete</button>
+            </td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+
+  <p id="status-empty" class="todo-empty{% if statuses.size > 0 %} todo-empty--hidden{% endif %}">No statuses yet. Add one above.</p>
+
+  <dialog id="todo-modal" class="todo-modal" aria-labelledby="todo-modal-title">
+    <form method="dialog" id="todo-modal-form" class="todo-modal__form">
+      <h2 id="todo-modal-title" class="todo-modal__title"></h2>
+      <p id="todo-modal-message" class="todo-modal__message"></p>
+      <div class="todo-modal__actions">
+        <button type="button" id="todo-modal-cancel" class="todo-modal__btn todo-modal__btn--secondary">Cancel</button>
+        <button type="submit" id="todo-modal-confirm" class="todo-modal__btn todo-modal__btn--primary">OK</button>
+      </div>
+    </form>
+  </dialog>
+</section>

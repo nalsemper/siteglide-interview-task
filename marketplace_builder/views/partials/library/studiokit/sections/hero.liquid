@@ -1,0 +1,103 @@
+---
+metadata:
+  name: Hero
+  tags:
+  - lw1
+  class: section
+  lists: []
+  fields:
+  - id: hero_text
+    type: text
+    label: Bottom Right Text
+    default: Default value
+  - id: background_image
+    type: image_picker
+    label: Background Image
+    default: ''
+  - id: mobile_background_image
+    type: image_picker
+    label: Mobile Background Image
+    default: ''
+  hide_on: []
+  category: lw
+  requires: []
+  settings: []
+  collection: mono
+  components: []
+  updated_at: 1782206599
+  global_data:
+  global_fields: []
+---
+<section class="@container  {{selection-index}} relative h-[85vh] min-h-[400px] overflow-hidden bg-neutral-950" data-mono-hero>
+  {% if this.background_image != blank %}
+    <div class="absolute -inset-y-[15%] inset-x-0 z-0 bg-center bg-cover bg-no-repeat{% if this.mobile_background_image != blank %} hidden @md:block{% endif %}" style="background-image: url('{{ this.background_image | asset_url }}');" data-hero-background-desktop></div>
+  {% endif %}
+
+  {% if this.mobile_background_image != blank %}
+    <div class="absolute inset-0 z-0 bg-center bg-cover bg-no-repeat @md:hidden" style="background-image: url('{{ this.mobile_background_image | asset_url }}');" data-hero-background-mobile></div>
+  {% endif %}
+
+  <div class="absolute inset-0 z-10 bg-neutral-950/20"></div>
+
+  <div class="relative z-20 h-full mx-auto px-10 py-8 @md:py-12 @lg:py-10 flex items-end justify-end">
+    <p class="text-right text-3xl @md:text-4xl font-normal leading-tight text-neutral-50" data-split-reveal>
+      {{ this.hero_text }}
+    </p>
+  </div>
+</section>
+
+<style>
+[data-mono-hero] [data-hero-background-desktop],
+[data-mono-hero] [data-hero-background-mobile] {
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1.12);
+}
+</style>
+<script>
+(function () {
+  function loadMotion() {
+    if (window.Motion) return Promise.resolve(window.Motion);
+
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.min.js';
+      script.onload = () => resolve(window.Motion);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  loadMotion().then((Motion) => {
+    if (!Motion || !Motion.scroll) {
+      console.log("Motion failed to load");
+      return;
+    }
+
+    const heroes = document.querySelectorAll('[data-mono-hero]');
+
+    heroes.forEach((hero) => {
+      const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+      const bg = isDesktop
+        ? hero.querySelector('[data-hero-background-desktop]')
+        : hero.querySelector('[data-hero-background-mobile], [data-hero-background-desktop]');
+
+      if (!bg) return;
+      const parallaxDistance = -250;
+
+      Motion.scroll(
+        (progress) => {
+          const y = progress * -parallaxDistance;
+
+          bg.style.transform = `translate3d(0, ${y}px, 0) scale(1.12)`;
+        },
+        {
+          target: hero,
+          offset: ["start end", "end start"]
+        }
+      );
+    });
+  });
+})();
+</script>

@@ -1,0 +1,24 @@
+mutation update_todo_status(
+  $id: ID!
+  $name: String
+  $is_completed: Boolean
+  $sort_order: Int
+  $is_default: Boolean
+  $color: String
+) {
+  record_update(
+    id: $id
+    record: {
+      properties: [
+        { name: "name", value: $name }
+        { name: "module_field_986_1", value_boolean: $is_completed }
+        { name: "module_field_986_2", value_int: $sort_order }
+        { name: "module_field_986_3", value_boolean: $is_default }
+        { name: "module_field_986_4", value: $color }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

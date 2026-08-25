@@ -1,0 +1,187 @@
+---
+metadata:
+  name: Pricing Table
+  class: section
+  lists:
+  - name: Plans
+    type: plans
+    fields:
+    - id: plan_badge
+      type: text
+      label: Plan Badge
+      default: Starter
+    - id: plan_name
+      type: text
+      label: Plan Name
+      default: Starter
+      is_title: true
+    - id: plan_price
+      type: text
+      label: Price
+      default: "$490"
+    - id: plan_period
+      type: text
+      label: Period
+      default: "/month"
+    - id: plan_summary
+      type: textarea
+      label: Summary
+      default: Best for small teams that need structured delivery support.
+    - id: is_featured
+      type: text
+      label: Is Featured (true or false)
+      default: 'false'
+    - id: cta_label
+      type: text
+      label: CTA Label
+      default: Get started
+    - id: cta_url
+      type: url
+      label: CTA URL
+      default: "#"
+    - id: feature_one
+      type: text
+      label: Feature One
+      default: Weekly planning and async support
+    - id: feature_two
+      type: text
+      label: Feature Two
+      default: Design and UX reviews
+    - id: feature_three
+      type: text
+      label: Feature Three
+      default: Delivery roadmap and prioritization
+    - id: feature_four
+      type: text
+      label: Feature Four
+      default: Basic analytics recommendations
+    - id: feature_five
+      type: text
+      label: Feature Five
+      default: Shared Slack channel
+  - name: Trust Stats
+    type: trust_stats
+    fields:
+    - id: stat_value
+      type: text
+      label: Stat Value
+      default: 120+
+      is_title: true
+    - id: stat_label
+      type: text
+      label: Stat Label
+      default: Product launches supported
+  - name: Add Ons
+    type: add_ons
+    fields:
+    - id: add_on_name
+      type: text
+      label: Add On Name
+      default: Conversion Sprint
+      is_title: true
+    - id: add_on_price
+      type: text
+      label: Add On Price
+      default: "$790"
+    - id: add_on_description
+      type: textarea
+      label: Add On Description
+      default: One focused sprint for checkout, onboarding, or landing page conversion.
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Pricing
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Simple plans for teams that want momentum
+  - id: body
+    type: textarea
+    label: Body
+    default: Choose the delivery model that matches your stage, then scale with confidence.
+  - id: note
+    type: text
+    label: Note
+    default: Cancel anytime. No hidden setup costs.
+  - id: trust_heading
+    type: text
+    label: Trust Heading
+    default: Built for execution, not endless retainers
+  - id: add_ons_heading
+    type: text
+    label: Add Ons Heading
+    default: Optional add ons when you need extra velocity
+  - id: add_ons_body
+    type: textarea
+    label: Add Ons Body
+    default: Layer these into any plan without changing your core subscription.
+  - id: final_cta_heading
+    type: textarea
+    label: Final CTA Heading
+    default: Need a custom plan for your team?
+  - id: final_cta_body
+    type: textarea
+    label: Final CTA Body
+    default: We can tailor scope, pace, and reporting for enterprise or multi-product
+      teams.
+  - id: final_cta_label
+    type: text
+    label: Final CTA Label
+    default: Book a pricing call
+  - id: final_cta_url
+    type: url
+    label: Final CTA URL
+    default: "#"
+  hide_on: []
+  category: pricing
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="max-w-3xl" data-motion-group>
+      <p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60" data-motion-text>{{ this.eyebrow }}</p>
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      <p data-motion-text>{{ this.body }}</p>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+      {% for item in lists.plans %}
+        {% assign featured = item.is_featured | downcase %}
+        <article data-studio-list="{{ item._list }}" class="card rounded-2xl p-6 md:p-7 {% if featured == 'true' %} bg-base-50 dark:bg-base-900/20 lg:-translate-y-2{% else %} bg-base-50 dark:bg-base-900/20{% endif %}" data-motion-card>
+          <p data-motion-text>{{ item.plan_badge }}</p>
+          <h3 data-motion-text>{{ item.plan_name }}</h3>
+
+          <div class="mt-5 flex items-end gap-2">
+            <span class="text-5xl leading-none tracking-tight">{{ item.plan_price }}</span>
+            <span class="pb-1 text-sm uppercase tracking-[0.12em] text-neutral-400">{{ item.plan_period }}</span>
+          </div>
+
+          <p data-motion-text>{{ item.plan_summary }}</p>
+
+          {% if featured == 'true' %}
+            <a href="{{ item.cta_url }}" class="button mt-6">{{ item.cta_label }}</a>
+          {% else %}
+            <a href="{{ item.cta_url }}" class="button-secondary mt-6">{{ item.cta_label }}</a>
+          {% endif %}
+
+          <ul class="mt-6 space-y-3 border-t border-base-500/25 pt-5">
+            {% if item.feature_one != blank %}<li data-motion-text>{{ item.feature_one }}</li>{% endif %}
+            {% if item.feature_two != blank %}<li data-motion-text>{{ item.feature_two }}</li>{% endif %}
+            {% if item.feature_three != blank %}<li data-motion-text>{{ item.feature_three }}</li>{% endif %}
+            {% if item.feature_four != blank %}<li data-motion-text>{{ item.feature_four }}</li>{% endif %}
+            {% if item.feature_five != blank %}<li data-motion-text>{{ item.feature_five }}</li>{% endif %}
+          </ul>
+        </article>
+      {% endfor %}
+    </div>
+
+    <p class="mt-8 text-center text-xs uppercase tracking-[0.13em] text-neutral-500">{{ this.note }}</p>
+
+
+
+  </div>
+</section>

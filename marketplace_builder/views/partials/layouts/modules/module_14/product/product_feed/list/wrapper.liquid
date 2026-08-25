@@ -1,0 +1,18 @@
+
+{%- query_graph 'modules/siteglide_ecommerce/get_homepage_metadata'
+	result_name: homepage_metadata
+-%}
+
+{%- query_graph 'modules/siteglide_ecommerce/get_latest_product'
+	result_name: last_edited_product
+-%}
+<rss version="2.0">
+    <channel>
+        <link href="https://{{ context.location.host }}"></link>
+        <title>{{homepage_metadata.admin_pages.results[0].metadata.meta_title}} Product Feed</title>
+        <description>Product Feed</description>        
+        <lastBuildDate>{{last_edited_product.models.results[0].updated_at | date: "%a, %d %b %Y %H:%M:%S" }}</lastBuildDate>
+        <docs>https://cyber.harvard.edu/rss/rss.html</docs>
+        {%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item', per_page: 10000, show_pagination: false -%}
+    </channel>
+</rss>

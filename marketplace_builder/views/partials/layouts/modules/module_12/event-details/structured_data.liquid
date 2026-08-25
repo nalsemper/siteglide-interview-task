@@ -1,0 +1,64 @@
+
+{% comment %} Should be included inside item.liquid in order to have access to all this data. {% endcomment %}
+
+{% if physical_street_address != blank and virtual_event_url != blank %}
+  {% assign event_attendance_mode = "https://schema.org/MixedEventAttendanceMode" %}
+{% elsif physical_street_address != blank %}
+  {% assign event_attendance_mode = "https://schema.org/OfflineEventAttendanceMode" %}
+{% elsif physical_street_address != blank %}
+  {% assign event_attendance_mode = "https://schema.org/OnlineEventAttendanceMode" %}
+{% endif %}
+
+{%- capture virtual_location_data -%}
+  {
+    "@type": "VirtualLocation",
+    "url": "{{ virtual_event_url  }}"
+  }
+{%- endcapture -%}
+{% assign virtual_location_data = virtual_location_data | parse_json %}
+
+{%- capture physical_location_data -%}
+  {
+    "@type": "Place",
+    "name": "{{ this['Location - Address'] }} {{ this['Location - LatLong'] }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ physical_street_address }}",
+      "addressLocality": "{{ physical_address_locality }}",
+      "postalCode": "{{ physical_postal_code }}",
+      "addressRegion": "{{ physical_address_region }}",
+      "addressCountry": "{{ physical_address_country }}"
+    }
+  }
+{%- endcapture -%}
+{% assign physical_location_data = physical_location_data | parse_json %}
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "{{ this['name'] }}",
+    "startDate": "{{ this['Event Start'] | date: '%Y-%m-%dT%H:%M:%S' }}Z",
+    "endDate": "{{ this['Event End'] | date: '%Y-%m-%dT%H:%M:%S' }}Z",
+    "eventAttendanceMode": "{{ event_attendance_mode }}",
+    "eventStatus": "https://schema.org/EventScheduled",
+    {% if physical_street_address != blank and virtual_event_url != blank %}
+    "location": [{{ virtual_location_data | json }}, {{ physical_location_data | json }}],
+    {% elsif physical_street_address != blank %}
+    "location": {{ physical_location_data | json }},
+    {% elsif virtual_event_url != blank %}
+    "location": {{ virtual_location_data | json }},
+    {% endif %}
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ this['full_slug'] }}"
+    },
+    "description": "{{ this['Description'] | strip_html | escape }}",
+    "organizer": {
+      "@type": "Person",
+      "name": "{{ host.properties.name }}",
+      "url": "{{ context.location.url }}{{ events_list_page_url }}?module_field_12_4={{ host.id }}&host_name={{ host.properties.name | url_encode }}"
+    }
+  }
+</script>

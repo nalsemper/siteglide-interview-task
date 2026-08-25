@@ -1,0 +1,59 @@
+
+{% assign host_id = this.properties.module_field_12_4 | downcase %}
+{% assign host = host_results.records.results | detect: id: host_id %}
+{% assign host = host | add_hash_key: "Title", host.properties['module_field_6_1'] %}
+{% assign host = host | add_hash_key: "Image", host.properties['module_field_6_4'] %}
+{% assign host = host | add_hash_key: "Image Alt", host.properties['module_field_6_5'] %}
+
+
+<article data-studio-list="{{item._list}}" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex justify-between items-center mb-5 text-gray-500">
+      <div class="flex flex-wrap items-center text-gray-500 gap-2 mr-2">
+        {% for category in this['category_array'] %}
+          <a href="{{events_list_page_url}}?category={{context.exports.categories.data[category].id}}" class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+            <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path></svg>
+            {{context.exports.categories.data[category].name | replace: " ", "&nbsp;"}}
+          </a>
+        {% endfor %}
+      </div>
+
+      <span class="text-sm">
+        {% if this['Event Start'] != blank %}Starts: {{this['Event Start'] | date: '%d/%m/%y %H:%M'}}{% endif %} 
+        {% if this['Event Start'] != blank and this['Event End'] != blank %}-{% endif %} 
+        {% if this['Event End'] != blank %}Ends: {{this['Event End'] | date: '%d/%m/%y %H:%M'}}{% endif %}
+      </span>
+    </div>
+
+    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <svg class="inline w-7 h-7 mb-2 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+      <a href="{{this['full_slug']}}">{{this.properties.name}}</a>
+    </h2>
+
+    {% if this.properties['module_field_12_6'] != blank  %}
+      <p class="mb-2 text-sm text-gray-500">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-6 h-6 mr-2 mb-1">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+        </svg>
+        <span>{{this.properties.module_field_12_6}}</span></p>
+    {% endif %}
+
+    <div class="mb-5 font-light text-gray-500 dark:text-gray-400">{{this['Description'] | split: "." | first | append: "." | html_safe}}</div>
+
+    <div class="flex justify-between items-center">
+        {% if host.id != blank %}
+          <div class="flex items-center space-x-4">
+              {% if host['Image'] != blank %}
+                <img class="w-7 h-7 rounded-full" src="{{host['Image'] | asset_url}}" alt="{{host['Image Alt']}}" />
+              {% endif %}
+              <span class="font-medium dark:text-white">
+                  {{host['Title']}}
+              </span>
+          </div>
+        {% endif %}
+        <a href="{{this.full_slug}}" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
+            Read more
+            <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </a>
+    </div>
+</article>

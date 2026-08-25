@@ -1,0 +1,90 @@
+---
+metadata:
+  name: Visual Image with Heading
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Payments tool for software companies
+  - id: body
+    type: textarea
+    label: Body
+    default: From checkout to global sales tax compliance, companies around the world
+      use Flowbite to simplify their payment stack.
+  - id: button_one_text
+    type: text
+    label: Primary Button Text
+    default: Get started
+  - id: button_one_url
+    type: url
+    label: Primary Button URL
+    default: "#"
+  - id: button_two_text
+    type: text
+    label: Secondary Button Text
+    default: Speak to Sales
+  - id: button_two_url
+    type: url
+    label: Secondary Button URL
+    default: "#"
+  - id: image
+    type: image_picker
+    label: Image
+    default: ''
+  - id: image_alt_text
+    type: text
+    label: Image Alt Text
+    default: ''
+  hide_on: []
+  category: hero
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="grid items-center gap-8 @lg:grid-cols-12 @lg:gap-12" data-motion-group>
+
+      <div class="@lg:col-span-7" data-motion-group>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h1 class="max-w-2xl" data-motion-text>{{ this.heading }}</h1>
+        {% if this.body != blank %}
+          <p class="max-w-xl" data-motion-text>{{ this.body }}</p>
+        {% endif %}
+        <div class="mt-8 flex flex-wrap items-center gap-4" data-motion-group>
+          {% if this.button_one_text != blank %}
+            <a href="{{ this.button_one_url }}" class="button inline-flex items-center gap-2">
+              {{ this.button_one_text }}
+              <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+            </a>
+          {% endif %}
+          {% if this.button_two_text != blank %}
+            <a href="{{ this.button_two_url }}" class="button-secondary">{{ this.button_two_text }}</a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if this.image != blank %}
+        <div class="@lg:col-span-5" data-motion-card>
+          {% include 'img',
+            path: this.image,
+            classes: 'w-full',
+            attributes: 'alt="{{ this.image_alt_text | default: "" }}" loading="eager"'
+          %}
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>

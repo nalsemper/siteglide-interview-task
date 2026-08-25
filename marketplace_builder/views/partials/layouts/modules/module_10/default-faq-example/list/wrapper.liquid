@@ -1,0 +1,65 @@
+---
+metadata:
+  fields:
+  - id: main_heading
+    type: text
+    label: Main Heading
+    default: Frequently asked questions
+  settings:
+  - id: use_structured_data
+    type: boolean
+    label: Enable Structured Data for Rich Results
+    default: false
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_10/default-faq-example/list/wrapper.liquid
+  - views/partials/layouts/modules/module_10/default-faq-example/list/item.liquid
+  - views/partials/layouts/modules/module_10/default-faq-example/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-faq-example
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_10
+  studio_dynamic/layout_name: Default FAQ Example
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default example
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %}---Settings---{% endcomment %}
+  {% comment %}------Enable Structured Data for Rich Results------{% endcomment %}
+  {% comment %} Warning: FAQ Content must be visible in page  {% endcomment %}
+  {% comment %} Warning: Structured data for questions and answers mustn't be repeated in multiple pages {% endcomment %}
+  {% assign use_structured_data = settings.use_structured_data | downcase | default: 'false' %}
+{% comment %}---End Settings---{% endcomment %}
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+{% if use_structured_data == 'true' %}
+  {% capture structured_data %}layouts/modules/module_10/{{layout}}/structured_data{% endcapture %}
+  {%- include structured_data -%}
+{% endif %}
+
+<section data-motion-group>
+  <div class="container py-24 md:py-28">
+    <div class="flex flex-col gap-10 lg:flex-row lg:gap-20">
+
+      <div class="flex-none lg:w-64 xl:w-80" data-motion-group>
+        <h2 data-motion-text>{{this.main_heading | default: "Frequently asked questions"}}</h2>
+      </div>
+
+      <div class="flex-1" data-motion-group>
+        <div id="accordion-faq-{{sitebuilder_uniq_component_id}}" data-accordion="collapse" class="flex flex-col gap-4">
+          {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+        </div>
+        {%- if _show_pagination == 'false' and pagination_layout != blank and pagination_layout != "default" -%}
+          <div class="mt-10">
+            {%- include 'modules/siteglide_system/get/get_pagination', pagination_layout: _pagination_layout -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,67 @@
+---
+metadata:
+  name: Triple Gallery
+  tags:
+  class: section
+  lists:
+  - name: Gallery Items
+    type: gallery_items
+    fields:
+    - id: index_text
+      type: text
+      label: Index Label
+      default: "(001)"
+      is_title: true
+    - id: image
+      type: image_picker
+      label: Image
+      default: ''
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: We build your brand's entire ecosystem.
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: mono
+  components: []
+  updated_at: 1781877646
+  global_data:
+  global_fields: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container py-6 @sm:py-8 @md:py-12 flex flex-col justify-between min-h-screen">
+
+    <div class="grid grid-cols-1 @md:grid-cols-3 gap-5 @sm:gap-6">
+      {% for item in lists.gallery_items %}
+        <article data-studio-list="{{ item._list }}" class="relative" data-motion-card>
+          {% if item.image != blank %}
+            {% include 'img',
+              path: item.image,
+              classes: 'card w-full h-64 @sm:h-80 @md:h-[486px] object-cover',
+              attributes: 'alt="{{ item.index_text }}" loading="lazy"'
+            %}
+          {% else %}
+            <div class="card w-full h-64 @sm:h-80 @md:h-[486px] border bg-neutral-950/10"></div>
+          {% endif %}
+          <p class="mt-2 text-right text-sm">{{ item.index_text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+
+    <div class="flex flex-col gap-6 @md:gap-8 @md:flex-row @md:justify-between @md:items-end mt-10 @md:mt-0">
+      <h2 class="@md:max-w-[490px]" data-motion-text>{{ this.heading }}</h2>
+
+      <button class="button inline-flex items-center gap-2">
+        View All
+        <svg aria-hidden="true" class="w-5 h-5 -rotate-45" viewBox="0 0 24 24" fill="none">
+          <path d="M3 12h17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M13 4l8 8-8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,292 @@
+---
+metadata:
+  settings:
+  - id: module_parent_category
+    type: text
+    label: Webapp Parent Category
+    default:
+  - id: filters_values_from_URL
+    type: boolean
+    label: Set Filter Defaults From URL
+    default: false
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/wrapper.liquid
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/item.liquid
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/delete_modal.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/events-live-updating-table.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/boolean.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/datasource.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/date.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/file.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/image.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_14/product/events-live-updating-table/components/collection.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/input_radio.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/select_multi.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/select.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/string.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/textarea.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/subheading.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/heading.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/array_custom.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/folder.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/image_array.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/number_float.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/number_integer.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: events-live-updating-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Events live-updating table
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Event live-updating table
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Webapp Parent Category ------ {% endcomment %}
+{% comment %} Default (null) is to show all categories in the filter. Alternatively, pass in an id (in quotes e.g. '6') for a category which is the parent of WebApp categories to only show relevant categories. {% endcomment %}
+{% assign module_parent_category = settings.module_parent_category | downcase | default: null %}
+{% comment %}------Set filter default values from URL------
+Boolean, if true any sidebar filters will set their initial values from the URL on page load. Useful if returning to the list view from a filter in the detail page. Note we wouldn't normally recommend having more than one live update layout on the page with this setting set to true. If you are setting this value, you may remove the if statement, this is just to set a default.{% endcomment %}
+{% assign filters_values_from_URL = settings.filters_values_from_URL | downcase %}
+{% if filters_values_from_URL == blank %}
+  {% if _use_adv_search == 'true' or _use_search == 'true' %}
+    {% assign filters_values_from_URL = 'true' %}
+  {% endif %}
+{% endif %}
+{% comment %} --- End Settings --- {% endcomment %}
+{% function table_config = "modules/module_357/front_end/functions/v1/get_table_config", model: _model, id: id, field_headings: field_headings %}
+{% function public_key = "modules/module_357/front_end/functions/v1/live_update_params_encode", layout: layout, model: _model, creator_id: creator_id %}
+{% if params.sitebuilder_uniq_component_id %}
+  {% assign sitebuilder_uniq_component_id = params.sitebuilder_uniq_component_id %}
+{% else %}
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% endif %}
+
+{% parse_json field_headings %}
+  {
+    "Filter 1": "category_array",
+    "Column 1": "name",
+      "Column 2": "module_field_12_4",
+    "Column 3": "module_field_12_1",
+    "Column 4": "module_field_12_6",
+    "Column 5": "module_field_12_2"
+  }
+{% endparse_json %}
+
+
+<section id="{{sitebuilder_uniq_component_id}}_table" data-sg-live-update-section="{{sitebuilder_uniq_component_id}}" data-sg-live-update-key="{{public_key}}" {% if filters_values_from_URL == 'true' %}data-sg-live-update-modify-history-enabled="true" data-sg-live-update-modify-history-include-hidden-fields="false" {% endif %}>
+  <div class="container py-16 md:py-20">
+    <div class="card rounded-2xl border border-base-200/60 bg-white/70 shadow-sm backdrop-blur dark:border-base-700/60 dark:bg-base-900/30">
+      <div class="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between">
+        <div class="w-full md:w-1/2">
+          <form data-sg-live-update-controls="search" class="flex items-center">
+            <input type="hidden" name="sitebuilder_uniq_component_id" value="{{sitebuilder_uniq_component_id}}">
+            <label class="relative w-full">
+              <span class="sr-only">Search</span>
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <span aria-hidden="true" class="material-symbols-outlined text-[20px] text-neutral-500">search</span>
+              </div>
+              <input type="text" name="keyword" class="block w-full rounded-lg border border-base-200 bg-base-50 py-5 pl-10 pr-3 text-sm dark:border-base-700 dark:bg-base-900" placeholder="Search" required="">
+            </label>
+          </form>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          {% if context.current_user.id != blank %}
+            <button data-modal-toggle="add_item_modal_{{sitebuilder_uniq_component_id}}" data-modal-target="add_item_modal_{{sitebuilder_uniq_component_id}}" type="button" class="button">
+              <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">add</span>
+              Add item
+            </button>
+          {% endif %}
+          {% for heading in field_headings %}
+            {% if heading[0] contains "Filter" %}
+              {% if heading[1] == "category_array" %}
+                <div class="relative">
+                  <button id="categoryDropdown{{sitebuilder_uniq_component_id}}Button" data-dropdown-toggle="categoryDropdown{{sitebuilder_uniq_component_id}}" class="button-secondary" type="button">
+                    <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">filter_list</span>
+                    Category
+                    <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">expand_more</span>
+                  </button>
+                  <div data-sg-live-update-controls="category" id="categoryDropdown{{sitebuilder_uniq_component_id}}" class="absolute right-0 z-10 mt-1 hidden w-48 rounded-xl border border-base-200 bg-base-50 p-3 shadow-sm dark:border-base-700 dark:bg-base-900">
+                    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">Choose category</p>
+                    <ul class="flex flex-col gap-2" aria-labelledby="categoryDropdown{{sitebuilder_uniq_component_id}}Button">
+                      {% for category in context.exports.categories.items %}
+                        {% if category[1].parent == module_parent_category or module_parent_category == blank %}
+                          <li class="flex items-center gap-2">
+                            <label class="flex items-center gap-2 text-sm">
+                              <input type="checkbox" name="category" value="{{category[0]}}" class="h-4 w-4 rounded border-base-300 text-primary-500 dark:border-base-600">
+                              <span>{{category[1].name}}</span>
+                            </label>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% else %}
+                {% if table_config.custom_fields[heading[1]].name != blank %}
+                  {% assign column_heading = table_config.custom_fields[heading[1]].name %}
+                  {% assign options = table_config.custom_fields[heading[1]].options | split: "," %}
+                {% else %}
+                  {% assign column_heading = heading[1] | titleize %}
+                  {% assign options = table_config.system_fields[heading[1]].options | split: "," %}
+                {% endif %}
+                <div class="relative">
+                  <button id="filter{{heading[0]}}{{sitebuilder_uniq_component_id}}Button" data-dropdown-toggle="filter{{heading[0]}}{{sitebuilder_uniq_component_id}}" class="button-secondary" type="button">
+                    <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">filter_list</span>
+                    {{column_heading}}
+                    <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">expand_more</span>
+                  </button>
+                  <div data-sg-live-update-controls="{{column_heading}}" id="filter{{heading[0]}}{{sitebuilder_uniq_component_id}}" class="absolute right-0 z-10 mt-1 hidden w-48 rounded-xl border border-base-200 bg-base-50 p-3 shadow-sm dark:border-base-700 dark:bg-base-900">
+                    {% comment %} This controls filter strictness. {% endcomment %}
+                    <input type="hidden" name="{{heading[1]}}_match_type" value="OR">
+                    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-neutral-500">Choose {{column_heading}}</p>
+                    <ul class="flex flex-col gap-2" aria-labelledby="filter{{heading[0]}}{{sitebuilder_uniq_component_id}}Button">
+                      {% for option in options %}
+                        <li class="flex items-center gap-2">
+                          <label class="flex items-center gap-2 text-sm">
+                            <input type="checkbox" name="{{heading[1]}}" value="{{option}}" class="h-4 w-4 rounded border-base-300 text-primary-500 dark:border-base-600">
+                            <span>{{option | titleize}}</span>
+                          </label>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left divide-y divide-base-200/70 dark:divide-base-700/70">
+          <thead data-sg-live-update-controls="sort" class="bg-base-100/70 text-xs font-semibold uppercase tracking-[0.08em] text-neutral-500 dark:bg-base-900/60">
+            <tr>
+              {% for field in field_headings %}
+                {% if field[0] contains "Filter" %}
+                  {% continue %}
+                {% endif %}
+                {% if table_config.system_fields[field[1]].name != blank %}
+                  {% assign column_heading = table_config.system_fields[field[1]].name %}
+                  {% assign column_type = table_config.system_fields[field[1]].type %}
+                {% else %}
+                  {% assign column_heading = field[1] | replace: "category_array", "Categories" | titleize %}
+                  {% assign column_type = table_config.system_fields[field[1]].type %}
+                {% endif %}
+                <th scope="col" class="px-4 py-3 text-left">
+                  <div class="flex items-center gap-1">
+                    <span>{{column_heading}}</span>
+                    {% case column_type %}
+                    {% when "string" or "input_text" or "input_radio" or "select" or "date" or "number_integer" or "number_float" or "boolean" or "integer" %}
+                    <button data-sg-live-update-sort-order="unsorted" data-sg-live-update-sort-type="{% unless field[1] == 'id' or field[1] == 'created_at' or field[1] == 'updated_at' or field[1] == 'deleted_at' or field[1] == 'external_id' %}properties.{% endunless %}{{field[1]}}" type="button" class="button-secondary !rounded-2xl !px-3 !py-1.5">
+                      <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">swap_vert</span>
+                    </button>
+                    {% endcase %}
+                  </div>
+                </th>
+              {% endfor %}
+              <th scope="col" class="px-4 py-3 text-left">
+                <span class="sr-only">Actions</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody data-sg-live-update-component="table_rows" class="bg-white/70 dark:bg-base-900/20">
+            {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+          </tbody>
+        </table>
+      </div>
+      <div class="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between" aria-label="Table navigation">
+        {% comment %} For screenreaders, this section will announce when filters change the number of results. {% endcomment %}
+        <div aria-live="polite">
+          <div data-sg-live-update-component="total_results">
+            {% capture exports_key %}module_{{id}}{% endcapture %}
+            {% assign per_page = per_page | default: context.params.per_page | default: 20 %}
+            {% assign total_entries = context.exports[exports_key].data.result.total_entries %}
+            {% assign total_pages = total_entries | plus: 0.0 | divided_by: per_page | ceil %}
+            {% assign current_page = context.params.page | default: 1 %}
+            <span class="text-xs uppercase tracking-[0.08em] text-neutral-500">
+              Page <span class="font-semibold">{{current_page}}</span> of <span class="font-semibold">{{total_pages}}</span>
+            </span>
+          </div>
+        </div>
+        <form class="flex items-center gap-3" data-sg-live-update-controls="per_page">
+          <label for="rows" class="text-xs uppercase tracking-[0.08em] text-neutral-500">Rows per page</label>
+          <select name="per_page" id="rows" class="rounded-lg border border-base-200 bg-base-50 px-3 py-1.5 text-sm dark:border-base-700 dark:bg-base-900">
+            <option selected value="{{per_page}}">{{per_page}}</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </form>
+        <div>
+          {% include "modules/module_357/front_end/includes/v1/pagination", live_updates: 'true', lock_per_page: 'false' %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div data-sg-live-update-component="delete_modals">
+    {%- include 'modules/siteglide_system/get/get_items', item_layout: 'delete_modal' -%}
+  </div>
+</section>
+
+<script>
+  /*Rehydrate Flowbite JS elements after a live-update. This is only needed for elements within the live-updated area e.g. dropdowns in final column. Modals which will need re-hydrating need programtically creating from the start to avoid library errors.*/
+  document.addEventListener('DOMContentLoaded', function() {
+    var flowbiteScriptTag = document.querySelector(`script[src~='flowbite.min.js']`);
+    if(typeof Modal === "function") {
+      setupTable{{sitebuilder_uniq_component_id}}();
+    } else {
+      flowbiteScriptTag.addEventListener('load', setupTable{{sitebuilder_uniq_component_id}})
+    }
+    function setupTable{{sitebuilder_uniq_component_id}}() {
+      var element = document.querySelector('#{{sitebuilder_uniq_component_id}}_table');
+      element.addEventListener('live_update_end', function(event) {
+        var dropdownBtns = element.querySelectorAll('td [data-dropdown-toggle]');
+        dropdownBtns.forEach(function(btn) {
+          var target = btn.dataset.dropdownToggle;
+          var targetEl = element.querySelector(`#${target}`);
+          const dropdownInstance = new Dropdown(targetEl, btn, {});
+        });
+        initiateModals(element);
+      });
+      initiateModals(element);
+    }
+  });
+  
+  function initiateModals(element) {
+    var modalBtns = element.querySelectorAll('td [data-modal-toggle-custom]');
+    modalBtns.forEach(function(btn) {
+      var target = btn.dataset.modalToggleCustom;
+      var targetEl = element.querySelector(`#${target}`);
+      const modalInstance = new Modal(targetEl, {});
+      btn.addEventListener('click', function(event) {
+        modalInstance.toggle();
+      });
+      var nested = targetEl.querySelectorAll('[data-modal-toggle-custom]');
+      nested.forEach(function(nestedBtn) {
+        nestedBtn.addEventListener('click', function(event) {
+          modalInstance.hide();
+        });
+      })
+    });
+  }
+</script>
+{%- include 'module_form', id: '12', layout: layout, enabled: 'true', use_wrapper: 'true' -%}
+{% if context.exports.sitebuilder.live_update_JS_loaded == blank %}
+  <script async src="{{'modules/module_357/js/v1-6/sitegurus_live_update_javascript_api.min.js' | asset_url }}"></script>
+  {% assign live_update_JS_loaded = true %}
+  {% export live_update_JS_loaded, namespace: "sitebuilder" %}
+{% endif %}
+
+
+
+

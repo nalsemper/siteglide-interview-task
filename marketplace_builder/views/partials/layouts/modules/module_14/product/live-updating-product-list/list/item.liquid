@@ -1,0 +1,43 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/live-updating-product-list/list/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/live-updating-product-list/list/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/live-updating-product-list.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: live-updating-product-list
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Live-updating product list
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Live Updating Product List
+  studio_dynamic/sub_module_id: '1'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} Note the view will load initially visually hidden so that search engines can access without JS then on first live update will apply initial filters and re-render contents visible. {% endcomment %}
+<div class="card rounded-2xl bg-base-50 dark:bg-base-900/20 w-full {% if params.public_key == blank %}sr-only{% endif %}" data-product-group data-motion-card>
+  <a href="{{this['full_slug']}}">
+    <img class="aspect-square w-full object-cover " src="{{this.properties['module_field_14/product_2'] | asset_url }}" alt="{{this.properties.name}}" loading="lazy" />
+  </a>
+  <div class="px-5 pb-5">
+    <a href="{{this['full_slug']}}">
+      <h4 class="mt-4 ">{{this.properties.name}}</h4>
+    </a>
+    <div class="flex items-center justify-between">
+      {% assign dis_float = this.price.price_display | plus: 0.0 %}
+      {% assign chr_float = this.price.price_charge | plus: 0.0 %}
+      {% if show_display_price_crossed_out == true and this.price.price_display != blank and chr_float != dis_float and dis_float != 0 %}
+        <span class="text-3xl font-bold text-neutral-400 line-through">{{this.price.currency_symbol}}{{this.price.price_display | divided_by: 100.0 | format_number: precision: 2 }}</span>
+      {% endif %}
+      <div>
+        {% if this.product_attributes != blank %}<span>from </span>&nbsp;{% endif %}
+        <span class="text-3xl font-bold" data-price-control="{{this.price.price_charge}}" data-currency-control="{{this.price.currency_symbol}}">{{this.price.currency_symbol}}{{this.price.price_charge_formatted}}</span>
+      </div>
+      {% include 'ecommerce/cart_add', component_layout: layout -%}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Discount Codes</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/discount_code_1">Code</label>
+							<input class="form-control sg-form-control required" name="{{ form_builder.fields.properties['module_field_14/discount_code_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 select">
+						<div class="col">
+							<label for="module_field_14/discount_code_2">Type</label>
+							<select class="" name="{{ form_builder.fields.properties['module_field_14/discount_code_2'].name }}" value="Value">
+								<option value="Value" selected="selected">Value</option>
+								<option value="Percentage">Percentage</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mt-4 input_number">
+						<div class="col">
+							<label for="module_field_14/discount_code_3">Discount Value</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/discount_code_3'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 input_number">
+						<div class="col">
+							<label for="module_field_14/discount_code_4">Minimum Spend</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/discount_code_4'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 input_number">
+						<div class="col">
+							<label for="module_field_14/discount_code_5">Uses Remaining</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/discount_code_5'].name }}" type="number" value="0" step="1">
+						</div>
+					</div>
+					<div class="row mt-4 input_radio">
+						<div class="col">
+							<label for="module_field_14/discount_code_6">Valid on Payment Form Type</label>
+							<div class="radio-container">
+								<div class="radio">
+									<input id="module_field_14/discount_code_6_Checkout" name="{{ form_builder.fields.properties['module_field_14/discount_code_6'].name }}" type="radio" value="Checkout" />
+									<label for="module_field_14/discount_code_6_Checkout">Checkout</label>
+								</div>
+								<div class="radio">
+									<input id="module_field_14/discount_code_6_Basic Payment" name="{{ form_builder.fields.properties['module_field_14/discount_code_6'].name }}" type="radio" value="Basic Payment" />
+									<label for="module_field_14/discount_code_6_Basic Payment">Basic Payment</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-4 input_number">
+						<div class="col">
+							<label for="module_field_14/discount_code_7">Number of Months to Discount</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/discount_code_7'].name }}" type="number" value="1" step="1">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/discount_code_8">Stripe Coupon ID (Live)</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/discount_code_8'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/discount_code_9">Stripe Coupon ID (Test)</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/discount_code_9'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 datasource_multi">
+						<div class="col">
+							<label for="module_field_14/discount_code_10">Products this Discount can be applied to</label>
+							{%- include 'module', id: '14/product', sort_type: 'properties.name', collection: 'true' -%}
+							<select class="" name="{{ form_builder.fields.properties['module_field_14/discount_code_10'].name }}[]" multiple>
+								{% for item in context.exports['module_14/product'].data.result.items -%}
+									<option value="{{item.id}}">{{item.properties.name}}</option>
+								{% endfor -%}
+							</select>
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/discount_code')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

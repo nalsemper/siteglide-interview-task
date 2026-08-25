@@ -1,0 +1,42 @@
+---
+name: module_14/payment_gateway
+properties:
+- name: module_field_14/payment_gateway_1
+  type: string
+- name: module_field_14/payment_gateway_10
+  type: string
+- name: module_field_14/payment_gateway_11
+  type: string
+- name: module_field_14/payment_gateway_12
+  type: string
+- name: module_field_14/payment_gateway_13
+  type: string
+- name: module_field_14/payment_gateway_14
+  type: string
+- name: module_field_14/payment_gateway_15
+  type: string
+- name: module_field_14/payment_gateway_16
+  type: string
+- name: module_field_14/payment_gateway_17
+  type: string
+- name: module_field_14/payment_gateway_18
+  type: string
+- name: module_field_14/payment_gateway_19
+  type: string
+- name: module_field_14/payment_gateway_2
+  type: string
+- name: module_field_14/payment_gateway_3
+  type: string
+- name: module_field_14/payment_gateway_4
+  type: string
+- name: module_field_14/payment_gateway_5
+  type: string
+- name: module_field_14/payment_gateway_6
+  type: string
+- name: module_field_14/payment_gateway_7
+  type: string
+- name: module_field_14/payment_gateway_8
+  type: string
+- name: module_field_14/payment_gateway_9
+  type: string
+---

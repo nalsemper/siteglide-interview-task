@@ -1,0 +1,237 @@
+---
+metadata:
+  name: Collage Section
+  tags:
+  - lw1
+  class: section
+  lists: []
+  fields:
+  - id: text_1
+    type: text
+    label: Text 1
+    default: BESPOKE HOMES REQUIRES
+  - id: text_2
+    type: text
+    label: Text 2
+    default: BESPOKE STUFF
+  - id: image_top_left
+    type: image_picker
+    label: Image Top Left
+    default: ''
+  - id: image_left_tall
+    type: image_picker
+    label: Image Left Tall
+    default: ''
+  - id: image_top_right_small
+    type: image_picker
+    label: Image Top Right Small
+    default: ''
+  - id: image_bottom_right
+    type: image_picker
+    label: Image Bottom Right
+    default: ''
+  hide_on: []
+  category: lw
+  requires: []
+  settings: []
+  collection: mono
+  components: []
+  updated_at: 1782221001
+  global_data:
+  global_fields: []
+---
+{% assign collage_text_1 = this.text_1 | default: this.heading | default: '' %}
+{% assign collage_text_2 = this.text_2 | default: '' %}
+
+<section class="@container  {{selection-index}} relative h-[220vh] @sm:h-[240vh] @lg:h-[300vh]" data-mono-collage>
+  <div class="sticky top-0 h-screen overflow-hidden" data-collage-pin>
+
+    {% if this.image_top_left != blank %}
+      {% include 'img',
+        path: this.image_top_left,
+        classes: 'layer absolute left-2 top-10 w-32 h-32 @sm:left-6 @sm:top-10 @sm:w-36 @sm:h-36 @md:left-10 @md:top-10 @md:w-44 @md:h-44 @lg:left-12 @lg:top-12 @lg:w-56 @lg:h-56 object-cover',
+        attributes: 'alt="" data-intensity="26"'
+      %}
+    {% endif %}
+
+    {% if this.image_left_tall != blank %}
+      {% include 'img',
+        path: this.image_left_tall,
+        classes: 'layer absolute -left-4 top-36 w-32 h-52 @sm:left-0 @sm:top-52 @sm:w-32 @sm:h-56 @md:left-0 @md:top-56 @md:w-44 @md:h-[340px] @lg:left-0 @lg:top-64 @lg:w-56 @lg:h-[420px] object-cover',
+        attributes: 'alt="" data-intensity="32"'
+      %}
+    {% endif %}
+
+    {% if this.image_top_right_small != blank %}
+      {% include 'img',
+        path: this.image_top_right_small,
+        classes: 'layer absolute right-1 top-8 w-28 h-36 @sm:right-4 @sm:top-8 @sm:w-28 @sm:h-40 @md:right-8 @md:top-8 @md:w-32 @md:h-44 @lg:right-12 @lg:top-7 @lg:w-40 @lg:h-52 object-cover',
+        attributes: 'alt="" data-intensity="22"'
+      %}
+    {% endif %}
+
+    {% if this.image_bottom_right != blank %}
+      {% include 'img',
+        path: this.image_bottom_right,
+        classes: 'layer absolute right-2 bottom-10 w-44 h-32 @sm:right-8 @sm:bottom-10 @sm:w-48 @sm:h-32 @md:right-16 @md:bottom-10 @md:w-64 @md:h-44 @lg:right-40 @lg:bottom-10 @lg:w-80 @lg:h-56 object-cover',
+        attributes: 'alt="" data-intensity="28"'
+      %}
+    {% endif %}
+
+    <div class="absolute inset-0 flex items-center justify-center px-4 @sm:px-6 @md:px-8 pointer-events-none">
+      <div class="relative text-center min-h-[1.2em] max-w-[92vw] @sm:max-w-none">
+        <h2 class="text-a text-4xl @md:text-6xl whitespace-normal @md:whitespace-nowrap">
+          <span data-split-reveal>{{ collage_text_1 }}</span>
+        </h2>
+        <h2 class="text-b text-4xl @md:text-6xl whitespace-normal @md:whitespace-nowrap">
+          <span data-split-reveal>{{ collage_text_2 }}</span>
+        </h2>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+[data-mono-collage] .layer {
+  will-change: transform;
+}
+
+[data-mono-collage] .text-a,
+[data-mono-collage] .text-b {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease;
+}
+
+[data-mono-collage] .text-b {
+  opacity: 0;
+}
+</style>
+<script>
+(function () {
+
+  function loadMotion() {
+    if (window.siteglideMotionLoader && typeof window.siteglideMotionLoader.then === 'function') {
+      return window.siteglideMotionLoader;
+    }
+
+    return new Promise((resolve, reject) => {
+      if (window.Motion) return resolve(window.Motion);
+
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.min.js';
+      script.onload = () => resolve(window.Motion);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  loadMotion().then((Motion) => {
+
+    function animateSplitTarget(target) {
+      if (!target) return;
+
+      const chars = target.querySelectorAll('.sg-split-char-inner');
+      if (chars.length) {
+        Motion.animate(
+          chars,
+          {
+            transform: ['translate3d(0, 115%, 0)', 'translate3d(0, 0%, 0)'],
+            opacity: [0, 1]
+          },
+          {
+            duration: 0.45,
+            delay: Motion.stagger(0.012),
+            easing: [0.16, 1, 0.3, 1]
+          }
+        );
+        return;
+      }
+
+      Motion.animate(
+        target,
+        { transform: ['translate3d(0, 18px, 0)', 'translate3d(0, 0, 0)'], opacity: [0, 1] },
+        { duration: 0.45, easing: [0.16, 1, 0.3, 1] }
+      );
+    }
+
+    const sections = document.querySelectorAll('[data-mono-collage]');
+
+    sections.forEach((section) => {
+      const layers = section.querySelectorAll('.layer');
+      const textA = section.querySelector('.text-a');
+      const textB = section.querySelector('.text-b');
+      const textAReveal = textA ? textA.querySelector('[data-split-reveal]') : null;
+      const textBReveal = textB ? textB.querySelector('[data-split-reveal]') : null;
+      const pin = section.querySelector('[data-collage-pin]');
+      const supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
+      let activeText = '';
+
+      function setActiveText(showTextB) {
+        const next = showTextB ? 'b' : 'a';
+        if (next === activeText) return;
+
+        activeText = next;
+        if (textA && textB) {
+          textA.style.opacity = showTextB ? 0 : 1;
+          textB.style.opacity = showTextB ? 1 : 0;
+        }
+
+        animateSplitTarget(showTextB ? textBReveal : textAReveal);
+      }
+
+      setActiveText(false);
+
+
+      Motion.scroll(
+        (progress) => {
+          setActiveText(progress > 0.5);
+        },
+        { target: section }
+      );
+
+
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      const intensityScale = window.innerWidth < 768 ? 0.55 : 1;
+
+      function animate() {
+        currentX += (targetX - currentX) * 0.1;
+        currentY += (targetY - currentY) * 0.1;
+
+        layers.forEach((layer) => {
+          const intensity = parseFloat(layer.dataset.intensity || 30);
+          layer.style.transform = `translate3d(${currentX * intensity * intensityScale}px, ${currentY * intensity * intensityScale}px, 0)`;
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      if (supportsFinePointer && pin) {
+        pin.addEventListener('pointermove', (e) => {
+          const rect = pin.getBoundingClientRect();
+
+          targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+          targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        });
+
+        pin.addEventListener('pointerleave', () => {
+          targetX = 0;
+          targetY = 0;
+        });
+      }
+
+    });
+
+  });
+
+})();
+</script>

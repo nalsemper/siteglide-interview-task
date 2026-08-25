@@ -1,0 +1,16 @@
+{%- capture questionID -%}id{{this.id}}{%- endcapture -%}
+{%- capture cardID -%}card{{this.id}}{%- endcapture -%}
+<div class="card sg-card border-0">
+  <div class="card-header sg-card-header border-0 sg-bg-secondary" id="{{cardID}}">
+    <h2 class="mb-0">
+      <button class="btn btn-link sg-btn sg-btn-link btn-block text-left d-flex align-items-center justify-content-between w-100" type="button" data-bs-toggle="collapse" data-bs-target="#{{questionID}}" aria-expanded="true" aria-controls="collapseOne">
+        {{ this['Question'] }}<i class="fas fa-chevron-down"></i>
+      </button>
+    </h2>
+  </div>
+  <div id="{{questionID}}" class="collapse" aria-labelledby="{{cardID}}" data-bs-parent="#{{cardID}}">
+    <div class="card-body">
+      {{ this['Answer'] }}
+    </div>
+  </div>
+</div>

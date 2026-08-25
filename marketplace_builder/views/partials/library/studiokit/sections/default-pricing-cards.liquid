@@ -1,0 +1,142 @@
+---
+metadata:
+  name: Pricing Cards
+  class: section
+  lists:
+  - name: Pricing Cards
+    type: pricing_cards
+    fields:
+    - id: card_title
+      type: text
+      label: Card Title
+      default: Starter
+      is_title: true
+    - id: card_description
+      type: textarea
+      label: Card Description
+      default: Best option for personal use & for your next project.
+    - id: price
+      type: text
+      label: Price
+      default: "$29"
+    - id: price_unit
+      type: text
+      label: Price Unit
+      default: "/month"
+    - id: feature_1
+      type: text
+      label: Feature 1
+      default: Feature 1
+    - id: feature_2
+      type: text
+      label: Feature 2
+      default: Feature 2
+    - id: feature_3
+      type: text
+      label: Feature 3
+      default: Feature 3
+    - id: feature_4
+      type: text
+      label: Feature 4
+      default: Feature 4
+    - id: feature_5
+      type: text
+      label: Feature 5
+      default: Feature 5
+    - id: button_text
+      type: text
+      label: Button Text
+      default: Get started
+    - id: button_url
+      type: url
+      label: Button URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Designed for business teams like yours
+  - id: body
+    type: textarea
+    label: Body
+    default: Here at Flowbite we focus on markets where technology, innovation, and
+      capital can unlock long-term value and drive economic growth.
+  hide_on: []
+  category: pricing
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 @lg:grid-cols-3" data-motion-group>
+      {% for item in lists.pricing_cards %}
+        <div data-studio-list="{{ item._list }}" class="card group flex flex-col overflow-hidden rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 @lg:p-8" data-motion-card>
+
+          <h3 class="!mb-2" data-motion-text>{{ item.card_title }}</h3>
+          {% if item.card_description != blank %}
+            <p class="text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>{{ item.card_description }}</p>
+          {% endif %}
+
+          <div class="my-8 flex items-baseline gap-1">
+            <span class="text-5xl font-bold text-neutral-900 dark:text-neutral-50">{{ item.price }}</span>
+            <span class="text-sm text-neutral-500 dark:text-neutral-400">{{ item.price_unit }}</span>
+          </div>
+
+          <ul role="list" class="mb-8 flex flex-1 flex-col gap-3">
+            {% if item.feature_1 != blank %}
+              <li class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="material-symbols-outlined flex-none text-[18px] leading-none text-primary-500" aria-hidden="true">check_circle</span>
+                {{ item.feature_1 }}
+              </li>
+            {% endif %}
+            {% if item.feature_2 != blank %}
+              <li class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="material-symbols-outlined flex-none text-[18px] leading-none text-primary-500" aria-hidden="true">check_circle</span>
+                {{ item.feature_2 }}
+              </li>
+            {% endif %}
+            {% if item.feature_3 != blank %}
+              <li class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="material-symbols-outlined flex-none text-[18px] leading-none text-primary-500" aria-hidden="true">check_circle</span>
+                {{ item.feature_3 }}
+              </li>
+            {% endif %}
+            {% if item.feature_4 != blank %}
+              <li class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="material-symbols-outlined flex-none text-[18px] leading-none text-primary-500" aria-hidden="true">check_circle</span>
+                {{ item.feature_4 }}
+              </li>
+            {% endif %}
+            {% if item.feature_5 != blank %}
+              <li class="flex items-center gap-3 text-sm text-neutral-700 dark:text-neutral-300">
+                <span class="material-symbols-outlined flex-none text-[18px] leading-none text-primary-500" aria-hidden="true">check_circle</span>
+                {{ item.feature_5 }}
+              </li>
+            {% endif %}
+          </ul>
+
+          <a href="{{ item.button_url }}" class="button mt-auto text-center">{{ item.button_text }}</a>
+
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

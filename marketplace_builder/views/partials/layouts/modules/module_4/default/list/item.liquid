@@ -1,0 +1,14 @@
+<li class="glide__slide">
+	<div class="row">
+		<div class="col-12 col-md-5">
+			<img src="{{ this['Image'] | asset_url }}" alt="{{ this['Image Alt'] }}"/>
+		</div>
+		<div class="col-12 col-md-6">
+			<div class="slide-content">
+				{% if this['Title'] != blank %}<h3>{{ this['Title'] }}</h3>{% endif %}
+				{% if this['Description'] != blank %}<p>{{ this['Description'] }}</p>{% endif %}
+				{% if this['Button Name'] != blank or this['Button Link'] != blank %}<a class="btn btn-primary" href="{{this['Button Link']}}" title="">{{this['Button Name']}}</a>{% endif %}
+			</div>
+		</div>
+	</div>
+</li>

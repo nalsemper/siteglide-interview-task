@@ -1,0 +1,59 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Inventory</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/inventory_1">Product ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/inventory_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/inventory_2">Quantity</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/inventory_2'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/inventory_3">Type</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/inventory_3'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/inventory_4">Display Type</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/inventory_4'].name }}" type="text">
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/inventory')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

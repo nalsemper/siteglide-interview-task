@@ -1,0 +1,68 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/item.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/structured_data.liquid
+  - views/partials/layouts/pagination/default-author-detail2.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-author-detail
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_6
+  studio_dynamic/layout_name: Default Author Detail
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Author Detail
+  studio_dynamic/sub_module_id: '1'
+---
+{% capture structured_data %}layouts/modules/module_6/{{layout}}/structured_data{% endcapture %}
+{%- include structured_data -%}
+
+<div class="space-y-8" data-motion-group>
+  <div class="rounded-2xl bg-gradient-to-br from-primary-50/40 via-base-50 to-base-50 p-6 dark:from-primary-900/10 dark:via-base-900/20 dark:to-base-900/20 md:p-8">
+    <div class="flex flex-col items-center gap-6 sm:flex-row">
+      <img class="h-auto w-40 rounded-xl sm:w-48" src="{{this.properties.module_field_6_4 | asset_url }}" alt="{% if this.properties.module_field_6_5 != blank %} {{ this.properties.module_field_6_5 }} {% else %} {{ this.properties.name }} {% endif %}">
+      <div class="flex flex-col gap-3">
+        <h2 data-motion-text>{{ this.properties.module_field_6_1 }}</h2>
+        <p class="text-xs uppercase tracking-[0.12em] text-neutral-500">{{ this.properties.module_field_6_2 }}</p>
+        <div class="flex items-center gap-4">
+          {% if this.properties.module_field_6_6 != blank %}
+            <a href="{{ this.properties.module_field_6_6 }}">
+              <span class="material-symbols-outlined text-2xl text-base-500 hover:text-primary-400 dark:text-base-300 dark:hover:text-primary-400" aria-hidden="true">work</span>
+            </a>
+          {% endif %}
+          {% if this.properties.module_field_6_7 != blank %}
+            <a href="{{ this.properties.module_field_6_7 }}">
+              <span class="material-symbols-outlined text-2xl text-base-500 hover:text-primary-400 dark:text-base-300 dark:hover:text-primary-400" aria-hidden="true">public</span>
+            </a>
+          {% endif %}
+          {% if this.properties.module_field_6_8 != blank %}
+            <a href="{{ this.properties.module_field_6_8 }}">
+              <span class="material-symbols-outlined text-2xl text-base-500 hover:text-primary-400 dark:text-base-300 dark:hover:text-primary-400" aria-hidden="true">alternate_email</span>
+            </a>
+          {% endif %}
+          {% if this.properties.module_field_6_9 != blank %}
+            <a href="{{ this.properties.module_field_6_9 }}">
+              <span class="material-symbols-outlined text-2xl text-base-500 hover:text-primary-400 dark:text-base-300 dark:hover:text-primary-400" aria-hidden="true">photo_camera</span>
+            </a>
+          {% endif %}
+          {% if this.properties.module_field_6_10 != blank %}
+            <a href="{{ this.properties.module_field_6_10 }}">
+              <span class="material-symbols-outlined text-2xl text-base-500 hover:text-primary-400 dark:text-base-300 dark:hover:text-primary-400" aria-hidden="true">language</span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="text-sm leading-relaxed text-neutral-400">{{ this.properties.module_field_6_3 }}</p>
+
+  {% include 'module', id: '3', author_id: this.id, type: 'list', layout: layout, per_page: 3, show_pagination: 'false', pagination_layout: layout, main_heading: params.main_heading %}
+</div>
+

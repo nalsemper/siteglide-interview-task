@@ -1,0 +1,103 @@
+---
+metadata:
+  name: Testimonial Cards
+  class: section
+  lists:
+  - name: Testimonials
+    type: testimonials
+    fields:
+    - id: quote_heading
+      type: text
+      label: Quote Heading
+      default: Speechless with how easy this was to integrate
+      is_title: true
+    - id: quote_text
+      type: textarea
+      label: Quote Text
+      default: This is a great product! I highly recommend it to anyone looking to
+        improve their workflow.
+    - id: author_image
+      type: image_picker
+      label: Author Image
+      default: ''
+    - id: author_name
+      type: text
+      label: Author Name
+      default: Karen Nelson
+    - id: author_job_title
+      type: text
+      label: Author Job Title
+      default: Senior Developer
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Testimonials
+  - id: body
+    type: textarea
+    label: Body
+    default: Explore the whole collection of testimonials.
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Show more
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="mt-12 grid gap-6 @lg:grid-cols-2" data-motion-group>
+      {% for item in lists.testimonials %}
+        <figure data-studio-list="{{ item._list }}" class="card flex flex-col justify-between rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 @md:p-8" data-motion-card>
+          <blockquote class="mb-6">
+            <h3 class="!mb-2 text-base font-semibold" data-motion-text>{{ item.quote_heading }}</h3>
+            <p class="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400" data-motion-text>{{ item.quote_text }}</p>
+          </blockquote>
+          <figcaption class="flex items-center gap-3">
+            {% if item.author_image != blank %}
+              {% include 'img',
+                path: item.author_image,
+                classes: 'h-10 w-10 rounded-full object-cover',
+                attributes: 'alt="{{ item.author_name }}" loading="lazy"'
+              %}
+            {% endif %}
+            <div>
+              <p class="!mb-0 text-sm font-semibold text-neutral-900 dark:text-neutral-50">{{ item.author_name }}</p>
+              <p class="!mb-0 text-xs text-neutral-500 dark:text-neutral-400">{{ item.author_job_title }}</p>
+            </div>
+          </figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+
+    {% if this.button_text != blank %}
+      <div class="mt-10 text-center" data-motion-group>
+        <a href="{{ this.button_url }}" class="button-secondary">{{ this.button_text }}</a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>

@@ -1,0 +1,221 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product_attributes/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/structured_data.liquid
+  studio_dynamic/theme: Studiokit
+  studio_dynamic/layout: default-product-detail
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Default Product Detail
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Product Detail
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+{% capture structured_data %}layouts/modules/module_14/product/{{layout}}/structured_data{% endcapture %}
+{%- include structured_data, product_brand: this.properties[cf_product_brand] -%}
+
+<div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+  <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+		<img data-sg-main-image class="w-full" src="{{this['Image'] | asset_url}}" alt="{{this.name}}" />
+		{% for attribute in this.product_attributes %}
+			{% for option in attribute.product_attribute_options %}
+				<img loading="lazy" data-sg-attr-image="{{option.id}}" src="{{option.image | asset_url}}" alt="{{this.name}}" class="hidden">
+			{% endfor %}
+		{% endfor %}
+	</div>
+	{% comment %} End of column 1 {% endcomment %}
+	<div class="mt-6 sm:mt-8 lg:mt-0">
+		<h3 class="">{{this['name']}}</h1>
+		<div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+			{% assign dis_float = this.price.price_display | plus: 0.0 %}
+			{% assign chr_float = this.price.price_charge | plus: 0.0 %}
+			{% if show_display_price_crossed_out == true and this.price.price_display != blank and chr_float != dis_float and dis_float != 0 %}
+				<p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white" >{{this.price.currency_symbol}}{{this.price.price_display | divided_by: 100.0 | format_number: precision: 2 }}</p>
+			{% endif %}
+			<p class="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white {% if show_display_price_crossed_out == true and this.price.price_display != blank and chr_float != dis_float and dis_float != 0 %} inline-block ml-2 {% endif %}" data-price-control="{{this.price.price_charge}}" data-currency-control="{{this.price.currency_symbol}}">
+				{% comment %} This price will change as attributes with prices are selected. If you have attributes with prices, you may wish to modify or disable the display price output above to avoid confusion. {% endcomment %}
+			</p>
+			
+			{% comment %}<div class="flex items-center gap-2 mt-2 sm:mt-0">
+				<div class="flex items-center gap-1">
+					<svg
+						class="w-4 h-4 text-yellow-300"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+						/>
+					</svg>
+					<svg
+						class="w-4 h-4 text-yellow-300"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+						/>
+					</svg>
+					<svg
+						class="w-4 h-4 text-yellow-300"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+						/>
+					</svg>
+					<svg
+						class="w-4 h-4 text-yellow-300"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+						/>
+					</svg>
+					<svg
+						class="w-4 h-4 text-yellow-300"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"
+						/>
+					</svg>
+				</div>
+				<p class="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+					(5.0)
+				</p>
+				<a href="#" class="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
+					345 Reviews
+				</a>
+			</div> {% endcomment %}
+			
+		</div>
+		<div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+			{% for attribute in this.product_attributes %}
+				{% if attribute.properties.enabled == true %}
+					{% include 'ecommerce/product_attributes', name: attribute.properties.name, layout: layout -%}
+				{% endif %}
+			{% endfor %}
+		</div>
+		<div class="mt-4 sm:gap-4 sm:flex">
+			<div class="max-w-sm">
+				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="quantity">Quantity</label>
+				<input type="number" min="1" value="1" data-quantity-control id="quantity" class="w-full">
+			</div>
+			{% if this['Volume Pricing Enabled'] and this['Volume Pricing'].size > 0 %}
+				<ul class="w-96 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+					{% for volume_price in this['Volume Pricing'] %}
+						<li class="w-full px-4 py-2 border-b border-gray-200 {% if forloop.first %} rounded-t-lg {% elsif forloop.last %} rounded-b-lg {% endif %} dark:border-gray-600">Buy {{volume_price[0]}} for {{this.price.currency_symbol}}{{volume_price[0] | times: volume_price[1] | divided_by: 100.0 | format_number: precision: 2 }} ({{this.price.currency_symbol}}{{volume_price[1] | divided_by: 100.0 | format_number: precision: 2}} per item)</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</div>
+		{% comment %} End of column column 2 part 1 {% endcomment %}
+		<div class="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
+			{% include 'ecommerce/cart_add', component_layout: layout -%}
+		</div>
+		<hr class="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+		<div class="format lg:format-lg text-gray-500 dark:text-gray-400">
+			{{this.properties['module_field_14/product_1'] | sanitize }}
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", s_e_update_price());
+</script>
+
+{% comment %} 
+<div class="col-12 col-md-7 order-2 order-md-1">
+	<div class="row">
+		<div class="col-12 mb-3">
+			<img data-sg-main-image data-sg-attr-image="" src="{{this['Image'] | asset_url}}" alt="{{this.name}}" class=" w-100 rounded mb-4">
+		</div>
+		<div class="col-12" style="columns: 2; column-gap: 1.5rem;">
+			{% for attribute in this.product_attributes %}
+				{% for option in attribute.product_attribute_options %}
+					<img data-sg-attr-image="{{option.id}}" src="{{option.image | asset_url}}" alt="{{this.name}}" class="mb-2 mb-4 w-100 rounded d-block">
+				{% endfor %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<div class="col-12 col-md-4 offset-md-1 order-1 order-md-2 mb-4">
+	<h1 class="h2 mb-3">{{this['name']}}</h1>
+	{% assign dis_float = this.price.price_display | plus: 0.0 %}
+	{% assign chr_float = this.price.price_charge | plus: 0.0 %}
+	{% if show_display_price_crossed_out == true and this.price.price_display != blank and chr_float != dis_float and dis_float != 0 %}
+		<span class="small text-secondary text-decoration-line-through h4 mb-3" >{{this.price.currency_symbol}}{{this.price.price_display | divided_by: 100.0 | format_number: precision: 2 }}</span>
+	{% endif %}
+	<p class="h4 mb-3 {% if show_display_price_crossed_out == true and this.price.price_display != blank and chr_float != dis_float and dis_float != 0 %} d-inline-block ms-2 {% endif %}" data-price-control="{{this.price.price_charge}}" data-currency-control="{{this.price.currency_symbol}}">
+		{% comment %} This price will change as attributes with prices are selected. If you have attributes with prices, you may wish to modify or disable the display price output above to avoid confusion. {% endcomment %}
+	</p>
+	
+	<form class="">
+		<div class="row">
+			{% for attribute in this.product_attributes %}
+				{% if attribute.properties.enabled == true %}
+					{% include 'ecommerce/product_attributes', name: attribute.properties.name, layout: layout -%}
+				{% endif %}
+			{% endfor %}
+			<div class="col-12 mb-3">
+				<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="quantity">Quantity</label>
+				<input type="number" min="1" value="1" data-quantity-control id="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+			</div>
+			<div class="col-12">
+				{% if this['Volume Pricing Enabled'] %}
+					<div class="mb-3">
+						{% for volume_price in this['Volume Pricing'] %}
+							<p>Buy {{volume_price[0]}} for {{this.price.currency_symbol}}{{volume_price[0] | times: volume_price[1] | divided_by: 100.0 | format_number: precision: 2 }} ({{this.price.currency_symbol}}{{volume_price[1] | divided_by: 100.0 | format_number: precision: 2}} per item)
+							</p>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</form>
+	<div class="mb-3">
+		{% comment %} Add to Cart button {% endcomment %}
+		{% include 'ecommerce/cart_add', component_layout: layout -%}
+	</div>
+	{% if this['Description'] %}
+		<p class="mb-3">{{this['Description']}}</p>
+	{% endif %}
+	<div class="mb-n1 me-n1">
+		{% if this.category_array %}
+			{% for category in this.category_array %}
+				<a href="{{context.exports.categories.items[category].full_slug}}" class="btn btn-primary btn-sm mb-2 mr-2"><i class="fas fa-tags me-2"></i>{{context.exports.categories.items[category].name}}</a>
+			{% endfor %}
+		{% endif %}
+	</div>
+</div> {% endcomment %}

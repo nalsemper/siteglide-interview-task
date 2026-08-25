@@ -1,0 +1,322 @@
+---
+metadata:
+  settings:
+  - id: price_options_floor
+    type: number
+    label: Price Options Floor (Cents)
+    default: 500
+  - id: price_options_increment
+    type: number
+    label: Price Options Increment (Cents)
+    default: 500
+  - id: price_options_number
+    type: number
+    label: Price Options Number
+    default: 5
+  - id: show_display_price_crossed_out
+    type: boolean
+    label: Show Display Price Crossed Out
+    default: true
+  - id: product_category_parent
+    type: text
+    label: Product Category Parent
+    default:
+  - id: filters_values_from_URL
+    type: boolean
+    label: Set Filter Defaults From URL
+    default: false
+  - id: cart_url
+    type: text
+    label: Cart URL
+    default: "/cart"
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/live-updating-product-list/list/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/live-updating-product-list/list/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/live-updating-product-list.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: live-updating-product-list
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Live-updating product list
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Live Updating Product List
+  studio_dynamic/sub_module_id: '1'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------Price Options Floor-------
+In price options, the lowest price available for filtering in cents e.g. if selling high value products, no point starting options at $0
+{% endcomment %}
+{% assign price_options_floor = settings.price_options_floor | default: 500 %}
+{% comment %} ------Price Options Increment-------
+What is the increment between each price option in cents e.g. increment of 500 being $5, $10, $15
+{% endcomment %}
+{% assign price_options_increment = settings.price_options_increment | default: 500 %}
+{% comment %} ------Price Options Number-------
+How many price options to show?
+{% endcomment %}
+{% assign price_options_number = settings.price_options_number | default: 5 %}
+{% comment %} ------Display Only Price Settings-------
+Siteglide's Products contain a Display Only Price which can be used flexibily. If your Products use the Display only Price to show original price before a global discount, you could set "show_display_price_crossed_out" to true. {% endcomment %}
+{% assign show_display_price_crossed_out = settings.show_display_price_crossed_out | downcase %}
+{% if show_display_price_crossed_out == blank %}
+	{% assign show_display_price_crossed_out = true %}
+{% elsif show_display_price_crossed_out == 'true' %}
+	{% assign show_display_price_crossed_out = true %}
+{% else %}
+	{% assign show_display_price_crossed_out = false %}
+{% endif %}
+{% comment %} ------Product Category Parent-------
+Add the ID of a category containing product categories e.g. "11", or leave as null. This helps show only relevant categories in the sidebar.
+{% endcomment %}
+{% assign product_category_parent = settings.product_category_parent | downcase | default: null %}
+{% comment %}------Set filter default values from URL------
+  Boolean, if true any sidebar filters will set their initial values from the URL on page load. Useful if returning to the list view from a filter in the detail page. Note we wouldn't normally recommend having more than one live update layout on the page with this setting set to true. If you are setting this value, you may remove the if statement, this is just to set a default.{% endcomment %}
+	{% assign filters_values_from_URL = settings.filters_values_from_URL | downcase %}
+	{% if filters_values_from_URL == blank %}
+		{% if _use_adv_search == 'true' or _use_search == 'true' %}
+			{% assign filters_values_from_URL = 'true' %}
+		{% endif %}
+  {% endif %}
+{% comment %}------Cart URL------
+Add the URL for the cart page, powers the buy now button {% endcomment %}
+{% assign cart_url = settings.cart_url | downcase | default: "/cart" %}
+{% comment %} ---End Settings--- {% endcomment %}
+{% if params.sitebuilder_uniq_component_id %}
+  {% assign sitebuilder_uniq_component_id = params.sitebuilder_uniq_component_id %}
+{% else %}
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% endif %}
+{% if context.exports.sitebuilder.live_update_JS_loaded == blank %}
+  <script async src="{{'modules/module_357/js/v1-6/sitegurus_live_update_javascript_api.min.js' | asset_url }}"></script>
+  {% assign live_update_JS_loaded = true %}
+  {% export live_update_JS_loaded, namespace: sitebuilder %}
+{% endif %}
+<style>
+	#{{sitebuilder_uniq_component_id}} .accordion-button.collapsed {
+		transform: rotate(180deg);
+	}
+</style>
+<script>
+	(function () {
+		if(window.sgLiveUpdateInitiated === true) {
+			myFunction();
+		} else {
+			document.addEventListener('live_update_script_ready', myFunction);
+		}
+		function myFunction() {
+			const instance = sgLiveUpdateConfig['{{sitebuilder_uniq_component_id}}'];
+			instance.setSortHTML({
+				unsorted: `
+					<div class="flex justify-start items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width: 1rem; height: 1rem;">
+							<path fill-rule="evenodd" d="M2.24 6.8a.75.75 0 001.06-.04l1.95-2.1v8.59a.75.75 0 001.5 0V4.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0L2.2 5.74a.75.75 0 00.04 1.06zm8 6.4a.75.75 0 00-.04 1.06l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75a.75.75 0 00-1.5 0v8.59l-1.95-2.1a.75.75 0 00-1.06-.04z" clip-rule="evenodd"></path>
+						</svg>
+						Unsorted
+					</div>
+				`,
+				asc: `
+				<div class="flex justify-start items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" />
+					</svg>
+					Sorting Lowest to Highest
+				</div>`,
+				desc: `
+				<div class="flex justify-start items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1rem; height: 1rem;">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75" />
+					</svg>
+					Sorting Highest to Lowest
+				</div>`
+			})
+			{% if product_category_parent != blank %}
+				{% comment %} When no category filter selected, enforce the product_category_parent as default. Replaces the Liquid version after page load. {% endcomment %}
+				instance.setDefaultParams({
+					category: '{{product_category_parent}}'
+				})
+				const defaultCategoryFilter = document.querySelector('#defaultCategoryFilter{{sitebuilder_uniq_component_id}}');
+				defaultCategoryFilter.remove();
+			{% endif %}
+		}
+	})();
+</script>
+{% function public_key = "modules/module_357/front_end/functions/v1/live_update_params_encode", layout: layout, model: _model, model_type: 'ecommerce/products', collection: 'false', creator_id: nil %}
+
+<section data-motion-group id="{{sitebuilder_uniq_component_id}}" data-sg-live-update-section="{{sitebuilder_uniq_component_id}}" data-sg-live-update-key="{{public_key}}" {% if filters_values_from_URL == 'true' %}data-sg-live-update-modify-history-enabled="true" data-sg-live-update-modify-history-include-hidden-fields="false" {% endif %}>
+	<div class="container py-16 md:py-20">
+		{% if product_category_parent != blank %}
+			<input type="hidden" name="category" value="{{product_category_parent}}" data-sg-live-update-default-param>
+		{% endif %}
+		<div class="flex flex-wrap items-center justify-end p-4 gap-4" data-sg-live-update-controls="filters">
+			<button id="filterSearch{{sitebuilder_uniq_component_id}}" data-dropdown-toggle="dropdownSearch{{sitebuilder_uniq_component_id}}" class="button-secondary" type="button">
+				Search
+				<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+				</svg>
+			</button>
+
+			<div id="dropdownSearch{{sitebuilder_uniq_component_id}}" class="z-10 hidden w-56 p-3 card rounded-xl bg-base-50 dark:bg-base-900 min-w-56 max-w-96">
+				<div class="max-w-md mx-auto">
+					<label for="default-search" class="sr-only">Search</label>
+					<div class="relative">
+						<div class="absolute inset-y-0 start-0 flex items-center pl-3 pointer-events-none">
+							<span class="material-symbols-outlined text-base leading-none text-neutral-500" aria-hidden="true">search</span>
+						</div>
+						<input type="search" name="keyword" id="default-search" class="block w-full rounded-lg border border-base-200 bg-base-50 py-2 pl-10 pr-3 text-sm dark:border-base-700 dark:bg-base-900" placeholder="Search products" value="{{params.keyword}}" />
+					</div>
+				</div>
+			</div>
+
+			<button id="filterPrice{{sitebuilder_uniq_component_id}}" data-dropdown-toggle="dropdownPrice{{sitebuilder_uniq_component_id}}" class="button-secondary" type="button">
+				<span class="hidden md:inline">Filter by&nbsp;</span>Price
+				<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+				</svg>
+			</button>
+
+			<div id="dropdownPrice{{sitebuilder_uniq_component_id}}" class="z-10 hidden w-56 p-3 card rounded-xl bg-base-50 dark:bg-base-900 min-w-56 max-w-96">
+				<label class="block mb-2 text-sm font-medium">
+					Sort by Price
+				</label>
+				<button data-sg-live-update-sort-order="unsorted" data-sg-live-update-sort-type="properties.module_field_14/product/price/usd/1" type="button" class="button-secondary">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width: 1rem; height: 1rem;">
+						<path fill-rule="evenodd" d="M2.24 6.8a.75.75 0 001.06-.04l1.95-2.1v8.59a.75.75 0 001.5 0V4.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0L2.2 5.74a.75.75 0 00.04 1.06zm8 6.4a.75.75 0 00-.04 1.06l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75a.75.75 0 00-1.5 0v8.59l-1.95-2.1a.75.75 0 00-1.06-.04z" clip-rule="evenodd" />
+					</svg>
+				</button>
+				<fieldset>
+					{% assign defaultTaxCode = context.session.tax_code_object | parse_json %}
+					{% assign defaultTaxPercent = defaultTaxCode.percentage | default: defaultTaxCode[0].percentage %}
+					{% assign defaultTaxModifier = defaultTaxPercent | divided_by: 100 | plus: 1 %}
+					<legend class="sr-only">Filter by Price</legend>
+					{%- function
+						currency_object = "modules/siteglide_ecommerce/ecommerce/functions/currency_object"
+						_model: _model
+						_model_field: 'module_field_14/product'
+					-%}
+					{% capture price_filter_field %}module_field_14/product/price/{{currency_object.code_lowercase}}/1{% endcapture %}
+					{%- parse_json currency_object -%}{{currency_object}}{%- endparse_json -%}
+					<input type="hidden" name="range_field" value="{{price_filter_field}}">
+					<label class="block mb-2 text-sm font-medium" for="range_gte">Lowest Price</label>
+					<select class="rounded-lg border border-base-200 bg-base-50 px-3 py-2 text-sm dark:border-base-700 dark:bg-base-900 w-full" name="range_gte">
+						<option value="" {%- if params.range_gte == blank %}selected{%- endif -%}>Any</option>
+						{% for index in (1..price_options_number) %}
+							{% assign optionValue = price_options_increment | times: index | plus: price_options_floor %}
+							{% assign optionValueWOTax = optionValue | divided_by: defaultTaxModifier | format_number: precision: 2  %}
+							<option value="{{optionValueWOTax}}" {%- if params.range_field contains 'module_field_14' and params.range_gte == optionValueWOTax -%}selected{%- endif -%}>{{currency_object.symbol}}{{optionValue | divided_by: 100.0 | format_number: precision: 2}}</option>
+						{% endfor %}
+					</select>
+					<label class="block mb-2 text-sm font-medium" for="range_lte">Highest Price</label>
+					<select class="rounded-lg border border-base-200 bg-base-50 px-3 py-2 text-sm dark:border-base-700 dark:bg-base-900 w-full" name="range_lte" id="range_lte">
+						<option value="" {%- if params.range_lte == blank %}selected{%- endif -%}>Any</option>
+						{% for index in (1..price_options_number) %}
+							{% assign optionValue = price_options_increment | times: index | plus: price_options_floor | plus: price_options_increment %}
+							{% assign optionValueWOTax = optionValue | divided_by: defaultTaxModifier | format_number: precision: 2  %}
+							<option value="{{optionValueWOTax}}" {%- if params.range_field contains 'module_field_14' and params.range_lte == optionValueWOTax -%}selected{%- endif -%}>{{currency_object.symbol}}{{optionValue | divided_by: 100.0 | format_number: precision: 2}}</option>
+						{% endfor %}
+					</select>
+				</fieldset>
+			</div>
+
+			<button id="filterCategories{{sitebuilder_uniq_component_id}}" data-dropdown-toggle="dropdownCategories{{sitebuilder_uniq_component_id}}" class="button-secondary" type="button">
+				<span class="hidden md:inline">Filter by&nbsp;</span>Category
+				<svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+				</svg>
+			</button>
+
+			<div id="dropdownCategories{{sitebuilder_uniq_component_id}}" class="z-10 hidden min-w-56 max-w-96 p-3 card rounded-xl bg-base-50 dark:bg-base-900">
+				<h6 class="sr-only">Category</h6>
+				{% assign category_map = context.exports.categories.items %}
+				{% assign path_info = context.headers.PATH_INFO %}
+				{% if product_category_parent != blank and params.category == blank %}
+					{% comment %} Enforces parent category filter when no other filters selected on initial load. Removed by script when default params added via JS to replace it. {% endcomment %}
+					<input id="defaultCategoryFilter{{sitebuilder_uniq_component_id}}" type="hidden" name="category" value="{{product_category_parent}}">
+				{% endif %}
+				<ul class="space-y-2 text-sm" aria-labelledby="filterCategories{{sitebuilder_uniq_component_id}}">
+					{% assign categories_array = context.exports.categories.data | hash_values %}
+					{% if product_category_parent == blank %}
+						{% assign product_category_parent = "" %}
+					{% endif %}
+					{% assign root_cats = categories_array | select: parent: product_category_parent %}
+					{% for cat in root_cats %}
+						<li class="flex items-center flex-wrap">
+							{% assign children = categories_array | select: parent: cat.id %}
+							{% if children.size == 0 %}
+								<input id="filterCat{{cat.id}}" type="checkbox" name="category" value="{{cat.id}}" {% if params.category contains cat.id %}checked{% endif %} class="h-4 w-4 rounded border-base-300 text-primary-500 dark:border-base-600" />
+							{% endif %}
+							<label for="filterCat{{cat.id}}" class="ml-2 text-sm font-medium">
+								{{cat.name}}
+							</label>
+							{% if children.size > 0 %}
+								<ul class="space-y-2 text-sm w-full ps-3">
+									{% for cat in children %}
+										<li class="flex items-center flex-wrap first-of-type:pt-1">
+											<input type="checkbox" class="h-4 w-4 rounded border-base-300 text-primary-500 dark:border-base-600" name="category" value="{{cat.id}}" {% if params.category contains cat.id %}checked{% endif %}>
+											<label class="ml-2 text-sm font-medium" for="">{{cat.name}}</label>
+											{% assign grandchildren = categories_array | select: parent: cat.id %}
+											{% if grandchildren.size > 0 %}
+												<ul class="space-y-2 text-sm w-full ps-3">
+													{% for cat in grandchildren %}
+														<li class="flex items-center flex-wrap first-of-type:pt-1">
+															<input type="checkbox" class="h-4 w-4 rounded border-base-300 text-primary-500 dark:border-base-600" name="category" value="{{cat.id}}" {% if params.category contains cat.id %}checked{% endif %}>
+															<label class="ml-2 text-sm font-medium" for="">{{cat.name}}</label>
+														</li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-sg-live-update-component="main_results">
+			{%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+		</div>
+		<div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-4 gap-4" aria-label="pagination">
+			<div aria-live="polite">
+				<div data-sg-live-update-component="total_results">
+					{% capture exports_key %}module_14/product{% endcapture %}
+					{% assign per_page = per_page | default: context.params.per_page | default: 20 %}
+					{% assign total_entries = context.exports[exports_key].data.result.total_entries %}
+					{% assign total_pages = total_entries | plus: 0.0 | divided_by: per_page | ceil %}
+					{% assign current_page = context.params.page | default: 1 %}
+					{% if total_entries > 0 %}
+						<span class="text-xs uppercase tracking-[0.08em] text-neutral-500">
+							Showing Page&nbsp;<span class="font-semibold">{{current_page}}</span>&nbsp;of&nbsp;<span class="font-semibold">{{total_pages}}</span>
+						</span>
+					{% else %}
+						<span class="text-xs uppercase tracking-[0.08em] text-neutral-500">
+							Sorry, no results.
+						</span>
+					{% endif %}
+				</div>
+			</div>
+			<div>
+				{%- if _show_pagination == 'false' and pagination_layout != blank and pagination_layout != "default" -%}
+					{%- include 'modules/siteglide_system/get/get_pagination', pagination_layout: _pagination_layout -%}
+				{%- endif -%}
+			</div>
+			<form class="flex flex-wrap items-center gap-3" data-sg-live-update-controls="per_page">
+				<label for="rows" class="text-xs uppercase tracking-[0.08em] text-neutral-500">Rows per page</label>
+				<select name="per_page" id="rows" class="rounded-lg border border-base-200 bg-base-50 px-3 py-1.5 text-sm dark:border-base-700 dark:bg-base-900">
+					{% if per_page != blank %}
+						<option {% if params.per_page == per_page %}selected{% endif %} value="{{per_page}}">{{per_page}} products per page</option>
+					{% endif %}
+					<option {% if params.per_page == "25" %}selected{% endif %} value="25">25 products per page</option>
+					<option {% if params.per_page == "50" %}selected{% endif %} value="50">50 products per page</option>
+					<option {% if params.per_page == "100" %}selected{% endif %} value="100">100 products per page</option>
+				</select>
+			</form>
+		</div>
+	</div>
+</section>
+{%- parse_json currency_object -%}{{context.session.currency_object}}{%- endparse_json -%}

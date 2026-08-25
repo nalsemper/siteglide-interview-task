@@ -1,0 +1,137 @@
+---
+metadata:
+  name: Headline Spotlight
+  class: section
+  lists: []
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: A hiring partner that understands exactly what you're looking for
+  - id: body
+    type: textarea
+    label: Body
+    default: Post your most important roles and we'll send you perfect candidates
+      within days.
+  - id: primary_cta_label
+    type: text
+    label: CTA Label
+    default: Register
+  - id: primary_cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  - id: media_image
+    type: image_picker
+    label: Media Image
+    default: ''
+  - id: media_image_alt
+    type: text
+    label: Media Image Alt Text
+    default: ''
+  - id: youtube_video
+    type: text
+    label: YouTube Video ID or URL
+    default: ''
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-ui-kit-headline-spotlight data-motion-group>
+
+  <div class="container py-28 text-center" data-motion-group>
+
+    <h2 data-motion-text>{{ this.heading }}</h2>
+
+    <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+
+    {% if this.primary_cta_label != blank %}
+      <a href="{{ this.primary_cta_url }}" class="button mt-6">{{ this.primary_cta_label }}</a>
+    {% endif %}
+
+    {% assign youtube_input = this.youtube_video | strip %}
+    {% assign youtube_id = youtube_input %}
+
+    {% if youtube_input contains 'youtube.com/watch' %}
+      {% assign youtube_id = youtube_input | split: 'v=' | last | split: '&' | first %}
+    {% elsif youtube_input contains 'youtu.be/' %}
+      {% assign youtube_id = youtube_input | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first %}
+    {% endif %}
+
+    {% assign video_poster = '' %}
+    {% if this.media_image != blank %}
+      {% if this.media_image contains 'http' %}
+        {% assign video_poster = this.media_image %}
+      {% else %}
+        {% assign video_poster = this.media_image | asset_url %}
+      {% endif %}
+    {% elsif youtube_id != blank %}
+      {% assign video_poster = 'https://i.ytimg.com/vi/' | append: youtube_id | append: '/hqdefault.jpg' %}
+    {% endif %}
+
+    {% if this.media_image != blank or youtube_id != blank %}
+      <div
+        class="card relative mt-14 overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20"
+        data-motion-card
+        data-ui-kit-headline-media
+        {% if youtube_id != blank %}data-video-id="{{ youtube_id }}"{% endif %}
+      >
+
+        {% if youtube_id != blank %}
+          <div
+            class="relative w-full aspect-video bg-cover bg-center bg-no-repeat"
+            style="background-image: url('{{ video_poster }}');"
+          >
+            <button
+              type="button"
+              class="absolute left-1/2 top-1/2 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-black shadow-lg transition-transform duration-200 hover:scale-105"
+              aria-label="Play video: {{ this.heading | escape }}"
+              data-ui-kit-headline-play
+            >
+              <span aria-hidden="true" class="ml-1 text-2xl leading-none">&#9654;</span>
+              <span class="sr-only">Play Video: {{ this.heading | escape }}</span>
+            </button>
+          </div>
+        {% elsif this.media_image != blank %}
+          {% include 'img',
+            path: this.media_image,
+            classes: 'block w-full aspect-video object-cover',
+            attributes: 'alt="{{ this.media_image_alt | default: this.heading }}"'
+          %}
+        {% endif %}
+
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-ui-kit-headline-media]').forEach(function(player){
+    var playButton = player.querySelector('[data-ui-kit-headline-play]');
+    if (!playButton) return;
+
+    playButton.addEventListener('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (player.dataset.activated === 'true') return;
+
+      var videoId = player.getAttribute('data-video-id');
+      if (!videoId) return;
+
+      var params = 'autoplay=1&rel=0&fs=0&iv_load_policy=3&modestbranding=1&disablekb=1';
+      if (params.indexOf('autoplay=') === -1) {
+        params += '&autoplay=1';
+      }
+
+      player.dataset.activated = 'true';
+      player.innerHTML = '<iframe class="block aspect-video h-full w-full" src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(videoId) + '?' + params + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    });
+  });
+
+})();
+</script>

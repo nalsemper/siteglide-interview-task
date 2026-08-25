@@ -1,0 +1,35 @@
+<p>Order ID: {{ this.id }}<br/>
+Name: {{ this.user.name }}<br/>
+Email: {{ this.user.email }}<br/>
+Status: {{ this['Status'] }}<br/>
+Shipping Address: {{ this['Shipping Address'] }}</p>
+
+<p>Product Details: </p>
+<table>
+	<thead>
+		<th style="border: solid 1px black">Quantity</th>
+		<th style="border: solid 1px black">Product Code</th>
+		<th style="border: solid 1px black">Product Name</th>
+		<th style="border: solid 1px black">Attributes</th>
+		<th style="border: solid 1px black">Product Price</th>
+	</thead>
+	<tbody>
+		{% for product in this.order_products -%}
+			<tr>
+				<td style="border: solid 1px black">{{ product.quantity }}</td>
+				<td style="border: solid 1px black">{{ product.product_code }}</td>
+				<td style="border: solid 1px black">{{ product.product_name }}</td>
+				<td style="border: solid 1px black">
+					{% for attribute in product.order_product_attributes -%}
+						{% if attribute.product_attribute_name != blank -%}
+							{{ attribute.product_attribute_name }}: {{ attribute.product_attribute_option_name }}
+						{% endif -%}
+					{% endfor -%}
+				</td>
+				<td style="border: solid 1px black">{{ product.currency_symbol }}{{ product.price }}</td>
+			</tr>
+		{% endfor -%}
+	</tbody>
+</table>
+<br />
+<p>Total Order Price - {{ this['Currency Symbol'] }}{{ this['Total Price'] | divided_by: 100.0 }}</p>

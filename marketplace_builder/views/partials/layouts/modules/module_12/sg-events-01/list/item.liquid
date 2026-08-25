@@ -1,0 +1,42 @@
+<div class="card sg-card border-0 mb-5">
+  <div class="card-body p-4">
+    <h3 class="mb-3">{{this['name']}}</h3>
+    {% if this.category_array[0] %}
+      <i class="fas fa-tag mr-1"></i>
+      {% for category in this.category_array %}
+        <a href="{{context.headers.PATH_INFO}}?category={{category}}" title="">{{context.exports.categories.items[category].name}}</a>
+        {% if forloop.last == false %}, {% endif %}
+      {% endfor %}
+    {% endif %}
+    <div class="mb-3 mt-3">{{this['Description'] }}</div> 
+    {% if this['Location - Address'] %}
+      <h6 class="mb-3 font-weight-bolder">Location</h6>
+      <i class="fas fa-map-marked d-inline mr-2"></i>{{this['Location - Address']}}
+    {% endif %}
+  </div>
+  <div class="card-footer sg-card-footer border-0 p-4 sg-bg-secondary">
+    <div class="row align-items-center">
+      <div class="col-12">
+        <ul class="list-unstyled d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between mb-0">
+          <li class="d-lg-flex align-items-lg-center mb-3 mb-lg-0 mr-lg-2">
+            <i class="fas fa-calendar-day text-white mr-2"></i>
+            <div class="d-inline">
+              <p class="text-white" data-date>{{this['Event Start'] | date: "%d/%m/%Y - %l %p"}}</p>
+            </div>
+          </li>
+          <li class="d-lg-flex align-items-lg-center mb-3 mb-lg-0 mr-lg-1">
+            <i class="fas fa-calendar-day text-white mr-2"></i>
+            <div class="d-inline">
+              <p class="text-white" data-date>{{this['Event End'] | date: "%d/%m/%Y - %l %p"}}</p>
+            </div>
+          </li>
+          <li class="d-lg-flex align-items-lg-center mb-3 mb-lg-0 mr-lg-2">
+            <div class="d-inline-block">
+              <a class="btn btn-primary sg-btn sg-btn-primary py-2" href="{{this.full_slug}}">View Details</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

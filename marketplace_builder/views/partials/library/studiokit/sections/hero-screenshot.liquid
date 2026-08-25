@@ -1,0 +1,213 @@
+---
+metadata:
+  name: Hero Screenshot
+  tags:
+  class: section
+  lists: []
+  fields:
+  - id: background_image
+    type: image_picker
+    label: Background Image
+    default: ''
+  - id: mobile_background_image
+    type: image_picker
+    label: Mobile Background Image
+    default: ''
+  - id: eyebrow_label
+    type: text
+    label: Eyebrow Badge Label
+    default: NEW
+  - id: eyebrow
+    type: text
+    label: Eyebrow Text
+    default: Automate next steps with Workflows
+  - id: eyebrow_url
+    type: url
+    label: Eyebrow URL
+    default: "#"
+  - id: hero_title
+    type: textarea
+    label: Hero Title
+    default: Step into the future of sales
+  - id: hero_description
+    type: textarea
+    label: Hero Description
+    default: Empower reps, uncover opportunities, and grow revenue with an all-in-one
+      AI platform.
+  - id: email_placeholder
+    type: text
+    label: Email Input Placeholder
+    default: Enter your company email
+  - id: primary_cta_label
+    type: text
+    label: Primary CTA Label
+    default: Get free trial
+  - id: primary_cta_url
+    type: url
+    label: Primary CTA URL
+    default: "#"
+  - id: trust_badge_icon
+    type: image_picker
+    label: Trust Badge Icon
+    default: ''
+  - id: trust_badge_icon_alt
+    type: text
+    label: Trust Badge Icon Alt Text
+    default: ''
+  - id: trust_badge_rating
+    type: text
+    label: Trust Badge Rating Text
+    default: 4.8
+  - id: trust_badge_text
+    type: text
+    label: Trust Badge Text
+    default: Generative AI Cool Vendor by Gartner
+  - id: product_image
+    type: image_picker
+    label: Product Screenshot
+    default: ''
+  - id: product_image_alt
+    type: text
+    label: Product Screenshot Alt Text
+    default: Product dashboard screenshot
+  - id: illustration_image
+    type: image_picker
+    label: Decorative Illustration (right side)
+    default: ''
+  - id: variant
+    type: select
+    label: Variant
+    default: variant-1
+    options:
+    - label: Variant 1
+      value: variant-1
+    - label: Variant 2
+      value: variant-2
+    - label: Variant 3
+      value: variant-3
+  hide_on: []
+  category: hero
+  requires: []
+  settings: []
+  collection: studiokit
+  components:
+  - name: CTA Button
+    type: cta_button
+    fields:
+    - id: cta
+      type: text
+      label: cta
+      default: Get Started
+      is_title: false
+    availableOn:
+    - fields
+  updated_at: 1781876124
+  global_data:
+  global_fields: []
+---
+<section class="relative  {{selection-index}}" data-motion-group>
+
+  {% assign bg_image = this.background_image %}
+  {% if this.mobile_background_image != blank %}
+    {% assign bg_image = this.mobile_background_image %}
+  {% endif %}
+  {% if bg_image != blank %}
+    <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+      {% include 'img',
+        path: bg_image,
+        classes: 'h-full w-full object-cover object-center',
+        attributes: 'alt="" loading="eager"'
+      %}
+    </div>
+  {% endif %}
+
+  <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_100%_78%_at_16%_100%,color-mix(in_oklab,var(--color-primary-500)_30%,transparent)_0%,transparent_62%),radial-gradient(ellipse_100%_78%_at_84%_100%,color-mix(in_oklab,var(--color-secondary-500)_30%,transparent)_0%,transparent_66%)] dark:bg-[radial-gradient(ellipse_100%_78%_at_16%_100%,color-mix(in_oklab,var(--color-primary-400)_22%,transparent)_0%,transparent_62%),radial-gradient(ellipse_100%_78%_at_84%_100%,color-mix(in_oklab,var(--color-secondary-400)_22%,transparent)_0%,transparent_66%)] blur-3xl"></div>
+    <div class="absolute inset-0 opacity-[0.18] mix-blend-soft-light dark:opacity-[0.12]" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22180%22 height=%22180%22 viewBox=%220 0 180 180%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22180%22 height=%22180%22 filter=%22url(%23n)%22 opacity=%220.35%22/%3E%3C/svg%3E'); background-size: 180px 180px; background-repeat: repeat;"></div>
+  </div>
+
+  {% if this.illustration_image != blank %}
+    <div class="pointer-events-none absolute right-4 top-12 z-10 hidden w-44 lg:block xl:right-12 xl:w-56" aria-hidden="true">
+      {% include 'img',
+        path: this.illustration_image,
+        classes: 'h-auto w-full',
+        attributes: 'alt="" loading="eager"'
+      %}
+    </div>
+  {% endif %}
+
+  <div class="container !pb-0  relative z-20 flex flex-col items-center pt-24 text-center md:pt-28 lg:pt-32" data-motion-group>
+
+    {% if this.eyebrow != blank %}
+      <a href="{{ this.eyebrow_url }}" class="mb-8 inline-flex items-center gap-2 rounded-full border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 px-3 py-1.5 text-sm text-base-600 dark:text-base-300 shadow-sm transition-opacity hover:opacity-80" data-motion-text>
+        {% if this.eyebrow_label != blank %}
+          <span class="rounded-full bg-base-900 dark:bg-base-100 px-2 py-0.5 text-xs font-semibold text-base-50 dark:text-base-900 leading-none">{{ this.eyebrow_label }}</span>
+        {% endif %}
+        <span class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60">{{ this.eyebrow }}</span>
+        <span class="material-symbols-outlined text-sm leading-none text-base-500 dark:text-base-400">arrow_forward</span>
+      </a>
+    {% endif %}
+
+    <h1 class="" data-motion-text>{{ this.hero_title }}</h1>
+
+    <p class="mb-5" data-motion-text>{{ this.hero_description }}</p>
+
+    <div class="mb-5 flex w-full max-w-md flex-col items-stretch gap-2 sm:flex-row" data-motion-text>
+      <input
+        type="email"
+        placeholder="{{ this.email_placeholder }}"
+        class="w-full flex-1 rounded-2xl border border-base-200 dark:border-base-700 bg-white dark:bg-base-800 px-4 py-3 text-sm text-base-900 dark:text-base-50 placeholder:text-base-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+      >
+      <a href="{{ this.primary_cta_url }}" class="button inline-flex items-center gap-2">
+        {{ this.primary_cta_label }}
+        <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+      </a>
+    </div>
+
+    {% if this.trust_badge_text != blank %}
+      <div class="mb-14 flex flex-wrap items-center justify-center gap-2.5 text-sm text-base-500 dark:text-base-400" data-motion-text>
+        {% if this.trust_badge_icon != blank %}
+          {% include 'img',
+            path: this.trust_badge_icon,
+            classes: 'h-5 w-auto',
+            attributes: 'alt="{{ this.trust_badge_icon_alt | default: "" }}" loading="lazy"'
+          %}
+        {% endif %}
+        {% if this.trust_badge_rating != blank %}
+          <div class="flex items-center gap-1">
+            <div class="flex text-yellow-400 dark:text-yellow-300 leading-none" aria-hidden="true">
+              <span class="material-symbols-outlined text-sm leading-none">star</span>
+              <span class="material-symbols-outlined text-sm leading-none">star</span>
+              <span class="material-symbols-outlined text-sm leading-none">star</span>
+              <span class="material-symbols-outlined text-sm leading-none">star</span>
+              <span class="material-symbols-outlined text-sm leading-none">star</span>
+            </div>
+            <span class="font-medium text-base-700 dark:text-base-300">{{ this.trust_badge_rating }}</span>
+          </div>
+        {% endif %}
+        <span>{{ this.trust_badge_text }}</span>
+      </div>
+    {% endif %}
+
+    {% if this.product_image != blank %}
+      <div class="w-full max-w-5xl" data-motion-card>
+        <div class="card overflow-hidden rounded-t-2xl border border-base-200 dark:border-base-700 border-b-0 shadow-2xl shadow-base-900/10 dark:shadow-base-900/40">
+          {% include 'img',
+            path: this.product_image,
+            classes: 'block w-full h-auto !rounded-none',
+            attributes: 'alt="{{ this.product_image_alt | default: "" }}" loading="eager"'
+          %}
+          
+        </div>
+      </div>
+    {% else %}
+      <div class="w-full max-w-5xl" data-motion-card>
+        <div class="card overflow-hidden rounded-t-2xl shadow-2xl shadow-base-900/10 bg-base-50 dark:bg-base-900/20 aspect-[16/9] flex items-center justify-center">
+          <span class="material-symbols-outlined text-6xl text-base-300 dark:text-base-600 leading-none">image</span>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+
+</section>

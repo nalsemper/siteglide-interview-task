@@ -1,0 +1,5 @@
+{%- include_form 'modules/siteglide_ecommerce/cancel_order_subscription', resource_type: 'module_14/subscription_order', resource_id: orderID -%}
+{%- content_for 'siteglide_head_scripts' -%}
+	<script>window.s_csrf_token = "{{context.authenticity_token}}";</script>,,
+	<script src="{{ 'modules/siteglide_ecommerce/js/siteglide_ecommerce.js' | asset_url}}"></script>,,
+{%- endcontent_for -%}

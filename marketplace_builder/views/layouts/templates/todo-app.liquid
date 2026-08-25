@@ -1,0 +1,24 @@
+---
+metadata:
+  name: Todo App Layout
+  type: page
+  file_type: template
+---
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  {% include 'modules/siteglide_system/siteglide_head' -%}
+  <link rel="stylesheet" href="{{ 'css/todo-app.css' | asset_url }}">
+</head>
+<body class="todo-app">
+  <div class="todo-app__frame">
+    {% include 'todos/sidebar' %}
+    <main class="todo-app__main">
+      {{ content_for_layout }}
+    </main>
+  </div>
+  <div id="todo-toast" class="todo-toast-container" aria-live="polite" aria-atomic="true"></div>
+  <script src="{{ 'js/todo-app.js' | asset_url }}" defer></script>
+  {% include 'modules/siteglide_system/siteglide_foot' -%}
+</body>
+</html>

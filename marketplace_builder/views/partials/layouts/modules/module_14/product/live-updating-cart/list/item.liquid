@@ -1,0 +1,76 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/live-updating-cart/list/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/live-updating-cart/list/item.liquid
+  - views/partials/layouts/modules/module_14/discount_code/live-updating-cart.liquid
+  - views/partials/layouts/modules/module_14/shipping_option/live-updating-cart.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: live-updating-cart
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Live-updating cart
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Live Updating Cart
+  studio_dynamic/sub_module_id: '3'
+  studio_dynamic/make_global_form: false
+---
+<div class="card rounded-2xl bg-base-50 dark:bg-base-900/20 p-4 md:p-6">
+  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
+    <a href="{{ this.full_slug }}" class="shrink-0 md:order-1">
+      {% for attribute in this.cart_data.attributes -%}
+        {%- if attribute.last -%}
+          {% assign attribute_image = attribute.last.properties['module_field_14/product_attribute_option_5'] %}
+        {%- endif -%}
+      {% endfor -%}
+      {% if attribute_image %}
+        <img src="{{ attribute_image | asset_url }}" alt="{{ this.name }}" class="h-20 w-20 rounded-lg object-cover">
+      {% else %}
+        <img src="{{ this['Image'] | asset_url }}" alt="{{ this.name }}" class="h-20 w-20 rounded-lg object-cover">
+      {% endif %}
+    </a>
+
+    <label for="counter-input-{{sitebuilder_uniq_component_id}}-{{this.cart_data.cart_id}}" class="sr-only">Choose quantity:</label>
+    <div class="flex items-center justify-between md:order-3 md:justify-end">
+      <form class="flex items-center gap-1">
+        <button type="button" id="decrement-button" data-input-counter-decrement="counter-input-{{sitebuilder_uniq_component_id}}-{{this.cart_data.cart_id}}" class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-base-200 bg-base-100 hover:bg-base-200 dark:border-base-700 dark:bg-base-800 dark:hover:bg-base-700">
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">remove</span>
+        </button>
+        <input min="1" max="{{ this.inventory.quantity }}" oninput="console.log('input');" onchange="console.log('change')" type="text" id="counter-input-{{sitebuilder_uniq_component_id}}-{{this.cart_data.cart_id}}" data-input-counter data-cart-id="{{ this.cart_data.cart_id }}" class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium focus:outline-none focus:ring-0" placeholder="" value="{{ this.cart_data.quantity }}" required />
+        <button type="button" id="increment-button" data-input-counter-increment="counter-input-{{sitebuilder_uniq_component_id}}-{{this.cart_data.cart_id}}" class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-base-200 bg-base-100 hover:bg-base-200 dark:border-base-700 dark:bg-base-800 dark:hover:bg-base-700">
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">add</span>
+        </button>
+      </form>
+      <div class="text-end md:order-4 md:w-32">
+        <p class="font-bold">{{ this.price.currency_symbol }}{{ this.cart_data.price_data.price_charge_formatted }}</p>
+      </div>
+    </div>
+
+    <div class="w-full min-w-0 flex-1 flex flex-col gap-3 md:order-2 md:max-w-md">
+      <a href="{{ this.full_slug }}" class="font-medium transition-colors duration-200 hover:text-primary-400">
+        {{ this['name'] }}
+        {% for attribute in this.cart_data.attributes -%}
+          {%- if attribute.last -%}
+            <p class="text-xs">{{ attribute.last.product_attribute.name }}: {{ attribute.last.name }}</p>
+          {%- endif -%}
+        {% endfor -%}
+      </a>
+
+      <div class="flex items-center gap-4">
+        {% comment %} Add to favourites here {% endcomment %}
+        <button type="button" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.08em] text-danger-400 transition-colors duration-200 hover:text-danger-300" onclick="
+          s_e_cart_remove(false,{{ this.cart_data.cart_id }},function() {
+            window.sgLiveUpdateConfig['{{ sitebuilder_uniq_component_id }}'].changeStateTrailingDebounce();
+          })
+        ">
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">close</span>
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

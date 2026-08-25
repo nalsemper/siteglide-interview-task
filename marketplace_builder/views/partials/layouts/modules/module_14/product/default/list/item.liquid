@@ -1,0 +1,7 @@
+<div class="col">
+	<a href="/{{this['module_slug']}}/{{this['slug']}}">
+		<img src="{{this['Image'] | asset_url}}" class="img-fluid" />
+		<h3>{{this['name']}}</h3>
+		<p>{{this.price.currency_symbol}}{{this.price.price_charge_formatted}}</p>
+	</a>
+</div>

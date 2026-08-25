@@ -1,0 +1,8 @@
+{%- if total_pages != 1 -%}
+	<div class="model_pagination">
+		{% for page_button in (1..total_pages) %}
+			{%- capture _path -%}{{context.location.pathname}}?page={{page_button}}{{page_search_params}}{%- endcapture -%}
+			<a {% if page_button == current_page %}class='inactive' {% endif %} href="{{_path}}">{{page_button}}</a>
+		{% endfor %}
+	</div>
+{%- endif -%}

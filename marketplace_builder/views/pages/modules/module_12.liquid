@@ -1,0 +1,14 @@
+---
+layout: templates/1
+redirect_to: ''
+redirect_url: ''
+slug: siteglide-events
+---
+{% include 'modules/siteglide_system/constants' -%}
+{%- assign _slug = context.location.pathname | replace: '/siteglide-events/', '' | replace: '/siteglide-events', '' -%}
+{%- if _slug == blank -%}
+{%- response_status 404 -%}
+{%- include '404' -%}
+{%- else -%}
+  {% include 'module', id: '12', type: 'detail', slug: _slug, layout: 'event-details' -%}
+{%- endif -%}

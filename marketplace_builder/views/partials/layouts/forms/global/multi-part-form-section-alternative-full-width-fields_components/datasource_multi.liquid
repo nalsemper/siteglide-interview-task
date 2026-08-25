@@ -1,0 +1,57 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/boolean.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/checkout_standard.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/basic_payment.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/quote_only.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/subscription_detail.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/datasource_multi.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/datasource.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/date.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/email.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/file.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/image.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/hidden_fields.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/input_checkbox.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/input_radio.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/name_field.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/password.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/recaptcha.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/select_multi.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/select.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/string.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/textarea.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/subheading.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/heading.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/array_custom.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/folder.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/image_array.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/number_float.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/number_integer.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/email_edit.liquid
+  - views/partials/layouts/forms/form_1/multi-part-form-section-alternative-full-width-fields_components/password_edit.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: multi-part-form-section-alternative-full-width-fields
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Multi-part form section alternative - full width fields
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Multi-part form section alternative - full width fields
+  studio_dynamic/sub_module_id: '1'
+---
+<div class="col-span-full datasource_multi">
+  <div class="">
+    <label class="block mb-2 text-sm font-medium text-base-900 dark:text-base-200" for="{{field_id}}">{{label}} {% if validation contains 'required' %}<span>*</span>{% endif %}</label>
+    <select {{attributes}} {{validation}} class="bg-base-50 border border-base-200 text-base-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-base-900/40 dark:border-base-700 dark:placeholder-base-500 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 {{validation}}  {% if validation != blank %}valid:bg-success-50 valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700 valid:text-sm valid:rounded-lg valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-base-900/40  dark:valid:border-success-400  group-focus-within:invalid:text-danger-700  dark:group-focus-within:invalid:text-danger-500 group-focus-within:invalid:border group-focus-within:invalid:border-danger-500 group-focus-within:invalid:focus:ring-danger-500 group-focus-within:invalid:focus:border-danger-500  dark:group-focus-within:invalid:border-danger-500{% endif %}" name="{{name}}" {% if label != blank %}data-sg-validation-label="{{label}}" data-sg-validation-id="{{field_id}}" {% endif %} id="{{field_id}}" multiple>
+      {% for option in options -%}
+        <option {% if value contains option.id %} selected="true" {% endif %} value="{{option.id}}">{{option.properties.name}}</option>
+      {% endfor -%}
+    </select>
+  </div>
+</div>

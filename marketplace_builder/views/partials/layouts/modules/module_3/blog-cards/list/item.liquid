@@ -1,0 +1,48 @@
+
+{% assign author_id = this.properties.module_field_3_4 | downcase %}
+{% assign author = author_results.records.results | detect: id: author_id %}
+{% if author != blank %}
+  {% assign author = author | add_hash_key: "Title", author.properties['module_field_6_1'] %}
+  {% assign author = author | add_hash_key: "Image", author.properties['module_field_6_4'] %}
+  {% assign author = author | add_hash_key: "Image Alt", author.properties['module_field_6_5'] %}
+{% endif %}
+{% assign then =  this['release_date'] | to_time %}
+{% assign now = "now" | to_time %}
+{% assign time_elapsed = then | time_diff: now | divided_by: 86400000 | round  %}
+
+<article data-studio-list="{{item._list}}" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div class="flex justify-between items-center mb-5 text-gray-500">
+      {% for category in this.category_array %}
+        {% assign this_category = context.exports.categories.data[category] %}
+        <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
+          <span aria-hidden="true" class="material-symbols-outlined text-[12px] mr-1">article</span>
+          {{this_category.name}}
+        </span>
+      {% endfor %}
+      <span class="text-sm">
+        {% if time_elapsed == 0 %}
+          Recently published
+        {% else %}
+          {{time_elapsed}} {% if time_elapsed > 1 %}days{% else %}day{% endif %} ago.
+        {% endif %}
+      </span>
+    </div>
+    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="{{this.full_slug}}">{{this['Title']}}</a></h2>
+    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{this['Description']}}</p>
+    <div class="flex justify-between items-center">
+      {% if author.id != blank %}
+        <div class="flex items-center space-x-4">
+          {% if author['Image'] != blank %}
+            <img class="w-7 h-7 rounded-full" src="{{author['Image'] | asset_url}}" alt="{{author['Image Alt']}}" />
+          {% endif %}
+          <span class="font-medium dark:text-white">
+              {{author['Title']}}
+          </span>
+        </div>
+      {% endif %}
+      <a href="{{this.full_slug}}" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
+        Read more
+        <span aria-hidden="true" class="material-symbols-outlined text-[16px] ml-2">arrow_forward</span>
+      </a>
+    </div>
+</article>

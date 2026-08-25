@@ -1,0 +1,89 @@
+---
+metadata:
+  name: News Grid
+  tags:
+  class: section
+  lists:
+  - name: News Items
+    type: news_items
+    fields:
+    - id: date
+      type: text
+      label: Date
+      default: Mar 13, 2026
+    - id: title
+      type: text
+      label: Title
+      default: Article title goes here
+    - id: image
+      type: image_picker
+      label: Card Image
+      default: ''
+    - id: image_alt
+      type: text
+      label: Image Alt Text
+      default: ''
+    - id: cta_url
+      type: url
+      label: Article URL
+      default: "#"
+  fields:
+  - id: heading
+    type: text
+    label: Heading
+    default: News from above
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: View all News
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  - id: test_field
+    type: text
+    label: Test Field
+    default: Default value
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+  updated_at: 1782200150
+  global_data:
+  global_fields: []
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container py-24 md:py-28">
+
+    <div class="flex items-center justify-between mb-14" data-motion-group>
+      <h2 data-motion-text>{{ this.heading }} {{this.test_field}}</h2>
+      <a href="{{ this.cta_url }}" class="button">{{ this.cta_label }}</a>
+    </div>
+
+    <div class="flex flex-col gap-4 md:flex-row md:flex-wrap md:gap-4" data-motion-group>
+      {% for item in lists.news_items %}
+        <a href="{{ item.cta_url }}" data-studio-list="{{ item._list }}" class="card group flex flex-col gap-5 px-6 py-8 bg-base-50 dark:bg-base-900/20 transition-opacity duration-300 hover:opacity-80 md:basis-[calc(33.333%-1rem)] md:min-w-[260px] md:flex-1" data-motion-card>
+         
+        
+
+    {% if item.date != blank %}
+        <span data-motion-text class="text-xs uppercase tracking-[0.08em] text-neutral-500">{{ item.date }}</span>
+      {% endif %}
+
+          <h4 class="!my-0" data-motion-text>{{ item.title }}</h4>
+          {% if item.image != blank %}
+            <div class="mt-4 w-full overflow-hidden rounded-sm h-64">
+              {% capture image_attributes %}alt="{{ item.image_alt | default: item.title }}" loading="lazy"{% endcapture %}
+              {% include 'img', path: item.image, layout: 'default/base', classes: 'h-full w-full object-cover transition-transform duration-500 group-hover:scale-105', attributes: image_attributes %}
+            </div>
+          {% else %}
+            <div class="mt-4 w-full rounded-sm bg-base-50 dark:bg-base-900/20 h-64"></div>
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

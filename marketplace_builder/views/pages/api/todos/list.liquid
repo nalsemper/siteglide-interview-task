@@ -1,0 +1,217 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todos API - List
+  enabled: true
+  file_type: page
+redirect_to: ''
+redirect_url: ''
+---
+{%- assign status = context.params.status | default: 'all' | downcase -%}
+{%- assign keyword = context.params.keyword | default: '' | strip | downcase -%}
+{%- assign priority = context.params.priority | default: '' | strip | downcase -%}
+{%- assign filter_category = context.params.category | default: '' | strip -%}
+{%- assign sort_order = context.params.order | default: 'desc' | upcase -%}
+{%- if sort_order != 'ASC' and sort_order != 'DESC' -%}
+  {%- assign sort_order = 'DESC' -%}
+{%- endif -%}
+
+{%- graphql todo_statuses_data = "todo_statuses/list_todo_statuses", per_page: 100, page: 1 -%}
+{%- assign todo_statuses = todo_statuses_data.records.results -%}
+{%- assign default_status_id = nil -%}
+{%- assign completed_status_id = nil -%}
+{%- for status in todo_statuses -%}
+  {%- if status.properties.module_field_986_3 == true and status.properties.module_field_986_1 != true -%}
+    {%- assign default_status_id = status.id -%}
+  {%- endif -%}
+  {%- if status.properties.module_field_986_1 == true and completed_status_id == nil -%}
+    {%- assign completed_status_id = status.id -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if default_status_id == nil -%}
+  {%- for status in todo_statuses -%}
+    {%- if status.properties.module_field_986_1 != true and default_status_id == nil -%}
+      {%- assign default_status_id = status.id -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- graphql all_data = "todos/list_all_todos", per_page: 2, page: 1, sort_order: sort_order -%}
+{%- assign all_items = all_data.records.results -%}
+{%- assign total_entries = all_data.records.total_entries -%}
+
+{%- graphql categories_data = "todo_categories/list_todo_categories", per_page: 100, page: 1 -%}
+{%- assign all_categories = categories_data.records.results -%}
+
+{%- assign active_count = 0 -%}
+{%- assign completed_count = 0 -%}
+{%- for item in all_items -%}
+  {%- assign item_status_id = item.properties.module_field_985_5 | append: '' | strip -%}
+  {%- assign item_completed = item.properties.module_field_985_1 -%}
+  {%- if item_status_id != blank -%}
+    {%- for status_record in todo_statuses -%}
+      {%- assign status_id_str = status_record.id | append: '' -%}
+      {%- if status_id_str == item_status_id -%}
+        {%- if status_record.properties.module_field_986_1 == true -%}
+          {%- assign item_completed = true -%}
+        {%- else -%}
+          {%- assign item_completed = false -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if item_completed == true -%}
+    {%- assign completed_count = completed_count | plus: 1 -%}
+  {%- else -%}
+    {%- assign active_count = active_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- capture todos_json -%}
+[
+{%- assign first_item = true -%}
+{%- for item in all_items -%}
+  {%- assign item_status_id = item.properties.module_field_985_5 | append: '' | strip -%}
+  {%- assign item_status_name = '' -%}
+  {%- assign item_status_color = '' -%}
+  {%- assign item_completed = item.properties.module_field_985_1 -%}
+  {%- if item_status_id != blank -%}
+    {%- for status_record in todo_statuses -%}
+      {%- assign status_id_str = status_record.id | append: '' -%}
+      {%- if status_id_str == item_status_id -%}
+        {%- assign item_status_name = status_record.properties.name -%}
+        {%- assign item_status_color = status_record.properties.module_field_986_4 | default: '' -%}
+        {%- if status_record.properties.module_field_986_1 == true -%}
+          {%- assign item_completed = true -%}
+        {%- else -%}
+          {%- assign item_completed = false -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- assign include_item = true -%}
+
+  {%- if status == 'active' and item_completed == true -%}
+    {%- assign include_item = false -%}
+  {%- elsif status == 'completed' and item_completed != true -%}
+    {%- assign include_item = false -%}
+  {%- endif -%}
+
+  {%- if include_item and keyword != blank -%}
+    {%- assign item_name = item.properties.name | default: '' | downcase -%}
+    {%- unless item_name contains keyword -%}
+      {%- assign include_item = false -%}
+    {%- endunless -%}
+  {%- endif -%}
+
+  {%- if include_item and priority != blank -%}
+    {%- assign item_priority = item.properties.module_field_985_3 | default: 'medium' | downcase -%}
+    {%- unless item_priority == priority -%}
+      {%- assign include_item = false -%}
+    {%- endunless -%}
+  {%- endif -%}
+
+  {%- if include_item and filter_category != blank -%}
+    {%- assign item_cat_id = item.properties.module_field_985_6 | append: '' | strip -%}
+    {%- assign matches_category = false -%}
+    {%- if item_cat_id == filter_category -%}
+      {%- assign matches_category = true -%}
+    {%- else -%}
+      {%- for cat in all_categories -%}
+        {%- assign cat_id_str = cat.id | append: '' -%}
+        {%- if cat_id_str == item_cat_id -%}
+          {%- if cat.properties.module_field_987_1 == filter_category -%}
+            {%- assign matches_category = true -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- unless matches_category -%}
+      {%- assign include_item = false -%}
+    {%- endunless -%}
+  {%- endif -%}
+
+  {%- if include_item -%}
+    {%- unless first_item -%},{%- endunless -%}
+    {%- capture due_date_api -%}
+      {%- include 'todos/convert_due_date_from_unix', due_date_unix: item.properties.module_field_985_2 -%}
+    {%- endcapture -%}
+    {%- assign item_category_id = item.properties.module_field_985_6 | append: '' | strip -%}
+    {%- assign item_category_path = '' -%}
+    {%- if item_category_id != blank -%}
+      {%- capture item_category_path -%}
+        {%- include 'todos/build_category_path', category_id: item_category_id, categories: all_categories -%}
+      {%- endcapture -%}
+      {%- assign item_category_path = item_category_path | strip -%}
+    {%- endif -%}
+    {"id":"{{ item.id }}","name":{{ item.properties.name | json }},"completed":{% if item_completed == true %}true{% else %}false{% endif %},"status_id":"{{ item_status_id }}","status_name":{{ item_status_name | json }},"status_color":{{ item_status_color | json }},"due_date":{{ due_date_api | strip | json }},"priority":{{ item.properties.module_field_985_3 | default: 'medium' | json }},"notes":{{ item.properties.module_field_985_4 | json }},"category_id":"{{ item_category_id }}","category_path":{{ item_category_path | json }}}
+    {%- assign first_item = false -%}
+  {%- endif -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture statuses_json -%}
+[
+{%- assign first_status = true -%}
+{%- for status in todo_statuses -%}
+  {%- unless first_status -%},{%- endunless -%}
+  {%- include 'todos/status_json', status: status -%}
+  {%- assign first_status = false -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{%- capture categories_json -%}
+[
+{%- assign first_cat = true -%}
+{%- for category in all_categories -%}
+  {%- assign category_todo_count = 0 -%}
+  {%- assign cat_id_str = category.id | append: '' -%}
+  {%- assign parent_id = category.properties.module_field_987_1 | append: '' | strip -%}
+  {%- assign is_root = false -%}
+  {%- if parent_id == blank or parent_id == '0' -%}
+    {%- assign is_root = true -%}
+  {%- endif -%}
+  {%- for item in all_items -%}
+    {%- assign item_cat_id = item.properties.module_field_985_6 | append: '' | strip -%}
+    {%- if is_root -%}
+      {%- if item_cat_id == cat_id_str -%}
+        {%- assign category_todo_count = category_todo_count | plus: 1 -%}
+      {%- else -%}
+        {%- for child_cat in all_categories -%}
+          {%- assign child_id_str = child_cat.id | append: '' -%}
+          {%- if child_id_str == item_cat_id -%}
+            {%- assign child_parent = child_cat.properties.module_field_987_1 | append: '' | strip -%}
+            {%- if child_parent == cat_id_str -%}
+              {%- assign category_todo_count = category_todo_count | plus: 1 -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- elsif item_cat_id == cat_id_str -%}
+      {%- assign category_todo_count = category_todo_count | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- unless first_cat -%},{%- endunless -%}
+  {%- include 'todos/category_json', category: category, category_todo_count: category_todo_count -%}
+  {%- assign first_cat = false -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{
+  "todos": {{ todos_json }},
+  "statuses": {{ statuses_json }},
+  "categories": {{ categories_json }},
+  "meta": {
+    "default_status_id": "{{ default_status_id }}",
+    "completed_status_id": "{{ completed_status_id }}"
+  },
+  "counts": {
+    "all": {{ total_entries }},
+    "active": {{ active_count }},
+    "completed": {{ completed_count }}
+  }
+}

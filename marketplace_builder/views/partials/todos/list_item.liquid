@@ -1,0 +1,40 @@
+{%- assign todo_id = item.id -%}
+{%- assign todo_name = item.properties.name -%}
+{%- assign todo_completed = completed -%}
+{%- assign todo_priority = item.properties.module_field_985_3 | default: 'medium' -%}
+{%- assign todo_status_id = status_id | default: '' -%}
+{%- assign todo_status_name = status_name | default: '' -%}
+{%- assign todo_status_color = status_color | default: '' -%}
+{%- assign todo_category_id = category_id | default: '' -%}
+{%- assign todo_category_path = category_path | default: '' -%}
+{%- capture todo_due_date_display -%}
+  {%- include 'todos/convert_due_date_from_unix', due_date_unix: item.properties.module_field_985_2 -%}
+{%- endcapture -%}
+{%- assign todo_due_date_display = todo_due_date_display | strip -%}
+<li class="todo-item{% if todo_completed == true %} todo-item--completed{% endif %}" data-todo-id="{{ todo_id }}" data-todo-priority="{{ todo_priority }}" data-todo-due-date="{{ todo_due_date_display }}" data-todo-status-id="{{ todo_status_id }}">
+  <label class="todo-item__check">
+    <input type="checkbox" class="todo-item__checkbox" data-action="toggle-complete" {% if todo_completed == true %}checked{% endif %} aria-label="Mark complete">
+  </label>
+  <div class="todo-item__body">
+    <span class="todo-item__title" data-action="edit-todo" tabindex="0">{{ todo_name }}</span>
+    <div class="todo-item__meta">
+      {% if todo_category_path != blank %}
+        <span class="todo-item__category">{{ todo_category_path }}</span>
+      {% endif %}
+      <select class="todo-item__status" data-action="change-status" aria-label="Status">
+        {%- for status in statuses -%}
+          {%- assign option_status_id = status.id | append: '' -%}
+          <option value="{{ status.id }}"{% if option_status_id == todo_status_id %} selected{% endif %}>{{ status.properties.name }}</option>
+        {%- endfor -%}
+      </select>
+      <span class="todo-item__priority todo-item__priority--{{ todo_priority }}">{{ todo_priority }}</span>
+      {% if todo_due_date_display != blank %}
+        <span class="todo-item__due">Due {{ todo_due_date_display }}</span>
+      {% endif %}
+    </div>
+  </div>
+  <div class="todo-item__actions">
+    <button type="button" class="todo-item__edit" data-action="edit-todo-btn" aria-label="Edit todo">Edit</button>
+    <button type="button" class="todo-item__delete" data-action="delete" aria-label="Delete todo">Delete</button>
+  </div>
+</li>

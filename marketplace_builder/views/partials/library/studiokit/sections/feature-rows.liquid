@@ -1,0 +1,69 @@
+---
+metadata:
+  name: Feature Rows
+  tags:
+  class: section
+  lists:
+  - name: Feature Rows
+    type: feature_rows
+    fields:
+    - id: index_text
+      type: text
+      label: Index
+      default: "(002)"
+      is_title: true
+    - id: title
+      type: text
+      label: Title
+      default: BESPOKE HOMES REQUIRES
+    - id: description
+      type: textarea
+      label: Description
+      default: Every great build begins with understanding
+    - id: image
+      type: image_picker
+      label: Image
+      default: ''
+  fields:
+  - id: divider_heading
+    type: textarea
+    label: Divider Heading
+    default: We build your brand's entire ecosystem.
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: mono
+  components: []
+  updated_at: 1781877539
+  global_data:
+  global_fields: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container py-4 space-y-8 @md:space-y-10">
+
+    <div class="py-6">
+      <div class="flex justify-end">
+        <h2 class="@md:max-w-[660px]" data-motion-text>{{ this.divider_heading }}</h2>
+      </div>
+    </div>
+
+    {% for item in lists.feature_rows %}
+      <article data-studio-list="{{ item._list }}" class="flex flex-col @md:flex-row @md:items-start gap-5 @sm:gap-6 @md:gap-20 py-6 border-t" data-motion-card>
+        <p class="text-base">{{ item.index_text }}</p>
+        <h3 data-motion-text>{{ item.title }}</h3>
+        <p class="text-sm @md:text-base @md:pt-2 max-w-none @md:max-w-[170px]">{{ item.description }}</p>
+        {% if item.image != blank %}
+          {% include 'img',
+            path: item.image,
+            classes: 'card w-full @md:w-[240px] aspect-[4/3] @md:aspect-auto h-auto @md:h-[321px] object-cover @md:ml-auto',
+            attributes: 'alt="{{ item.title }}" loading="lazy"'
+          %}
+        {% else %}
+          <div class="card w-full @md:w-[240px] aspect-[4/3] @md:aspect-auto h-auto @md:h-[321px] @md:ml-auto border bg-base-900/10"></div>
+        {% endif %}
+      </article>
+    {% endfor %}
+
+  </div>
+</section>

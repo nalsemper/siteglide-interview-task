@@ -1,0 +1,231 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/wrapper.liquid
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/item.liquid
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/delete_modal.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/events-live-updating-table.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/boolean.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/datasource.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/date.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/file.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/image.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_14/product/events-live-updating-table/components/collection.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/input_radio.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/select_multi.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/select.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/string.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/textarea.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/subheading.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/heading.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/array_custom.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/folder.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/image_array.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/number_float.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/number_integer.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: events-live-updating-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Events live-updating table
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Event live-updating table
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% assign login_url = "/login" %}
+{% comment %} ---End Settings--- {% endcomment %}
+{% capture form_html_id %}module_{{sitebuilder_uniq_component_id}}{% endcapture %}
+
+<style>
+  /* Styles for Progress Bar and Spinner - Hooks into Siteglide JavaScript by watching for changes in form classes */
+  #{{form_html_id}}.form_submitting #spinner_{{sitebuilder_uniq_component_id}} {
+    display: block !important;
+  }
+</style>
+<!-- Main modal -->
+<div id="add_item_modal_{{sitebuilder_uniq_component_id}}" tabindex="-1" aria-hidden="true" class="hidden max-h-screen overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+  <div class="relative p-4 w-full max-w-2xl h-full md:h-auto max-h-screen overflow-y-auto">
+    <!-- Modal content -->
+    <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+      <!-- Modal header -->
+      <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+        {% comment %} <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Add Product
+        </h3> {% endcomment %}
+        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="add_item_modal_{{sitebuilder_uniq_component_id}}" data-modal-target="add_item_modal_{{sitebuilder_uniq_component_id}}">
+          <span aria-hidden="true" class="material-symbols-outlined text-xl leading-none">close</span>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      {% comment %}Note- tailwind "group" class is added to the form after submission to allow validation variants.{% endcomment %}
+      {% form  html_id: form_html_id, html_class: "space-y-4 md:space-y-6 text-left" -%}
+        <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          {% include "modules/module_86/form_layout_fields", collection: 'true' %}
+          <div class="col-span-2">
+            <h2 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Add a New {{context.exports.module_86.form_properties.module_name.value}} Item</h2>
+            
+          </div>
+          {{context.exports.module_86.form_fields | html_safe: raw_text: true }}
+          {{context.exports.module_86.form_hidden | html_safe: raw_text: true }}
+          {% if context.exports.module_86.form_recaptcha != blank %}
+            {{context.exports.module_86.form_recaptcha | html_safe: raw_text: true }}
+          {% endif %}
+          <div data-main-error class="hidden">
+            <div class="p-4 mb-4 text-sm text-danger-700 bg-danger-100 rounded-lg dark:bg-danger-200 dark:text-danger-800" role="alert">
+              <span class="font-medium">Error</span>
+              <span data-main-error-message><!-- Main Siteglide validation message will appear here. --></span>
+            </div>
+          </div>
+        </div>
+        <div class="w-full flex justify-start align-center flex-wrap space-x-2">
+          <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-info-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-info-800 mb-2">
+            <div class="flex align-center justify-center">
+              <span>Add {{context.exports.module_86.form_properties.module_name.value}}</span>
+              <div id="spinner_{{sitebuilder_uniq_component_id}}" class="hidden ml-2">
+                <span role="status" aria-hidden="true" class="material-symbols-outlined text-[24px] text-gray-200 animate-spin dark:text-gray-600">autorenew</span>
+              </div>
+            </div>
+          </button>
+        </div>
+      {% endform %}
+        
+    </div>
+  </div>
+</div>
+<script>
+  /* The following optional script allows support for validation. If removing it, make sure to return the normal Siteglide submit function to the button. We use a self-executing function here so that variables and functions within are scoped only to this form. This allows each form to have its own editable, self-contained validation function. */
+  (function(){
+    //Make sure Sitegurus Form API is ready (used for checkboxes).
+    if(typeof sGCheckboxValidation == "function") {
+      initForm();
+    } else {
+      var forms_api_script = document.querySelector('#sitegurus_forms_javascript_api');
+      if(forms_api_script) {
+        forms_api_script.addEventListener('load', initForm);
+      } else {
+        console.error('Developer error: Make sure the async #sitegurus_forms_javascript_api script tag is included in the page.');
+      }
+    }
+    //Set up form
+    function initForm() {
+      var form_html_id = "{{form_html_id}}";
+      var form = document.querySelector('#'+form_html_id);
+      var submitButton = form.querySelector('button[type=submit]');
+      //Add BS support for checkboxes and radios to change events.
+      var checksAndRadios = form.querySelectorAll('.required input[type=checkbox],.required input[type=radio]');
+      checksAndRadios.forEach(
+        function(item) {
+          item.addEventListener('change', sGCheckboxValidation)
+        }
+      );
+      //Set initial radio validation
+      sGCheckboxValidation(null, {form});
+      //Define custom error function for Siteglide Form
+      function sGFormCustomError(error, error_details) {
+        //Get main error
+        if(error.code) {
+          if(error.code.length > 0) {
+            error = error.code[0];
+          } else {
+            error = s_error_formatter(error);
+          }
+        } else {
+          error = s_error_formatter(error);
+        }
+        //If main error is for a field that is missing a required value, give a human-friendly name.
+        var fields_for_validation = form.querySelectorAll('[data-sg-validation-label]'), field_validation_map = {}, field_validation_ids = [], required_fields = form.querySelectorAll('[required]');
+        fields_for_validation.forEach(function(field) {
+          field_validation_ids.push(field.dataset.sgValidationId);
+          field_validation_map[field.dataset.sgValidationId] = field.dataset.sgValidationLabel;
+        });
+        if(field_validation_ids.includes(error) || field_validation_ids.includes((error.replace(/\]\[\]/, '')))) {
+          error = `Please enter a value for the required fields marked above.`
+          //Use the commented line below instead if you want to print the first field with an error.
+          //error = `please enter a value for the following: ${field_validation_map[error]}.`;
+        } else if(error.includes('captcha')) {
+          error = `please confirm you are not a bot by completing the challenge.`;
+        }
+        //Display the errors
+        var formErrorContainer = form.querySelector('[data-main-error]');
+        if(error && formErrorContainer) {
+          formErrorContainer.classList.remove('hidden');
+          formErrorContainer.querySelector('[data-main-error-message]').textContent = error;
+        }
+        form.classList.add('group');
+        //Scroll to first error
+        var fieldError = form.querySelector('.input-error');
+        if(fieldError) {
+          fieldError.scrollIntoView({
+            block: "nearest"
+          });
+        }
+        //Clear custom validity errors from last submission.
+        var valid_fields = form.querySelectorAll('input,select,textarea');
+        valid_fields.forEach(
+          function(item) {
+            item.setCustomValidity("");
+          }
+        );
+        var invalid_fields = form.querySelectorAll('.input-error');
+        //Remove Siteglide error class for styling consistency in tailwind. Replace with custom validity if appropriate.
+        form.classList.add('was-submitted')
+        invalid_fields.forEach(function(field){
+          if(field.id == "s_email_edit" || field.id == "s_password_edit" || field.id == "s_password_edit_confirmation" || field.id == "s_email_edit_confirmation") {
+            field.setCustomValidity(error);
+          }
+          field.classList.remove('input-error');
+        });
+      }
+      //Change Siteglide Form Submit Function to an Event Listener
+      function sGFormSubmit(event) {
+        event.preventDefault();
+        //Changes checkbox requirements
+        sGCheckboxValidation(null, {form});
+        form.classList.remove('group');
+        var formErrorContainer = 
+        form.querySelector('[data-main-error]');
+        formErrorContainer.classList.add('hidden');
+        var formErrorContainer = form.querySelector('[data-main-error]');
+        formErrorContainer.classList.add('hidden');
+        //Handle submission of any TinyMCE rich text fields
+        if(typeof tinymce === 'object' && typeof window.sgRichTextConfig) {
+          window.sgRichTextConfig.forEach(
+            function(item) {
+              //Write rich text content to textarea field
+              item.textarea.textContent = item.editor.getContent();
+              //Apply Tailwind validation
+              var wrapper = item.textarea.closest('[data-sg-rich-text-wrapper]');
+              if(wrapper) {
+                const validClasses = ['bg-success-50', 'border-success-500', 'text-success-900', 'placeholder-success-700', 'focus:ring-success-500', 'focus:border-success-500', 'dark:border-success-400'];
+                const invalidClasses = ['bg-danger-50', 'border-danger-500', 'text-danger-900', 'placeholder-danger-700', 'focus:ring-danger-500', 'focus:border-danger-500', 'dark:text-danger-500', 'dark:placeholder-danger-500', 'dark:border-danger-500'];
+                if(item.textarea.classList.contains('required') && item.textarea.textContent.length <= 1) {
+                  wrapper.classList.remove(...validClasses);
+                  wrapper.classList.add(...invalidClasses);
+                } else {
+                  wrapper.classList.remove(...invalidClasses);
+                  wrapper.classList.add(...validClasses);
+                }
+              }
+            }
+          );
+        }
+        //Siteglide submit function
+        s_form_submit_v2(event.currentTarget, form_html_id, sGFormCustomError);
+      }
+      submitButton.addEventListener('click', sGFormSubmit);
+    }
+  })();
+</script>
+

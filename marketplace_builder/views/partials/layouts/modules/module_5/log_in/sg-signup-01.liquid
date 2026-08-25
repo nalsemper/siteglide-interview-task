@@ -1,0 +1,24 @@
+<section class="sg-signup sg-signup-01a sg-bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-6 offset-md-3">
+				{% form html-class: "sg-form" -%}
+					<h2 class="text-center mb-3">Log In</h2>
+					<div class="form-group sg-form-group">
+						<label for="email">Email Address</label>
+						<input type="email" class="form-control sg-form-control" name="form[email]">
+					</div>
+					<div class="form-group sg-form-group">
+						<label for="password">Password</label>
+						<input type="password" class="form-control sg-form-control" name="form[password]">
+					</div>
+					<div class="row">
+						<div class="col-12 d-flex justify-content-end">
+							<button class="submitButton form-control sg-form-control btn btn-primary sg-btn sg-btn-primary btn-lg sg-btn-lg" type="button" onclick="siteglide_login_process(this,'{{_redirect}}','{{_empty_error_msg}}')">Log In</button>
+						</div>
+					</div>
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</section>

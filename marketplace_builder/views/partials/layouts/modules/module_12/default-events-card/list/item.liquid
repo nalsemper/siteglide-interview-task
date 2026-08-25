@@ -1,0 +1,85 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/default-events-card/list/wrapper.liquid
+  - views/partials/layouts/modules/module_12/default-events-card/list/item.liquid
+  - views/partials/layouts/modules/module_12/default-events-card/search.liquid
+  - views/partials/layouts/modules/module_12/default-events-card/sidebar.liquid
+  - views/partials/layouts/modules/module_12/default-events-card/archive.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-events-card
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Default events card
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default events card
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% assign host_id = this.properties.module_field_12_4 | downcase %}
+{% assign host = host_results.records.results | detect: id: host_id %}
+{% assign host = host | add_hash_key: "Title", host.properties['module_field_6_1'] %}
+{% assign host = host | add_hash_key: "Image", host.properties['module_field_6_4'] %}
+{% assign host = host | add_hash_key: "Image Alt", host.properties['module_field_6_5'] %}
+
+<article class="card flex flex-col rounded-2xl bg-base-50 dark:bg-base-900/20 p-6 md:p-8" data-motion-card>
+
+  <div class="flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.13em] text-neutral-500">
+    <div class="flex flex-wrap gap-2">
+      {% for category in this['category_array'] %}
+        <a href="{{ events_list_page_url }}?category={{ context.exports.categories.data[category].id }}" class="text-primary-400 hover:text-primary-300 transition-colors duration-200">
+          {{ context.exports.categories.data[category].name | replace: " ", "&nbsp;" }}
+        </a>
+      {% endfor %}
+    </div>
+    <span class="inline-flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-sm leading-none">schedule</span>
+      <span>
+        {% assign time_diff = this['Event Start'] | time_diff: this['Event End'] %}
+        {% if time_diff < 86400000 %}
+          {{ this['Event Start'] | date: '%a %d/%m/%y %H:%M' }} – {{ this['Event End'] | date: '%H:%M' }}
+        {% else %}
+          {{ this['Event Start'] | date: '%a %d/%m/%y %H:%M' }} – {{ this['Event End'] | date: '%a %d/%m/%y %H:%M' }}
+        {% endif %}
+      </span>
+    </span>
+  </div>
+
+  <a href="{{ this['full_slug'] }}" class="mt-4 transition-colors duration-200 hover:text-primary-400">
+    <h3 data-motion-text>
+      <span class="material-symbols-outlined text-base leading-none align-middle mr-1">calendar_today</span>
+      {{ this.properties.name }}
+    </h3>
+  </a>
+
+  {% if this.properties['module_field_12_6'] != blank %}
+    <p class="mt-2 flex items-center gap-1.5 text-xs uppercase tracking-[0.13em] text-neutral-500">
+      <span class="material-symbols-outlined text-sm leading-none">location_on</span>
+      <span>{{ this.properties.module_field_12_6 }}</span>
+    </p>
+  {% endif %}
+
+  <p class="mt-3 flex-1" data-motion-text>{{ this['Description'] | split: "." | first | append: "." | html_safe }}</p>
+
+  <div class="mt-5 flex items-center justify-between gap-4">
+    {% if host.id != blank %}
+      <a href="{{ events_list_page_url }}?module_field_12_4={{ host.id }}&host_name={{ host['Title'] | url_encode }}" class="flex items-center gap-3 text-sm transition-colors duration-200 hover:text-primary-400">
+        {% if host['Image'] != blank %}
+          <img class="h-7 w-7 rounded-full object-cover" src="{{ host['Image'] | asset_url }}" alt="{{ host['Image Alt'] }}">
+        {% endif %}
+        <span>{{ host['Title'] }}</span>
+      </a>
+    {% else %}
+      <span></span>
+    {% endif %}
+    <a href="{{ this.full_slug }}" class="button-secondary">
+      Read more
+      <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+    </a>
+  </div>
+
+</article>

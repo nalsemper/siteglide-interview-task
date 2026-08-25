@@ -1,0 +1,11 @@
+{
+	id: "{{this.id}}",
+	lat: {{this.properties.module_field_12_7 | split: ',' | first | times: 1 | default: "invalid" }},
+	lng: {{this.properties.module_field_12_7 | split: ',' | last | times: 1 | default: "invalid" }},
+	name: {{this.properties.name | json }},
+	address: {{this.properties.module_field_12_6 | json }},
+	slug: {{this.full_slug | json }},
+	event_start: "{{this.properties.module_field_12_2 | date: "%d/%m/%Y %H:%M T%z"}}",
+	event_end: "{{this.properties.module_field_12_3 | date: "%d/%m/%Y %H:%M T%z"}}",
+	valid: "{% if this.properties.module_field_12_7 == blank %}invalid{% else %}valid{% endif %}"
+}{% unless forloop.last %},{% endunless %}

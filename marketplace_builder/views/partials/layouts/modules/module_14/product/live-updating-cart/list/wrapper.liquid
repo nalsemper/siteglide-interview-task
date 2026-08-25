@@ -1,0 +1,204 @@
+---
+metadata:
+  settings:
+  - id: get_quote_url
+    type: text
+    label: Get Quote URL
+    default:
+  - id: checkout_url
+    type: text
+    label: Checkout URL
+    default: "/checkout"
+  - id: shop_home_url
+    type: text
+    label: Shop Home URL
+    default: "/"
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/live-updating-cart/list/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/live-updating-cart/list/item.liquid
+  - views/partials/layouts/modules/module_14/discount_code/live-updating-cart.liquid
+  - views/partials/layouts/modules/module_14/shipping_option/live-updating-cart.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: live-updating-cart
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Live-updating cart
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Live Updating Cart
+  studio_dynamic/sub_module_id: '3'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Get Quote URL ------ {% endcomment %}
+{% assign get_quote_url = settings.get_quote_url | default: null %}
+{% comment %} ------ Checkout URL ------ {% endcomment %}
+{% assign checkout_url = settings.checkout_url | downcase | default: "/checkout" %}
+{% comment %} ------ Shop Home URL ------ {% endcomment %}
+{% assign shop_home_url = settings.shop_home_url | downcase | default: "/" %}
+{% comment %} ---End Settings--- {% endcomment %}
+{% if params.sitebuilder_uniq_component_id %}
+  {% assign sitebuilder_uniq_component_id = params.sitebuilder_uniq_component_id %}
+{% else %}
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% endif %}
+{% if context.exports.sitebuilder.live_update_JS_loaded == blank %}
+  <script async src="{{'modules/module_357/js/v1-6/sitegurus_live_update_javascript_api.min.js' | asset_url }}"></script>
+  {% assign live_update_JS_loaded = true %}
+  {% export live_update_JS_loaded, namespace: sitebuilder %}
+{% endif %}
+
+{% function public_key = "modules/module_357/front_end/functions/v1/live_update_params_encode", layout: layout, model: _model, model_type: 'ecommerce/cart', collection: 'false', creator_id: nil %}
+
+<section class="py-24 md:py-28" id="{{sitebuilder_uniq_component_id}}" data-sg-live-update-section="{{sitebuilder_uniq_component_id}}" data-sg-live-update-key="{{public_key}}">
+  <div class="container">
+    <h1 class="sr-only">Your Cart</h1>
+
+    <ol class="flex items-center gap-3 text-xs uppercase tracking-[0.13em] text-neutral-500" aria-label="Checkout progress">
+      <li class="flex items-center gap-1.5 text-primary-400">
+        <span class="material-symbols-outlined text-sm leading-none">check_circle</span>
+        <span>Cart</span>
+      </li>
+      <span aria-hidden="true">›</span>
+      <li class="flex items-center gap-1.5 text-primary-400">
+        <span class="material-symbols-outlined text-sm leading-none">check_circle</span>
+        <span>Checkout</span>
+      </li>
+      <span aria-hidden="true">›</span>
+      <li class="flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-sm leading-none">check_circle</span>
+        <span>Order Summary</span>
+      </li>
+    </ol>
+
+    <div class="mt-10 flex flex-col gap-6 lg:flex-row lg:items-start">
+      <div class="w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+        <div class="flex flex-col gap-4" data-sg-live-update-component="main_results">
+          {% comment %} Check if Cart is empty {% endcomment %}
+          {% assign cart_parsed = context.session.cart | parse_json | parse_json %}
+          {% assign items_in_cart = 0 %}
+          {% for item in cart_parsed %}
+            {% assign item_quantity = item[1].quantity | plus: 0 %}
+            {% assign items_in_cart = items_in_cart | plus: item_quantity %}
+          {% endfor %}
+          {% if items_in_cart != 0 %}
+            {%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="flex flex-1 flex-col gap-4 lg:w-full">
+        {% include 'ecommerce/shipping_option', layout: layout %}
+
+        <div class="card rounded-2xl bg-base-50 dark:bg-base-900/20 p-6" data-sg-live-update-component="totals">
+          <p class="font-semibold">Order Summary</p>
+
+          <div class="mt-4 flex flex-col gap-2">
+            <dl class="flex items-center justify-between gap-4">
+              <dt>Original price</dt>
+              <dd>{% include 'ecommerce/price_base', format_type: 'formatted' -%}</dd>
+            </dl>
+            <dl class="flex items-center justify-between gap-4">
+              <dt>Shipping</dt>
+              <dd>{% include 'ecommerce/price_shipping', format_type: 'formatted' -%}</dd>
+            </dl>
+            <dl class="flex items-center justify-between gap-4">
+              <dt>Savings</dt>
+              <dd class="text-success-500">{% include 'ecommerce/price_total_reduction', format_type: 'formatted' -%}</dd>
+            </dl>
+            <dl class="flex items-center justify-between gap-4">
+              <dt>Tax</dt>
+              <dd>{% include 'ecommerce/price_total_tax_amount', format_type: 'formatted' -%}</dd>
+            </dl>
+            <dl class="flex items-center justify-between gap-4 border-t border-base-200 pt-4 dark:border-base-700">
+              <dt class="font-bold">Total</dt>
+              <dd class="font-bold">{% include 'ecommerce/price_total', format_type: 'formatted' -%}</dd>
+            </dl>
+          </div>
+
+          <a href="{{ checkout_url }}" class="button mt-6 w-full justify-center">Proceed to Checkout</a>
+
+          <div class="mt-4 flex items-center justify-center gap-2">
+            <span class="text-xs text-neutral-500">or</span>
+            <a href="{{ shop_home_url }}" class="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.08em] text-primary-400 transition-colors duration-200 hover:text-primary-300">
+              Continue Shopping
+              <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        {% include 'ecommerce/discount_code', layout: layout %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+
+	(function () {
+		// _.debounce function is imported from the open source library Lodash via SiteBuilder Live Updates, see https://lodash.com/
+		const cart = document.querySelector('#{{sitebuilder_uniq_component_id}}');
+		if(window.sgLiveUpdateInitiated === true) {
+			initCounterUpdateQuantity();
+		} else {
+			document.addEventListener('live_update_script_ready', initCounterUpdateQuantity);
+		}
+		function initCounterUpdateQuantity() {
+			const updateCounterDebounced = window._.debounce(updateCounter, 500, {trailing: true});
+			function updateCounter(e) {
+				console.log('updateCounter', this)
+				const t = this;
+				const p = t.parentElement;
+				const i = p.querySelector('input[data-input-counter]');
+				s_e_cart_update_quantity(i.value,i.dataset.cartId,'{{context.authenticity_token}}', false);
+				s_e_cart_update({
+					token: '{{context.authenticity_token}}',
+					success_cb: function() {
+						window.sgLiveUpdateConfig['{{sitebuilder_uniq_component_id}}'].changeStateTrailingDebounce(undefined,false,{});
+						
+					}
+				});
+			}
+			const counterButtons = cart.querySelectorAll('[data-input-counter-decrement],[data-input-counter-increment]');
+			counterButtons.forEach(function(btn) {
+				btn.addEventListener('click', updateCounterDebounced);
+			});
+		}
+		cart.addEventListener('live_update_end', function(e) {
+			const counters = FlowbiteInstances._instances.InputCounter;
+			for(property in counters) {
+				if(property.indexOf('counter-input-{{sitebuilder_uniq_component_id}}-') >= -1) {
+					counters[property].destroyAndRemoveInstance();
+				}
+			}
+			initFlowbite();
+			initCounterUpdateQuantity();
+			{% comment %} const inC = cart.querySelectorAll('[data-input-counter-increment]');
+			const deC = cart.querySelectorAll('[data-input-counter-decrement]');
+			console.log('try flowbites job', inC,deC);
+			inC.forEach(function(el) {
+				el.addEventListener('click', function(e) { 
+					const t = e.currentTarget;
+					const p = t.parentElement;
+					const i = p.querySelector('[data-input-counter]');
+					console.log('p', p, 'i', i)
+					i.value = parseInt(i.value) + 1;
+				});
+			});
+			deC.forEach(function(el) {
+				el.addEventListener('click', function(e) { 
+					const t = e.currentTarget;
+					const p = t.parentElement;
+					const i = p.querySelector('[data-input-counter]');
+					i.value = parseInt(i.value) - 1;
+				});
+			});
+			initCounterUpdateQuantity(); {% endcomment %}
+			{% comment %} initInputCounters(); {% endcomment %}
+		});
+		
+	})();
+</script>

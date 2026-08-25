@@ -1,0 +1,27 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Statuses API - List
+  enabled: true
+  file_type: page
+redirect_to: ''
+redirect_url: ''
+---
+{%- graphql statuses_data = "todo_statuses/list_todo_statuses", per_page: 100, page: 1 -%}
+{%- assign statuses = statuses_data.records.results -%}
+
+{%- capture statuses_json -%}
+[
+{%- assign first_status = true -%}
+{%- for status in statuses -%}
+  {%- unless first_status -%},{%- endunless -%}
+  {%- include 'todos/status_json', status: status -%}
+  {%- assign first_status = false -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{
+  "statuses": {{ statuses_json }}
+}

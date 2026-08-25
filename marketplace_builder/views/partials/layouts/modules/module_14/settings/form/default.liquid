@@ -1,0 +1,75 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>eCommerce Settings</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/settings_1">Default Currency</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/settings_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/settings_2">Order Status Options</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/settings_2'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 select">
+						<div class="col">
+							<label for="module_field_14/settings_3">Tax Rounding Method</label>
+							<select class="" name="{{ form_builder.fields.properties['module_field_14/settings_3'].name }}">
+								<option value="round_on_item">round_on_item</option>
+								<option value="round_on_row">round_on_row</option>
+								<option value="round_on_total">round_on_total</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mt-4 select">
+						<div class="col">
+							<label for="module_field_14/settings_4">Price Accuracy</label>
+							<select class="" name="{{ form_builder.fields.properties['module_field_14/settings_4'].name }}">
+								<option value="2dp">2dp</option>
+								<option value="4dp">4dp</option>
+							</select>
+						</div>
+					</div>
+					<div class="row mt-4 select">
+						<div class="col">
+							<label for="module_field_14/settings_5">Discount Percentage Application Method</label>
+							<select class="" name="{{ form_builder.fields.properties['module_field_14/settings_5'].name }}">
+								<option value="before_tax">before_tax</option>
+								<option value="after_tax">after_tax</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/settings')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

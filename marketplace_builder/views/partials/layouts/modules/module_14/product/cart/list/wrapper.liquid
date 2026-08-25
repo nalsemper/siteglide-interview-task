@@ -1,0 +1,59 @@
+<section class="large ecommerce">
+	<div class="container">
+		<table class="table cart-tbl">
+			<thead>
+				<tr>
+					<th scope="col">Items</th>
+					<th scope="col">Attributes</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Price</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				{%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+			</tbody>
+		</table>
+		<table class="table cart-value-tbl">
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="values">
+						<div class="row">
+							<div class="col text-right">
+								<strong>TOTAL QUANTITY:</strong>
+							</div>
+							<div class="col">{{context.exports.cart_total_quantity.data}}</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="values">
+						<div class="row">
+							<div class="col text-right">
+								<strong>TOTAL PRICE:</strong>
+							</div>
+							<div class="col">{%- include 'ecommerce/price_total', format_type: 'formatted' -%}</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			{% include 'ecommerce/shipping_option', layout: "siteglide_example" %}
+			<tr>
+				<td><a href="/products" class="btn btn-outline-primary">Continue Shopping</a></td>
+				<td><button class="btn btn-primary" onclick="s_e_cart_empty(true)">Empty cart</button></td>
+				<td><button class="btn btn-primary" onclick="s_e_cart_update(true,'{{context.authenticity_token}}')">Update cart</button></td>
+				<td><a href="/checkout" class="btn btn-primary float-right">Proceed to checkout</a></td>
+			</tr>
+		</table>
+	</div>
+</section>
+</div>
+{%- content_for 'siteglide_head_scripts' -%}
+	<link href="https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,600,700" rel="stylesheet">,,
+{%- endcontent_for -%}

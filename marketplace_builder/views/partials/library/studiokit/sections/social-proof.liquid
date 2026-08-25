@@ -1,0 +1,199 @@
+---
+metadata:
+  name: Social Proof
+  class: section
+  lists:
+  - name: Testimonials
+    type: testimonials
+    fields:
+    - id: name
+      type: text
+      label: Name
+      default: Marcus Hale
+      is_title: true
+    - id: handle
+      type: text
+      label: Handle
+      default: "@marcus_h"
+    - id: avatar_image
+      type: image_picker
+      label: Avatar Image
+      default: ''
+    - id: avatar_initials
+      type: text
+      label: Avatar Initials (fallback)
+      default: MH
+    - id: quote
+      type: textarea
+      label: Quote
+      default: Absolutely captivated by this product so far. It strikes the perfect
+        balance of speed and elegance while staying out of the way.
+    - id: highlight
+      label: Highlight Text (optional — highlights this phrase in the quote)
+      default: ''
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow Badge
+    default: Wall of love
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Adored by visionaries
+  - id: body
+    type: textarea
+    label: Body
+    default: Discover what our community is sharing about their experience
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: studiokit
+---
+{% assign testimonials = lists.testimonials %}
+<section class="overflow-hidden {{selection-index}}" data-ui-kit-social-proof data-motion-group>
+
+  <div class="container py-16 text-center md:py-20" data-motion-group>
+
+    <div class="mb-6 inline-flex items-center gap-2 rounded-full bg-base-50 px-4 py-1.5 text-xs uppercase tracking-[0.12em] dark:bg-base-900/20" data-motion-text>
+      <span class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 opacity-60 dark:text-base-300">{{ this.eyebrow }}</span>
+    </div>
+
+    <h2 data-motion-text>{{ this.heading }}</h2>
+    <p class="mx-auto max-w-xl" data-motion-text>{{ this.body }}</p>
+
+  </div>
+
+  <div class="flex flex-col gap-4 pb-16" data-motion-card>
+    <!-- Row 1 — scrolls left -->
+    <div class="overflow-hidden" data-sp-row>
+      <div class="flex w-max items-stretch gap-4 will-change-transform [animation:sp-scroll-left_40s_linear_infinite]" data-sp-strip>
+        {% for duplicate in (1..2) %}
+          {% for item in testimonials %}
+            <article
+              class="card sp-card flex h-full w-[22rem] flex-none flex-col rounded-2xl bg-base-50 p-5 dark:bg-base-900/20 md:w-[26rem]"
+              {% if duplicate == 2 %}aria-hidden="true"{% endif %}
+              {% if duplicate == 1 %}data-studio-list="{{ item._list }}"{% endif %}
+            >
+              <div class="mb-4 flex h-12 items-center gap-3">
+                <div class="flex h-10 w-10 flex-none items-center justify-center overflow-hidden rounded-full bg-base-200 text-xs font-semibold uppercase tracking-wide dark:bg-base-900">
+                  {% if item.avatar_image != blank %}
+                    {% if duplicate == 1 %}{% assign _avatar_alt = item.name %}{% else %}{% assign _avatar_alt = '' %}{% endif %}
+                    {% include 'img',
+                      path: item.avatar_image,
+                      classes: 'h-full w-full object-cover',
+                      attributes: 'alt="{{ _avatar_alt }}" loading="lazy"'
+                    %}
+                  {% else %}
+                    {{ item.avatar_initials | default: item.name | truncate: 2, '' }}
+                  {% endif %}
+                </div>
+                <div class="h-12 min-w-0">
+                  <p class="text-sm font-medium truncate !mb-0">{{ item.name }}</p>
+                  <p class="text-xs text-neutral-500 truncate !mb-0">{{ item.handle }}</p>
+                </div>
+              </div>
+              <p class="text-sm leading-relaxed text-neutral-400 !mb-0">
+                {% if item.highlight != blank %}
+                  {% assign parts = item.quote | split: item.highlight %}
+                  {{ parts[0] }}<span class="text-primary-400">{{ item.highlight }}</span>{{ parts[1] }}
+                {% else %}
+                  {{ item.quote }}
+                {% endif %}
+              </p>
+            </article>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Row 2 — scrolls right -->
+    <div class="overflow-hidden" data-sp-row>
+      <div class="flex w-max items-stretch gap-4 will-change-transform [animation:sp-scroll-right_48s_linear_infinite]" data-sp-strip>
+        {% for duplicate in (1..2) %}
+          {% for item in testimonials %}
+            <article
+              class="card sp-card flex h-full w-[22rem] flex-none flex-col rounded-2xl bg-base-50 p-5 dark:bg-base-900/20 md:w-[26rem]"
+              {% if duplicate == 2 %}aria-hidden="true"{% endif %}
+              {% if duplicate == 1 %}data-studio-list="{{ item._list }}"{% endif %}
+            >
+              <div class="mb-4 flex h-12 items-center gap-3">
+                <div class="flex h-10 w-10 flex-none items-center justify-center overflow-hidden rounded-full bg-base-200 text-xs font-semibold uppercase tracking-wide dark:bg-base-900">
+                  {% if item.avatar_image != blank %}
+                    {% if duplicate == 1 %}{% assign _avatar_alt = item.name %}{% else %}{% assign _avatar_alt = '' %}{% endif %}
+                    {% include 'img',
+                      path: item.avatar_image,
+                      classes: 'h-full w-full object-cover',
+                      attributes: 'alt="{{ _avatar_alt }}" loading="lazy"'
+                    %}
+                  {% else %}
+                    {{ item.avatar_initials | default: item.name | truncate: 2, '' }}
+                  {% endif %}
+                </div>
+                <div class="h-12 min-w-0">
+                  <p class="text-sm font-medium truncate !mb-0">{{ item.name }}</p>
+                  <p class="text-xs text-neutral-500 truncate !mb-0">{{ item.handle }}</p>
+                </div>
+              </div>
+              <p class="text-sm leading-relaxed text-neutral-400 !mb-0">
+                {% if item.highlight != blank %}
+                  {% assign parts = item.quote | split: item.highlight %}
+                  {{ parts[0] }}<span class="text-primary-400">{{ item.highlight }}</span>{{ parts[1] }}
+                {% else %}
+                  {{ item.quote }}
+                {% endif %}
+              </p>
+            </article>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<style>
+@keyframes sp-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes sp-scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+</style>
+
+<script type="module">
+import { animate } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
+
+const section = document.querySelector('[data-ui-kit-social-proof]');
+if (!section) throw new Error('sp: section not found');
+
+section.querySelectorAll('[data-sp-row]').forEach((row) => {
+  const strip = row.querySelector('[data-sp-strip]');
+  if (!strip) return;
+
+  let rateAnim = null;
+  let currentRate = 1;
+
+  function tweenRate(to) {
+    if (rateAnim) rateAnim.stop();
+    const from = currentRate;
+    rateAnim = animate(from, to, {
+      duration: 0.5,
+      ease: to === 0 ? 'easeOut' : 'easeIn',
+      onUpdate(v) {
+        currentRate = v;
+        strip.getAnimations().forEach((a) => (a.playbackRate = v));
+      },
+    });
+  }
+
+  row.querySelectorAll('.sp-card').forEach((card) => {
+    card.addEventListener('mouseenter', () => tweenRate(0));
+    card.addEventListener('mouseleave', () => tweenRate(1));
+  });
+});
+</script>

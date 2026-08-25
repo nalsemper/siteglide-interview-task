@@ -1,0 +1,243 @@
+---
+metadata:
+  name: Footer
+  tags:
+  class: section
+  lists:
+  - name: Column 1 Links
+    type: sitegurus_footer_features
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Workflow Management
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Column 2 Links
+    type: sitegurus_footer_resources
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Blog
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Column 3 Links
+    type: sitegurus_footer_enterprise
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Overview
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Column 4 Links
+    type: sitegurus_footer_usecases
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Video
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Column 5 Links
+    type: sitegurus_footer_company
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Talk with Sales
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: col_1_heading
+    type: text
+    label: Column 1 Heading
+    default: ''
+  - id: col_2_heading
+    type: text
+    label: Column 2 Heading
+    default: ''
+  - id: col_3_heading
+    type: text
+    label: Column 3 Heading
+    default: ''
+  - id: col_4_heading
+    type: text
+    label: Column 4 Heading
+    default: ''
+  - id: col_5_heading
+    type: text
+    label: Column 5 Heading
+    default: ''
+  - id: copyright_year
+    type: text
+    label: Copyright Year
+    default: ''
+  - id: copyright_company
+    type: text
+    label: Copyright Company Name
+    default: Platform Inc.
+  - id: terms_label
+    type: text
+    label: Terms Label
+    default: Terms
+  - id: terms_url
+    type: url
+    label: Terms URL
+    default: "#"
+  - id: privacy_label
+    type: text
+    label: Privacy Label
+    default: Privacy
+  - id: privacy_url
+    type: url
+    label: Privacy URL
+    default: "#"
+  - id: cookies_label
+    type: text
+    label: Cookie Preferences Label
+    default: Cookie preferences
+  - id: cookies_url
+    type: url
+    label: Cookie Preferences URL
+    default: "#"
+  - id: twitter_url
+    type: url
+    label: Twitter URL
+    default: "#"
+  - id: facebook_url
+    type: url
+    label: Facebook URL
+    default: "#"
+  - id: instagram_url
+    type: url
+    label: Instagram URL
+    default: "#"
+  - id: youtube_url
+    type: url
+    label: YouTube URL
+    default: "#"
+  - id: logo_image
+    type: image_picker
+    label: Logo Image
+    default: https://picsum.photos/100/40
+  hide_on: []
+  category: footers
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+  updated_at: 1781817554
+  collections:
+  global_data:
+  global_fields: []
+---
+<footer
+  class="bg-base-100 dark:bg-base-950 px-6 lg:px-20 py-20 relative z-10 border border-base-400/40 w-full mx-auto min-[2560px]:max-w-[130rem]  {{selection-index}}"
+>    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 mb-16">
+
+        <div class="col-span-2 lg:col-span-1">
+          {% if this.logo_image != blank %}
+        {% capture logo_image_attributes %}alt="{{ this.logo_image_alt | default: this.logo_text | default: 'Site logo' }}" loading="eager"{% endcapture %}
+        {% include 'img', path: this.logo_image, layout: 'default/base', classes: 'h-8 w-auto max-w-[10rem] object-contain !overflow-visible', attributes: logo_image_attributes %}
+        {% else %}
+        <span class="material-symbols-outlined text-2xl text-neutral-900 dark:text-neutral-50 rotate-90" aria-hidden="true">segment</span>
+        {% endif %}
+        {% if this.logo_text != blank %}
+        <span class="ml-2 text-lg md:text-xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50 truncate">{{ this.logo_text }}</span>
+        {% endif %}
+        </div>
+
+        {% if lists.sitegurus_footer_features.size > 0 %}
+        <div class="col-span-2 lg:col-span-1">
+          <h5 class="!text-sm text-neutral-500 dark:text-neutral-300/80">{{ this.col_1_heading | default: "" }}</h5>
+            <ul class="space-y-4 !p-0">
+                {% for item in lists.sitegurus_footer_features %}
+                <li data-studio-list="{{ item._list }}">
+                    <a href="{{ item.link_url }}" class="text-sm text-neutral-800 dark:text-neutral-200 font-light hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ item.link_text }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if lists.sitegurus_footer_resources.size > 0 %}
+        <div class="col-span-2 lg:col-span-1">
+          <h5 class="!text-sm text-neutral-500 dark:text-neutral-300/80">{{ this.col_2_heading | default: "" }}</h5>
+            <ul class="space-y-4 !p-0">
+                {% for item in lists.sitegurus_footer_resources %}
+                <li data-studio-list="{{ item._list }}">
+                    <a href="{{ item.link_url }}" class="text-sm text-neutral-800 dark:text-neutral-200 font-light hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ item.link_text }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if lists.sitegurus_footer_enterprise.size > 0 %}
+        <div class="col-span-2 lg:col-span-1">
+          <h5 class="!text-sm text-neutral-500 dark:text-neutral-300/80">{{ this.col_3_heading | default: "" }}</h5>
+          <ul class="space-y-4 !p-0">
+                {% for item in lists.sitegurus_footer_enterprise %}
+                <li data-studio-list="{{ item._list }}">
+                    <a href="{{ item.link_url }}" class="text-sm text-neutral-800 dark:text-neutral-200 font-light hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ item.link_text }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if lists.sitegurus_footer_usecases.size > 0 %}
+        
+        <div class="col-span-2 lg:col-span-1">
+          <h5 class="!text-sm text-neutral-500 dark:text-neutral-300/80">{{ this.col_4_heading | default: "" }}</h5>
+            <ul class="space-y-4 !p-0">
+                {% for item in lists.sitegurus_footer_usecases %}
+                <li data-studio-list="{{ item._list }}">
+                    <a href="{{ item.link_url }}" class="text-sm text-neutral-800 dark:text-neutral-200 font-light hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ item.link_text }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if lists.sitegurus_footer_company.size > 0 %}
+        <div class="col-span-2 lg:col-span-1">
+          <h5 class="!text-sm text-neutral-500 dark:text-neutral-300/80">{{ this.col_5_heading | default: "" }}</h5>
+            <ul class="space-y-4 !p-0">
+                {% for item in lists.sitegurus_footer_company %}
+                <li data-studio-list="{{ item._list }}">
+                    <a href="{{ item.link_url }}" class="text-sm text-neutral-800 dark:text-neutral-200 font-light hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ item.link_text }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="pt-8 flex flex-col items-start justify-start gap-4 text-left border-t border-base-400/40">
+      <div class="flex flex-wrap items-center justify-start gap-x-6 gap-y-2 text-[9px] text-neutral-500 dark:text-neutral-300/80 font-light uppercase tracking-wider">
+            <span>&copy; {{ this.copyright_year }} {{ this.copyright_company }} All rights reserved.</span>
+        <a href="{{ this.terms_url }}" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ this.terms_label }}</a>
+        <a href="{{ this.privacy_url }}" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ this.privacy_label }}</a>
+        <a href="{{ this.cookies_url }}" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors">{{ this.cookies_label }}</a>
+        </div>
+      <div class="flex items-center gap-3 text-neutral-500/70 dark:text-neutral-300/80">
+        <a href="{{ this.twitter_url }}" aria-label="Twitter" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors"><span class="material-symbols-outlined text-[13px] leading-none" aria-hidden="true">alternate_email</span></a>
+        <a href="{{ this.facebook_url }}" aria-label="Facebook" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors"><span class="material-symbols-outlined text-[13px] leading-none" aria-hidden="true">group</span></a>
+        <a href="{{ this.instagram_url }}" aria-label="Instagram" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors"><span class="material-symbols-outlined text-[13px] leading-none" aria-hidden="true">photo_camera</span></a>
+        <a href="{{ this.youtube_url }}" aria-label="YouTube" class="hover:text-primary-500 dark:hover:text-primary-400 transition-colors"><span class="material-symbols-outlined text-[13px] leading-none" aria-hidden="true">smart_display</span></a>
+        </div>
+    </div>
+</footer>

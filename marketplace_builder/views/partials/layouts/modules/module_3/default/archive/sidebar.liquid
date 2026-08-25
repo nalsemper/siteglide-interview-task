@@ -1,0 +1,6 @@
+<h3>Archive</h3>
+<ul>
+	{% for month in blog_archive_months %}
+		<li><a href="{{context.location.pathname}}?range_gt={{month.start}}&range_lte={{month.end}}&range_type=month">{{month.start | date: "%b-%y" }}</a></li>
+	{% endfor %}
+</ul>

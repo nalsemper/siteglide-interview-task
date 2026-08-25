@@ -1,0 +1,11 @@
+{%- comment -%} Interviewer scaffolding — Phase 2 branch only. Comma-separated bug numbers, e.g. "1,2,3" {%- endcomment -%}
+{%- assign bug_numbers = bugs | split: ',' -%}
+{%- capture bug_label -%}Bugs on this page: {% for n in bug_numbers %}{% if forloop.index > 1 %}, {% endif %}{{ n | strip }}{% endfor %}{%- endcapture -%}
+<span class="nav-bug-badges" title="{{ bug_label }}" tabindex="0" role="img" aria-label="{{ bug_label }}">
+  <svg class="nav-bug-badges__icon" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z"/>
+  </svg>
+  <span class="nav-bug-badges__numbers" aria-hidden="true">
+    {%- for n in bug_numbers -%}{% if forloop.index > 1 %} {% endif %}{{ n | strip }}{%- endfor -%}
+  </span>
+</span>

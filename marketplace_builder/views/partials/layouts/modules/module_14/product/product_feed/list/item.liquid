@@ -1,0 +1,6 @@
+<item>
+  <title>{{this.name}}</title>
+  <description>{{this['Description'] | strip_html | replace: "&nbsp;", " " | replace: "&", "+" }}</description>
+  <link href="https://{{ context.location.host }}{{this['full_slug']}}"></link>
+  <pubDate>{{this['release_date'] | date: "%a, %d %b %Y %H:%M:%S"}}</pubDate>
+</item>

@@ -1,0 +1,74 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_5/user_orders/past-orders.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: past-orders
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Past orders
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Order Detail View & Form Confirmation
+  studio_dynamic/sub_module_id: '7'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ------ Shop Home URL ------ {% endcomment %}
+{% assign shop_home_url = "/" %}
+{% comment %} ---End Settings--- {% endcomment %}
+{% capture sitegurus_ui_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+<section class="  p-3 sm:p-5" id="{{sitebuilder_uniq_component_id}}" data-sg-live-update-section="{{sitebuilder_uniq_component_id}}" data-sg-live-update-key="{{public_key}}">
+	<div class="mx-auto max-w-screen-xl px-4 lg:px-12">
+		<div class="mb-3">
+			<h1 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Past Orders</h1>
+			
+		</div>
+    <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden mb-3">
+			<div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+        <div class="overflow-x-auto min-w-full">
+          <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-4 py-3">Reference</th>
+                <th scope="col" class="px-4 py-3">Date</th>
+                <th scope="col" class="px-4 py-3">Status</th>
+                <th scope="col" class="px-4 py-3">Total</th>
+                <th scope="col" class="px-4 py-3"></th>
+              </tr>
+            </thead>
+            <tbody data-sg-live-update-component="main_results">
+              {%- for order in orders -%}
+                <tr class="border-b dark:border-gray-700">
+                  <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    #{{order.id}}
+                  </th>
+                  <td class="px-4 py-3">
+                    {{order.created_at | date: "%d/%m/%Y"}}
+                  </td>
+                  <td class="px-4 py-3">
+                    <span class="badge badge-sm {% case order.status %}{% when 'Payment Complete' %}bg-success{% when 'Awaiting Payment' %}bg-warning{% else %}bg-secondary{% endcase %}">{{order.status}}</span>
+                  </td>
+                  <td class="px-4 py-3">
+                    {{ context.exports.currency_map.data[order.currency] }}{{ order.price | divided_by: 100.0 | format_number: precision: 2 }}
+                  </td>
+                  <td class="px-4 py-3">
+                    <a href="{{ order.full_slug }}" class="font-medium text-primary-600 dark:text-primary-500 hover:underline">Details</a>
+                  </td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="">
+      <a class="inline-flex w-auto items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" href="{{shop_home_url}}"><u>Continue Shopping</u></a>
+    </div>
+  </div>
+</div>
+

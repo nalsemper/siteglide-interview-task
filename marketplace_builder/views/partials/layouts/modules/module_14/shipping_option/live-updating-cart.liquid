@@ -1,0 +1,62 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/live-updating-cart/list/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/live-updating-cart/list/item.liquid
+  - views/partials/layouts/modules/module_14/discount_code/live-updating-cart.liquid
+  - views/partials/layouts/modules/module_14/shipping_option/live-updating-cart.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: live-updating-cart
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Live-updating cart
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Live Updating Cart
+  studio_dynamic/sub_module_id: '3'
+  studio_dynamic/make_global_form: false
+---
+<div class="card rounded-2xl bg-base-50 dark:bg-base-900/20 p-6">
+  <form class="flex flex-col gap-4">
+    <div>
+      <label for="{{ sitebuilder_uniq_component_id }}-shipping-options" class="text-sm font-medium">Choose a Shipping Option</label>
+      <select onchange="s_e_cart_shipping(this);" name="{{ sitebuilder_uniq_component_id }}-shipping-options" id="{{ sitebuilder_uniq_component_id }}-shipping-options" class="mt-2 block w-full rounded-lg border border-base-200 bg-base-50 px-3 py-2.5 text-sm dark:border-base-700 dark:bg-base-900">
+        <option selected value="">--Please select--</option>
+        {%- for this in shipping_options -%}
+          {% assign currency = this.price.properties["module_field_14/price_2"] %}
+          <option {% if this.id == current_cart_shipping_id %}selected{% endif %} value="{{ this.id }}">{{ this.name }} - {{ this.currency_symbol }}{{ this.price }}</option>
+        {%- endfor -%}
+      </select>
+    </div>
+  </form>
+</div>
+{% comment %} 
+<script>
+	function s_e_discount_error(error) {
+    swal.fire({
+			position: 'bottom-end',
+			icon: 'error',
+			title: error.message,
+			showConfirmButton: false,
+			timer: 2000,
+			toast: true,
+			width: '24em',
+			padding: '1.5rem',
+			showCloseButton: true,
+			customClass: {
+				popup: 'flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:!bg-gray-800', 
+				title: 'ms-3 text-sm font-normal',
+				closeButton: 'ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700',
+			}
+		});
+	}
+</script>
+
+{% if context.exports.sitebuilder.sweetalert == blank %}
+	<script id="sweetalert_script" async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	{% assign sweetalert = true %}
+	{% export sweetalert, namespace: "sitebuilder" %}
+{% endif %} {% endcomment %}

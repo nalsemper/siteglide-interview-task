@@ -1,0 +1,188 @@
+---
+metadata:
+  name: News Featured List
+  class: section
+  lists:
+  - name: Other Articles
+    type: other_articles
+    fields:
+    - id: date
+      type: text
+      label: Date
+      default: Apr 07, 2026
+    - id: category
+      type: text
+      label: Category
+      default: Product
+    - id: read_time
+      type: text
+      label: Read Time
+      default: 5 min read
+    - id: title
+      type: textarea
+      label: Title
+      default: A clean article card title
+      is_title: true
+    - id: excerpt
+      type: textarea
+      label: Excerpt
+      default: Short preview text for this news item.
+    - id: image
+      type: image_picker
+      label: Card Image
+      default: ''
+    - id: image_alt
+      type: text
+      label: Image Alt
+      default: ''
+    - id: cta_url
+      type: url
+      label: Article URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Newsroom
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Latest updates from our team
+  - id: subheading
+    type: textarea
+    label: Subheading
+    default: Featured story first, then the newest articles in a clean editorial list.
+  - id: featured_label
+    type: text
+    label: Featured Label
+    default: Featured article
+  - id: featured_category
+    type: text
+    label: Featured Category
+    default: Strategy
+  - id: featured_date
+    type: text
+    label: Featured Date
+    default: Apr 07, 2026
+  - id: featured_read_time
+    type: text
+    label: Featured Read Time
+    default: 8 min read
+  - id: featured_title
+    type: textarea
+    label: Featured Title
+    default: How design systems keep fast teams consistent at scale
+  - id: featured_excerpt
+    type: textarea
+    label: Featured Excerpt
+    default: A practical playbook for shipping faster while keeping interfaces unified
+      across product, marketing, and content.
+  - id: featured_image
+    type: image_picker
+    label: Featured Image
+    default: images/Saas/699c319db1537012218587.png
+  - id: featured_image_alt
+    type: text
+    label: Featured Image Alt
+    default: Featured article cover image
+  - id: featured_cta_url
+    type: url
+    label: Featured URL
+    default: "#"
+  - id: featured_cta_label
+    type: text
+    label: Featured CTA Label
+    default: Read featured story
+  - id: list_heading
+    type: text
+    label: List Heading
+    default: More articles
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="max-w-3xl" data-motion-group>
+      <p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60" data-motion-text>{{ this.eyebrow }}</p>
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      <p data-motion-text>{{ this.subheading }}</p>
+    </div>
+
+<article class="card group mt-12 overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20 md:grid md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+  
+  <a
+    href="{{ this.featured_cta_url }}"
+    class="flex items-center justify-center p-6 md:p-8 bg-base-50 dark:bg-base-900/20"
+  >
+    {% include 'img',
+      path: this.featured_image,
+      classes: 'w-full h-[360px] object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]',
+      attributes: 'alt="{{ this.featured_image_alt | default: this.featured_title }}" loading="lazy"'
+    %}
+  </a>
+
+
+      <div class="flex flex-col justify-between p-6 md:p-8">
+        <div>
+          <p>{{ this.featured_label }}</p>
+          <div class="mt-4 mb-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.13em] text-neutral-500">
+            <span>{{ this.featured_category | default: 'Strategy' }}</span>
+            <span class="h-1 w-1 rounded-full bg-base-50 dark:bg-base-800/70"></span>
+            <span>{{ this.featured_date }}</span>
+            <span class="h-1 w-1 rounded-full bg-base-50 dark:bg-base-800/70"></span>
+            <span>{{ this.featured_read_time }}</span>
+          </div>
+          <h3 data-motion-text>{{ this.featured_title }}</h3>
+          <p data-motion-text>{{ this.featured_excerpt }}</p>
+        </div>
+
+        <a href="{{ this.featured_cta_url }}" class="button-secondary mt-8">
+          {{ this.featured_cta_label }}
+          <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+        </a>
+      </div>
+    </article>
+
+    <div class="mt-12 border-t border-base-50 pt-8">
+      <h3 data-motion-text>{{ this.list_heading }}</h3>
+      <div class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {% for item in lists.other_articles %}
+          <article data-studio-list="{{ item._list }}" class="card group flex h-full flex-col rounded-2xl bg-base-50 dark:bg-base-900/20 p-6 md:p-8" data-motion-card>
+            {% if item.image != blank %}
+              <a href="{{ item.cta_url }}" class="block overflow-hidden rounded-2xl border border-base-50">
+                {% include 'img',
+                  path: item.image,
+                  classes: 'h-44 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]',
+                  attributes: 'alt="{{ item.image_alt | default: item.title }}" loading="lazy"'
+                %}
+              </a>
+              {% else %}
+              <div class="card h-44 w-full rounded-2xl bg-base-50 dark:bg-base-900/20"></div>
+            {% endif %}
+
+            <div class="mt-4 mb-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.13em] text-neutral-500">
+              <span>{{ item.category | default: 'Product' }}</span>
+              <span class="h-1 w-1 rounded-full bg-base-50 dark:bg-base-800/70"></span>
+              <span>{{ item.date }}</span>
+              <span class="h-1 w-1 rounded-full bg-base-50 dark:bg-base-800/70"></span>
+              <span>{{ item.read_time | default: '5 min read' }}</span>
+            </div>
+
+              <a href="{{ item.cta_url | default: '#' }}" class="transition-colors duration-200 group-hover:text-primary-400" data-motion-text>{{ item.title }}</a>
+            <p data-motion-text>{{ item.excerpt }}</p>
+
+              <a href="{{ item.cta_url }}" class="button-secondary mt-5">
+              Read article
+              <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>

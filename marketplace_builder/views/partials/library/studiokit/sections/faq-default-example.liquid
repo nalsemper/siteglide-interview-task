@@ -1,0 +1,84 @@
+---
+metadata:
+  name: FAQ
+  class: section
+  lists:
+  - name: Questions
+    type: questions
+    fields:
+    - id: question
+      type: text
+      label: Question
+      default: What do you mean by "Figma assets"?
+      is_title: true
+    - id: answer
+      type: textarea
+      label: Answer
+      default: You will have access to download the full Figma project including all
+        of the pages, the components, responsive pages, and also the icons, illustrations,
+        and images included in the screens.
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Frequently asked questions
+  - id: body
+    type: textarea
+    label: Body
+    default: ''
+  hide_on: []
+  category: faq
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-3xl" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p data-motion-text>{{ this.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="mx-auto mt-10 max-w-3xl">
+      <div id="accordion-{{ sitebuilder_uniq_component_id }}" data-accordion="collapse" class="flex flex-col gap-4">
+        {% for item in lists.questions %}
+          <button
+            type="button"
+            id="acc-heading-{{ sitebuilder_uniq_component_id }}-{{ forloop.index0 }}"
+            data-accordion-target="#acc-body-{{ sitebuilder_uniq_component_id }}-{{ forloop.index0 }}"
+            aria-expanded="false"
+            aria-controls="acc-body-{{ sitebuilder_uniq_component_id }}-{{ forloop.index0 }}"
+            class="flex w-full items-center justify-between gap-6 rounded-2xl border-0 bg-base-50 px-8 py-6 text-left dark:bg-base-900/20"
+            data-studio-list="{{ item._list }}"
+            data-motion-card
+          >
+            <span class="text-base font-medium text-neutral-900 dark:text-neutral-50 @md:text-lg" data-motion-text>{{ item.question }}</span>
+            <span class="material-symbols-outlined flex-none shrink-0 text-[20px] leading-none text-neutral-500 transition-transform duration-300" data-accordion-icon aria-hidden="true">expand_more</span>
+          </button>
+          <div
+            id="acc-body-{{ sitebuilder_uniq_component_id }}-{{ forloop.index0 }}"
+            class="hidden"
+            aria-labelledby="acc-heading-{{ sitebuilder_uniq_component_id }}-{{ forloop.index0 }}"
+          >
+            <div class="px-8 py-5">
+              <p data-motion-text>{{ item.answer }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>

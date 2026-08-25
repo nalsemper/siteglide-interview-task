@@ -1,0 +1,10 @@
+{% comment %} default scripts {% endcomment %}
+{% content_for 'siteglide_footer_scripts' %}
+	<script type="text/javascript" src="{{ 'modules/siteglide_secure_zones/js/siteglide_secure_zones.js' | asset_url }}"></script>,,
+{% endcontent_for %}
+{% comment %} set default layout {% endcomment %}
+{%- assign _layout = layout | default: 'default' -%}
+{% comment %} set redirect {% endcomment %}
+{%- assign _redirect = redirect | default: context.location.pathname -%}
+{% comment %} include form {% endcomment %}
+{% include_form 'modules/siteglide_secure_zones/log_out' -%}

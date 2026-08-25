@@ -1,0 +1,27 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_4/thumbnail-swiper/list/wrapper.liquid
+  - views/partials/layouts/modules/module_4/thumbnail-swiper/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: thumbnail-swiper
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_4
+  studio_dynamic/layout_name: Thumbnail swiper
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Thumbnail swiper
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<div class="swiper-slide">
+  <div class="inline-flex items-center justify-center flex-col space-y-4 w-full pb-8">
+    <img class="max-w-full h-auto" src="{{ this['Image'] | asset_url }}" alt="{ this['Image Alt'] }}"/>
+    {% if this['Title'] != blank %}<h3 class="">{{ this['Title'] }}</h3>{% endif %}
+    {% if this['Description'] != blank %}<p class="format dark:format-invert">{{ this['Description'] | html_safe}}</p>{% endif %}
+    {% if this['Button Name'] != blank or this['Button Link'] != blank %}<a class="button" href="{{this['Button Link']}}" title="">{{this['Button Name']}}</a>{% endif %}
+  </div>
+</div>

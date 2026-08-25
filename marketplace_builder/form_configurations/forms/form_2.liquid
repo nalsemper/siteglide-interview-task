@@ -1,0 +1,120 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    form_name:
+      name: form_name
+      value: Create User
+      property_options:
+        virtual: true
+    form_cfs:
+      name: form_cfs
+      value: "[]"
+      property_options:
+        virtual: true
+    form_crm:
+      name: form_crm
+      value: "[]"
+      property_options:
+        virtual: true
+    form_address:
+      name: form_address
+      value: "{}"
+      property_options:
+        virtual: true
+    form_company:
+      name: form_company
+      value: "{}"
+      property_options:
+        virtual: true
+    form_live:
+      name: form_live
+      value: 'true'
+      property_options:
+        virtual: true
+    form_payment:
+      name: form_payment
+      value: false
+      property_options:
+        virtual: true
+    form_payment_type:
+      name: form_payment_type
+      value: checkout_standard
+      property_options:
+        virtual: true
+    form_payment_amount:
+      name: form_payment_amount
+      value: '0'
+      property_options:
+        virtual: true
+    form_payment_currency:
+      name: form_payment_currency
+      value: usd
+      property_options:
+        virtual: true
+    form_hcaptcha:
+      name: form_hcaptcha
+      value: true
+      property_options:
+        virtual: true
+    form_recaptcha:
+      name: form_recaptcha
+      value: false
+      property_options:
+        virtual: true
+    form_recaptcha_version:
+      name: form_recaptcha_version
+      value: ''
+      property_options:
+        virtual: true
+    form_recaptcha_score:
+      name: form_recaptcha_score
+      value: ''
+      property_options:
+        virtual: true
+    form_recaptcha_action:
+      name: form_recaptcha_action
+      value: ''
+      property_options:
+        virtual: true
+    secure_zones:
+      name: secure_zones
+      value: '51'
+      property_options:
+        virtual: true
+    disable_autoresponder:
+      name: disable_autoresponder
+      value: ''
+      property_options:
+        virtual: true
+    disable_workflow:
+      name: disable_workflow
+      value: ''
+      property_options:
+        virtual: true
+    user_id:
+      name: user_id
+      type: string
+      required: false
+      validation: {}
+    name:
+      name: name
+      type: string
+      required: true
+      validation:
+        presence: true
+    email:
+      name: email
+      type: string
+      required: true
+      validation:
+        presence: true
+name: form_2
+redirect_to: "/"
+resource: form_2
+resource_owner: anyone
+---
+{% content_for 'siteglide_footer_scripts' %}<script type="text/javascript" src="{{ 'modules/siteglide_secure_zones/js/siteglide_secure_zones.js' | asset_url }}"></script>,,{% endcontent_for %}
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/forms/form_2/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

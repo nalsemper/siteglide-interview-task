@@ -1,0 +1,36 @@
+---
+metadata:
+  name: Banner
+  class: section
+  lists: []
+  fields:
+  - id: banner_text
+    type: text
+    label: Banner Text
+    default: 'Supercharge your hiring by taking advantage of our limited-time sale
+      for Designer Search + Job Board. Unlimited access to over 190K top-ranked candidates
+      and the #1 design job board.'
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div
+    id="banner-notice"
+    tabindex="-1"
+    class="flex w-full items-start justify-between gap-6 border-b border-base-200 bg-base-50 px-4 py-3 dark:border-base-700 dark:bg-base-900/20 @sm:items-center"
+  >
+    <p class="!mb-0 text-sm text-neutral-600 dark:text-neutral-300 !w-full !max-w-full" data-motion-text >{{ this.banner_text }}</p>
+    <button
+      type="button"
+      data-dismiss-target="#banner-notice"
+      aria-label="Close banner"
+      class="flex-none rounded-lg p-1.5 text-neutral-400 hover:bg-base-100 hover:text-neutral-900 dark:hover:bg-base-800 dark:hover:text-neutral-50"
+    >
+      <span class="material-symbols-outlined text-[20px] leading-none" aria-hidden="true">close</span>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+mutation create_todo_status(
+  $name: String!
+  $is_completed: Boolean = false
+  $sort_order: Int = 0
+  $is_default: Boolean = false
+  $color: String
+) {
+  record_create(
+    record: {
+      table: "module_986"
+      properties: [
+        { name: "name", value: $name }
+        { name: "module_field_986_1", value_boolean: $is_completed }
+        { name: "module_field_986_2", value_int: $sort_order }
+        { name: "module_field_986_3", value_boolean: $is_default }
+        { name: "module_field_986_4", value: $color }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

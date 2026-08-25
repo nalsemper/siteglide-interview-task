@@ -1,0 +1,10 @@
+<div class="row no-gutters mb-4">
+	<div class="col-12">
+		<h2 class="h3 sg-h3 mb-3">Archive</h2>
+		<ul class="list-unstyled">
+			{% for month in blog_archive_months %}
+				<li><a href="{{context.location.pathname}}?range_gt={{month.start}}&range_lte={{month.end}}&range_type=month" title="{{month.start | date: "%b-%y" }}">{{month.start | date: "%b-%y" }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

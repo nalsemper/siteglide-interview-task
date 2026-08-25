@@ -1,0 +1,20 @@
+---
+name: module_14/payment
+properties:
+- name: module_field_14/payment_1
+  type: string
+- name: module_field_14/payment_2
+  type: string
+- name: module_field_14/payment_3
+  type: string
+- name: module_field_14/payment_4
+  type: string
+- name: module_field_14/payment_5
+  type: string
+- name: module_field_14/payment_6
+  type: string
+- name: module_field_14/payment_7
+  type: string
+- name: module_field_14/payment_8
+  type: integer
+---

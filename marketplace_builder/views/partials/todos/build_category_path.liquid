@@ -1,0 +1,22 @@
+{%- comment -%}
+  Builds a breadcrumb path for a category (parent › child).
+  Expects `category_id` and `categories` in scope.
+{%- endcomment -%}
+{%- assign path = '' -%}
+{%- assign current_id = category_id | append: '' | strip -%}
+{%- for cat in categories -%}
+  {%- assign cat_id_str = cat.id | append: '' -%}
+  {%- if cat_id_str == current_id -%}
+    {%- assign path = cat.properties.name -%}
+    {%- assign parent_id = cat.properties.module_field_987_1 | append: '' | strip -%}
+    {%- if parent_id != blank and parent_id != '0' -%}
+      {%- for parent_cat in categories -%}
+        {%- assign parent_cat_id = parent_cat.id | append: '' -%}
+        {%- if parent_cat_id == parent_id -%}
+          {%- assign path = parent_cat.properties.name | append: ' › ' | append: path -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{{- path -}}

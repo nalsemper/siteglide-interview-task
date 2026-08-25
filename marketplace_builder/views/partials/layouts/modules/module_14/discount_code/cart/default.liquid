@@ -1,0 +1,30 @@
+<div class="form-group row discount">
+	<div class="col-12 col-lg-7">
+		<label class="mb-3" for="s_e_discount_code">Discount Code</label>
+		<input class="form-control" id="s_e_discount_code" data-s-e-discount-code {% if discount_code != blank %} value="{{discount_code}}" readonly="true"{%- endif -%}>
+	</div>
+	<div class="col-12 col-lg-5 mt-4 align-self-end">
+		{%- if discount_code == blank -%}
+			<button class="btn btn-primary sg-btn sg-btn-primary" id="s_e_discount_apply" onclick="s_e_cart_discount_code({spend: '{{context.exports.cart_base_price.data | json}}', error_cb: s_e_discount_error, reload: true })">Apply Code</button>
+		{%- else-%}
+			<button class="btn btn-primary sg-btn sg-btn-danger" id="s_e_discount_remove" onclick="s_e_cart_discount_code_remove({reload: true})">Remove Code</button>
+		{% endif %}
+	</div>
+	<div class="col-12 mt-4">
+		{% if discount_code != blank -%}<p>Discount: <span style="color: red;">-{{context.exports.cart_currency.data}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: discount_amount -%}</span></p>{% endif %}
+		{%- if discount_code != blank and discount_minimum -%}
+			<p class="mt-4">This code will only be valid on Cart orders worth over: {{context.exports.cart_currency.data}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: discount_minimum -%}</p>
+		{%- endif -%}
+		{%- if discount_saving_maximum_reached == true -%}
+			<!-- Message here -->
+			<p class="mt-4">Minimum transaction value reached. To make the most of your discount, try adding another item to your Cart.</p>
+		{%- endif -%}
+	</div>
+</div>
+<script>
+	function s_e_discount_error(error) {
+		console.log(error.type); /* an error code which you can use in your logic. */
+		console.log(error.message); /* A ready-drafted error message */
+		alert(error.message);
+	}
+</script>

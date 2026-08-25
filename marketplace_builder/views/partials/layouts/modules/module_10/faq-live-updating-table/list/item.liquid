@@ -1,0 +1,175 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/list/wrapper.liquid
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/list/item.liquid
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/list/delete_modal.liquid
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/structured_data.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/faq-live-updating-table.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/boolean.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/datasource.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/date.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/file.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/image.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_14/product/faq-live-updating-table/components/collection.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/input_radio.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/select_multi.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/select.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/string.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/textarea.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/subheading.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/heading.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/array_custom.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/folder.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/image_array.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/number_float.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/number_integer.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: faq-live-updating-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_10
+  studio_dynamic/layout_name: FAQ live-updating table
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: FAQ live-updating table
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+  {% function field_map = "modules/module_357/front_end/functions/v1/field_mapping", field_headings: field_headings, this: this %}
+  {%- function detail_page_valid = "modules/module_357/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+  
+  <tr class="border-b dark:border-gray-700">
+    {% for field in field_headings %}
+      {% if field[0] contains "Filter" %}
+        {% continue %}
+      {% endif %}
+      {% assign field_metadata = table_config.custom_fields[field[1]] | default: table_config.system_fields[field[1]] %}
+      {% capture field_content %}
+        {% if field_map[field[0]] != blank %}
+          {% if field[1] == "release_date" or field[1] == "expiry_date" %}
+            {% comment %} For legacy reasons, these dates are integers in db {% endcomment %}
+            {% hash_assign field_metadata['type'] = 'date' %}
+          {% endif %}
+          {% case field_metadata.type %}
+          {% when "image" %}
+            <div class="h-8 md:h-16">
+              <img class="rounded object-cover w-8 md:w-16" src="{{field_map[field[0]] | asset_url }}">
+            </div>
+          {% when "file" %}
+            <a class="font-medium text-primary-600 dark:text-primary-500 hover:underline" target="_blank" href="{{field_map[field[0]] | asset_url}}" title="Download File {{field_map[field[0]] | asset_url}}">Download File</a> 
+          {% when "image_array" %}
+            <div class="flex flex-wrap -mb-2">
+              {% for item in field_map[field[0]] %}
+                <span class="mr-2 mb-2"><img class="rounded object-cover w-2 md:w-5" src="{{item | asset_url }}"> </span>
+              {% endfor %}
+            </div>
+          {% when "array_custom" or "input_checkbox" or "select_multi" or "array" or "datasource_multi" %}
+            <div class="flex flex-wrap -mb-2">
+              {% for item in field_map[field[0]] %}
+                <span class="bg-primary-100 text-primary-800 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"> {% if field[1] == "category_array" %}{{context.exports.categories.items[item].name}}{% else %}{{item}}{% endif %}</span>
+              {% endfor %}
+            </div>
+          {% when "date" %}
+            {% assign day = field_map[field[0]] | date: "%e" %}
+            {% assign daySuffix1st = day | matches: "\d?1\z" %}
+            {% assign daySuffix2nd = day | matches: "\d?2\z" %}
+            {% assign daySuffix3rd = day | matches: "\d?3\z" %}
+            {{day}}{% if daySuffix1st %}st{% elsif daySuffix2nd %}nd{% elsif daySuffix3rd %}rd{% else %}th{% endif %} {{field_map[field[0]] | date: "%b %Y"}}
+          {% when "boolean" %}
+            {% if field_map[field[0]] == true %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-success-400">
+                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+              </svg>
+  
+            {% else %}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-danger-400">
+                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
+              </svg>
+            {% endif %}
+          {% when "textarea" %}
+            <div class="format dark:format-invert">
+              {{field_map[field[0]]  | truncatewords: 20 | sanitize  }}
+            </div>
+          {% when "datasource" or "datasource_multi" %}
+            {% comment %} Note- this is an experimental feature, use with caution. You may find it has an adverse effect on performance if used on long lists using datasources. {% endcomment %}
+            {% if field_metadata.type == "datasource" %}
+              {% assign ids = field_map[field[0]] | split: "," %}
+            {% else %}  
+              {% assign ids = field_map[field[0]] %}
+            {% endif %}
+            {% graphql g, table: field_metadata.datasource_id, ids: ids %}
+              query g($table: String!) {
+                records(
+                  per_page: 2000,
+                  filter: {
+                    table: {
+                      value: $table
+                    }
+                  }
+                ) {
+                  results {
+                    id
+                    name: property(name: "name")
+                  }
+                }
+              }
+            {% endgraphql %}
+            <div class="flex flex-wrap -mb-2">
+              {% for item in g.records.results %}
+                  {% if ids contains item.id %}
+                    <span class="bg-primary-100 text-primary-800 text-xs font-medium mr-2 mb-2 px-2.5 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">{{item.name}}</span>
+                  {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            {{field_map[field[0]]}}
+          {% endcase %}
+        {% endif %}
+      {% endcapture %}
+     
+      {% if forloop.first %}
+        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          {{field_content | html_safe: raw_text: true }}
+        </th>
+      {% else %}
+        <td class="px-4 py-3">
+          {{field_content | html_safe: raw_text: true }}
+        </td>
+      {% endif %}
+    {% endfor %}
+    {% if context.current_user.id != blank %}
+      <td class="px-4 py-3 flex items-center justify-end">
+        <button id="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}-button" data-dropdown-toggle="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+          <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+          </svg>
+        </button>
+        <div id="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+          {% if detail_page_valid %}
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}-button">
+              <li>
+                <a href="{{this.full_slug}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
+              </li>
+              <li>
+                <a href="{{this.full_slug}}?edit=true" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+              </li>
+            </ul>
+          {% endif %}
+          <div class="py-1">
+            {% comment %} <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a> {% endcomment %}
+            {% include "webapp_delete", layout: layout %}
+          </div>
+        </div>
+      </td>
+    {% endif %}
+  </tr>
+
+

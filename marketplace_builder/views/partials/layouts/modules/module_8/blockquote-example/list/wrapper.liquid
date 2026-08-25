@@ -1,0 +1,27 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_8/blockquote-example/list/wrapper.liquid
+  - views/partials/layouts/modules/module_8/blockquote-example/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: blockquote-example
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_8
+  studio_dynamic/layout_name: Blockquote example
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Blockquote example
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<section class=" ">
+  {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+  {%- if _show_pagination == 'false' and pagination_layout != blank and pagination_layout != "default" -%}
+    <div class="mb-8">
+      {%- include 'modules/siteglide_system/get/get_pagination', pagination_layout: _pagination_layout -%}
+    </div>
+  {%- endif -%}
+</section>

@@ -1,0 +1,42 @@
+---
+name: module_14/subscription_order
+properties:
+- name: module_field_14/subscription_order_1
+  type: string
+- name: module_field_14/subscription_order_10
+  type: string
+- name: module_field_14/subscription_order_11
+  type: string
+- name: module_field_14/subscription_order_12
+  type: string
+- name: module_field_14/subscription_order_13
+  type: string
+- name: module_field_14/subscription_order_14
+  type: string
+- name: module_field_14/subscription_order_15
+  type: string
+- name: module_field_14/subscription_order_16
+  type: string
+- name: module_field_14/subscription_order_17
+  type: string
+- name: module_field_14/subscription_order_18
+  type: integer
+- name: module_field_14/subscription_order_19
+  type: integer
+- name: module_field_14/subscription_order_2
+  type: string
+- name: module_field_14/subscription_order_3
+  type: string
+- name: module_field_14/subscription_order_4
+  type: string
+- name: module_field_14/subscription_order_5
+  type: string
+- name: module_field_14/subscription_order_6
+  type: string
+- name: module_field_14/subscription_order_7
+  type: string
+- name: module_field_14/subscription_order_8
+  type: string
+- name: module_field_14/subscription_order_9
+  type: string
+---

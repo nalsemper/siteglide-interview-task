@@ -1,0 +1,38 @@
+---
+metadata:
+  fields:
+  - id: main_heading
+    type: text
+    label: Main Heading
+    default: Latest Articles
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/item.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/structured_data.liquid
+  - views/partials/layouts/pagination/default-author-detail2.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-author-detail2
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_6
+  studio_dynamic/layout_name: Default Author Detail2
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Author Detail
+  studio_dynamic/sub_module_id: '1'
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ---End Settings--- {% endcomment %}
+
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+<section data-motion-group>
+  <div class="container">
+    {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+  </div>
+</section>
+  

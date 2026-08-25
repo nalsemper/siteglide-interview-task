@@ -1,0 +1,35 @@
+<section class="sg-events sg-events-list-01 sg-bg-light">
+  <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8">
+           <h1 class="mb-5">What's on at Siteglide?</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <div class=" d-flex justify-content-between align-items-center pb-3">
+          {% assign now = "now" | date: "%s" %}
+          {% if context.params.range_type == "past" %}
+            <h2 class="h6 sg-h6">Past Events</h2>
+            <a href="{{context.headers.PATH_INFO}}?range_field=events&range_type=future&range_gt={{now}}">Future Events</a>
+          {% elsif context.params.range_type == "future" %}
+            <h2 class="h6 sg-h6">Future Events</h2>
+            <a href="{{context.headers.PATH_INFO}}?range_field=events&range_type=past&range_lt={{now}}">Past Events</a>
+          {% else %}
+            <h2 class="h6 sg-h6">All Events</h2>
+            <a href="{{context.headers.PATH_INFO}}?range_field=events&range_type=past&range_lt={{now}}">Past Events</a>
+          {% endif %}
+        </div>
+        {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+        {%- include 'modules/siteglide_system/get/get_pagination', pagination_layout: "default" -%}
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="sg-sidebar">
+          {%- include 'modules/siteglide_events/get/get_events_archive', archive_layout: "sg-events-01/archive", archive_layout_type: "sidebar_years_and_date_search" -%}
+          {%- include 'modules/siteglide_system/get/get_categories', categories_layout: 'sg-events-01/categories', categories_layout_type: 'list' -%}
+          {%- include 'modules/siteglide_authors/get/get_authors', author_layout: 'sg-events-01/author', author_layout_type: 'list', author_field: 'module_field_12_4' -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

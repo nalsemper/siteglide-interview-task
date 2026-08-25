@@ -1,0 +1,66 @@
+---
+metadata:
+  fields:
+  - id: main_heading
+    type: text
+    label: Main Heading
+    default: Listen to what our customers say
+  - id: list_url
+    type: text
+    label: URL For More Testimonials
+    default: "/testimonials"
+  - id: subtitle
+    type: text
+    label: Subtitle
+    default: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
+  settings:
+  - id: list_url
+    type: text
+    label: URL For More Testimonials
+    default: "/testimonials"
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_8/duotone-testimonial-cards/list/wrapper.liquid
+  - views/partials/layouts/modules/module_8/duotone-testimonial-cards/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: duotone-testimonial-cards
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_8
+  studio_dynamic/layout_name: Duotone Testimonial Cards
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Gardening Testimonial Cards
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings:--- {% endcomment %}
+{% comment %} ------ URL for more Testimonials------ {% endcomment %}
+{% assign list_url = settings.list_url  | default: "/testimonials" %}
+
+
+{% comment %} ---End Settings--- {% endcomment %}
+
+<section data-motion-group>
+  <div class="container py-12 md:py-16">
+    <div class="mx-auto mb-10 max-w-2xl text-center" data-motion-group>
+      <h2 data-motion-text>{{this.main_heading | default: "Listen to what our customers say"}}</h2>
+      <p class="mx-auto" data-motion-text>{{this.subtitle | default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."}}</p>
+    </div>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+    </div>
+    {%- if _show_pagination == 'false' and pagination_layout != blank and pagination_layout != "default" -%}
+      <div class="pt-10">
+        {%- include 'modules/siteglide_system/get/get_pagination', pagination_layout: _pagination_layout -%}
+      </div>
+    {%- else -%}
+      <div class="pt-10 text-center">
+        <a href="{{list_url}}" class="button-secondary inline-flex items-center gap-2">Show more...</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+

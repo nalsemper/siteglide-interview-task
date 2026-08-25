@@ -1,0 +1,166 @@
+---
+metadata:
+  name: Video Section
+  tags:
+  class: section
+  lists:
+  - name: Testimonials
+    type: testimonials
+    fields:
+    - id: quote
+      type: textarea
+      label: Quote
+      default: If Paraform didn't exist, I might be crying in the bathroom.
+      is_title: false
+    - id: author
+      type: text
+      label: Author
+      default: Grace Turner, Head of Talent @ Pallet
+      is_title: true
+    - id: cta_label
+      type: text
+      label: CTA Label
+      default: Read customer story
+      is_title: false
+    - id: cta_url
+      type: url
+      label: CTA URL
+      default: "#"
+      is_title: false
+    - id: video_image
+      type: image_picker
+      label: Video Poster Image
+      default: ''
+      is_title: false
+    - id: brand_logo
+      type: image_picker
+      label: Brand Logo
+      default: ''
+      is_title: false
+    - id: brand_logo_alt
+      type: text
+      label: Brand Logo Alt Text
+      default: ''
+      is_title: false
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Video Section
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+  updated_at: 1781815944
+  collections:
+  global_data:
+  global_fields: []
+---
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+
+<section class=" {{selection-index}}" data-ui-kit-testimonial-carousel>
+  <div class="container py-28 md:py-32">
+
+    <div class="mx-auto max-w-5xl text-center" data-motion-group>
+      <h2 data-motion-text>{{ this.heading }}</h2>
+    </div>
+
+    <div class="relative mt-10">
+      <div class="swiper" data-sitebuilder-swiper="{{sitebuilder_uniq_component_id}}">
+        <div class="swiper-wrapper">
+          {% for item in lists.testimonials %}
+<article class="card swiper-slide relative !w-[85vw] md:!w-[900px] overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20">              <div class="relative h-72 w-full bg-base-50 dark:bg-base-900/20 md:h-[480px]">
+                {% if item.video_image != blank %}
+                  {% include 'img',
+                    path: item.video_image,
+                    classes: 'h-full w-full object-cover',
+                    attributes: 'alt="{{ item.author }}" loading="lazy"'
+                  %}
+                {% endif %}
+                <div class="absolute inset-0 bg-gradient-to-t from-base-950/70 via-base-950/40 to-transparent"></div>
+                {% if item.brand_logo != blank %}
+                  {% include 'img',
+                    path: item.brand_logo,
+                    classes: 'absolute left-5 top-5 h-7 w-auto opacity-90',
+                    attributes: 'alt="{{ item.brand_logo_alt }}" loading="lazy"'
+                  %}
+                {% endif %}
+                <span class="absolute left-5 bottom-5 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-base-100/90 text-primary-500">
+                  <span class="material-symbols-outlined text-base leading-none">play_arrow</span>
+                </span>
+              </div>
+              <div class="flex flex-col gap-5 p-8">
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-primary-500 text-2xl leading-none flex-shrink-0">format_quote</span>
+                  <p class="max-w-full">{{ item.quote }}</p>
+                </div>
+                <p>{{ item.author }}</p>
+                <a href="{{ item.cta_url }}" class="button-secondary inline-flex items-center gap-2 w-fit">
+                  {{ item.cta_label }}
+                  <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+                </a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        <button type="button" class="swiper-button-prev absolute left-3 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-2xl border border-primary-500 bg-transparent !text-primary-500 after:!content-none after:!hidden transition-colors duration-200 hover:border-primary-600 hover:!text-primary-600 md:left-4 md:h-14 md:w-14" aria-label="Previous slide">
+          <span class="material-symbols-outlined !text-primary-500 text-base leading-none">arrow_back</span>
+        </button>
+        <button type="button" class="swiper-button-next absolute right-3 top-1/2 z-30 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-2xl border border-primary-500 bg-transparent !text-primary-500 after:!content-none after:!hidden transition-colors duration-200 hover:border-primary-600 hover:!text-primary-600 md:right-4 md:h-14 md:w-14" aria-label="Next slide">
+          <span class="material-symbols-outlined !text-primary-500 text-base leading-none">arrow_forward</span>
+        </button>
+
+        <div class="mx-auto mt-2 flex w-full items-center justify-center">
+          <div class="swiper-pagination testimonial-swiper-pagination !relative !left-auto !right-auto !top-auto !bottom-auto !mt-20 !inline-flex !w-fit items-center justify-center gap-2 rounded-2xl bg-base-200 dark:bg-base-900 p-3"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  if(!window.sitebuilderSwiperConfig ) {
+    window.sitebuilderSwiperConfig  = {};
+  }
+window.sitebuilderSwiperConfig['{{sitebuilder_uniq_component_id}}'] = {
+  initiated: false,
+  config: {
+    slidesPerView: 'auto',
+    centeredSlides: true,
+
+    spaceBetween: 32,
+    slidesPerGroup: 1,
+    speed: 360,
+    watchOverflow: true,
+    grabCursor: true,
+
+    navigation: {
+      nextEl: `[data-sitebuilder-swiper='{{sitebuilder_uniq_component_id}}'] .swiper-button-next`,
+      prevEl: `[data-sitebuilder-swiper='{{sitebuilder_uniq_component_id}}'] .swiper-button-prev`
+    },
+
+    pagination: {
+      el: `[data-sitebuilder-swiper='{{sitebuilder_uniq_component_id}}'] .swiper-pagination`,
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + ' !m-0 !block !h-2 !w-2 !min-h-0 !rounded-md !border-0 !p-0 !opacity-100 !bg-base-700 !transition-all !duration-300 [&.swiper-pagination-bullet-active]:!bg-primary-500"></span>';
+      }
+    }
+  }
+}
+  if(typeof window.sitebuilderSwiperInit == 'function') {
+    window.sitebuilderSwiperInit();
+  }
+</script>
+
+{% if context.exports.sitebuilder.sliderJSLoaded == blank %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+  <script async src="{{'modules/module_357/js/sitegurus_sliders_javascript_api.1.min.js' | asset_url }}"></script>
+  {% assign sliderJSLoaded = true %}
+  {% export sliderJSLoaded, namespace: sitebuilder %}
+{% endif %}

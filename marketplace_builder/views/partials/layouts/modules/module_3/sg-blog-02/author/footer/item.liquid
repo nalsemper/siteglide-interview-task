@@ -1,0 +1,19 @@
+<div class="blog-author">
+	<div class="row">
+	  <div class="col-12 d-flex justify-content-between">
+  		<ul class="list-inline">
+        <li class="list-inline-item"><a href="javascript:shareFacebook()"><i class="fab fa-facebook"></i></a></li>
+        <li class="list-inline-item"><a href="javascript:shareLinkedIn()"><i class="fab fa-linkedin"></i></a></li>
+        <li class="list-inline-item"><a href="javascript:shareTwitter()"><i class="fab fa-twitter"></i></a></li>
+  		</ul>
+  	</div>
+	</div>
+</div>
+<script language="javascript">
+ function shareTwitter()
+ { window.open("https://twitter.com/intent/tweet?url={{platform_context.host | url_encode}}{{context.headers.PATH_INFO | url_encode}}", "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600"); }
+ function shareLinkedIn()
+ { window.open("https://www.linkedin.com/shareArticle?mini=true&url={{platform_context.host | url_encode}}{{context.headers.PATH_INFO | url_encode}}", "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=700,width=900"); }
+ function shareFacebook()
+ { window.open("https://www.facebook.com/sharer/sharer.php?u={{platform_context.host | url_encode}}{{context.headers.PATH_INFO | url_encode}}", "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=560"); }
+</script>

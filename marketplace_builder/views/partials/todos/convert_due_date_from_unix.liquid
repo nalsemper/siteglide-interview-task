@@ -1,0 +1,9 @@
+{%- comment -%}
+  Converts stored Unix seconds to a YYYY-MM-DD API/display string.
+  Include param: due_date_unix
+  Output: ISO date string, or blank when unset/invalid.
+{%- endcomment -%}
+{%- assign due_date_ts = due_date_unix | plus: 0 -%}
+{%- if due_date_ts > 946684800 -%}
+{{- due_date_ts | date: '%Y-%m-%d' -}}
+{%- endif -%}

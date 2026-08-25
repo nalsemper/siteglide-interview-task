@@ -1,0 +1,94 @@
+
+{% capture structured_data %}layouts/modules/module_3/{{layout}}/structured_data{% endcapture %}
+{%- include structured_data -%}
+{% include 'module', id: '6', item_ids: this['Author'], collection: 'true', per_page: '1', datasource: 'true', type: 'list' %}
+{% assign author = context.exports.module_6.data.result.items[0] %}
+
+<section>
+  <div class=" ">
+    <div class="pt-8 pb-16 lg:pt-16 lg:pb-24">
+      <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <article class="mx-auto w-full max-w-2xl prose prose-lg">
+          <header class="mb-4 lg:mb-6 not-prose">
+            <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{this['Title']}}</h1>
+            <div class="text-base">
+              <address class="inline">
+                By
+                <a rel="author" class="text-gray-900 no-underline dark:text-white hover:underline" href="{{blog_list_page_url}}?module_field_3_4={{author.id}}&author_name={{author.properties.name | url_encode}}">{{author.properties.module_field_6_1}}</a>
+              </address>
+              in 
+              {% for category in this['category_array'] %}
+                <a href="{{blog_list_page_url}}?category={{context.exports.categories.data[category].id}}" class="text-gray-900 no-underline dark:text-white hover:underline">{{context.exports.categories.data[category].name  | replace: " ", "&nbsp;" -}}</a>
+                {%- assign position = forloop.index | plus: 1 -%}
+                {%- if this['category_array'].size == position -%}&nbsp;and{%- elsif forloop.last != true -%}, {% endif %}
+              {% endfor %}
+              on
+              <time pubdate class="uppercase" datetime="{{this['release_date'] | date: '%d %^b. %Y'}}" title="{{this['release_date'] | date: '%b %d %Y'}}">{{this['release_date'] | date: '%b %d %Y'}}</time>
+            </div>
+          </header>
+          <aside aria-label="Share social media">
+            <button data-s-g-social-feature="fbButton" class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <span aria-hidden="true" class="material-symbols-outlined text-[16px] mr-2">share</span> Share
+            </button>
+            <button data-s-g-social-feature="tw" class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <span aria-hidden="true" class="material-symbols-outlined text-[16px] mr-2">alternate_email</span>
+              Tweet
+            </button>
+            <button data-s-g-social-feature="clipboard"  class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <span aria-hidden="true" class="material-symbols-outlined text-[16px] mr-2">link</span>
+              Copy link
+            </button>
+          </aside>
+          {{this['Content'] | html_safe }}
+        </article>
+        {% if sidebar == true %}
+          <aside class="hidden lg:block lg:w-72" aria-labelledby="sidebar-label">
+            {% capture sidebar %}layouts/modules/module_3/{{layout}}/sidebar{% endcapture %}
+            {%- include sidebar -%}
+          </aside>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% comment %} <div aria-label="Related articles" class=" ">
+    {% assign related_category_id = this.category_array | join: "," %}
+    {% assign item_limit = 3 %}
+    {% include 'module', id: '3', collection: 'true', type: 'list', category_ids: related_category_id %}
+    {% assign related_articles = context.exports.module_3.data.result.items | sort: 'date' | array_delete: this | limit: item_limit %}
+    
+    {% if related_articles.size > 0 %}
+      <div class="px-4 mx-auto max-w-screen-xl pb-8 lg:pb-24">
+        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
+        <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          
+          {% for article in related_articles %}
+            <article class="max-w-xs">
+              <img src="{{article.properties.module_field_3_7 | asset_url}}" class="mb-5 rounded-lg" alt="{{article.properties.module_field_3_8}}">
+              <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                <a href="/{{context.params.slug}}/{{article.properties.slug}}">{{article.properties.module_field_3_1}}</a>
+              </h2>
+              <p class="mb-4 font-light text-gray-500 dark:text-gray-400">{{article.properties.module_field_3_3}}</p>
+              <a href="/{{context.params.slug}}/{{article.properties.slug}}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+                {% assign reading_time = article.properties.module_field_3_9 | strip_html | split: " " | size | divided_by: 238 %}
+                {% if reading_time == 0 %}
+                  Read in 1 minute
+                {% else %}
+                  Read in {{reading_time}} minutes
+                {% endif %}
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div> {% endcomment %}
+</section>
+
+{% if context.exports.module_86.sitegurus_social_share_api != true %}
+  <script async id="sitegurus_social_share_api" src="{{'modules/module_86/js/sitegurus_social_share_api.min.js' | asset_url}}" charset="utf-8"></script>
+  {% assign sitegurus_social_share_api = true %}
+  {% export sitegurus_social_share_api, namespace: "module_86" %}
+{% endif %}
+
+

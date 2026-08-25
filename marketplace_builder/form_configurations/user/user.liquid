@@ -1,0 +1,74 @@
+---
+fields:
+  properties:
+    activity_log:
+      name: Activity Log
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    address:
+      name: Address
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    company:
+      name: Company
+      type: datasource_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      datasource_id: company
+      required: false
+      validation: {}
+    favourite_items:
+      name: Favourite Items
+      type: datasource_multi
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      datasource_id: favourite_items
+      required: false
+      validation: {}
+    password_token:
+      name: Password Reset Token
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    secure_zones:
+      name: Secure Zones
+      type: datasource_multi
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      datasource_id: secure_zones
+      required: false
+      validation: {}
+    tag_array:
+      name: Tags
+      type: datasource_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      datasource_id: tag
+      required: false
+      validation: {}
+name: user
+resource: User
+resource_owner: anyone
+---

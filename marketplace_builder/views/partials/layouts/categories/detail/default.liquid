@@ -1,0 +1,13 @@
+<h2>{{category.name}}</h2>
+
+<h4>PARENT CATEGORIES</h4>
+{%- include 'category_parent', layout: 'parent' -%}
+
+<h4>CHILD CATEGORIES</h4>
+{%- include 'category_children', layout: 'children' -%}
+
+<h4>CATEGORY ITEMS</h4>
+{%- include 'category_items', layout: 'items' -%}
+
+<h4>CATEGORY BREADCRUMBS</h4>
+{%- include 'category_breadcrumbs', layout: 'breadcrumb' -%}

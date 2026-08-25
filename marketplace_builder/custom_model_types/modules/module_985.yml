@@ -1,0 +1,52 @@
+---
+name: module_985
+properties:
+- name: address
+  type: string
+- name: category_array
+  type: array
+- name: enabled
+  type: boolean
+- name: expiry_date
+  type: integer
+- name: location
+  type: geojson
+- name: meta_desc
+  type: string
+- name: meta_title
+  type: string
+- name: module_field_985_1
+  type: boolean
+- name: module_field_985_2
+  type: integer
+- name: module_field_985_3
+  type: string
+- name: module_field_985_4
+  type: string
+- name: name
+  type: string
+- name: og_desc
+  type: string
+- name: og_image
+  type: string
+- name: og_title
+  type: string
+- name: og_type
+  type: string
+- name: og_url
+  type: string
+- name: release_date
+  type: integer
+- name: secure_zone_array
+  type: array
+- name: slug
+  type: string
+- name: twitter_type
+  type: string
+- name: weighting
+  type: integer
+- name: module_field_985_5
+  type: integer
+- name: module_field_985_6
+  type: integer
+---

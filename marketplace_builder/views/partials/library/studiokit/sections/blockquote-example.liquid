@@ -1,0 +1,80 @@
+---
+metadata:
+  name: Blockquote
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: quote_content
+    type: textarea
+    label: Quote
+    default: '"Flowbite is just awesome. It contains tons of predesigned components
+      and pages starting from login screen to complex dashboard. Perfect choice for
+      your next SaaS application."'
+  - id: author_image
+    type: image_picker
+    label: Author Image
+    default: ''
+  - id: author_image_alt
+    type: text
+    label: Author Image Alt Text
+    default: ''
+  - id: author_name
+    type: text
+    label: Author Name
+    default: Michael Gough
+  - id: author_job_title
+    type: text
+    label: Author Job Title
+    default: CEO
+  - id: author_company
+    type: text
+    label: Author Company
+    default: Flowbite
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <figure class="mx-auto max-w-3xl text-center" data-motion-group>
+
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text mb-6" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+
+      <span class="material-symbols-outlined mb-6 block text-[3rem] text-primary-500" aria-hidden="true">format_quote</span>
+
+      <blockquote>
+        <p class="!mx-auto !max-w-2xl !text-xl !font-medium !leading-relaxed text-neutral-900 dark:text-neutral-50 @md:!text-2xl" data-motion-text>{{ this.quote_content }}</p>
+      </blockquote>
+
+      <figcaption class="mt-8 flex items-center justify-center gap-4" data-motion-text>
+        {% if this.author_image != blank %}
+          {% include 'img',
+            path: this.author_image,
+            classes: 'h-12 w-12 rounded-full object-cover',
+            attributes: 'alt="{{ this.author_image_alt | default: this.author_name | default: "" }}" loading="lazy"'
+          %}
+        {% endif %}
+        <div class="text-left">
+          <p class="!mb-0 text-sm font-semibold text-neutral-900 dark:text-neutral-50">{{ this.author_name }}</p>
+          {% if this.author_job_title != blank or this.author_company != blank %}
+            <p class="!mb-0 text-sm text-neutral-500 dark:text-neutral-400">
+              {% if this.author_job_title != blank %}{{ this.author_job_title }}{% endif %}{% if this.author_job_title != blank and this.author_company != blank %}, {% endif %}{% if this.author_company != blank %}{{ this.author_company }}{% endif %}
+            </p>
+          {% endif %}
+        </div>
+      </figcaption>
+
+    </figure>
+
+  </div>
+</section>

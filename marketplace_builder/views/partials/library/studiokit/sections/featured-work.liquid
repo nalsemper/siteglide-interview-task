@@ -1,0 +1,322 @@
+---
+metadata:
+  name: Featured Work
+  class: section
+  lists:
+  - name: Work Items
+    type: work_items
+    fields:
+    - id: title
+      type: text
+      label: Project Title
+      default: Project Name
+      is_title: true
+    - id: tag_1
+      type: text
+      label: Tag 1
+      default: MARKETING SITE
+    - id: tag_2
+      type: text
+      label: Tag 2
+      default: DESIGN
+    - id: image
+      type: image_picker
+      label: Project Image
+      default: ''
+    - id: thumbnail
+      type: image_picker
+      label: Thumbnail Image
+      default: ''
+    - id: variant
+      type: select
+      label: Variant
+      default: variant-1
+      options:
+      - label: Variant 1
+        value: variant-1
+      - label: Variant 2
+        value: variant-2
+      - label: Variant 3
+        value: variant-3
+      - label: Variant 4
+        value: variant-4
+      - label: Variant 5
+        value: variant-5
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Featured Work
+  - id: body
+    type: textarea
+    label: Body
+    default: We build websites where every scroll, every transition, and every interaction
+      feels intentional. The details most teams skip are the details we care about
+      most.
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: View All
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+{% assign item_count = lists.work_items | size %}
+<section class="ui-kit-featured-work-section relative  {{selection-index}} pt-24" style="--ui-kit-featured-items: {{ item_count }};" data-ui-kit-featured-work data-motion-group>
+
+  <!-- Sticky frame — stays pinned while page scrolls through the section -->
+  <div class="relative w-full overflow-visible lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden" data-work-frame>
+
+    <div class="pointer-events-none absolute inset-x-0 top-20 z-50 hidden px-8 pt-5 md:px-14 md:pt-8 lg:block" data-work-progress>
+      <div class="grid grid-flow-col auto-cols-fr gap-2">
+        {% for item in lists.work_items %}
+          <span class="relative block h-1 overflow-hidden bg-base-200 dark:bg-base-800">
+            <span class="block h-full w-0 bg-primary-500" data-work-progress-fill></span>
+          </span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="container flex w-full flex-col lg:h-full lg:flex-row">
+
+      <!-- Left panel -->
+      <div class="flex w-full flex-none flex-col px-8 py-12 md:px-10 md:py-14 lg:w-[460px] lg:px-16 lg:py-20">
+        <div class="shrink-0" data-motion-group>
+          <h2 data-motion-text>{{ this.heading }}</h2>
+          <p data-motion-text>{{ this.body }}</p>
+        </div>
+
+        <div class="mt-12 hidden grid-cols-2 gap-x-6 gap-y-6 lg:grid lg:gap-x-20 lg:gap-y-7" data-work-thumbs data-motion-group>
+          {% for item in lists.work_items %}
+            <div type="button" data-studio-list="{{ item._list }}" data-thumb="{{ forloop.index0 }}" aria-label="Show {{ item.title }}" class="card group box-border flex w-full min-w-0 cursor-pointer items-center justify-start gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-base-950" data-motion-card>
+              <div class="relative h-[96px] w-full max-w-[150px] flex-none overflow-hidden rounded-xl bg-base-50 dark:bg-base-950/5 lg:h-[108px] lg:max-w-[170px]">
+                {% assign thumb_src = item.thumbnail | default: item.image %}
+                {% if thumb_src != blank %}
+                  {% include 'img',
+                    path: thumb_src,
+                    classes: 'h-full w-full object-cover !rounded-none',
+                    attributes: 'alt="{{ item.title }}" loading="lazy"'
+                  %}
+                {% endif %}
+                <div class="pointer-events-none absolute inset-0 bg-base-50 dark:bg-base-950/50 opacity-50 transition-opacity duration-300" data-thumb-overlay></div>
+              </div>
+              <span class="h-2 w-2 flex-none bg-primary-500 opacity-0 transition-opacity duration-300" data-thumb-dot></span>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="mt-10 flex items-center gap-4 lg:mt-12">
+          <a href="{{ this.cta_url }}" class="button">{{ this.cta_label }}</a>
+          <a href="{{ this.cta_url }}" class="button-secondary">+</a>
+        </div>
+      </div>
+
+      <!-- Mobile column layout -->
+      <div class="px-8 pb-12 md:px-10 lg:hidden">
+        <div class="flex flex-col gap-6" data-motion-group>
+          {% for item in lists.work_items %}
+            <article data-studio-list="{{ item._list }}" class="card rounded-2xl overflow-hidden bg-base-50 p-4 dark:bg-base-900/20" data-motion-card>
+              <div class="card overflow-hidden rounded-2xl bg-base-50 dark:bg-base-950/5">
+                {% if item.image != blank %}
+                  {% include 'img',
+                    path: item.image,
+                    classes: 'h-56 w-full object-cover',
+                    attributes: 'alt="{{ item.title }}" loading="lazy"'
+                  %}
+                {% else %}
+                  <div class="h-56 w-full bg-base-50 dark:bg-base-950/5"></div>
+                {% endif %}
+              </div>
+              <div class="mt-4 flex flex-col gap-2">
+                <span class="text-sm uppercase tracking-[0.12em]" data-motion-text>{{ item.title }}</span>
+                <span class="text-xs uppercase tracking-[0.12em] text-neutral-500">
+                  {% if item.tag_1 != blank %}[{{ item.tag_1 }}]{% endif %}{% if item.tag_1 != blank and item.tag_2 != blank %} — {% endif %}{% if item.tag_2 != blank %}[{{ item.tag_2 }}]{% endif %}
+                </span>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="relative hidden lg:block lg:h-full lg:min-h-0 lg:max-h-none lg:flex-1 lg:py-14 lg:pr-14 lg:pl-8">
+        {% for item in lists.work_items %}
+          <div data-studio-list="{{ item._list }}" data-work-image="{{ forloop.index0 }}" class="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col justify-center transition-opacity duration-500 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %} lg:pr-14 lg:pl-8">
+            <div class="card relative overflow-hidden rounded-2xl bg-base-50 dark:bg-base-950/5 lg:h-[62vh]">
+              {% if item.image != blank %}
+                {% include 'img',
+                  path: item.image,
+                  classes: 'h-full w-full object-cover',
+                  attributes: 'alt="{{ item.title }}" loading="lazy"'
+                %}
+                {% else %}
+                  <div class="card h-full w-full bg-base-50 dark:bg-base-950/5"></div>
+              {% endif %}
+            </div>
+            <div class="mt-5 flex items-center justify-between gap-4">
+              <span class="text-sm uppercase tracking-[0.12em] md:text-base md:tracking-[0.18em]" data-motion-text>{{ item.title }}</span>
+              <span class="text-sm uppercase tracking-[0.12em] text-neutral-500 md:text-base md:tracking-[0.14em]">
+                {% if item.tag_1 != blank %}[{{ item.tag_1 }}]{% endif %}{% if item.tag_1 != blank and item.tag_2 != blank %} — {% endif %}{% if item.tag_2 != blank %}[{{ item.tag_2 }}]{% endif %}
+              </span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.ui-kit-featured-work-section {
+  min-height: auto;
+}
+
+@media (min-width:1024px){
+  .ui-kit-featured-work-section{
+    min-height:calc(var(--ui-kit-featured-items) * 100vh);
+  }
+}
+</style>
+
+<script>
+(() => {
+
+document.querySelectorAll("[data-ui-kit-featured-work]").forEach(section => {
+
+    const thumbs = [...section.querySelectorAll("[data-thumb]")];
+    const images = [...section.querySelectorAll("[data-work-image]")];
+    const bars = [...section.querySelectorAll("[data-work-progress-fill]")];
+
+    const count = images.length;
+
+    if (!count) return;
+
+    let active = -1;
+    let ticking = false;
+
+    function activate(index){
+
+        if(index === active) return;
+
+        active = index;
+
+        thumbs.forEach((thumb,i)=>{
+
+            const overlay = thumb.querySelector("[data-thumb-overlay]");
+            const dot = thumb.querySelector("[data-thumb-dot]");
+
+            if(overlay){
+                overlay.style.opacity = i===index ? "0" : ".5";
+            }
+
+            if(dot){
+                dot.style.opacity = i===index ? "1" : "0";
+            }
+
+        });
+
+        images.forEach((img,i)=>{
+            img.style.opacity = i===index ? "1" : "0";
+        });
+
+    }
+
+    function update(){
+
+        ticking = false;
+
+        if(window.innerWidth < 1024) return;
+
+        const start = section.offsetTop;
+        const distance = section.offsetHeight - window.innerHeight;
+
+        let progress = (window.scrollY - start) / distance;
+
+        progress = Math.max(0,Math.min(1,progress));
+
+        // active slide
+        const exact = progress * count;
+        const index = Math.min(Math.floor(exact),count-1);
+
+        activate(index);
+
+        // segmented progress
+        bars.forEach((bar,i)=>{
+
+            const local = exact - i;
+
+            bar.style.width =
+                (Math.max(0,Math.min(1,local))*100)+"%";
+
+        });
+
+    }
+
+    function onScroll(){
+
+        if(ticking) return;
+
+        ticking = true;
+
+        requestAnimationFrame(update);
+
+    }
+
+    thumbs.forEach((thumb,i)=>{
+
+        thumb.addEventListener("click",()=>{
+
+            if(window.innerWidth < 1024){
+
+                activate(i);
+                return;
+
+            }
+
+            const start = section.offsetTop;
+            const distance = section.offsetHeight - window.innerHeight;
+
+            const segment = distance / count;
+            const offset = Math.min(segment * 0.02, 12); 
+
+            const target =
+                start +
+                (i * segment) +
+                offset;
+
+            window.scrollTo({
+                top:target,
+                behavior:"smooth"
+            });
+
+        });
+
+    });
+
+    if(window.innerWidth < 1024){
+
+        activate(0);
+
+        bars.forEach(bar=>bar.style.width="0%");
+
+        if(bars[0]) bars[0].style.width="100%";
+
+        return;
+
+    }
+
+    update();
+
+    window.addEventListener("scroll",onScroll,{passive:true});
+    window.addEventListener("resize",update);
+
+});
+
+})();
+</script>

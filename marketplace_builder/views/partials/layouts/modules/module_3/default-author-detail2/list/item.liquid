@@ -1,0 +1,38 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/item.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/structured_data.liquid
+  - views/partials/layouts/pagination/default-author-detail2.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-author-detail2
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_6
+  studio_dynamic/layout_name: Default Author Detail2
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Author Detail
+  studio_dynamic/sub_module_id: '1'
+---
+<article class="card group flex h-full flex-col rounded-2xl bg-base-50 p-6 md:p-8 dark:bg-base-900/20" data-motion-card>
+  <a href="{{ this.full_slug }}" class="block overflow-hidden rounded-xl border border-base-50">
+    <img class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" src="{{ this.properties.module_field_3_7 | asset_url }}" alt="{{ this.properties.module_field_3_8 }}" />
+  </a>
+  <div class="mt-5 flex flex-1 flex-col">
+    <a href="{{ this.full_slug }}">
+      <h3 class="mt-3">{{ this.properties.module_field_3_1 }}</h3>
+    </a>
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-neutral-400">{{ this.properties.module_field_3_2 }}</p>
+    <a href="{{ this.full_slug }}" class="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-primary-400 transition-colors duration-200 hover:text-primary-300">
+      Read article
+      <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+    </a>
+  </div>
+</article>
+

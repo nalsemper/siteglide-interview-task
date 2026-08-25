@@ -1,0 +1,15 @@
+query get_todo_status($id: ID!) {
+  records(
+    per_page: 1
+    page: 1
+    filter: {
+      table: { value: "module_986" }
+      id: { value: $id }
+    }
+  ) {
+    results {
+      id
+      properties
+    }
+  }
+}

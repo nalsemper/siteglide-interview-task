@@ -1,0 +1,66 @@
+---
+metadata:
+  name: Platform CTA
+  tags:
+  class: section
+  lists: []
+  fields:
+  - id: badge_text
+    type: text
+    label: Badge Text
+    default: Platform
+  - id: heading
+    type: text
+    label: Heading
+    default: Supercharge your platform
+  - id: body
+    type: richtext
+    label: Body
+    default: Build custom solutions with first-party data from public companies. Best-in-class
+      reliability and timeliness. Global coverage.
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: Learn More
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  - id: icon_image
+    type: image_picker
+    label: Icon Image
+    default: https://picsum.photos/40/40
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+  updated_at: 1781816925
+  collections:
+  global_data:
+  global_fields: []
+---
+<section class="relative min-h-[70vh] overflow-hidden  {{selection-index}}" data-motion-group>
+
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-base-50 dark:from-base-950 to-transparent"></div>
+
+  <div class="relative z-10 flex min-h-[70vh] flex-col items-center justify-center px-8 md:px-12 lg:px-16">
+    <div class="container flex w-full flex-col items-center gap-8 text-center" data-motion-group>
+
+      <span class="inline-flex items-center gap-2 rounded-sm bg-base-50 dark:bg-base-900/20 px-5 py-3 text-sm uppercase tracking-[0.2em] text-neutral-400" data-motion-text>
+        {{ this.badge_text }}
+      </span>
+
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      <p data-motion-text>{{ this.body }}</p>
+
+      <a href="{{ this.cta_url }}" class="button inline-flex items-center gap-2">
+        {{ this.cta_label }}
+        <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+      </a>
+
+    </div>
+  </div>
+
+</section>

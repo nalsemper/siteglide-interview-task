@@ -1,0 +1,66 @@
+---
+metadata:
+  name: Heading with Description
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Powering innovation at 200,000+ companies worldwide
+  - id: paragraph_one
+    type: textarea
+    label: Paragraph One
+    default: Track work across the enterprise through an open, collaborative platform.
+      Link issues across Jira and ingest data from other software development tools,
+      so your IT support and operations teams have richer contextual information to
+      rapidly respond to requests, incidents, and changes.
+  - id: paragraph_two
+    type: textarea
+    label: Paragraph Two
+    default: Deliver great service experiences fast - without the complexity of traditional
+      ITSM solutions. Accelerate critical development work, eliminate toil, and deploy
+      changes with ease.
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Learn more
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="max-w-3xl" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.paragraph_one != blank %}
+        <p data-motion-text>{{ this.paragraph_one }}</p>
+      {% endif %}
+      {% if this.paragraph_two != blank %}
+        <p data-motion-text>{{ this.paragraph_two }}</p>
+      {% endif %}
+      {% if this.button_text != blank %}
+        <a href="{{ this.button_url }}" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-primary-500 transition-colors hover:text-primary-400" data-motion-text>
+          {{ this.button_text }}
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+</section>

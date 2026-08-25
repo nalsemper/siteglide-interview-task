@@ -1,0 +1,44 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Statuses API - Create
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign name = params.name | default: '' | strip -%}
+{%- assign color = params.color | default: '' | strip -%}
+{%- assign sort_order = params.sort_order | default: 0 | plus: 0 -%}
+
+{%- if params.is_completed == true or params.is_completed == 'true' or params.is_completed == '1' or params.is_completed == 1 -%}
+  {%- assign is_completed = true -%}
+{%- else -%}
+  {%- assign is_completed = false -%}
+{%- endif -%}
+
+{%- if params.is_default == true or params.is_default == 'true' or params.is_default == '1' or params.is_default == 1 -%}
+  {%- assign is_default = true -%}
+{%- else -%}
+  {%- assign is_default = false -%}
+{%- endif -%}
+
+{%- if name == blank -%}
+{"error":"Status name is required"}
+{%- else -%}
+  {%- graphql result = "todo_statuses/create_todo_status", name: name, is_completed: is_completed, sort_order: sort_order, is_default: is_default, color: color -%}
+  {%- assign record = result.record_create -%}
+  {%- if record.id == blank -%}
+{"error":"Failed to create status"}
+  {%- else -%}
+    {%- assign status = record -%}
+{"status":{%- include 'todos/status_json', status: status -%}}
+  {%- endif -%}
+{%- endif -%}

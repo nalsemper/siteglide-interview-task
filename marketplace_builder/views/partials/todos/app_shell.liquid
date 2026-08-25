@@ -1,0 +1,191 @@
+{%- graphql todo_statuses_data = "todo_statuses/list_todo_statuses", per_page: 100, page: 1 -%}
+{%- assign todo_statuses = todo_statuses_data.records.results -%}
+{%- graphql categories_data = "todo_categories/list_todo_categories", per_page: 100, page: 1 -%}
+{%- assign all_categories = categories_data.records.results -%}
+{%- assign default_status_id = nil -%}
+{%- assign completed_status_id = nil -%}
+{%- for status in todo_statuses -%}
+  {%- if status.properties.module_field_986_3 == true and status.properties.module_field_986_1 != true -%}
+    {%- assign default_status_id = status.id -%}
+  {%- endif -%}
+  {%- if status.properties.module_field_986_1 == true and completed_status_id == nil -%}
+    {%- assign completed_status_id = status.id -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if default_status_id == nil -%}
+  {%- for status in todo_statuses -%}
+    {%- if status.properties.module_field_986_1 != true and default_status_id == nil -%}
+      {%- assign default_status_id = status.id -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- graphql all_data = "todos/list_all_todos", per_page: 2, page: 1, sort_order: 'DESC' -%}
+{%- assign all_items = all_data.records.results -%}
+{%- assign total_entries = all_data.records.total_entries -%}
+{%- assign active_count = 0 -%}
+{%- assign completed_count = 0 -%}
+{%- for item in all_items -%}
+  {%- assign item_status_id = item.properties.module_field_985_5 | append: '' | strip -%}
+  {%- assign item_completed = item.properties.module_field_985_1 -%}
+  {%- if item_status_id != blank -%}
+    {%- for status_record in todo_statuses -%}
+      {%- assign status_id_str = status_record.id | append: '' -%}
+      {%- if status_id_str == item_status_id -%}
+        {%- if status_record.properties.module_field_986_1 == true -%}
+          {%- assign item_completed = true -%}
+        {%- else -%}
+          {%- assign item_completed = false -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if item_completed == true -%}
+    {%- assign completed_count = completed_count | plus: 1 -%}
+  {%- else -%}
+    {%- assign active_count = active_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<section id="todo-app" class="todo-app-panel" data-api-base="/api/todos" data-default-status-id="{{ default_status_id }}" data-completed-status-id="{{ completed_status_id }}" data-active-category="">
+  <header class="todo-app-panel__header">
+    <h1 class="todo-app-panel__title">Your todos</h1>
+    <p class="todo-app-panel__subtitle">Find and fix the bugs — good luck!</p>
+  </header>
+
+  <form id="todo-add-form" class="todo-add-form" autocomplete="off">
+    <div class="todo-add-form__row">
+      <input type="text" name="name" class="todo-add-form__input" placeholder="What needs doing?" required maxlength="200" aria-label="Todo title">
+      <input type="date" name="due_date" class="todo-add-form__date" aria-label="Due date">
+      <select name="priority" class="todo-add-form__priority" aria-label="Priority">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+      <select name="category_id" class="todo-add-form__category" aria-label="Category">
+        <option value="">No category</option>
+        {%- for category in all_categories -%}
+          {%- assign parent_id = category.properties.module_field_987_1 | append: '' | strip -%}
+          {%- if parent_id == blank or parent_id == '0' -%}
+            <option value="{{ category.id }}">{{ category.properties.name }}</option>
+            {%- assign root_id_str = category.id | append: '' -%}
+            {%- for child in all_categories -%}
+              {%- assign child_parent = child.properties.module_field_987_1 | append: '' | strip -%}
+              {%- if child_parent == root_id_str -%}
+                <option value="{{ child.id }}">— {{ child.properties.name }}</option>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </select>
+      <button type="submit" class="todo-add-form__submit">Add</button>
+      {% include 'todos/bug_hint', bug: 8, hint: 'Submitting the form always adds a single new todo to the list.' %}
+      {% include 'todos/bug_hint', bug: 2, hint: 'A confirmation message appears after the todo is created.' %}
+    </div>
+  </form>
+
+  <div class="todo-app__body">
+    <div class="todo-app__main-content">
+      <div class="todo-toolbar">
+        <div class="todo-filters" role="tablist" aria-label="Filter todos">
+          {% include 'todos/bug_hint', bug: 1, hint: 'Each tab shows how many todos are in that group, and the list below shows every todo that matches the active filters and search.' %}
+          <button type="button" class="todo-filters__btn todo-filters__btn--active" data-filter="all" role="tab" aria-selected="true">
+            All <span class="todo-filters__count" data-count="all">{{ total_entries }}</span>
+          </button>
+          <button type="button" class="todo-filters__btn" data-filter="active" role="tab" aria-selected="false">
+            Active <span class="todo-filters__count" data-count="active">{{ active_count }}</span>
+          </button>
+          <button type="button" class="todo-filters__btn" data-filter="completed" role="tab" aria-selected="false">
+            Completed <span class="todo-filters__count" data-count="completed">{{ completed_count }}</span>
+          </button>
+        </div>
+
+        <div class="todo-toolbar__actions">
+          <label class="todo-search">
+            <span class="sr-only">Search todos</span>
+            <input type="search" id="todo-search" class="todo-search__input" placeholder="Search…" aria-label="Search todos">
+          </label>
+          <select id="todo-priority-filter" class="todo-priority-filter" aria-label="Filter by priority">
+            <option value="">All priorities</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <select id="todo-sort-due-date" class="todo-sort-due-date" aria-label="Sort by due date">
+            <option value="desc" selected>Due date (newest first)</option>
+            <option value="asc">Due date (oldest first)</option>
+          </select>
+          <button type="button" id="todo-clear-completed" class="todo-clear-completed">
+            Clear completed
+            {% include 'todos/bug_hint', bug: 3, hint: 'Deletes all completed todos.' %}
+          </button>
+        </div>
+      </div>
+
+      <div class="todo-list-header">
+        {% include 'todos/bug_hint', bug: 4, hint: 'The checkbox marks this todo complete or incomplete.' %}
+      </div>
+
+      <ul id="todo-list" class="todo-list" aria-live="polite">
+        {%- for item in all_items -%}
+          {%- assign item_status_id = item.properties.module_field_985_5 | append: '' | strip -%}
+          {%- assign item_status_name = '' -%}
+          {%- assign item_status_color = '' -%}
+          {%- assign item_completed = item.properties.module_field_985_1 -%}
+          {%- if item_status_id != blank -%}
+            {%- for status_record in todo_statuses -%}
+              {%- assign status_id_str = status_record.id | append: '' -%}
+              {%- if status_id_str == item_status_id -%}
+                {%- assign item_status_name = status_record.properties.name -%}
+                {%- assign item_status_color = status_record.properties.module_field_986_4 | default: '' -%}
+                {%- if status_record.properties.module_field_986_1 == true -%}
+                  {%- assign item_completed = true -%}
+                {%- else -%}
+                  {%- assign item_completed = false -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+          {%- assign item_category_id = item.properties.module_field_985_6 | append: '' | strip -%}
+          {%- assign item_category_path = '' -%}
+          {%- if item_category_id != blank -%}
+            {%- capture item_category_path -%}
+              {%- include 'todos/build_category_path', category_id: item_category_id, categories: all_categories -%}
+            {%- endcapture -%}
+            {%- assign item_category_path = item_category_path | strip -%}
+          {%- endif -%}
+          {%- if item_completed != true -%}
+            {% include 'todos/list_item', item: item, statuses: todo_statuses, status_id: item_status_id, status_name: item_status_name, status_color: item_status_color, completed: item_completed, category_id: item_category_id, category_path: item_category_path %}
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <p id="todo-empty" class="todo-empty{% if active_count > 0 %} todo-empty--hidden{% endif %}">No todos yet. Add one above.</p>
+    </div>
+
+    {% include 'todos/category_filter', all_categories: all_categories, all_items: all_items %}
+  </div>
+
+  <dialog id="todo-modal" class="todo-modal" aria-labelledby="todo-modal-title">
+    <form method="dialog" id="todo-modal-form" class="todo-modal__form">
+      <h2 id="todo-modal-title" class="todo-modal__title"></h2>
+      <p id="todo-modal-message" class="todo-modal__message"></p>
+      <div id="todo-modal-fields" class="todo-modal__fields" hidden>
+        <label class="todo-modal__label" for="todo-modal-edit-name">Title</label>
+        <input type="text" id="todo-modal-edit-name" class="todo-modal__input" maxlength="200" autocomplete="off" required>
+        <label class="todo-modal__label" for="todo-modal-edit-due-date">Due date</label>
+        <input type="date" id="todo-modal-edit-due-date" class="todo-modal__input">
+        <label class="todo-modal__label" for="todo-modal-edit-priority">Priority</label>
+        <select id="todo-modal-edit-priority" class="todo-modal__input">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="todo-modal__actions">
+        <button type="button" id="todo-modal-cancel" class="todo-modal__btn todo-modal__btn--secondary">Cancel</button>
+        <button type="submit" id="todo-modal-confirm" class="todo-modal__btn todo-modal__btn--primary">OK</button>
+      </div>
+    </form>
+  </dialog>
+</section>

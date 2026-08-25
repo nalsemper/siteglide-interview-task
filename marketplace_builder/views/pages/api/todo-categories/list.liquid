@@ -1,0 +1,27 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Categories API - List
+  enabled: true
+  file_type: page
+redirect_to: ''
+redirect_url: ''
+---
+{%- graphql categories_data = "todo_categories/list_todo_categories", per_page: 100, page: 1 -%}
+{%- assign categories = categories_data.records.results -%}
+
+{%- capture categories_json -%}
+[
+{%- assign first_category = true -%}
+{%- for category in categories -%}
+  {%- unless first_category -%},{%- endunless -%}
+  {%- include 'todos/category_crud_json', category: category -%}
+  {%- assign first_category = false -%}
+{%- endfor -%}
+]
+{%- endcapture -%}
+
+{
+  "categories": {{ categories_json }}
+}

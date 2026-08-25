@@ -1,0 +1,46 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_10/default-faq-example/list/wrapper.liquid
+  - views/partials/layouts/modules/module_10/default-faq-example/list/item.liquid
+  - views/partials/layouts/modules/module_10/default-faq-example/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-faq-example
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_10
+  studio_dynamic/layout_name: Default FAQ Example
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default example
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{%- function detail_page_valid = "modules/module_357/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+<button
+  type="button"
+  id="accordion-heading-{{sitebuilder_uniq_component_id}}-{{forloop.index0}}"
+  data-motion-text
+  class="flex w-full items-center justify-between gap-6 rounded-2xl bg-base-50 px-8 py-8 text-left focus:outline-none dark:bg-base-900/20 hover:bg-base-50 dark:hover:bg-base-900/20 active:bg-base-50 dark:active:bg-base-900/20 border-0"
+  data-accordion-target="#accordion-body-{{sitebuilder_uniq_component_id}}-{{forloop.index0}}"
+  aria-expanded="false"
+  aria-controls="accordion-body-{{sitebuilder_uniq_component_id}}-{{forloop.index0}}"
+>
+  {% if detail_page_valid %}
+    <a href="{{this.full_slug}}" class="font-sans tracking-normal text-lg md:text-xl font-medium">{{this['Question']}}</a>
+  {% else %}
+    <span class="font-sans tracking-normal text-lg md:text-xl font-medium">{{this['Question']}}</span>
+  {% endif %}
+  <span data-accordion-icon class="material-symbols-outlined flex-none text-neutral-500 dark:text-neutral-400 shrink-0 transition-transform duration-300 text-[20px] leading-none" aria-hidden="true">expand_more</span>
+</button>
+<div
+  id="accordion-body-{{sitebuilder_uniq_component_id}}-{{forloop.index0}}"
+  class="hidden"
+  aria-labelledby="accordion-heading-{{sitebuilder_uniq_component_id}}-{{forloop.index0}}"
+>
+  <div class="py-5 px-8">
+    <div class="!mb-0" data-motion-text>{{this['Answer'] | html_safe}}</div>
+  </div>
+</div>

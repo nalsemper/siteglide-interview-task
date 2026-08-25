@@ -1,0 +1,22 @@
+---
+name: module_14/order_product_attribute
+properties:
+- name: module_field_14/order_product_attribute_1
+  type: string
+- name: module_field_14/order_product_attribute_2
+  type: string
+- name: module_field_14/order_product_attribute_3
+  type: string
+- name: module_field_14/order_product_attribute_4
+  type: string
+- name: module_field_14/order_product_attribute_5
+  type: string
+- name: module_field_14/order_product_attribute_6
+  type: string
+- name: module_field_14/order_product_attribute_7
+  type: string
+- name: module_field_14/order_product_attribute_8
+  type: string
+- name: module_field_14/order_product_attribute_9
+  type: string
+---

@@ -1,0 +1,8 @@
+{%- comment -%} Interviewer scaffolding — Phase 2 branch only {%- endcomment -%}
+{%- assign label = 'Bug ' | append: bug | append: ': Expected: ' | append: hint -%}
+<span class="bug-hint" title="{{ label }}" tabindex="0" role="img" aria-label="{{ label }}">
+  <span class="bug-hint__number" aria-hidden="true">{{ bug }}</span>
+  <svg class="bug-hint__icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm0-4V7h2v6h-2z"/>
+  </svg>
+</span>

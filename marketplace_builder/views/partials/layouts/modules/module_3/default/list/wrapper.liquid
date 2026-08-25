@@ -1,0 +1,26 @@
+<section class="blog blog-10">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-9">
+				<h1>Our Blog</h1> 
+				{% if context.params.range_type == "month" %}
+					<h3>Posts from {{context.params.range_gt | date: "%b-%y"}}{{context.params.range_gte | date: "%b-%y"}}</h3>
+				{% elsif context.headers.QUERY_STRING contains "range_" %}
+					<h3>Posts between {{context.params.range_gt | date: "%d-%b-%y"}}{{context.params.range_gte | date: "%d-%b-%y"}} and {{context.params.range_lt | date: "%d-%b-%y"}}{{context.params.range_lte | date: "%d-%b-%y"}}</h3>
+				{% elsif context.params.category %}
+					<h3>Posts about {{context.exports.categories.data[context.params.category].name}}</h3>
+				{% elsif context.params.module_field_3_4 %}
+					<h3>Posts by {{context.params.author_name | url_decode}}</h3>
+				{% endif %}
+				{% if total_items == 0 %}
+					<p>Sorry! No blog posts of that type could be found. Try a different search parameter.</p>
+				{% else %}
+					{%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+					{%- include 'modules/siteglide_system/get/get_pagination' -%}
+				{% endif %}
+			</div>
+			{%- include 'layouts/modules/module_3/default/sidebar/wrapper' -%}
+
+		</div>
+	</div>
+</section>

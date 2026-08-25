@@ -1,0 +1,53 @@
+---
+metadata:
+  name: Heading with CTA
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Start your free trial today
+  - id: body
+    type: textarea
+    label: Body
+    default: Try Flowbite Platform for 30 days. No credit card required.
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Free trial for 30 days
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  hide_on: []
+  category: cta
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+      {% endif %}
+      {% if this.button_text != blank %}
+        <div class="mt-8" data-motion-group>
+          <a href="{{ this.button_url }}" class="button">{{ this.button_text }}</a>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+</section>

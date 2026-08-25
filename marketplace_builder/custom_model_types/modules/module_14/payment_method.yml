@@ -1,0 +1,16 @@
+---
+name: module_14/payment_method
+properties:
+- name: module_field_14/payment_method_1
+  type: string
+- name: module_field_14/payment_method_2
+  type: string
+- name: module_field_14/payment_method_3
+  type: string
+- name: module_field_14/payment_method_4
+  type: string
+- name: module_field_14/payment_method_5
+  type: string
+- name: module_field_14/payment_method_6
+  type: string
+---

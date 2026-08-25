@@ -1,0 +1,12 @@
+{%- assign type = 'webapp' -%}
+{%- assign id = this.webapp_id -%}
+{%- capture table_path -%}tables/{{type}}s/{{id}}{%- endcapture -%}
+
+{%- capture table -%}{%- include table_path -%}{%- endcapture -%}
+{%- parse_json table -%}{{ table | replace: "&quot;", "'" }}{%- endparse_json -%}{% comment %} Fix for tables with " in text that breaks JSON parsing {% endcomment %}
+
+{%- if table.anyone_can_edit == true -%}
+	{%- include 'webapp_form', edit_item_id: this.id, id: this.webapp_id, enabled: this.enabled, release_date: this.release_date, expiry_date: this.expiry_date, slug: this.slug -%}
+{%- elsif session.current_user.id and session.current_user.id == this.creator.id -%}
+	{%- include 'webapp_form', edit_item_id: this.id, id: this.webapp_id, enabled: this.enabled, release_date: this.release_date, expiry_date: this.expiry_date, slug: this.slug -%}
+{%- endif -%}

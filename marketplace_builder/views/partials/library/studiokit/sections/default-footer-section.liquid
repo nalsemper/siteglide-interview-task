@@ -1,0 +1,95 @@
+---
+metadata:
+  name: Footer
+  class: section
+  lists:
+  - name: Footer Navigation Items
+    type: footer_nav_items
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Link
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: logo_image
+    type: image_picker
+    label: Logo Image
+    default: ''
+  - id: logo_alt_text
+    type: text
+    label: Logo Alt Text
+    default: Logo
+  - id: logo_text
+    type: text
+    label: Logo Text
+    default: Flowbite
+  - id: logo_url
+    type: url
+    label: Logo URL
+    default: "#"
+  - id: tagline
+    type: textarea
+    label: Tagline
+    default: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  - id: copyright_year
+    type: text
+    label: Copyright Year
+    default: '2024'
+  - id: copyright_text
+    type: text
+    label: Copyright Text
+    default: Flowbite™
+  - id: copyright_url
+    type: url
+    label: Copyright URL
+    default: "#"
+  hide_on: []
+  category: footer
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<footer class=" {{selection-index}}">
+  <div class="container py-10 text-center @md:py-12">
+
+    <a href="{{ this.logo_url }}" class="inline-flex items-center justify-center gap-2">
+      {% if this.logo_image != blank %}
+        {% include 'img',
+          path: this.logo_image,
+          classes: 'h-8',
+          attributes: 'alt="{{ this.logo_alt_text | default: this.logo_text }}" loading="lazy"'
+        %}
+      {% endif %}
+      {% if this.logo_text != blank %}
+        <span class="text-xl font-semibold text-neutral-900 dark:text-neutral-50">{{ this.logo_text }}</span>
+      {% endif %}
+    </a>
+
+    {% if this.tagline != blank %}
+      <p class="mx-auto my-6 max-w-md text-sm text-neutral-500 dark:text-neutral-400">{{ this.tagline }}</p>
+    {% endif %}
+
+    {% if lists.footer_nav_items != blank %}
+      <ul class="mb-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        {% for item in lists.footer_nav_items %}
+          <li data-studio-list="{{ item._list }}">
+            <a href="{{ item.link_url }}" class="text-sm text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50">{{ item.link_text }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      © {{ this.copyright_year }}
+      <a href="{{ this.copyright_url }}" class="font-medium transition-colors hover:text-neutral-900 dark:hover:text-neutral-50">{{ this.copyright_text }}</a>.
+      All Rights Reserved.
+    </p>
+
+  </div>
+</footer>

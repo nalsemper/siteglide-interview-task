@@ -1,0 +1,5 @@
+{%- comment -%}
+  Builds JSON for a single category record with todo count.
+  Expects `category`, `category_todo_count` in scope.
+{%- endcomment -%}
+{"id":"{{ category.id }}","name":{{ category.properties.name | json }},"parent_id":"{{ category.properties.module_field_987_1 | default: '' }}","sort_order":{{ category.properties.module_field_987_2 | default: 0 }},"todo_count":{{ category_todo_count }}}

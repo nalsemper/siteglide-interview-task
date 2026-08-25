@@ -1,0 +1,8 @@
+{%- comment -%}
+  Converts a YYYY-MM-DD API input string to Unix seconds for storage.
+  Include param: due_date_input
+  Output: Unix seconds integer, or blank when input is empty.
+{%- endcomment -%}
+{%- if due_date_input != blank -%}
+{{- due_date_input | strip | date: '%s' | plus: 0 -}}
+{%- endif -%}

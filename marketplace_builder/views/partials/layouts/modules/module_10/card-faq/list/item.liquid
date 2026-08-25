@@ -1,0 +1,37 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_10/card-faq/list/wrapper.liquid
+  - views/partials/layouts/modules/module_10/card-faq/list/item.liquid
+  - views/partials/layouts/modules/module_10/card-faq/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: card-faq
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_10
+  studio_dynamic/layout_name: Card FAQ
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Card FAQ
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+  {%- function detail_page_valid = "modules/module_357/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+  <div class="card rounded-2xl bg-base-50 dark:bg-base-900/20 p-6 md:p-8" data-motion-card>
+    <div class="flex items-start gap-4">
+      <span class="material-symbols-outlined mt-0.5 flex-none text-primary-500" aria-hidden="true">help</span>
+      <h3>
+        {% if detail_page_valid %}
+          <a href="{{ this.full_slug }}">{{ this['Question'] }}</a>
+        {% else %}
+          {{ this['Question'] }}
+        {% endif %}
+      </h3>
+    </div>
+    <div class="mt-4 pl-10">
+      {{ this['Answer'] | html_safe }}
+    </div>
+  </div>
+

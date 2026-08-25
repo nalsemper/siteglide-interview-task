@@ -1,0 +1,43 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product_attributes/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-product-detail
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Default Product Detail
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Product Detail
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+<div class="max-w-sm">
+  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="{{this_attribute.properties.name | slugify}}">{{name}}</label>
+  <select name="{{this_attribute.properties.name | slugify}}" id="{{this_attribute.properties.name | slugify}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" data-attribute-control="{{product_attribute_id}}" onchange="
+    const imageArr = Array.from(document.querySelectorAll(`[data-sg-attr-image]`));
+    const imageEl = imageArr.find((i) => i.dataset.sgAttrImage === this.value) || imageArr.find((i) => i.dataset.sgAttrImage === 'undefined');
+    const topImageEl = document.querySelector('[data-sg-main-image]');
+    const topImageId = topImageEl.dataset.sgAttrImage;
+    const topImageSrc = topImageEl.getAttribute('src');
+    const thisSrc = imageEl.getAttribute('src');
+    imageEl.setAttribute('src', topImageSrc);
+    imageEl.setAttribute('data-sg-attr-image', topImageId);
+    topImageEl.setAttribute('src', thisSrc);
+    topImageEl.setAttribute('data-sg-attr-image', this.value);
+    s_e_update_price();
+  ">
+    <option selected>No Attribute</option>
+    {% for option in product_attribute_options -%}
+      <option value="{{option.id}}" data-attribute-price-control="{{option.price_raw}}">{{option.name}}{% if option.price != "0.00" %}{% if this.product_attributes.size > 1 %} + {{this.price.currency_symbol}}{{option.price | format_number: precision: 2}}{% else %} {{this.price.currency_symbol}}{{this.price.price_charge | divided_by: 100.0 | plus: option.price | format_number: precision: 2}}{% endif %} {% endif %}</option>
+    {% endfor -%}
+  </select>
+</div>

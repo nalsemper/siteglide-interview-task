@@ -1,0 +1,19 @@
+mutation create_todo_category(
+  $name: String!
+  $parent_id: Int
+  $sort_order: Int = 0
+) {
+  record_create(
+    record: {
+      table: "module_987"
+      properties: [
+        { name: "name", value: $name }
+        { name: "module_field_987_1", value_int: $parent_id }
+        { name: "module_field_987_2", value_int: $sort_order }
+      ]
+    }
+  ) {
+    id
+    properties
+  }
+}

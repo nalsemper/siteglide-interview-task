@@ -1,0 +1,234 @@
+---
+metadata:
+  name: Compare Table
+  class: section
+  lists:
+  - name: Feature Rows
+    type: feature_rows
+    fields:
+    - id: feature_name
+      type: text
+      label: Feature Name
+      default: Feature Name
+      is_title: true
+    - id: feature_note
+      type: text
+      label: Feature Note (small subtext)
+      default: ''
+    - id: col_1_value
+      type: text
+      label: Column 1 Value
+      default: "—"
+    - id: col_2_value
+      type: text
+      label: Column 2 Value (Featured)
+      default: 'true'
+    - id: col_3_value
+      type: text
+      label: Column 3 Value
+      default: Custom
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Compare Plans
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Everything you need, nothing you don't
+  - id: body
+    type: textarea
+    label: Body
+    default: ''
+  - id: col_heading
+    type: text
+    label: Feature Column Heading
+    default: Features
+  - id: plan_1_name
+    type: text
+    label: Plan 1 Name
+    default: Starter
+  - id: plan_1_price
+    type: text
+    label: Plan 1 Price / Subtext
+    default: Free forever
+  - id: plan_1_cta_label
+    type: text
+    label: Plan 1 CTA Label
+    default: Get started
+  - id: plan_1_cta_url
+    type: url
+    label: Plan 1 CTA URL
+    default: "#"
+  - id: plan_2_name
+    type: text
+    label: Plan 2 Name (Featured)
+    default: Pro
+  - id: plan_2_price
+    type: text
+    label: Plan 2 Price / Subtext
+    default: Starts at $99/mo
+  - id: plan_2_cta_label
+    type: text
+    label: Plan 2 CTA Label
+    default: Start free trial
+  - id: plan_2_cta_url
+    type: url
+    label: Plan 2 CTA URL
+    default: "#"
+  - id: plan_3_name
+    type: text
+    label: Plan 3 Name
+    default: Enterprise
+  - id: plan_3_price
+    type: text
+    label: Plan 3 Price / Subtext
+    default: Custom pricing
+  - id: plan_3_cta_label
+    type: text
+    label: Plan 3 CTA Label
+    default: Contact us
+  - id: plan_3_cta_url
+    type: url
+    label: Plan 3 CTA URL
+    default: "#"
+  - id: note
+    type: text
+    label: Bottom Note
+    default: ''
+  hide_on: []
+  category: pricing
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    {% if this.eyebrow != blank or this.heading != blank %}
+      <div class="mb-12 max-w-2xl" data-motion-group>
+        {% if this.eyebrow != blank %}<p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60" data-motion-text>{{ this.eyebrow }}</p>{% endif %}
+        {% if this.heading != blank %}<h2 data-motion-text>{{ this.heading }}</h2>{% endif %}
+        {% if this.body != blank %}<p data-motion-text>{{ this.body }}</p>{% endif %}
+      </div>
+    {% endif %}
+
+    <div class="overflow-x-auto -mx-8 px-8 md:-mx-12 md:px-12 lg:-mx-16 lg:px-16" data-motion-card>
+      <table class="w-full min-w-[640px] border-collapse border-t border-neutral-300/30 dark:border-neutral-700/50 sct-table">
+
+        <!-- Plan header row -->
+        <thead>
+          <tr>
+            <th class="py-6 px-4 border-b border-neutral-300/30 dark:border-neutral-700/50 text-left align-bottom pl-0 rounded-tl-lg">
+              <span class="text-sm font-medium">{{ this.col_heading }}</span>
+            </th>
+
+            <!-- Plan 1 -->
+            <th class="py-6 px-4 border-b border-neutral-300/30 dark:border-neutral-700/50 text-center align-bottom">
+              <div class="flex flex-col items-center gap-3">
+                <div data-motion-text>
+                  <p class="text-neutral-500 dark:text-neutral-400 font-semibold mb-0.5">{{ this.plan_1_name | default: 'Starter' }}</p>
+                  {% if this.plan_1_price != blank %}
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400 !mb-0">{{ this.plan_1_price }}</p>
+                  {% endif %}
+                </div>
+                {% if this.plan_1_cta_label != blank %}
+                  <a href="{{ this.plan_1_cta_url | default: '#' }}" class="button-secondary w-full text-center">{{ this.plan_1_cta_label }}</a>
+                {% endif %}
+              </div>
+            </th>
+
+            <!-- Plan 2 (featured) -->
+            <th class="py-6 px-4 text-center align-bottom bg-primary-500/6 dark:bg-primary-500/10 border-l border-r border-primary-500/20 dark:border-primary-500/30 rounded-t-lg">
+              <div class="flex flex-col items-center gap-3">
+                <div data-motion-text>
+                  <p class="text-neutral-500 dark:text-neutral-400 font-semibold mb-0.5">{{ this.plan_2_name | default: 'Pro' }}</p>
+                  {% if this.plan_2_price != blank %}
+                    <p class="text-xs text-neutral-400 dark:text-neutral-500 !mb-0">{{ this.plan_2_price }}</p>
+                  {% endif %}
+                </div>
+                {% if this.plan_2_cta_label != blank %}
+                  <a href="{{ this.plan_2_cta_url | default: '#' }}" class="button w-full text-center">{{ this.plan_2_cta_label }}</a>
+                {% endif %}
+              </div>
+            </th>
+
+            <!-- Plan 3 -->
+            <th class="py-6 px-4 border-b border-neutral-300/30 dark:border-neutral-700/50 text-center align-bottom rounded-tr-lg">
+              <div class="flex flex-col items-center gap-3">
+                <div data-motion-text>
+                  <p class="text-neutral-500 dark:text-neutral-400 font-semibold mb-0.5">{{ this.plan_3_name | default: 'Enterprise' }}</p>
+                  {% if this.plan_3_price != blank %}
+                    <p class="text-xs text-neutral-500 dark:text-neutral-400 !mb-0">{{ this.plan_3_price }}</p>
+                  {% endif %}
+                </div>
+                {% if this.plan_3_cta_label != blank %}
+                  <a href="{{ this.plan_3_cta_url | default: '#' }}" class="button-secondary w-full text-center">{{ this.plan_3_cta_label }}</a>
+                {% endif %}
+              </div>
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Feature rows -->
+        <tbody>
+          {% for item in lists.feature_rows %}
+            <tr data-studio-list="{{ item._list }}" class="group{% if forloop.last %} last-row{% endif %}">
+
+              <!-- Feature label -->
+              <td class="p-4 border-b border-base-500/15 dark:border-neutral-700/40 align-middle pl-0 group-hover:bg-base-500/5 dark:group-hover:bg-neutral-800/50 {% if forloop.last %}rounded-bl-lg{% endif %}">
+                <span class="text-sm text-neutral-900 dark:text-neutral-100">{{ item.feature_name }}</span>
+                {% if item.feature_note != blank %}
+                  <span class="block text-xs text-neutral-500 dark:text-neutral-400 mt-0.5">{{ item.feature_note }}</span>
+                {% endif %}
+              </td>
+
+              <!-- Col 1 value -->
+              <td class="p-4 border-b border-base-500/15 dark:border-neutral-700/40 text-center align-middle group-hover:bg-base-500/5 dark:group-hover:bg-neutral-800/50">
+                {% assign v1 = item.col_1_value | strip %}
+                {% if v1 == blank or v1 == '—' or v1 == '-' %}
+                  <span class="text-neutral-600 dark:text-neutral-500">—</span>
+                {% elsif v1 == 'true' %}
+                  <span class="material-symbols-outlined text-base mx-auto text-base-200 dark:text-base-700" aria-label="Included">check_circle</span>
+                {% else %}
+                  <span class="text-sm text-neutral-900 dark:text-neutral-100">{{ v1 }}</span>
+                {% endif %}
+              </td>
+
+              <!-- Col 2 value (featured) -->
+              <td class="p-4 text-center align-middle bg-primary-500/4 dark:bg-primary-500/10 border-l border-r border-primary-500/15 dark:border-primary-500/30 group-hover:bg-primary-500/8 dark:group-hover:bg-primary-500/15 {% if forloop.last %}rounded-br-lg{% endif %}">
+                {% assign v2 = item.col_2_value | strip %}
+                {% if v2 == blank or v2 == '—' or v2 == '-' %}
+                  <span class="text-neutral-600 dark:text-neutral-500">—</span>
+                {% elsif v2 == 'true' %}
+                  <span class="material-symbols-outlined text-base mx-auto text-primary-400 dark:text-primary-300" aria-label="Included">check_circle</span>
+                {% else %}
+                  <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100">{{ v2 }}</span>
+                {% endif %}
+              </td>
+
+              <!-- Col 3 value -->
+              <td class="p-4 border-b border-base-500/15 dark:border-neutral-700/40 text-center align-middle group-hover:bg-base-500/5 dark:group-hover:bg-neutral-800/50 {% if forloop.last %}rounded-br-lg{% endif %}">
+                {% assign v3 = item.col_3_value | strip %}
+                {% if v3 == blank or v3 == '—' or v3 == '-' %}
+                  <span class="text-neutral-600 dark:text-neutral-500">—</span>
+                {% elsif v3 == 'true' %}
+                  <span class="material-symbols-outlined text-base mx-auto text-base-200 dark:text-base-700" aria-label="Included">check_circle</span>
+                {% else %}
+                  <span class="text-sm text-neutral-900 dark:text-neutral-100">{{ v3 }}</span>
+                {% endif %}
+              </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+    </div>
+
+    {% if this.note != blank %}
+      <p class="mt-6 text-center text-xs text-neutral-500 dark:text-neutral-400">{{ this.note }}</p>
+    {% endif %}
+
+  </div>
+</section>

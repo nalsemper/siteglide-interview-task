@@ -1,0 +1,12 @@
+<h3>Archive by Years</h3>
+<ul>
+	{% for year in blog_archive_years %}
+		<li>{{year.start | date: "%Y"}}</li>
+		<ul>
+			{% assign months_by_year = blog_archive_months | group_by: "year" %}
+			{% for month in months_by_year[year.start] %}
+				<li><a href="{{context.location.pathname}}?range_gte={{month.start}}&range_lt={{month.end}}&range_type=month">{{month.start | date: "%b" }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endfor %}
+</ul>

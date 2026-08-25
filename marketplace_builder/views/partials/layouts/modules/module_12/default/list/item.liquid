@@ -1,0 +1,32 @@
+<div class="default-event">
+	<h3>{{this['name']}}</h3>
+	{% if this.category_array[0] %}
+		{% for category in this.category_array %}
+			<a href="{{context.headers.PATH_INFO}}?category={{category}}" title="">{{context.exports.categories.items[category].name}}</a>
+		{% endfor %}
+	{% endif %}
+	<p>{{this['Description']}}</p>
+	{% if this['Location - Address'] %}
+		<h4>Location</h4>
+		<p>{{this['Location - Address']}}</p>
+	{% endif %}
+	<ul>
+		<li>
+				<h4>Event Start</h4>
+				<p data-date>{{this['Event Start'] | date: "%d/%m/%Y %H:%M"}}</p>
+		</li>
+		<li>
+				<h4>Event End</h4>
+				<p data-date>{{this['Event End'] | date: "%d/%m/%Y %H:%M" }}</p>
+		</li>
+		{% if this.properties.module_field_12_4_datasource %}
+		<li>
+				<h4>Host</h4>
+				{% include "datasource", datasource_field: "properties.module_field_12_4_datasource", layout: "events_host_datasource" %}
+		</li>
+		{% endif %}
+		<li>
+			<a href="{{this.full_slug}}">View Details</a>
+		</li>
+	</ul>
+</div>

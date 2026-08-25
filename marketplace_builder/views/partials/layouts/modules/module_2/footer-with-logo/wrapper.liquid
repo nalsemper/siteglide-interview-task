@@ -1,0 +1,38 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/footer-with-logo/item.liquid
+  - views/partials/layouts/modules/module_2/footer-with-logo/wrapper.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: footer-with-logo
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Footer with logo
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Footer with logo
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ---End Settings--- {% endcomment %}
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+<footer class="bg-white shadow dark:bg-gray-800">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <a href="/" class="flex items-center mb-4 sm:mb-0">
+        <img class="mr-3 h-8 dark:hidden" src="{% if context.exports.company_information.properties.logo != blank %}{{context.exports.company_information.properties.logo | asset_url}}{% else %}https://flowbite.com/docs/images/logo.svg{% endif %}" alt="{{context.exports.company_information.properties.company_name}} logo">
+        <img class="mr-3 h-8 hidden dark:block" src="{% if context.exports.company_information.properties.logo_white != blank %}{{context.exports.company_information.properties.logo_white | asset_url}}{% else %}https://flowbite.com/docs/images/logo.svg{% endif %}" alt="{{context.exports.company_information.properties.company_name}} logo">
+      </a>
+      <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+        {%- include 'modules/siteglide_menu/get/get_items', item_layout: 'item' -%}
+      </ul>
+    </div>
+    <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+    <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{"now" | date: "%Y"}} <a href="/" class="hover:underline">{{context.exports.company_information.properties['company_name']}}™</a>. All Rights Reserved.
+    </span>
+  </div>
+</footer>

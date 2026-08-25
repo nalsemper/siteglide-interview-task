@@ -1,0 +1,223 @@
+
+        
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% capture form_html_id %}form_{{sitebuilder_uniq_component_id}}{% endcapture %}
+
+<style>
+  /* Styles for Progress Bar and Spinner - Hooks into Siteglide JavaScript by watching for changes in form classes */
+  #{{form_html_id}}.form_submitting #spinner_{{sitebuilder_uniq_component_id}} {
+    display: block !important;
+  }
+
+  #{{form_html_id}}:not([data-s-form-progress]) #progressContainer,#{{form_html_id}}[data-s-form-progress='0'] #progressContainer {
+    display: none;
+  }
+
+  #{{form_html_id}} #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 0%;
+    will-change: width;
+    transition: width 0.8s;
+    transition-timing-function: ease-out;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='1'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 10%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='2'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 20%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='3'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 30%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='4'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 40%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='5'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 50%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='6'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 60%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='7'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 80%;
+  }
+
+  #{{form_html_id}}[data-s-form-progress='8'] #progressBar_{{sitebuilder_uniq_component_id}}{
+    width: 100%;
+  }
+</style>
+
+
+{% comment %}Note- tailwind "group" class is added to the form after submission to allow validation variants.{% endcomment %}
+{% form  html_id: form_html_id, html_class: "space-y-8" -%}
+  {% comment %} {%- include 'layouts/forms/form_1/contact-form_components/heading', label: 'Contact Us' -%} {% endcomment %}
+  {%- include 'layouts/forms/form_1/contact-form_components/hidden_fields', form_redirect: '/' -%}
+
+  {%- include 'layouts/forms/form_1/contact-form_components/name_field', name: form_builder.fields.properties['name'].name, label: 'Name', value: form_builder.fields.properties['name'].value -%}
+  {%- include 'layouts/forms/form_1/contact-form_components/email', name: form_builder.fields.properties['email'].name -%}
+
+  {%- if properties.secure_zones.value != blank or include_password_editor == 'true' or include_email_editor == 'true'-%}
+    {%- include 'layouts/forms/form_1/contact-form_components/password' -%}
+  {%- endif -%}
+
+  {%- include 'layouts/forms/form_1/contact-form_components/string', name: form_builder.fields.properties['form_field_1_2'].name, value: form_builder.fields.properties['form_field_1_2'].value, label: 'Subject', attributes: '', validation: ' required ', field_id: 'form_field_1_2' -%}  
+
+  {%- include 'layouts/forms/form_1/contact-form_components/textarea', field: field_object, name: form_builder.fields.properties['form_field_1_3'].name, value: form_builder.fields.properties['form_field_1_3'].value, label: 'Message', attributes: '', validation: '', field_id: 'form_field_1_3' -%} 
+
+  {%- include 'layouts/forms/form_1/contact-form_components/recaptcha', captcha_type: 'hcaptcha' -%}
+
+  <div data-main-error class="hidden">
+    <div class="p-4 mb-4 text-sm text-danger-700 bg-danger-100 rounded-lg dark:bg-danger-200 dark:text-danger-800" role="alert">
+      <span class="font-medium">Error</span>
+      <span data-main-error-message><!-- Main Siteglide validation message will appear here. --></span>
+    </div>
+  </div>
+  <button type="submit" class="text-white bg-primary-700 hover:bg-info-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-info-800">
+    <div class="flex align-center">
+      <span>Submit</span>
+      <div id="spinner_{{sitebuilder_uniq_component_id}}" class="hidden ml-2">
+        <svg  role="status" class="w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-primary-600 dark:fill-primary-200" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+        </svg>
+      </div>
+    </div>
+  </button>
+  <div id="progressContainer" class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+    <div id="progressBar_{{sitebuilder_uniq_component_id}}" class="bg-primary-600 h-2.5 rounded-full"></div>
+  </div>
+{% endform %}
+
+
+<script>
+  /* The following optional script allows support for validation. If removing it, make sure to return the normal Siteglide submit function to the button. We use a self-executing function here so that variables and functions within are scoped only to this form. This allows each form to have its own editable, self-contained validation function. */
+  (function(){
+    //Make sure Sitegurus Form API is ready (used for checkboxes).
+    if(typeof sGCheckboxValidation == "function") {
+      initForm();
+    } else {
+      var forms_api_script = document.querySelector('#sitegurus_forms_javascript_api');
+      if(forms_api_script) {
+        forms_api_script.addEventListener('load', initForm);
+      } else {
+        console.error('Developer error: Make sure the async #sitegurus_forms_javascript_api script tag is included in the page.');
+      }
+    }
+    //Set up form
+    function initForm() {
+      var form_html_id = "{{form_html_id}}";
+      var form = document.querySelector('#'+form_html_id);
+      var submitButton = form.querySelector('button[type=submit]');
+      //Add BS support for checkboxes and radios to change events.
+      var checksAndRadios = form.querySelectorAll('.required input[type=checkbox],.required input[type=radio]');
+      checksAndRadios.forEach(
+        function(item) {
+          item.addEventListener('change', sGCheckboxValidation)
+        }
+      );
+      //Set initial radio validation
+      sGCheckboxValidation(null, {form});
+      //Define custom error function for Siteglide Form
+      function sGFormCustomError(error, error_details) {
+        //Get main error
+        if(error.code) {
+          if(error.code.length > 0) {
+            error = error.code[0];
+          } else {
+            error = s_error_formatter(error);
+          }
+        } else {
+          error = s_error_formatter(error);
+        }
+        //If main error is for a field that is missing a required value, give a human-friendly name.
+        var fields_for_validation = form.querySelectorAll('[data-sg-validation-label]'), field_validation_map = {}, field_validation_ids = [], required_fields = form.querySelectorAll('[required]');
+        fields_for_validation.forEach(function(field) {
+          field_validation_ids.push(field.dataset.sgValidationId);
+          field_validation_map[field.dataset.sgValidationId] = field.dataset.sgValidationLabel;
+        });
+        if(field_validation_ids.includes(error) || field_validation_ids.includes((error.replace(/\]\[\]/, '')))) {
+          error = `Please enter a value for the required fields marked above.`
+          //Use the commented line below instead if you want to print the first field with an error.
+          //error = `please enter a value for the following: ${field_validation_map[error]}.`;
+        } else if(error.includes('captcha')) {
+          error = `please confirm you are not a bot by completing the challenge.`;
+        }
+        //Display the errors
+        var formErrorContainer = form.querySelector('[data-main-error]');
+        if(error && formErrorContainer) {
+          formErrorContainer.classList.remove('hidden');
+          formErrorContainer.querySelector('[data-main-error-message]').textContent = error;
+        }
+        form.classList.add('group');
+        //Scroll to first error
+        var fieldError = form.querySelector('.input-error');
+        if(fieldError) {
+          fieldError.scrollIntoView({
+            block: "nearest"
+          });
+        }
+        //Clear custom validity errors from last submission.
+        var valid_fields = form.querySelectorAll('input,select,textarea');
+        valid_fields.forEach(
+          function(item) {
+            item.setCustomValidity("");
+          }
+        );
+        var invalid_fields = form.querySelectorAll('.input-error');
+        //Remove Siteglide error class for styling consistency in tailwind. Replace with custom validity if appropriate.
+        form.classList.add('was-submitted')
+        invalid_fields.forEach(function(field){
+          if(field.id == "s_email_edit" || field.id == "s_password_edit" || field.id == "s_password_edit_confirmation" || field.id == "s_email_edit_confirmation") {
+            field.setCustomValidity(error);
+          }
+          field.classList.remove('input-error');
+        });
+      }
+      //Change Siteglide Form Submit Function to an Event Listener
+      function sGFormSubmit(event) {
+        event.preventDefault();
+        //Changes checkbox requirements
+        sGCheckboxValidation(null, {form});
+        form.classList.remove('group');
+        var formErrorContainer = 
+        form.querySelector('[data-main-error]');
+        formErrorContainer.classList.add('hidden');
+        var formErrorContainer = form.querySelector('[data-main-error]');
+        formErrorContainer.classList.add('hidden');
+        //Handle submission of any TinyMCE rich text fields
+        if(typeof tinymce === 'object' && typeof window.sgRichTextConfig) {
+          window.sgRichTextConfig.forEach(
+            function(item) {
+              //Write rich text content to textarea field
+              item.textarea.textContent = item.editor.getContent();
+              //Apply Tailwind validation
+              var wrapper = item.textarea.closest('[data-sg-rich-text-wrapper]');
+              if(wrapper) {
+                const validClasses = ['bg-success-50', 'border-success-500', 'text-success-900', 'placeholder-success-700', 'focus:ring-success-500', 'focus:border-success-500', 'dark:border-success-400'];
+                const invalidClasses = ['bg-danger-50', 'border-danger-500', 'text-danger-900', 'placeholder-danger-700', 'focus:ring-danger-500', 'focus:border-danger-500', 'dark:text-danger-500', 'dark:placeholder-danger-500', 'dark:border-danger-500'];
+                if(item.textarea.classList.contains('required') && item.textarea.textContent.length <= 1) {
+                  wrapper.classList.remove(...validClasses);
+                  wrapper.classList.add(...invalidClasses);
+                } else {
+                  wrapper.classList.remove(...invalidClasses);
+                  wrapper.classList.add(...validClasses);
+                }
+              }
+            }
+          );
+        }
+        //Siteglide submit function
+        s_form_submit_v2(event.currentTarget, form_html_id, sGFormCustomError);
+      }
+      submitButton.addEventListener('click', sGFormSubmit);
+    }
+  })();
+</script>
+
+      

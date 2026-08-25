@@ -1,0 +1,5 @@
+{%- comment -%}
+  JSON for a category record in CRUD API responses.
+  Expects `category` in scope.
+{%- endcomment -%}
+{"id":"{{ category.id }}","name":{{ category.properties.name | json }},"parent_id":"{{ category.properties.module_field_987_1 | default: '' }}","sort_order":{{ category.properties.module_field_987_2 | default: 0 }}}

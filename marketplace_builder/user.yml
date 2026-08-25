@@ -1,0 +1,17 @@
+---
+properties:
+- name: activity_log
+  type: string
+- name: address
+  type: string
+- name: company
+  type: array
+- name: tag_array
+  type: array
+- name: favourite_items
+  type: array
+- name: password_token
+  type: string
+- name: secure_zones
+  type: array
+---

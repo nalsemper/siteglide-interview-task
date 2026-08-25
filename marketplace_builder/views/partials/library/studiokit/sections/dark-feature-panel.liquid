@@ -1,0 +1,267 @@
+---
+metadata:
+  name: Dark Feature Panel
+  tags:
+  class: section
+  lists: []
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Exceptional glazing for those who build with vision.
+  - id: feature_image
+    type: image_picker
+    label: Feature Image
+    default: ''
+  - id: youtube_video
+    type: text
+    label: YouTube Video ID or URL
+    default: ''
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: mono
+  components: []
+  updated_at: 1781877609
+  global_data:
+  global_fields: []
+---
+<section class="@container  {{selection-index}} relative h-[190vh] @sm:h-[220vh] @md:h-[260vh] bg-neutral-950 text-neutral-50" data-mono-dark-feature data-video-source="{{ this.youtube_video | default: '' | escape }}">
+  <div class="sticky top-0 h-screen overflow-hidden" data-feature-pin>
+    <div class="w-full h-full @md:px-10 @md:py-24">
+      <div class="mx-auto relative h-full w-full max-w-5xl">
+        <div class="absolute inset-0 z-20 flex items-center justify-center px-4 @sm:px-5 @md:px-6 pointer-events-none" data-feature-heading-wrap>
+          <h2 class="text-2xl @sm:text-3xl text-center max-w-[20rem] @sm:max-w-[30rem] @md:max-w-[35rem]" data-feature-heading>
+            {{ this.heading }}
+          </h2>
+        </div>
+
+        {% if this.feature_image != blank or this.youtube_video != blank %}
+          <div
+            class="relative z-10 h-full w-full @md:flex @md:items-center @md:justify-center"
+            data-feature-media
+          >
+            {% if this.feature_image != blank %}
+              {% include 'img',
+                path: this.feature_image,
+                classes: 'h-full w-full max-w-none aspect-auto object-cover origin-center @md:h-auto @md:w-full @md:max-w-[1100px] @md:aspect-[16/9]',
+                attributes: 'alt="{{ this.heading }}" loading="lazy" data-feature-image'
+              %}
+            {% else %}
+              <div class="h-full w-full max-w-none aspect-auto @md:h-auto @md:w-full @md:max-w-[1100px] @md:aspect-[16/9]" style="background-color: rgba(255, 255, 255, 0.08);" data-feature-image></div>
+            {% endif %}
+
+            {% if this.youtube_video != blank and this.feature_image != blank %}
+              <button
+                type="button"
+                class="feature-play absolute z-30 left-1/2 top-1/2 h-14 w-14 @sm:h-16 @sm:w-16 @md:h-24 @md:w-24 rounded-full border bg-neutral-950/45"
+                data-feature-play
+                aria-label="Play video"
+              >
+                <span class="sr-only">Play video</span>
+                <svg class="mx-auto h-6 w-6 @sm:h-8 @sm:w-8 @md:h-10 @md:w-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7-11-7z"></path>
+                </svg>
+              </button>
+            {% endif %}
+
+            <div class="h-full w-full max-w-none aspect-auto @md:h-auto @md:w-full @md:max-w-[1100px] @md:aspect-[16/9] {% if this.feature_image != blank %}hidden{% endif %}" data-feature-video></div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+[data-mono-dark-feature] [data-feature-image],
+[data-mono-dark-feature] [data-feature-heading],
+[data-mono-dark-feature] [data-feature-play] {
+  will-change: transform, opacity;
+}
+
+[data-mono-dark-feature] .feature-play {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.85);
+  transition: opacity 0.35s ease;
+  pointer-events: auto;
+}
+
+[data-mono-dark-feature] [data-feature-video] {
+  background-color: #000;
+  margin: 0 auto;
+}
+
+[data-mono-dark-feature] [data-feature-video] iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+[data-mono-dark-feature] [data-feature-video-inner] {
+  width: 100%;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mono-dark-feature] [data-feature-image],
+  [data-mono-dark-feature] [data-feature-heading],
+  [data-mono-dark-feature] [data-feature-play] {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  [data-mono-dark-feature] .feature-play {
+    opacity: 1;
+  }
+}
+</style>
+
+<script>
+(function () {
+
+  // --- Simple YouTube ID extraction ---
+  function getYouTubeId(val) {
+    if (!val) return '';
+    val = String(val).trim();
+    if (/^[A-Za-z0-9_-]{11}$/.test(val)) return val;
+    var m = val.match(/[?&]v=([A-Za-z0-9_-]{11})/) || val.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : '';
+  }
+
+  function loadMotion() {
+    if (window.siteglideMotionLoader && typeof window.siteglideMotionLoader === 'function') {
+      return window.siteglideMotionLoader();
+    }
+
+    return new Promise((resolve, reject) => {
+      if (window.Motion) return resolve(window.Motion);
+
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.min.js';
+      script.onload = () => resolve(window.Motion);
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  loadMotion().then((Motion) => {
+    const sections = document.querySelectorAll('[data-mono-dark-feature]');
+
+    sections.forEach((section) => {
+      const heading = section.querySelector('[data-feature-heading]');
+      const image = section.querySelector('[data-feature-image]');
+      const play = section.querySelector('[data-feature-play]');
+      const media = section.querySelector('[data-feature-media]');
+      const videoMount = section.querySelector('[data-feature-video]');
+      const videoValue = section.dataset.videoSource || '';
+      const youtubeId = getYouTubeId(videoValue);
+      const hasImage = Boolean(image);
+      let isVideoActive = false;
+
+      function deactivateVideo() {
+        if (!isVideoActive || !hasImage || !videoMount) return;
+        isVideoActive = false;
+        videoMount.innerHTML = '';
+        videoMount.classList.add('hidden');
+        image.classList.remove('hidden');
+        if (play) play.classList.remove('hidden');
+      }
+
+
+      function activateVideo(event) {
+        if (event) event.preventDefault();
+        if (isVideoActive || !youtubeId || !videoMount || !hasImage) return;
+        isVideoActive = true;
+
+        function showVideo() {
+          var videoFrame = document.createElement('iframe');
+          videoFrame.src = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?autoplay=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&playsinline=1';
+          videoFrame.title = 'YouTube video player';
+          videoFrame.allow = 'autoplay; encrypted-media; picture-in-picture';
+          videoFrame.allowFullscreen = false;
+
+          var videoInner = document.createElement('div');
+          videoInner.setAttribute('data-feature-video-inner', 'true');
+          videoInner.appendChild(videoFrame);
+
+          videoMount.innerHTML = '';
+          videoMount.appendChild(videoInner);
+          videoMount.classList.remove('hidden');
+          image.classList.add('hidden');
+          if (play) play.classList.add('hidden');
+          if (media) media.classList.remove('cursor-pointer');
+        }
+
+        showVideo();
+      }
+
+      if (media && youtubeId && hasImage) {
+        media.classList.add('cursor-pointer');
+        media.setAttribute('role', 'button');
+        media.setAttribute('tabindex', '0');
+        media.setAttribute('aria-label', 'Play video');
+        media.addEventListener('click', activateVideo);
+        media.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter' || event.key === ' ') activateVideo(event);
+        });
+      }
+
+      if (!hasImage && youtubeId && videoMount) {
+        var initialFrame = document.createElement('iframe');
+        initialFrame.src = 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?autoplay=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&playsinline=1';
+        initialFrame.title = 'YouTube video player';
+        initialFrame.allow = 'autoplay; encrypted-media; picture-in-picture';
+        initialFrame.allowFullscreen = false;
+
+        var initialInner = document.createElement('div');
+        initialInner.setAttribute('data-feature-video-inner', 'true');
+        initialInner.appendChild(initialFrame);
+        videoMount.innerHTML = '';
+        videoMount.appendChild(initialInner);
+      }
+
+      if (!image) return;
+
+      Motion.scroll(
+        (progress) => {
+          const value = Math.min(Math.max(progress, 0), 1);
+          const isMobile = window.innerWidth < 640;
+          const imageScale = 1 + value * (isMobile ? 0.45 : 0.8);
+          const headingFadeProgress = Math.min(Math.max((value - 0.22) / 0.5, 0), 1);
+          const headingOpacity = 1 - headingFadeProgress;
+          const headingY = -value * (isMobile ? 18 : 28);
+          const playProgress = Math.min(Math.max((value - 0.78) / 0.22, 0), 1);
+          const playScale = 0.85 + playProgress * 0.15;
+
+          if (isVideoActive && value < 0.78) {
+            deactivateVideo();
+          }
+
+          image.style.transform = 'scale(' + imageScale.toFixed(3) + ')';
+
+          if (heading) {
+            heading.style.opacity = headingOpacity.toFixed(3);
+            heading.style.transform = 'translateY(' + headingY.toFixed(2) + 'px)';
+          }
+
+          if (play) {
+            play.style.opacity = playProgress.toFixed(3);
+            play.style.transform = 'translate(-50%, -50%) scale(' + playScale.toFixed(3) + ')';
+          }
+        },
+        { target: section }
+      );
+    });
+  }).catch(() => {
+    // Keep static layout if motion library fails to load.
+  });
+})();
+</script>

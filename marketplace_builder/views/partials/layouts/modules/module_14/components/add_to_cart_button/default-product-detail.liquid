@@ -1,0 +1,68 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product_attributes/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-product-detail
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Default Product Detail
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Product Detail
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+<button class="button-secondary w-1/2" onclick="s_e_cart_add('{{this.id}}', function() {
+	if(typeof window.swal === 'function') {
+		success();
+	} else {
+		const script = document.querySelector('#sweetalert_script');
+		script.addEventListener('load', success);
+	}
+	function success() {
+		swal.fire({
+			position: 'bottom-end',
+			icon: 'success',
+			title: 'Product added to cart!',
+			showConfirmButton: false,
+			timer: 2000,
+			toast: true,
+			showCloseButton: true,
+			customClass: {
+				popup: 'flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:!bg-gray-800', 
+				title: 'ms-3 text-sm font-normal',
+				closeButton: 'ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700',
+			}
+		});
+	}
+});">
+	<svg
+		class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
+	>
+		<path
+			stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+		/>
+	</svg>
+	<span class="inline-block ml-1">Add to cart</span>
+</button>
+<button class="button w-1/2" onclick="s_e_cart_add('{{this.id}}', function() {
+	window.location.href = '{{cart_url | html_safe}}';
+})">
+	<svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 24 24" fill="none">
+		<path stroke="currentColor" fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v9a1 1 0 0 0 1 1h.535a3.5 3.5 0 1 0 6.93 0h3.07a3.5 3.5 0 1 0 6.93 0H21a1 1 0 0 0 1-1v-4a.999.999 0 0 0-.106-.447l-2-4A1 1 0 0 0 19 6h-5a2 2 0 0 0-2-2H4Zm14.192 11.59.016.02a1.5 1.5 0 1 1-.016-.021Zm-10 0 .016.02a1.5 1.5 0 1 1-.016-.021Zm5.806-5.572v-2.02h4.396l1 2.02h-5.396Z" clip-rule="evenodd"/>
+	</svg>
+	<span class="inline-block ml-1">Buy now</span>
+</button>
+{% if context.exports.sitebuilder.sweetalert == blank %}
+	<script id="sweetalert_script" async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	{% assign sweetalert = true %}
+	{% export sweetalert, namespace: "sitebuilder" %}
+{% endif %}

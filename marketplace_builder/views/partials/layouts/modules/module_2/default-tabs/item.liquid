@@ -1,0 +1,25 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/default-tabs/item.liquid
+  - views/partials/layouts/modules/module_2/default-tabs/wrapper.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: default-tabs
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Default tabs
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default tabs
+  studio_dynamic/sub_module_id: '1'
+  studio_dynamic/make_global_form: false
+---
+  {%- if this['is_parent'] -%}
+    {% comment %} Tabs Layout does not currently support multi-levels or dropdowns. {% endcomment %}
+  {%- else -%}
+    <li class="{% unless forloop.last %}mr-2{% endunless %}">
+      <a {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}" {% if this['link_url'] == context.location.pathname %}aria-current="page"{% endif %} class="{% if this['link_url'] == context.location.pathname %}inline-block p-4 text-primary-600 bg-gray-100 rounded-t-lg active dark:bg-gray-700 dark:text-primary-500 {% else %} inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 {% endif %}">{{this['link_name']}}</a>
+    </li>
+  {%- endif -%}

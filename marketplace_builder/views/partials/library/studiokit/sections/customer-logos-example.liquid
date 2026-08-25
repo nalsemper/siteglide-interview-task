@@ -1,0 +1,73 @@
+---
+metadata:
+  name: Customer Logos
+  class: section
+  lists:
+  - name: Logos
+    type: logos
+    fields:
+    - id: name
+      type: text
+      label: Company Name
+      default: Company
+      is_title: true
+    - id: logo_image
+      type: image_picker
+      label: Logo Image
+      default: ''
+    - id: logo_image_alt
+      type: text
+      label: Logo Image Alt Text
+      default: ''
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: You'll be in good company
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+    </div>
+
+    <div class="mt-10 grid grid-cols-2 gap-8 @md:grid-cols-3 @lg:grid-cols-6" data-motion-group>
+      {% for item in lists.logos %}
+        <a
+          data-studio-list="{{ item._list }}"
+          href="{{ item.link_url | default: '#' }}"
+          class="group flex items-center justify-center"
+          aria-label="{{ item.logo_image_alt | default: item.name | default: 'Partner logo' }}"
+          data-motion-card
+        >
+          {% if item.logo_image != blank %}
+            {% include 'img',
+              path: item.logo_image,
+              classes: 'h-9 max-w-full object-contain opacity-50 transition-opacity duration-200 group-hover:opacity-100',
+              attributes: 'alt="{{ item.logo_image_alt | default: item.name | default: "" }}" loading="lazy"'
+            %}
+          {% endif %}
+        </a>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

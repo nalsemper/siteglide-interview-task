@@ -1,0 +1,26 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/transparent-menu/item.liquid
+  - views/partials/layouts/modules/module_2/transparent-menu/wrapper.liquid
+  - views/partials/layouts/modules/module_5/log_out/transparent-menu/logout.liquid
+  - views/partials/layouts/modules/module_5/log_in/transparent-menu/login.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: transparent-menu
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Transparent menu
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Transparent menu
+  studio_dynamic/sub_module_id: '1'
+  studio_dynamic/make_global_form: false
+---
+<div>
+  {% form %}
+    <button type="button" class="w-full text-left block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" onclick="siteglide_logout_process(this,'{{_redirect}}')">Log Out</button>
+  {% endform %}
+</div>

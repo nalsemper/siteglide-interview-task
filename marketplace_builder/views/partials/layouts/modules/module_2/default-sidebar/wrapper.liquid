@@ -1,0 +1,38 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/default-sidebar/item.liquid
+  - views/partials/layouts/modules/module_2/default-sidebar/wrapper.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-sidebar
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Default sidebar
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default sidebar
+  studio_dynamic/sub_module_id: '3'
+  studio_dynamic/make_global_form: false
+---
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+<div class="bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+  <button data-drawer-target="sidebar_{{sitebuilder_uniq_component_id}}" data-drawer-toggle="sidebar_{{sitebuilder_uniq_component_id}}" aria-controls="sidebar_{{sitebuilder_uniq_component_id}}" type="button" class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+    <span class="sr-only">Open sidebar</span>
+    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+    </svg>
+  </button>
+</div>
+
+<aside id="sidebar_{{sitebuilder_uniq_component_id}}" class="fixed {{sidebar_template_classes | default: 'top-0 h-screen'}} left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidenav">
+  <div class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+    <ul class="space-y-2">
+      {%- include 'modules/siteglide_menu/get/get_items', item_layout: 'item' -%}
+    </ul>
+    <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
+    </ul>
+  </div>
+</aside>

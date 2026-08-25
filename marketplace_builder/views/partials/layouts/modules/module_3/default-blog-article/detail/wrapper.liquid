@@ -1,0 +1,82 @@
+---
+metadata:
+  settings:
+  - id: blog_list_page_url
+    type: text
+    label: Blog List Page URL
+    default: "/blog"
+  - id: sidebar
+    type: boolean
+    label: Show Sidebar
+    default: true
+  - id: blog_parent_category
+    type: text
+    label: Blog Parent Category
+    default:
+  - id: secure_zone_ids_can_edit
+    type: text
+    label: Secure Zone IDs That Can Edit
+    default:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/item.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/edit.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/search.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/sidebar.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/archive.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/structured_data.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/boolean.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/date.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/file.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_radio.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/string.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/textarea.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/subheading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/heading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/array_custom.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/folder.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image_array.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_float.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_integer.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/default-blog-article.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-blog-article
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_3
+  studio_dynamic/layout_name: Default blog article
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default blog article
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+  {% comment %}---Settings---{% endcomment %}
+  {% comment %}------Insert your Blog List View URL here to go there for sorting, searching and filtering results.  {% endcomment %}
+  {% assign blog_list_page_url = settings.blog_list_page_url | default: "/blog" %}
+  {% comment %}------Show a sidebar?  {% endcomment %}
+  {% assign sidebar = settings.sidebar | default: true %}
+  {% comment %} Default (null) is to show all categories in the sidebar. Alternatively, pass in an id (in quotes e.g. '6') for a category which is the parent of blog categories to only show relevant categories. {% endcomment %}
+  {% assign blog_parent_category = settings.blog_parent_category | downcase | default: null %}
+  {% comment %} ------Secure Zone IDs can Edit------ 
+  Visiting the page with ?edit=true at the end of the URL will show an edit form under certain conditions. If in the module_settings anyone_can_edit is set to true, you may wish to restrict access a little more- in which case you can add comma-separated secure zone IDs here- users who don't have any of the secure zones in this list will not have access to the form. (The default values are not real Secure Zones, just an example). {% endcomment %}
+  {% assign secure_zone_ids_can_edit = settings.secure_zone_ids_can_edit | default: '' %}
+  
+  {% comment %}---End Settings---{% endcomment %}
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+  {% if context.params.edit == 'true' %}
+    {%- include 'modules/siteglide_system/get/get_items', item_layout: 'edit' -%}
+  {% else %}
+    {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+  {% endif %}

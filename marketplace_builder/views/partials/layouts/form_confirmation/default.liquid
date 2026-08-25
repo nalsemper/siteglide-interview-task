@@ -1,0 +1,11 @@
+<h1>Thanks for getting in touch!</h1>
+
+{% if form.properties.order_id %}
+	{% comment %} Form Submission is an eCommerce Order {% endcomment %}
+	<p>Thanks for your order {{this.name}}!</p>
+	{% include "ecommerce/order_details", layout: "siteglide_example" %}
+{% else %}
+	{% comment %} Form Submission is not an eCommerce Order {% endcomment %}
+	<p>Nice to meet you {{this.name}}!</p>
+	<p>We'll get back to your query as soon as possible.</p>
+{% endif %} 

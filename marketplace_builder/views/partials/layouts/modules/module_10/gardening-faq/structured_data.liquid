@@ -1,0 +1,42 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_10/gardening-faq/list/wrapper.liquid
+  - views/partials/layouts/modules/module_10/gardening-faq/list/item.liquid
+  - views/partials/layouts/modules/module_10/gardening-faq/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: gardening-faq
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_10
+  studio_dynamic/layout_name: Gardening FAQ
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Gardening FAQ
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} Should be included inside wrapper.liquid in order to have access to all this data. {% endcomment %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in context.exports.module_10.data.result.items %}
+      {
+        "@type": "Question",
+        "name": "{{ item.properties.module_field_4_1 }}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{ item.properties.module_field_4_2 }}"
+        }
+    } {% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
+

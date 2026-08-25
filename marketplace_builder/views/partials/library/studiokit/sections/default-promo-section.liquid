@@ -1,0 +1,76 @@
+---
+metadata:
+  name: Promo Section
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Save $500 today on your purchase of a new iMac computer.
+  - id: body
+    type: textarea
+    label: Body
+    default: Reserve your new Apple iMac 27" today and enjoy exclusive savings with
+      qualified activation. Pre-order now to secure your discount.
+  - id: product_image
+    type: image_picker
+    label: Product Image
+    default: ''
+  - id: image_url
+    type: url
+    label: Image Link URL
+    default: "#"
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Pre-order now
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="grid items-center gap-8 overflow-hidden rounded-2xl bg-base-50 p-6 dark:bg-base-900/20 @lg:grid-cols-12 @lg:p-12" data-motion-group>
+
+      <div class="flex items-center justify-center @lg:col-span-5" data-motion-card>
+        {% if this.product_image != blank %}
+          <a href="{{ this.image_url | default: '#' }}">
+            {% include 'img',
+              path: this.product_image,
+              classes: 'h-auto max-h-96 w-full object-contain',
+              attributes: 'alt="{{ this.heading | default: "" }}" loading="lazy"'
+            %}
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="@lg:col-span-7" data-motion-group>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        {% if this.body != blank %}
+          <p data-motion-text>{{ this.body }}</p>
+        {% endif %}
+        {% if this.button_text != blank %}
+          <a href="{{ this.button_url }}" class="button">{{ this.button_text }}</a>
+        {% endif %}
+      </div>
+
+    </div>
+
+  </div>
+</section>

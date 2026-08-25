@@ -1,0 +1,13 @@
+{%- if this['is_parent'] -%}
+  <li class="nav-item mb-3 m-lg-0 mr-lg-3 dropdown">
+    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown{{level}}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{this['link_name']}}</a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{level}}">
+			{%- assign _next_level = _level | plus: 1 -%}
+      {%- include 'modules/siteglide_menu/get/get_items', level: _next_level, parent_id: this['forced_id'], item_layout: 'item' -%}
+    </ul>
+  </li>
+{%- else -%}
+  <li class="{% if level > 1 %}dropdown-item{% else %}nav-item{% endif %}">
+	  <a class="nav-link" href="{{this['link_url']}}" title="{{this['link_name']}}"><span>{{this['link_name']}}</span></a>
+  </li>
+{%- endif -%}

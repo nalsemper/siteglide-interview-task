@@ -1,0 +1,10 @@
+---
+layout: ''
+max_deep_level: 1
+metadata:
+  id: 2
+  name: XML Product Feed
+  file_type: system_page
+slug: product-feed.xml
+---
+{%- include 'ecommerce/products', layout: 'product_feed', per_page: '10000', type: 'list', show_pagination: 'true', sort_type: 'properties.name', sort_order: 'asc' -%}

@@ -1,0 +1,75 @@
+---
+metadata:
+  name: Title With Image
+  class: section
+  lists: []
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Engineering digital interfaces with exact code and dynamic creativity.
+  - id: body
+    type: textarea
+    label: Body
+    default: We craft robust web applications where technical accuracy merges with
+      vivid design. Setting a new benchmark for modern studios.
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: View Technologies
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  - id: image
+    type: image_picker
+    label: Image
+    default: ''
+  - id: image_alt
+    type: text
+    label: Image Alt Text
+    default: ''
+  hide_on: []
+  category: hero
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+
+  <div class="container pt-10 !pb-0 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20">
+
+
+    <h2 class="max-w-4xl" data-motion-text>
+      {{ this.heading }}
+    </h2>
+
+    <div class="mt-10 flex flex-col gap-6 md:mt-12 lg:flex-row lg:items-end lg:justify-between lg:gap-16" data-motion-group>
+      <p class="max-w-xs text-sm leading-relaxed text-neutral-400 !mb-0" data-motion-text>
+        {{ this.body }}
+      </p>
+      {% if this.cta_label != blank %}
+        <a href="{{ this.cta_url }}" class="button " data-motion-text>
+          {{ this.cta_label }}
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  {% if this.image != blank %}
+    <div class="card container relative pb-16 md:pb-20 lg:pb-24" data-motion-card>
+      <div class="h-5 w-5 opacity-40 absolute top-4 left-8 md:left-12 lg:left-16 z-10" aria-hidden="true"></div>
+      {% include 'img',
+        path: this.image,
+        classes: 'w-full object-cover max-h-[70vh] !border-none',
+        attributes: 'alt="{{ this.image_alt | default: this.heading }}" loading="lazy"'
+      %}
+    </div>
+  {% else %}
+    <div class="card relative bg-base-50 dark:bg-base-900/20 min-h-[420px] md:min-h-[520px] pb-16 md:pb-20 lg:pb-24" data-motion-card>
+      <div class="h-5 w-5 opacity-40 absolute top-4 left-8 md:left-12 lg:left-16 z-10" aria-hidden="true"></div>
+    </div>
+  {% endif %}
+
+</section>

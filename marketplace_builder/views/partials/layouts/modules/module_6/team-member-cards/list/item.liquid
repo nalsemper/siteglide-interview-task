@@ -1,0 +1,108 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_6/team-member-cards/list/wrapper.liquid
+  - views/partials/layouts/modules/module_6/team-member-cards/list/item.liquid
+  - views/partials/layouts/modules/module_6/team-member-cards/search.liquid
+  - views/partials/layouts/modules/module_6/team-member-cards/sidebar.liquid
+  - views/partials/layouts/modules/module_6/team-member-cards/archive.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: team-member-cards
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_6
+  studio_dynamic/layout_name: Team member cards
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Team Member Cards
+  studio_dynamic/sub_module_id: '1'
+---
+<div class="card rounded-2xl overflow-hidden bg-base-50 dark:bg-base-900/20 flex flex-col md:flex-row" data-motion-card>
+
+  <a class="block shrink-0" href="{{this.full_slug}}">
+    <img
+      src="{{ this['Image'] | asset_url }}"
+      alt="{{ this['Title'] }}"
+      class="w-full md:w-64 h-80 md:h-full min-h-[320px] object-cover"
+    >
+  </a>
+
+  <div class="flex-1 flex flex-col justify-center p-6">
+    <h3>
+      <a href="{{this.full_slug}}">{{this["Title"]}}</a>
+    </h3>
+
+    <span class="mt-1 text-neutral-500">
+      {{this["Subtitle"]}}
+    </span>
+
+    <p class="mt-4 mb-6">
+      {{this["Description"]}}
+    </p>
+
+    <ul class="flex flex-wrap gap-4">
+      {% if this["Facebook URL"] != blank %}
+        <li>
+          <a href="{{this["Facebook URL"]}}" aria-label="Facebook">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if this["Twitter URL"] != blank %}
+        <li>
+          <a href="{{this["Twitter URL"]}}" aria-label="Twitter">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if this["Instagram URL"] != blank %}
+        <li>
+          <a href="{{this["Instagram URL"]}}" aria-label="Instagram">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 169.063 169.063" aria-hidden="true">
+              <path d="M122.406 0H46.654C20.929 0 0 20.93 0 46.655v75.752c0 25.726 20.929 46.655 46.654 46.655h75.752c25.727 0 46.656-20.93 46.656-46.655V46.655C169.063 20.93 148.133 0 122.406 0zm31.657 122.407c0 17.455-14.201 31.655-31.656 31.655H46.654C29.2 154.063 15 139.862 15 122.407V46.655C15 29.201 29.2 15 46.654 15h75.752c17.455 0 31.656 14.201 31.656 31.655v75.752z"/>
+              <path d="M84.531 40.97c-24.021 0-43.563 19.542-43.563 43.563 0 24.02 19.542 43.561 43.563 43.561s43.563-19.541 43.563-43.561c0-24.021-19.542-43.563-43.563-43.563zm0 72.123c-15.749 0-28.563-12.812-28.563-28.561 0-15.75 12.813-28.563 28.563-28.563s28.563 12.813 28.563 28.563c0 15.749-12.814 28.561-28.563 28.561z"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if this["LinkedIn URL"] != blank %}
+        <li>
+          <a href="{{this["LinkedIn URL"]}}" aria-label="LinkedIn">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 176 176" aria-hidden="true">
+              <path d="M152 0H24A24 24 0 0 0 0 24v128a24 24 0 0 0 24 24h128a24 24 0 0 0 24-24V24a24 24 0 0 0-24-24z"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if this["Google URL"] != blank %}
+        <li>
+          <a href="{{this["Google URL"]}}" aria-label="Google">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 210 210" aria-hidden="true">
+              <path d="M0 105C0 47.103 47.103 0 105 0c23.383 0 45.515 7.523 64.004 21.756l-24.4 31.696C133.172 44.652 119.477 40 105 40c-35.841 0-65 29.159-65 65s29.159 65 65 65c28.867 0 53.398-18.913 61.852-45H105V85h105v20c0 57.897-47.103 105-105 105S0 162.897 0 105z"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+
+      {% if this["Pinterest URL"] != blank %}
+        <li>
+          <a href="{{this["Pinterest URL"]}}" aria-label="Pinterest">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 56.693 56.693" aria-hidden="true">
+              <path d="M28.348 5.158c-13.599 0-24.625 11.023-24.625 24.625 0 10.082 6.063 18.744 14.739 22.553-.069-1.721-.012-3.783.429-5.654l3.168-13.418s-.787-1.572-.787-3.896c0-3.648 2.115-6.373 4.749-6.373 2.24 0 3.322 1.682 3.322 3.695 0 2.252-1.437 5.619-2.175 8.738-.616 2.613 1.31 4.744 3.887 4.744 4.665 0 7.808-5.992 7.808-13.092 0-5.397-3.635-9.437-10.246-9.437-7.47 0-12.123 5.57-12.123 11.792 0 2.146.633 3.658 1.624 4.83.455.537.519.754.354 1.371-.118.453-.389 1.545-.501 1.977-.164.625-.669.848-1.233.617-3.44-1.404-5.043-5.172-5.043-9.408 0-6.994 5.899-15.382 17.599-15.382 9.4 0 15.588 6.804 15.588 14.107 0 9.658-5.369 16.875-13.285 16.875-2.659 0-5.16-1.438-6.016-3.068 0 0-1.43 5.674-1.732 6.768-.522 1.9-1.545 3.797-2.479 5.275a24.595 24.595 0 0 0 6.979 1.01c13.598 0 24.623-11.023 24.623-24.623-.001-13.603-11.027-24.626-24.624-24.626z"/>
+            </svg>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

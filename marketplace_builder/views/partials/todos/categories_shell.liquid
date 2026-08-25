@@ -1,0 +1,68 @@
+{%- graphql categories_data = "todo_categories/list_todo_categories", per_page: 100, page: 1 -%}
+{%- assign categories = categories_data.records.results -%}
+
+<section id="todo-categories-app" class="todo-app-panel" data-api-base="/api/todo-categories">
+  <header class="todo-app-panel__header">
+    <h1 class="todo-app-panel__title">Todo categories</h1>
+    <p class="todo-app-panel__subtitle">Organise todos with nested categories.</p>
+  </header>
+
+  <form id="category-add-form" class="category-add-form" autocomplete="off">
+    <div class="category-add-form__row">
+      <input type="text" name="name" class="category-add-form__input" placeholder="Category name" required maxlength="100" aria-label="Category name">
+      <select name="parent_id" class="category-add-form__select" aria-label="Parent category">
+        <option value="">— Root category —</option>
+        {%- for category in categories -%}
+          {%- assign parent_id = category.properties.module_field_987_1 | append: '' | strip -%}
+          {%- if parent_id == blank or parent_id == '0' -%}
+            <option value="{{ category.id }}">{{ category.properties.name }}</option>
+          {%- endif -%}
+        {%- endfor -%}
+      </select>
+      <input type="number" name="sort_order" class="category-add-form__number" value="0" min="0" step="1" aria-label="Sort order">
+      <button type="submit" class="category-add-form__submit">Add category</button>
+    </div>
+  </form>
+
+  <div class="category-table-wrap">
+    <table class="category-table" aria-describedby="category-table-caption">
+      <caption id="category-table-caption" class="sr-only">Todo categories</caption>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Parent</th>
+          <th scope="col">Sort</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="category-table-body">
+        {%- for category in categories -%}
+          {%- assign parent_id = category.properties.module_field_987_1 | append: '' | strip -%}
+          {%- if parent_id == blank or parent_id == '0' -%}
+            {% include 'todos/category_table_row', category: category, depth: 0, categories: categories %}
+            {%- assign root_id_str = category.id | append: '' -%}
+            {%- for child in categories -%}
+              {%- assign child_parent = child.properties.module_field_987_1 | append: '' | strip -%}
+              {%- if child_parent == root_id_str -%}
+                {% include 'todos/category_table_row', category: child, depth: 1, categories: categories %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </tbody>
+    </table>
+  </div>
+
+  <p id="category-empty" class="todo-empty{% if categories.size > 0 %} todo-empty--hidden{% endif %}">No categories yet. Add one above.</p>
+
+  <dialog id="todo-modal" class="todo-modal" aria-labelledby="todo-modal-title">
+    <form method="dialog" id="todo-modal-form" class="todo-modal__form">
+      <h2 id="todo-modal-title" class="todo-modal__title"></h2>
+      <p id="todo-modal-message" class="todo-modal__message"></p>
+      <div class="todo-modal__actions">
+        <button type="button" id="todo-modal-cancel" class="todo-modal__btn todo-modal__btn--secondary">Cancel</button>
+        <button type="submit" id="todo-modal-confirm" class="todo-modal__btn todo-modal__btn--primary">OK</button>
+      </div>
+    </form>
+  </dialog>
+</section>

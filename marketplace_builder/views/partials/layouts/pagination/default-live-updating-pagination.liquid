@@ -1,0 +1,107 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/pagination/default-live-updating-pagination.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-live-updating-pagination
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s2
+  studio_dynamic/layout_name: Default live-updating pagination
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default live-updating pagination
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% if previous_page != false %}
+  {% assign previous_page = true %}
+{% endif %}
+{% if next_page != false %}
+  {% assign next_page = true %}
+{% endif %}
+
+{%- if total_pages != 1 -%}
+  <nav data-sg-live-update-controls class="pb-8 flex justify-center mt-8" aria-label="Change Page">
+    <ul class="inline-flex items-stretch -space-x-px">
+      {% assign root_url = root_url | default: context.headers.PATH_INFO %}
+      {% if context.device.device_type == "desktop" %}
+        {% assign show = 6 %}
+      {% elsif context.device.device_type == "tablet" %}
+        {% assign show = 3 %}
+      {% else %}
+        {% assign show = 2 %}
+      {% endif %}
+      {% assign range_a = current_page | minus: show | at_least: 1 %}
+      {% assign range_b = current_page | minus: 1 | at_least: 1 %}
+      {% assign range_c = current_page | plus: 1 | at_most: total_pages %}
+      {% assign range_d = current_page | plus: show | at_most: total_pages %}
+
+      {% assign query_params = context.headers.QUERY_STRING | split: "&" %}
+      {% assign new_query_params = "[]" | parse_json %}
+      {% for param in query_params %}
+        {% assign map = param | split: "=" %}
+        {% unless map[0] == "page" %}
+          {% assign new_query_params = new_query_params | add_to_array: param %}
+        {% endunless %}
+      {% endfor %}
+      {% assign new_query_params = new_query_params | join: "&" %}
+      {% if previous_page == true %}
+        {% comment %} Previous Page {% endcomment %}
+        <li class="flex items-center">
+          <button type="button" data-sg-live-update-control-params="?page={{current_page | minus: 1 | at_least: 1 }}" data-sg-live-update-control-group="page" class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Go back one page.">
+            <span class="sr-only">Previous</span>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+          </button>
+        </li>
+        {% comment %} Indicate More Pages Exist behind {% endcomment %}
+        {% if context.device.device_type == "desktop" %}
+          {% if range_a > 1 %}
+            <li class="mx-1 flex items-center" aria-role="presentation">
+              <div class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" /></svg>
+              </div>
+            </li>
+          {% endif %}
+        {% endif %}
+        {% comment %} Previous Pages {% endcomment %}
+        {% for page_button in (range_a..range_b) %}
+          <li class="flex items-center">
+            <button type="button" data-sg-live-update-control-params="?page={{page_button}}" data-sg-live-update-control-group="page" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"  aria-label="Go to page {{page_button}}">{{page_button}}</button>
+          </li>
+        {% endfor %}
+      {% endif %}
+      {% comment %} Current Page {% endcomment %}
+      <li class="flex items-center">
+          <button type="button" data-sg-live-update-control-params="?page={{current_page}}" data-sg-live-update-control-group="page" aria-current="true" class="py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"  aria-label="Current Page {{current_page}}">{{current_page}} <span class="sr-only">(current page)</span></button>
+      </li>
+      {% comment %} Next Pages {% endcomment %}
+      {% if next_page == true %}
+        {% for page_button in (range_c..range_d) %}
+          <li class="flex items-center">
+              <button type="button" data-sg-live-update-control-params="?page={{page_button}}" data-sg-live-update-control-group="page" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"  aria-label="Go to page {{page_button}}">{{page_button}}</button>
+          </li>
+        {% endfor %}
+        {% comment %} Indicate More Pages Exist in front {% endcomment %}
+        {% if context.device.device_type == "desktop" %}
+          {% if range_d < total_pages %}
+            <li class="flex items-center" aria-role="presentation">
+              <div class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" /></svg>
+              </div>
+            </li>
+          {% endif %}
+        {% endif %}
+        {% comment %} Next Page {% endcomment %}
+        <li class="flex items-center">
+          <button type="button" data-sg-live-update-control-params="?page={{current_page | plus: 1 | at_most: total_pages }}" data-sg-live-update-control-group="page" class="block py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Go forward one page">
+            <span class="sr-only">Next</span>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+          </button>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+{%- endif -%}

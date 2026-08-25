@@ -1,0 +1,95 @@
+---
+authorization_policies:
+- modules/siteglide_system/csrf_request_valid
+- modules/siteglide_system/hcaptcha_valid
+- modules/siteglide_ecommerce/ecommerce_general
+default_layout: true
+format: json
+method: post
+---
+{%- comment -%} All incoming params from JS scripts {%- endcomment -%}
+{%- parse_json params -%}{{context.post_params}}{%- endparse_json -%}
+
+{%- parse_json error_object -%}{}{%- endparse_json -%}
+{%- assign continue_order = true -%}
+{%- assign total_price = 0 -%}
+
+{%- comment -%} S0001 - SITEGLIDE DEFAULT - Prepare Currency data {%- endcomment -%}
+{%- function
+	currency_object = "modules/siteglide_ecommerce/ecommerce/functions/currency_object"
+	_model: _model
+	_model_field: 'module_field_14/product'
+-%}
+{%- comment -%} S0001 - END {%- endcomment -%}
+
+{%- comment -%} S0002 - SITEGLIDE DEFAULT - Prepare Tax Code data {%- endcomment -%}
+{%- function
+	tax_code_object = "modules/siteglide_ecommerce/ecommerce/functions/tax_code_object"
+	_model: _model
+	_model_field: 'module_field_14/product'
+-%}
+{%- comment -%} S0002 - END {%- endcomment -%}
+
+{%- comment -%} S0003 - SITEGLIDE DEFAULT - Prepare Product data {%- endcomment -%}
+{%- function
+	product_builder = "modules/siteglide_ecommerce/ecommerce/functions/product_builder"
+	_params: params
+	_error_object: error_object
+	_continue_order: continue_order
+	tax_code_object: tax_code_object
+	currency_object: currency_object
+-%}
+{%- parse_json error_object -%}{{product_builder.error_object}}{%- endparse_json -%}
+{%- assign continue_order = product_builder.continue_order -%}
+{%- assign total_price = total_price | plus: product_builder.total_price -%}
+{%- comment -%} S0003 - END {%- endcomment -%}
+
+{%- comment -%} S0004 - SITEGLIDE DEFAULT - Prepare Shipping data {%- endcomment -%}
+{%- function
+	shipping_builder = "modules/siteglide_ecommerce/ecommerce/functions/shipping_builder"
+	_params: params
+	tax_code_object: tax_code_object
+	currency_object: currency_object
+-%}
+{%- comment -%} S0004 - END {%- endcomment -%}
+
+{%- comment -%} S0005 - SITEGLIDE DEFAULT - Prepare Discount data {%- endcomment -%}
+{%- function
+	discount_builder = "modules/siteglide_ecommerce/ecommerce/functions/discount_builder"
+	_params: params
+	_error_object: error_object
+	_continue_order: continue_order
+	_total_price: total_price,
+	product_builder: product_builder,
+	currency_object: currency_object,
+	tax_code_object: tax_code_object,
+	product_cart_price_data: product_builder.product_cart_price_data
+-%}
+{%- parse_json error_object -%}{{discount_builder.error_object}}{%- endparse_json -%}
+{%- assign continue_order = discount_builder.continue_order -%}
+{%- assign total_price = discount_builder.total_price -%}
+{%- comment -%} S0005 - END {%- endcomment -%}
+
+{%- comment -%} S0006 - SITEGLIDE DEFAULT - Prepare Order data {%- endcomment -%}
+{%- function
+	order_builder = "modules/siteglide_ecommerce/ecommerce/functions/order_builder"
+	_params: params
+	_continue_order: continue_order
+	_total_price: total_price
+	discount_builder: discount_builder
+	product_builder: product_builder
+	shipping_builder: shipping_builder
+-%}
+{% comment %} S0006 - END {% endcomment %}
+
+{% comment %} RETURN DATA {% endcomment %}
+{%- if params.gateway == 'PayPal' -%}
+	{%- if order_builder.order_id != blank -%}
+		{ "order_id": "{{order_builder.order_id}}", "slug": "{{slug}}", "discount_amount": "{{discount_builder.order_discount.reduction_amount}}", "shipping_amount": "{{shipping_builder.shipping_price}}", "item_amount": "{{discount_builder.item_breakdown_total}}", "error": null }
+	{%- else -%}
+		{ "order_id": null, "slug": null, "discount_amount": null, "shipping_amount": null, "item_amount": null, "error": {{error_object.message | json}} }
+		{%- response_status 400 -%}
+	{%- endif -%}
+{%- else -%}
+	{ "order_id": "{{order_builder.order_id}}", "slug": "{{slug}}", "errors": {{error_object}} }
+{%- endif -%}

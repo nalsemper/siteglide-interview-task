@@ -1,0 +1,139 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/item.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/detail/edit.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/search.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/sidebar.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/archive.liquid
+  - views/partials/layouts/modules/module_3/default-blog-article/structured_data.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/boolean.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/datasource.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/date.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/file.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/input_radio.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select_multi.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/select.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/string.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/textarea.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/subheading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/heading.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/array_custom.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/folder.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/image_array.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_float.liquid
+  - views/partials/layouts/modules/module_3/form/default-blog-article_components/number_integer.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/default-blog-article.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-blog-article
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_3
+  studio_dynamic/layout_name: Default blog article
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default blog article
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% capture structured_data %}layouts/modules/module_3/{{layout}}/structured_data{% endcapture %}
+{%- include structured_data -%}
+{% include 'module', id: '6', item_ids: this['Author'], collection: 'true', per_page: '1', datasource: 'true', type: 'list' %}
+{% assign author = context.exports.module_6.data.result.items[0] %}
+<section>
+  <div class=" ">
+    <div class="pt-8 pb-16 lg:pt-16 lg:pb-24">
+      <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+        <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+          <header class="mb-4 lg:mb-6 not-format">
+            <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">{{this['Title']}}</h1>
+            <div class="text-base">
+              <address class="inline">
+                By
+                <a rel="author" class="text-gray-900 no-underline dark:text-white hover:underline" href="{{blog_list_page_url}}?module_field_3_4={{author.id}}&author_name={{author.properties.name | url_encode}}">{{author.properties.module_field_6_1}}</a>
+              </address>
+              in 
+              {% for category in this['category_array'] %}
+                <a href="{{blog_list_page_url}}?category={{context.exports.categories.data[category].id}}" class="text-gray-900 no-underline dark:text-white hover:underline">{{context.exports.categories.data[category].name  | replace: " ", "&nbsp;" -}}</a>
+                {%- assign position = forloop.index | plus: 1 -%}
+                {%- if this['category_array'].size == position -%}&nbsp;and{%- elsif forloop.last != true -%}, {% endif %}
+              {% endfor %}
+              on
+              <time pubdate class="uppercase" datetime="{{this['release_date'] | date: '%d %^b. %Y'}}" title="{{this['release_date'] | date: '%b %d %Y'}}">{{this['release_date'] | date: '%b %d %Y'}}</time>
+            </div>
+          </header>
+          <aside aria-label="Share social media">
+            <button data-s-g-social-feature="fbButton" class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <span aria-hidden="true" class="material-symbols-outlined text-[16px] mr-2">share</span> Share
+            </button>
+            <button data-s-g-social-feature="tw" class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <span aria-hidden="true" class="material-symbols-outlined text-[16px] mr-2">alternate_email</span>
+              Tweet
+            </button>
+            <button data-s-g-social-feature="clipboard"  class="inline-flex items-center py-2 px-3 mr-2 mb-2 text-xs font-medium text-gray-900 no-underline bg-white rounded-lg border border-gray-200 focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              <span aria-hidden="true" class="material-symbols-outlined text-[16px] mr-2">link</span>
+              Copy link
+            </button>
+          </aside>
+          {{this['Content'] | html_safe }}
+        </article>
+        {% if sidebar == true %}
+          <aside class="hidden lg:block lg:w-72" aria-labelledby="sidebar-label">
+            {% capture sidebar %}layouts/modules/module_3/{{layout}}/sidebar{% endcapture %}
+            {%- include sidebar -%}
+          </aside>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div aria-label="Related articles" class=" ">
+    {% assign related_category_id = this.category_array | join: "," %}
+    {% assign item_limit = 3 %}
+    {% include 'module', id: '3', collection: 'true', type: 'list', category_ids: related_category_id %}
+    {% assign related_articles = context.exports.module_3.data.result.items | sort: 'date' | array_delete: this | limit: item_limit %}
+    
+    {% if related_articles.size > 0 %}
+      <div class="px-4 mx-auto max-w-screen-xl pb-8 lg:pb-24">
+        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
+        <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          
+          {% for article in related_articles %}
+            <article class="max-w-xs">
+              <img src="{{article.properties.module_field_3_7 | asset_url}}" class="mb-5 rounded-lg" alt="{{article.properties.module_field_3_8}}">
+              <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                <a href="/{{context.params.slug}}/{{article.properties.slug}}">{{article.properties.module_field_3_1}}</a>
+              </h2>
+              <p class="mb-4 font-light text-gray-500 dark:text-gray-400">{{article.properties.module_field_3_3}}</p>
+              <a href="/{{context.params.slug}}/{{article.properties.slug}}" class="inline-flex items-center font-medium underline underline-offset-4 text-primary-600 dark:text-primary-500 hover:no-underline">
+                {% assign reading_time = article.properties.module_field_3_9 | strip_html | split: " " | size | divided_by: 238 %}
+                {% if reading_time == 0 %}
+                  Read in 1 minute
+                {% else %}
+                  Read in {{reading_time}} minutes
+                {% endif %}
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if context.exports.module_86.sitegurus_social_share_api != true %}
+  <script async id="sitegurus_social_share_api" src="{{'modules/module_357/js/sitegurus_social_share_api.min.js' | asset_url}}" charset="utf-8"></script>
+  {% assign sitegurus_social_share_api = true %}
+  {% export sitegurus_social_share_api, namespace: "module_86" %}
+{% endif %}
+
+

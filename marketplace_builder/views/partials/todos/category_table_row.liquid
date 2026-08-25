@@ -1,0 +1,31 @@
+{%- comment -%}
+  Single hierarchical row for category CRUD table (SSR).
+  Expects `category`, `depth`, `categories` in scope.
+{%- endcomment -%}
+{%- assign row_parent_id = category.properties.module_field_987_1 | append: '' | strip -%}
+<tr class="category-table__row{% if depth > 0 %} category-table__row--child{% endif %}" data-category-id="{{ category.id }}" data-category-depth="{{ depth }}">
+  <td class="category-table__name">
+    <input type="text" class="category-table__input category-table__input--name" data-field="name" value="{{ category.properties.name }}" aria-label="Category name">
+  </td>
+  <td>
+    <select class="category-table__select" data-field="parent_id" aria-label="Parent category"{% if depth == 0 %} disabled{% endif %}>
+      <option value=""{% if row_parent_id == blank or row_parent_id == '0' %} selected{% endif %}>— Root —</option>
+      {%- for root in categories -%}
+        {%- assign root_parent = root.properties.module_field_987_1 | append: '' | strip -%}
+        {%- if root_parent == blank or root_parent == '0' -%}
+          {%- assign root_id_str = root.id | append: '' -%}
+          {%- assign cat_id_str = category.id | append: '' -%}
+          {%- unless root_id_str == cat_id_str -%}
+            <option value="{{ root.id }}"{% if root_id_str == row_parent_id %} selected{% endif %}>{{ root.properties.name }}</option>
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </select>
+  </td>
+  <td>
+    <input type="number" class="category-table__number" data-field="sort_order" value="{{ category.properties.module_field_987_2 | default: 0 }}" min="0" step="1" aria-label="Sort order">
+  </td>
+  <td class="category-table__actions">
+    <button type="button" class="category-table__delete" data-action="delete-category">Delete</button>
+  </td>
+</tr>

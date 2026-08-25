@@ -1,0 +1,47 @@
+---
+metadata:
+  name: Dynamic Blog Cards
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Our Blog
+  - id: body
+    type: textarea
+    label: Body
+    default: We use an agile approach to test assumptions and connect with the needs
+      of your audience early and often.
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mb-10 flex flex-col gap-6 border-b border-base-200 pb-10 dark:border-base-600 @md:flex-row @md:items-end @md:justify-between" data-motion-group>
+      <div class="max-w-3xl">
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        {% if this.body != blank %}
+          <p data-motion-text>{{ this.body }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div>
+      {% include 'module', id: '3', layout: 'blog-cards', per_page: 8, show_pagination: 'false', pagination_layout: 'default-pagination' %}
+    </div>
+
+  </div>
+</section>

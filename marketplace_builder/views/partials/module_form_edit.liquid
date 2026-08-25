@@ -1,0 +1,17 @@
+{%- assign type = 'module' -%}
+{%- assign id = this.model | replace: "module_", "" -%}
+{%- capture table_path -%}tables/{{type}}s/{{id}}{%- endcapture -%}
+
+{%- capture table -%}{%- include table_path -%}{%- endcapture -%}
+{%- parse_json table -%}{{ table | replace: "&quot;", "'" }}{%- endparse_json -%}{% comment %} Fix for tables with " in text that breaks JSON parsing {% endcomment %}
+
+{%- assign module_id = this.module_id -%}
+{%- if module_id == blank -%}
+	{%- assign module_id = this.model | replace: "module_", "" -%}
+{%- endif -%}
+
+{%- if table.anyone_can_edit == true -%}
+	{%- include 'module_form', edit_item_id: this.id, id: module_id, enabled: this.enabled, release_date: this.release_date, expiry_date: this.expiry_date, slug: this.slug -%}
+{%- elsif session.current_user.id and session.current_user.id == this.creator.id -%}
+	{%- include 'module_form', edit_item_id: this.id, id: module_id, enabled: this.enabled, release_date: this.release_date, expiry_date: this.expiry_date, slug: this.slug -%}
+{%- endif -%}

@@ -1,0 +1,14 @@
+---
+name: module_14/settings
+properties:
+- name: module_field_14/settings_1
+  type: string
+- name: module_field_14/settings_2
+  type: string
+- name: module_field_14/settings_3
+  type: string
+- name: module_field_14/settings_4
+  type: string
+- name: module_field_14/settings_5
+  type: string
+---

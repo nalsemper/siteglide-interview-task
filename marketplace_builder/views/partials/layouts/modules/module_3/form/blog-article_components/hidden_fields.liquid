@@ -1,0 +1,7 @@
+
+<input id="s_redirect" value="{{custom_form_redirect | default: form_redirect}}" type="hidden">
+<input name="{{ form_builder.fields.properties.enabled.name }}"  value="{{_enabled}}" type="hidden">
+<input name="{{ form_builder.fields.properties.expiry_date.name }}"  value="{{_expiry_date}}" type="hidden">
+<input name="{{ form_builder.fields.properties.release_date.name }}"  value="{{_release_date}}" type="hidden">
+<input class="upload_dir" value="{{_upload_dir}}" type="hidden">
+<input name="{{ form_builder.fields.properties.slug.name }}"  type="hidden" value="{{ form_builder.fields.properties.slug.value}}">

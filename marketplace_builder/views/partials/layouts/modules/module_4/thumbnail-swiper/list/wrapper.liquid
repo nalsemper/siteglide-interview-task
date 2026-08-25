@@ -1,0 +1,98 @@
+---
+metadata:
+  fields:
+  - id: main_heading
+    type: text
+    label: Main Heading
+    default: You’ll be in good company
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_4/thumbnail-swiper/list/wrapper.liquid
+  - views/partials/layouts/modules/module_4/thumbnail-swiper/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: thumbnail-swiper
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_4
+  studio_dynamic/layout_name: Thumbnail swiper
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Thumbnail swiper
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+  {% if total_items > 0 %}
+    <section data-motion-group>
+      <div class="container py-12 md:py-16">
+        <!-- Slider main container -->
+        <div data-sitebuilder-swiper="{{sitebuilder_uniq_component_id}}" class="swiper">
+          <h2 class="mb-10 text-center" data-motion-text>{{this.main_heading | default: "You’ll be in good company"}}</h2>
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+          </div>
+          <!-- If we need pagination -->
+          
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      if(!window.sitebuilderSwiperConfig ) {
+        window.sitebuilderSwiperConfig  = {};
+      }
+      window.sitebuilderSwiperConfig['{{sitebuilder_uniq_component_id}}'] = {
+        initiated: false,
+        //Choose any configuration from the docs here: https://swiperjs.com/swiper-api
+        config: {
+          slidesPerView: 2,
+          slidesPerGroup: 2,
+          spaceBetween: 30,
+          breakpoints: {
+            640: {
+              slidesPerView: 3,
+              slidesPerGroup: 3,
+              spaceBetween: 30
+            },
+            1024: {
+              slidesPerView: 5,
+              slidesPerGroup: 5,
+              spaceBetween: 60
+            },
+            1280: {
+              slidesPerView: 5,
+              slidesPerGroup: 5,
+              spaceBetween: 80
+            }
+          },
+          longSwipes: true,
+          longSwipesRatio: 0.1,
+          longSwipesMs: 300,
+          autoplay: {
+            delay: 5000
+          },
+          rewind: true,
+          grabCursor: true,
+          // If we need pagination
+          pagination: {
+            el: `[data-sitebuilder-swiper='{{sitebuilder_uniq_component_id}}'] .swiper-pagination`,
+            clickable: true
+          }
+        }
+      }
+      if(typeof window.sitebuilderSwiperInit == 'function') {
+        //In case script is loaded already. Run initiation again. Sliders in the config will only be initiated if initiated property is set to false.
+        window.sitebuilderSwiperInit();
+      }
+    </script>
+    {% if context.exports.sitebuilder.sliderJSLoaded == blank %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+      <script async src="{{'modules/module_357/js/sitegurus_sliders_javascript_api.1.min.js' | asset_url }}"></script>
+      {% assign sliderJSLoaded = true %}
+      {% export sliderJSLoaded, namespace: sitebuilder %}
+    {% endif %}
+  {% endif %}

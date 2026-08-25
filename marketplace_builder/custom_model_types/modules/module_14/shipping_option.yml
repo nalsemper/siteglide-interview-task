@@ -1,0 +1,54 @@
+---
+name: module_14/shipping_option
+properties:
+- name: module_field_14/shipping_option/price/aud/1
+  type: float
+- name: module_field_14/shipping_option/price/aud/2
+  type: float
+- name: module_field_14/shipping_option/price/aud/3
+  type: string
+- name: module_field_14/shipping_option/price/aud/4
+  type: array
+- name: module_field_14/shipping_option/price/cad/1
+  type: float
+- name: module_field_14/shipping_option/price/cad/2
+  type: float
+- name: module_field_14/shipping_option/price/cad/3
+  type: string
+- name: module_field_14/shipping_option/price/cad/4
+  type: array
+- name: module_field_14/shipping_option/price/eur/1
+  type: float
+- name: module_field_14/shipping_option/price/eur/2
+  type: float
+- name: module_field_14/shipping_option/price/eur/3
+  type: string
+- name: module_field_14/shipping_option/price/eur/4
+  type: array
+- name: module_field_14/shipping_option/price/gbp/1
+  type: float
+- name: module_field_14/shipping_option/price/gbp/2
+  type: float
+- name: module_field_14/shipping_option/price/gbp/3
+  type: string
+- name: module_field_14/shipping_option/price/gbp/4
+  type: array
+- name: module_field_14/shipping_option/price/nzd/1
+  type: float
+- name: module_field_14/shipping_option/price/nzd/2
+  type: float
+- name: module_field_14/shipping_option/price/nzd/3
+  type: string
+- name: module_field_14/shipping_option/price/nzd/4
+  type: array
+- name: module_field_14/shipping_option/price/usd/1
+  type: float
+- name: module_field_14/shipping_option/price/usd/2
+  type: float
+- name: module_field_14/shipping_option/price/usd/3
+  type: string
+- name: module_field_14/shipping_option/price/usd/4
+  type: array
+- name: module_field_14/shipping_option_1
+  type: string
+---

@@ -1,0 +1,76 @@
+  .slider .slide {
+    position: relative;
+  }
+  /*glide arrow styling (global)*/
+  .slider .glide__arrow {      
+      position: absolute;
+      display: block;
+      top: 50%;
+      z-index: 2;
+      color: #1E94E6;
+      text-transform: uppercase;
+      padding: 9px 12px;
+      background-color: transparent;
+      opacity: 1;
+      transition: opacity 150ms ease, border 300ms ease-in-out;
+      transform: translateY(-50%);
+      line-height: 1;
+      border: none;
+      border-width: 0px;
+  }
+  .slider .glide__arrow:focus,.glide__bullet {
+    outline: none;
+  }
+  .slider .glide__arrow--left {
+    left: -45px;
+  }
+  .slider .glide__arrow--right {
+    right: -45px;
+  }
+/*glide bullet styling (global)*/
+  .slider .glide__bullet {
+    border: none;
+    background-color: transparent;
+    color: #B8C1CB;
+    margin: 0 7px 0 7px;
+  }
+  .slider .glide__bullet:focus {
+    border: none;
+    background-color: transparent;
+    color: #1E94E6;
+    margin: 0 7px 0 7px;
+  }
+  .slider .glide__bullet--active svg {
+    color: #1E94E6;
+  }
+  .slider .glide-link {
+    border: none;
+    background-color: white;
+    margin-top: 10px;
+    padding-right: 10px;
+    color: #B8C1CB;
+  }
+  .slider .glide-link:focus {
+    outline: none; 
+  }
+/*removes glide arrows bellow tablet width (global)*/
+  @media only screen and (max-width: 1024px) {
+    .slider .glide__arrow--left {
+      display: none;
+    }
+    .slider .glide__arrow--right {
+      display: none;
+    }
+  }
+/*removes glide arrows & adds glide bullets (sl-04 & sl-05)*/
+  .slider-05 .glide-link, .slider-04 .glide-link {
+    display: none;
+  }
+  @media only screen and (max-width: 1024px) {
+    .slider-05 .glide-link, .slider-04 .glide-link {
+      display: inline-block;
+    }
+  }  
+
+
+

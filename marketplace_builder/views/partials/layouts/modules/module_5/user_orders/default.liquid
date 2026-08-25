@@ -1,0 +1,22 @@
+<h2>My Orders</h2>
+
+<div class="sk-user-orders">
+	<table>
+		<thead>
+			<th>Order ID</th>
+			<th>Payment</th>
+			<th>Status</th>
+			<th>Date</th>
+		</thead>
+		<tbody>
+			{%- for this in orders -%}
+				<tr>
+					<td><a href="{{this.full_slug}}">{{this.id}}</a></td>
+					<td>{{context.exports.currency_map.data[this.currency]}}{%- include 'modules/siteglide_ecommerce/ecommerce/price_formatter', price_data: this.price -%}</td>
+					<td>{{this.status}}</td>
+					<td>{{this.created_at | date: "%d/%m/%Y"}}</td>
+				</tr>
+			{%- endfor -%}
+		</tbody>
+	</table>
+</div>

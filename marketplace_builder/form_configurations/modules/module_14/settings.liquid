@@ -1,0 +1,104 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    module_name:
+      name: module_name
+      value: eCommerce Settings
+      property_options:
+        virtual: true
+    module_slug:
+      name: module_slug
+      value: ''
+      property_options:
+        virtual: true
+    module_detail:
+      name: module_detail
+      value: false
+      property_options:
+        virtual: true
+    module_detail_template:
+      name: module_detail_template
+      value: templates/blank_page
+      property_options:
+        virtual: true
+    module_detail_default_layout:
+      name: module_detail_default_layout
+      value: default
+      property_options:
+        virtual: true
+    module_path:
+      name: module_path
+      value: siteglide_ecommerce
+      property_options:
+        virtual: true
+    module_sz:
+      name: module_sz
+      value: false
+      property_options:
+        virtual: true
+    module_sz_updated:
+      name: module_sz_updated
+      value: true
+      property_options:
+        virtual: true
+    module_sz_display_type:
+      name: module_sz_display_type
+      value: '404'
+      property_options:
+        virtual: true
+    module_field_14/settings_1:
+      name: Default Currency
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/settings_2:
+      name: Order Status Options
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/settings_3:
+      name: Tax Rounding Method
+      type: select
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      options: round_on_item,round_on_row,round_on_total
+      required: false
+      validation: {}
+    module_field_14/settings_4:
+      name: Price Accuracy
+      type: select
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      options: 2dp,4dp
+      required: false
+      validation: {}
+    module_field_14/settings_5:
+      name: Discount Percentage Application Method
+      type: select
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      options: before_tax,after_tax
+      required: false
+      validation: {}
+name: module_14/settings
+resource: module_14/settings
+resource_owner: anyone
+---
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/modules/module_14/settings/form/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

@@ -1,0 +1,133 @@
+---
+metadata:
+  name: Blog Clean Grid
+  class: section
+  lists:
+  - name: Blog Items
+    type: blog_items
+    fields:
+    - id: date
+      type: text
+      label: Date
+      default: Apr 07, 2026
+    - id: category
+      type: text
+      label: Category
+      default: Product
+    - id: read_time
+      type: text
+      label: Read Time
+      default: 6 min read
+    - id: title
+      type: textarea
+      label: Title
+      default: A short, clear article title goes here
+      is_title: true
+    - id: excerpt
+      type: textarea
+      label: Excerpt
+      default: Share a concise preview that explains why this article matters for
+        your audience.
+    - id: image
+      type: image_picker
+      label: Card Image
+      default: ''
+    - id: image_alt
+      type: text
+      label: Image Alt Text
+      default: ''
+    - id: cta_url
+      type: url
+      label: Article URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Latest Articles
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Insights for teams building premium digital products.
+  - id: body
+    type: textarea
+    label: Body
+    default: A clean editorial grid designed for readability, quick scanning, and
+      confident navigation.
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: View all articles
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mb-10 flex flex-col gap-6 border-b border-base-200 dark:border-base-600 pb-10 md:flex-row md:items-end md:justify-between" data-motion-group>
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60" data-motion-text>{{ this.eyebrow }}</p>
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        <p data-motion-text>{{ this.body }}</p>
+      </div>
+      {% if this.cta_label != blank %}
+        <a href="{{ this.cta_url }}" class="button-secondary inline-flex flex-none items-center gap-2" data-motion-text>
+          {{ this.cta_label }}
+          <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {% for item in lists.blog_items %}
+        <article data-studio-list="{{ item._list }}" class="card group flex h-full flex-col rounded-2xl bg-base-50 dark:bg-base-900/20 p-6 md:p-8" data-motion-card>
+
+          {% if item.image != blank %}
+            <a href="{{ item.cta_url }}" class="block overflow-hidden rounded-xl border border-base-50">
+              {% include 'img',
+                path: item.image,
+                classes: 'h-52 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]',
+                attributes: 'alt="{{ item.image_alt | default: item.title }}" loading="lazy"'
+              %}
+            </a>
+          {% else %}
+            <div class="h-52 w-full rounded-2xl bg-base-100 dark:bg-base-900/20"></div>
+          {% endif %}
+
+          <div class="mt-5 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.13em] text-neutral-500">
+            <span class="inline-flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm leading-none">sell</span>
+              <span>{{ item.category }}</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm leading-none">calendar_today</span>
+              <span>{{ item.date }}</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-sm leading-none">schedule</span>
+              <span>{{ item.read_time }}</span>
+            </span>
+          </div>
+
+          <h3 class="mt-3">{{ item.title }}</h3>
+
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-neutral-400">{{ item.excerpt }}</p>
+
+          <a href="{{ item.cta_url }}" class="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-primary-400 transition-colors duration-200 hover:text-primary-300">
+            Read article
+            <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+          </a>
+
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

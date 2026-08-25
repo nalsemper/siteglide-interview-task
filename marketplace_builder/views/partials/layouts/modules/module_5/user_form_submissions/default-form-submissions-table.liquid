@@ -1,0 +1,64 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_5/user_form_submissions/default-form-submissions-table.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-form-submissions-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_5
+  studio_dynamic/layout_name: Default form submissions table
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default form submissions table
+  studio_dynamic/sub_module_id: '3'
+---
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+<section class=" ">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+    <div class="mb-8">
+      <h1 class="inline-block text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">My Form Submissions
+      </h1>
+      <p class="mt-1 text-lg text-gray-500 dark:text-gray-400">See when you've contacted us.
+      </p>
+    </div>
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden shadow-md sm:rounded-lg">
+            <table class="min-w-full">
+              <thead class="bg-gray-50 dark:bg-gray-700">
+                <tr>
+                  <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">Form
+                  </th>
+                  <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">ID
+                  </th>
+                  <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for this in submissions -%}
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{this.form_name }}
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">#{{this.id }}
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">{{this.created_at | date: "%d %b %Y %H:%M" }}
+                    </td>
+                    
+                  </tr>
+                  
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

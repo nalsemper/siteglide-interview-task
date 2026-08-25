@@ -1,0 +1,145 @@
+---
+metadata:
+  name: Centered Hero
+  class: section
+  lists:
+  - name: Social Avatars
+    type: social_avatars
+    fields:
+    - id: avatar_image
+      type: image_picker
+      label: Avatar Image
+      default: ''
+    - id: avatar_alt
+      type: text
+      label: Avatar Alt Text
+      default: Team member
+      is_title: true
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow Badge
+    default: Ares Mission Sync
+  - id: eyebrow_icon
+    type: text
+    label: Eyebrow Icon Name
+    default: bolt
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Synchronize outposts, zero latency.
+  - id: image
+    type: image_picker
+    label: Center Image
+    default: ''
+  - id: image_alt
+    type: text
+    label: Image Alt Text
+    default: ''
+  - id: trust_text
+    type: text
+    label: Trust Text
+    default: Trusted by leading mission commanders
+  - id: body
+    type: textarea
+    label: Body
+    default: Connect your rovers, habitats, and orbital relays with a single protocol.
+      No complex interference setups — just pure data velocity.
+  - id: primary_cta_label
+    type: text
+    label: Primary CTA Label
+    default: Initialize Uplink
+  - id: primary_cta_url
+    type: url
+    label: Primary CTA URL
+    default: "#"
+  - id: secondary_cta_label
+    type: text
+    label: Secondary CTA Label
+    default: View Mission Logs
+  - id: secondary_cta_url
+    type: url
+    label: Secondary CTA URL
+    default: "#"
+  hide_on: []
+  category: hero
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container py-20 text-center md:py-24 lg:py-28">
+
+    {% if this.eyebrow != blank %}
+      <div class="inline-flex items-center gap-2 rounded-full border border-primary-500/40 bg-primary-500/10 px-4 py-1.5 text-xs uppercase tracking-[0.12em] text-primary-400 mb-6" data-motion-text>
+        {% if this.eyebrow_icon != blank %}<span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">{{ this.eyebrow_icon }}</span>{% endif %}
+        <span class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60">{{ this.eyebrow }}</span>
+      </div>
+    {% endif %}
+
+    <h2 class="mx-auto max-w-3xl" data-motion-text>{{ this.heading }}</h2>
+
+    <div class="mx-auto mt-10 max-w-4xl md:mt-14" data-motion-card>
+      <div class="card relative overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20 aspect-[16/10]">
+        {% if this.image != blank %}
+          {% include 'img',
+            path: this.image,
+            classes: 'h-full w-full object-cover',
+            attributes: 'alt="{{ this.image_alt | default: this.heading }}" loading="eager"'
+          %}
+        {% else %}
+          <div class="absolute inset-0 flex items-center justify-center text-base-500">
+            <span class="material-symbols-outlined text-5xl opacity-30 leading-none" aria-hidden="true">image</span>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mx-auto mt-10 max-w-xl md:mt-12" data-motion-group>
+
+      {% assign avatars = lists.social_avatars %}
+      {% assign avatar_count = avatars | size %}
+      {% if avatar_count > 0 or this.trust_text != blank %}
+        <div class="mb-5 flex items-center justify-center gap-3" data-motion-text>
+          {% if avatar_count > 0 %}
+            <div class="flex -space-x-2.5">
+              {% for item in avatars limit: 4 %}
+                <div class="h-8 w-8 flex-none overflow-hidden rounded-full ring-2 ring-base-900 bg-base-50 dark:bg-base-900">
+                  {% if item.avatar_image != blank %}
+                    {% include 'img',
+                      path: item.avatar_image,
+                      classes: 'h-full w-full object-cover',
+                      attributes: 'alt="{{ item.avatar_alt }}" loading="lazy"'
+                    %}
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if this.trust_text != blank %}
+            <span class="text-sm text-neutral-400">{{ this.trust_text }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <p class="text-neutral-400 mx-auto" data-motion-text>{{ this.body }}</p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3" data-motion-text>
+        {% if this.primary_cta_label != blank %}
+          <a href="{{ this.primary_cta_url }}" class="button inline-flex items-center gap-2">
+            {{ this.primary_cta_label }}
+            <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+          </a>
+        {% endif %}
+        {% if this.secondary_cta_label != blank %}
+          <a href="{{ this.secondary_cta_url }}" class="button-secondary inline-flex items-center gap-2">
+            {{ this.secondary_cta_label }}
+            <span class="material-symbols-outlined text-sm leading-none">arrow_forward</span>
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,66 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-9">
+				<h2 class="text-center">Checkout</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<input name="{{ form_builder.fields.properties.user_id.name }}" id="s_user_id" type="hidden" value="{{session.current_user.id}}" />
+					<div class="row mt-4">
+						<div class="col">
+							<label for="s_name">Name</label>
+							<input type="text" id="s_name" class="form-control sg-form-control required" name="{{ form_builder.fields.properties.name.name }}" {% if context.exports.is_logged_in.data -%}readonly value="{{ session.current_user.name }}"{% endif %}>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col">
+							<label for="s_email">Email Address</label>
+							<input type="email" id="s_email" class="form-control sg-form-control required" name="{{ form_builder.fields.properties.email.name }}" {% if context.exports.is_logged_in.data -%}readonly value="{{ session.current_user.email }}"{% endif %}>
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="form_field_4_1">Address</label>
+							<input class="form-control sg-form-control required" name="{{ form_builder.fields.properties['form_field_4_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="form_field_4_2">Post Code</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['form_field_4_2'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="form_field_4_3">Country</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['form_field_4_3'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="form_field_4_4">Mobile</label>
+							<input class="form-control sg-form-control required" name="{{ form_builder.fields.properties['form_field_4_4'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="form_field_4_5">City</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['form_field_4_5'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-12 d-flex justify-content-end">
+							{% spam_protection 'hcaptcha' %}
+							<button type="button" class="buttonAccent btn btn-primary sg-btn sg-btn-primary" onClick="s_form_submit_v2(this,'form_4')">Submit</button>
+						</div>
+					</div>
+					<input class="upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input id="s_redirect" value="/" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

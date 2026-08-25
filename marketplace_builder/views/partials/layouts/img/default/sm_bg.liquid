@@ -1,0 +1,5 @@
+{% assign width = width | default: "1800" | replace_regex: "[^\d]", "", "", true | plus: 0 | downcase %}
+{% capture options %}format=auto,width={{width}},fit=scale-down{% endcapture %}
+{% capture high_res_options %}format=auto,width={{width | times: 2}},fit=scale-down{% endcapture %}
+{% comment %} Note - do not accidentally leave newlines inside any of the HTML attributes. {% endcomment %}
+<div {{attributes}} class="{{classes}}" style="background-repeat: no-repeat; background-image: image-set(url('{%- render "img_url", path: path, options: options -%}') 1x,url('{%- render "img_url", path: path, options: high_res_options -%}') 2x);"></div>

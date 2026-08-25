@@ -1,0 +1,36 @@
+.slider-01 h2 {
+    margin-bottom: 45px;
+  }
+  
+  .slider-01 a {
+    margin-top: 30px;
+  }
+  .slider-01 .glide > div {
+    display: flex;
+    justify-content: space-between;
+  }
+  .slider-01 .glide-link {
+    margin-right: 3px;
+    width: 25%;
+    height: 30px;
+    background: #FFFFFF !important;
+    border: 0px !important;
+    border-bottom: 2px solid #B8C1CB !important;
+    color: black !important;
+  }
+  .slider-01 .glide-link:last-child {
+    margin-right: 0;
+  }
+  .slider-01 .glide-link:focus {
+    outline: none;
+  }
+  
+  .slider-01 .glide  {
+    margin-bottom: 70px;
+  }
+  
+  .slider-01 .glide__bullet--active {
+    color: #1E94E6 !important;
+    border-bottom: 2px solid #1E94E6 !important;
+  }
+  

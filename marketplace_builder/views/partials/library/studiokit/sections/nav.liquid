@@ -1,0 +1,260 @@
+---
+metadata:
+  name: Navigation
+  tags:
+  class: section
+  lists:
+  - name: Nav Links
+    type: ui_kit_nav_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Features
+      richtext: false
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+      richtext: false
+  - name: Secondary Links
+    type: ui_kit_nav_secondary_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Contact Us
+      richtext: false
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+      richtext: false
+  fields:
+  - id: logo_image
+    type: image_picker
+    label: Logo Image
+    default:
+    richtext: false
+  - id: logo_image_alt
+    type: text
+    label: Logo Image Alt Text
+    default: Site logo
+    richtext: false
+  - id: logo_text
+    type: text
+    label: Logo Text
+    default: ''
+    richtext: false
+  - id: cta_label
+    type: text
+    label: CTA Button Label
+    default: Start Free Trial
+    richtext: false
+  - id: cta_url
+    type: url
+    label: CTA Button URL
+    default: "#"
+    richtext: false
+  - id: show_dark_mode_toggle
+    type: boolean
+    label: Show Dark Mode Toggle
+    default:
+    richtext: false
+  - id: default_theme
+    type: select
+    label: Default Theme
+    default: light
+    options:
+    - label: Auto (System Preference)
+      value: auto
+    - label: Light
+      value: light
+    - label: Dark
+      value: dark
+    richtext: false
+  hide_on: []
+  category: headers
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+  updated_at: 1781817172
+  collections:
+  global_data:
+  global_fields: []
+---
+<div class="w-full bg-primary text-center py-2 relative z-40">
+  <a href="#" class="text-xs font-medium text-white dark:text-neutral-50 hover:text-indigo-100 dark:hover:text-neutral-200 tracking-wide inline-flex items-center gap-1">
+      Meet Platform 2.0: Instant access to your media from anywhere. No downloads. No syncing. Learn more <span class="material-symbols-outlined mt-[1px] text-[14px] leading-none">arrow_forward</span>
+    </a>
+  </div>
+
+<nav
+  class="@container sticky top-0 bg-base-100 dark:bg-base-950 backdrop-blur-xl z-50 border border-base-400/40 w-full mx-auto min-[2560px]:max-w-[130rem]"
+  data-ui-kit-nav
+  data-default-theme="{{ this.default_theme | default: 'light' }}"
+>
+
+<div class="px-6 lg:px-10 py-5 flex justify-between items-center md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8">
+    <div class="flex items-center gap-3 min-w-0 !overflow-visible">
+      <a href="/" class="flex items-center !overflow-visible" aria-label="Home">
+        {% if this.logo_image != blank %}
+        {% capture logo_image_attributes %}alt="{{ this.logo_image_alt | default: this.logo_text | default: 'Site logo' }}" loading="eager"{% endcapture %}
+        {% include 'img', path: this.logo_image, layout: 'default/base', classes: 'h-8 w-auto max-w-[10rem] object-contain !overflow-visible', attributes: logo_image_attributes %}
+        {% else %}
+        <span class="material-symbols-outlined text-2xl text-neutral-900 dark:text-neutral-50 rotate-90" aria-hidden="true">segment</span>
+        {% endif %}
+        {% if this.logo_text != blank %}
+        <span class="ml-2 text-lg md:text-xl font-extrabold tracking-tight text-neutral-900 dark:text-neutral-50 truncate">{{ this.logo_text }}</span>
+        {% endif %}
+      </a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-8 justify-center">
+            <div class="flex items-center gap-8 text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                {% for item in lists.ui_kit_nav_links %}
+                <a 
+                  href="{{ item.link_url }}" 
+              class="hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors" 
+                  data-studio-list="{{ item._list }}">
+                    {{ item.link_text }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="hidden md:flex items-center justify-end gap-6">
+            {% if this.show_dark_mode_toggle %}
+            <button type="button" aria-label="Cycle color theme" data-theme-toggle class="button-secondary inline-flex items-center justify-center text-neutral-500 dark:text-neutral-400">
+              <span data-theme-toggle-icon class="material-symbols-outlined block h-5 w-5 text-[20px] leading-none text-center" aria-hidden="true">dark_mode</span>
+            </button>
+            {% endif %}
+            {% for item in lists.ui_kit_nav_secondary_links %}
+            <a href="{{ item.link_url }}" class="hidden md:block text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-50 transition-colors">{{ item.link_text }}</a>
+            {% endfor %}
+            <a href="{{ this.cta_url }}" class="button">{{ this.cta_label }}</a>
+        </div>
+
+          <button 
+            type="button" 
+            data-collapse-toggle="navbar-menu" 
+            aria-controls="navbar-menu" 
+            aria-expanded="false"
+            class="button-secondary inline-flex items-center gap-1 md:hidden">
+            <span class="sr-only">Open main menu</span>
+            <span class="material-symbols-outlined w-6 h-6 text-[24px] leading-none" aria-hidden="true">menu</span>
+          </button>
+    </div>
+
+    <div class="hidden" id="navbar-menu" data-collapse-target>
+        <div class="px-6 lg:px-10 py-4 md:hidden border-t border-base-400/40">
+            <div class="flex flex-col gap-4">
+                <div class="space-y-2">
+                    {% for item in lists.ui_kit_nav_links %}
+                    <a 
+                      href="{{ item.link_url }}" 
+                      class="block rounded-lg px-3 py-2 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-200 dark:text-neutral-50 dark:hover:bg-neutral-800" 
+                      data-studio-list="{{ item._list }}">
+                        {{ item.link_text }}
+                    </a>
+                    {% endfor %}
+                </div>
+                
+                <div class="pt-2 border-t border-base-400/40 space-y-2">
+                    {% for item in lists.ui_kit_nav_secondary_links %}
+                    <a href="{{ item.link_url }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-neutral-900 transition-colors hover:bg-neutral-200 dark:text-neutral-50 dark:hover:bg-neutral-800">{{ item.link_text }}</a>
+                    {% endfor %}
+                  <a href="{{ this.cta_url }}" class="button inline-flex">{{ this.cta_label }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-ui-kit-nav]').forEach(function (nav) {
+    if (nav.dataset.uiKitReady === 'true') return;
+
+    var toggle = nav.querySelector('[data-theme-toggle]');
+    var icon = nav.querySelector('[data-theme-toggle-icon]');
+    var defaultTheme = nav.getAttribute('data-default-theme') || 'light';
+
+    var THEME_CYCLE = ['light', 'dark', 'auto'];
+    var THEME_ICONS = { light: 'light_mode', dark: 'dark_mode', auto: 'brightness_auto' };
+    var THEME_LABELS = { light: 'Light theme', dark: 'Dark theme', auto: 'System preference' };
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        // Auto: always follow system preference
+        if (
+          window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches
+        ) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+    }
+
+    function syncControls(theme) {
+      if (icon) {
+        icon.textContent = THEME_ICONS[theme] || THEME_ICONS.light;
+      }
+
+      if (toggle) {
+        toggle.setAttribute('aria-label', 'Switch color theme (currently ' + (THEME_LABELS[theme] || theme) + ')');
+      }
+    }
+
+    // Initial theme
+    var currentTheme = localStorage.getItem('color-theme') || defaultTheme;
+
+    if (THEME_CYCLE.indexOf(currentTheme) === -1) {
+      currentTheme = 'light';
+    }
+
+    applyTheme(currentTheme);
+    syncControls(currentTheme);
+
+    if (toggle && icon) {
+      toggle.addEventListener('click', function () {
+        var nextIndex = (THEME_CYCLE.indexOf(currentTheme) + 1) % THEME_CYCLE.length;
+        currentTheme = THEME_CYCLE[nextIndex];
+
+        applyTheme(currentTheme);
+        localStorage.setItem('color-theme', currentTheme);
+        syncControls(currentTheme);
+      });
+    }
+
+    if (window.matchMedia) {
+      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function handleSystemThemeChange() {
+        if (currentTheme === 'auto') {
+          applyTheme('auto');
+        }
+      }
+
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleSystemThemeChange);
+      } else {
+        mediaQuery.addListener(handleSystemThemeChange);
+      }
+    }
+
+    if (typeof window.initFlowbite === 'function') {
+      window.initFlowbite();
+    }
+
+    nav.dataset.uiKitReady = 'true';
+  });
+})();
+</script>

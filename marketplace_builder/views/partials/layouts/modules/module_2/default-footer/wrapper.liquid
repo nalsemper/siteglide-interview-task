@@ -1,0 +1,33 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/default-footer/item.liquid
+  - views/partials/layouts/modules/module_2/default-footer/wrapper.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: default-footer
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Default footer
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default footer
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+{% comment %} ---Settings--- {% endcomment %}
+{% comment %} ---End Settings--- {% endcomment %}
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+<footer class="bg-white shadow dark:bg-gray-800">
+  <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+    <div class="md:flex md:items-center md:justify-between">
+      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© {{"now" | date: "%Y"}} <a href="/" class="hover:underline">{{context.exports.company_information.properties['company_name']}}™</a>. All Rights Reserved.
+      </span>
+      <ul class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+        {%- include 'modules/siteglide_menu/get/get_items', item_layout: 'item' -%}
+      </ul>
+    </div>
+  </div>
+</footer>

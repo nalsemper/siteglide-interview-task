@@ -1,0 +1,44 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/default-footer/item.liquid
+  - views/partials/layouts/modules/module_2/default-footer/wrapper.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: default-footer
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Default footer
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default footer
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+  {%- comment -%} If this item has children, output the item, and then go get its children {%- endcomment -%}
+  {%- if this['is_parent'] -%}
+    <li class="{% if _level > 1 %}lg:hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white{% endif %}">
+      <div>
+        <button id="footer_button_{{sitebuilder_uniq_component_id}}_{{_level}}_{{forloop.index}}" data-dropdown-toggle="footer_{{sitebuilder_uniq_component_id}}_{{_level}}_{{forloop.index}}" class="flex items-center justify-between w-full py-2 px-4  {% if _level == 1 %}font-medium hover:underline{% else %}hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200{% endif %} text-gray-700    lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700   dark:lg:hover:bg-transparent mr-4 md:mr-0 text-left " type="button">
+          {{this['link_name']}}
+          <svg class="w-4 h-4 ml-2 flex-none" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div id="footer_{{sitebuilder_uniq_component_id}}_{{_level}}_{{forloop.index}}" aria-labelledby="footer_button_{{sitebuilder_uniq_component_id}}_{{_level}}_{{forloop.index}}" class="hidden {% if _level == 1 %}bg-white dark:bg-gray-700{% else %}bg-gray-50 dark:bg-gray-800 m-2 border border-gray-200 dark:border-gray-600{% endif %} z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:divide-gray-500">
+          <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+            {%- assign _next_level = _level | plus: 1 -%}
+            {%- include 'modules/siteglide_menu/get/get_items', level: _next_level, parent_id: this['forced_id'], item_layout: 'item' -%}
+          </ul>
+        </div>
+      </div>
+    </li>
+  {%- else -%}
+    {%- comment -%} Else output dropdown children or single item {%- endcomment -%}
+    <li class="{% if _level == 1 %}lg:flex lg:items-center{% endif %}">
+      <a class="{% if _level == 1 %}
+        flex items-center justify-between w-full py-2 px-4 font-medium text-gray-700 hover:underline  lg:border-0 lg:hover:text-primary-700 lg:p-0 lg:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 mr-4 md:mr-6
+      {% elsif _level > 1 %}
+        block px-4 py-2 hover:bg-gray-100  dark:hover:bg-gray-600 dark:hover:text-white
+      {% endif %}" {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">{{this['link_name']}}</a>
+    </li>
+  {%- endif -%}

@@ -1,0 +1,7 @@
+
+
+<input name="{{ form_builder.fields.properties.user_id.name }}" id="s_user_id" type="hidden" value="{{session.current_user.id}}" />
+<input class="upload_dir" value="{{_upload_dir}}" type="hidden">
+{% comment %} Override the redirect value if a dynamic redirect is required. {% endcomment %}
+<input id="s_redirect" value="{{custom_form_redirect | default: form_redirect}}" type="hidden">
+

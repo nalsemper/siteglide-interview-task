@@ -1,0 +1,16 @@
+<div class="">
+  <div class="">
+    <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 d-block">Verify *</span>
+    <div class="form-control">
+      {% if captcha_type == "recaptcha" %}
+        {% include 'recaptcha' -%}
+      {% elsif captcha_type == "hcaptcha" %}
+        {% assign html_attrs = "{}" | parse_json %}
+        {% if context.device.device_type != "desktop" %}
+          {% hash_assign html_attrs['data-size'] = 'compact' %}
+        {% endif %}
+        {% spam_protection 'hcaptcha', html_attributes: html_attrs %}
+      {% endif %}
+    </div>
+  </div>
+</div>

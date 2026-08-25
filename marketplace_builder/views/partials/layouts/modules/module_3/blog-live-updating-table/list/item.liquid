@@ -1,0 +1,167 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_3/blog-live-updating-table/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/blog-live-updating-table/list/item.liquid
+  - views/partials/layouts/modules/module_3/blog-live-updating-table/list/delete_modal.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/blog-live-updating-table.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/boolean.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/datasource.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/date.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/file.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/image.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/input_radio.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/select_multi.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/select.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/string.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/textarea.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/subheading.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/heading.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/array_custom.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/folder.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/image_array.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/number_float.liquid
+  - views/partials/layouts/modules/module_3/form/blog-live-updating-table_components/number_integer.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: blog-live-updating-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_3
+  studio_dynamic/layout_name: Blog live-updating table
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Blog live-updating table
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% function field_map = "modules/module_357/front_end/functions/v1/field_mapping", field_headings: field_headings, this: this %}
+{%- function detail_page_valid = "modules/module_357/front_end/functions/v1/detail_page_valid", fc_data: fc_data, full_slug: this.full_slug -%}
+
+<tr class="transition-colors hover:bg-base-100/60 dark:hover:bg-base-800/40">
+  {% for field in field_headings %}
+    {% if field[0] contains "Filter" %}
+      {% continue %}
+    {% endif %}
+    {% assign field_metadata = table_config.custom_fields[field[1]] | default: table_config.system_fields[field[1]] %}
+    {% capture field_content %}
+      {% if field_map[field[0]] != blank %}
+        {% if field[1] == "release_date" or field[1] == "expiry_date" %}
+          {% comment %} For legacy reasons, these dates are integers in db {% endcomment %}
+          {% hash_assign field_metadata['type'] = 'date' %}
+        {% endif %}
+        {% case field_metadata.type %}
+        {% when "image" %}
+          <div class="h-8 md:h-16">
+            <img class="rounded object-cover w-8 md:w-16" src="{{field_map[field[0]] | asset_url }}">
+          </div>
+        {% when "file" %}
+          <a class="text-primary-400 transition-colors duration-200 hover:text-primary-300" target="_blank" href="{{field_map[field[0]] | asset_url}}" title="Download File {{field_map[field[0]] | asset_url}}">Download File</a>
+        {% when "image_array" %}
+          <div class="flex flex-wrap gap-2">
+            {% for item in field_map[field[0]] %}
+              <img class="rounded object-cover w-5" src="{{item | asset_url }}">
+            {% endfor %}
+          </div>
+        {% when "array_custom" or "input_checkbox" or "select_multi" or "array" or "datasource_multi" %}
+          <div class="flex flex-wrap gap-1.5">
+            {% for item in field_map[field[0]] %}
+              <span class="inline-block rounded bg-primary-100 px-2 py-0.5 text-xs text-primary-800 dark:bg-primary-900/30 dark:text-primary-300">{% if field[1] == "category_array" %}{{context.exports.categories.items[item].name}}{% else %}{{item}}{% endif %}</span>
+            {% endfor %}
+          </div>
+        {% when "date" %}
+          {% assign day = field_map[field[0]] | date: "%e" %}
+          {% assign daySuffix1st = day | matches: "\d?1\z" %}
+          {% assign daySuffix2nd = day | matches: "\d?2\z" %}
+          {% assign daySuffix3rd = day | matches: "\d?3\z" %}
+          {{day}}{% if daySuffix1st %}st{% elsif daySuffix2nd %}nd{% elsif daySuffix3rd %}rd{% else %}th{% endif %} {{field_map[field[0]] | date: "%b %Y"}}
+        {% when "boolean" %}
+          {% if field_map[field[0]] == true %}
+            <span class="material-symbols-outlined text-success-400" aria-hidden="true">check_circle</span>
+          {% else %}
+            <span class="material-symbols-outlined text-danger-400" aria-hidden="true">cancel</span>
+          {% endif %}
+        {% when "textarea" %}
+          <div class="format dark:format-invert">
+            {{field_map[field[0]]  | truncatewords: 20 | sanitize  }}
+          </div>
+        {% when "datasource" or "datasource_multi" %}
+          {% comment %} Note- this is an experimental feature, use with caution. You may find it has an adverse effect on performance if used on long lists using datasources. {% endcomment %}
+          {% if field_metadata.type == "datasource" %}
+            {% assign ids = field_map[field[0]] | split: "," %}
+          {% else %}  
+            {% assign ids = field_map[field[0]] %}
+          {% endif %}
+          {% graphql g, table: field_metadata.datasource_id, ids: ids %}
+            query g($table: String!) {
+              records(
+                per_page: 2000,
+                filter: {
+                  table: {
+                    value: $table
+                  }
+                }
+              ) {
+                results {
+                  id
+                  name: property(name: "name")
+                }
+              }
+            }
+          {% endgraphql %}
+          <div class="flex flex-wrap gap-1.5">
+            {% for item in g.records.results %}
+              {% if ids contains item.id %}
+                <span class="inline-block rounded bg-primary-100 px-2 py-0.5 text-xs text-primary-800 dark:bg-primary-900/30 dark:text-primary-300">{{item.name}}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          {{field_map[field[0]]}}
+        {% endcase %}
+      {% endif %}
+    {% endcapture %}
+   
+    {% if forloop.first %}
+      <th scope="row" class="px-4 py-3 font-medium whitespace-nowrap text-neutral-800 dark:text-neutral-100">
+        {{field_content | html_safe: raw_text: true }}
+      </th>
+    {% else %}
+      <td class="px-4 py-3 align-top text-neutral-700 dark:text-neutral-200">
+        {{field_content | html_safe: raw_text: true }}
+      </td>
+    {% endif %}
+  {% endfor %}
+  {% if context.current_user.id != blank %}
+    <td class="px-4 py-3">
+      <div class="flex items-center justify-end">
+      <button id="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}-button" data-dropdown-toggle="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}" class="button-secondary" type="button">
+        <span class="material-symbols-outlined text-xl leading-none" aria-hidden="true">more_vert</span>
+      </button>
+      <div id="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}" class="z-10 hidden w-44 rounded-xl border border-base-200 bg-base-50 shadow-sm dark:border-base-700 dark:bg-base-900">
+        {% if detail_page_valid %}
+          <ul class="py-1" aria-labelledby="actions_{{sitebuilder_uniq_component_id}}_{{this.id}}-button">
+            <li>
+              <a href="{{this.full_slug}}" class="block px-4 py-2 text-sm hover:bg-base-100 dark:hover:bg-base-800">Show</a>
+            </li>
+            <li>
+              <a href="{{this.full_slug}}?edit=true" class="block px-4 py-2 text-sm hover:bg-base-100 dark:hover:bg-base-800">Edit</a>
+            </li>
+          </ul>
+        {% endif %}
+        <div class="border-t border-base-200 py-1 dark:border-base-700">
+          {% include "webapp_delete", layout: layout %}
+        </div>
+      </div>
+      </div>
+    </td>
+  {% endif %}
+</tr>
+
+

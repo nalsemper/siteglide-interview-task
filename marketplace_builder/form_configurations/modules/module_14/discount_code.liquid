@@ -1,0 +1,262 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    module_name:
+      name: module_name
+      value: Discount Codes
+      property_options:
+        virtual: true
+    module_slug:
+      name: module_slug
+      value: ''
+      property_options:
+        virtual: true
+    module_detail:
+      name: module_detail
+      value: false
+      property_options:
+        virtual: true
+    module_detail_template:
+      name: module_detail_template
+      value: templates/blank_page
+      property_options:
+        virtual: true
+    module_detail_default_layout:
+      name: module_detail_default_layout
+      value: default
+      property_options:
+        virtual: true
+    module_path:
+      name: module_path
+      value: siteglide_ecommerce
+      property_options:
+        virtual: true
+    module_sz:
+      name: module_sz
+      value: false
+      property_options:
+        virtual: true
+    module_sz_updated:
+      name: module_sz_updated
+      value: true
+      property_options:
+        virtual: true
+    module_sz_display_type:
+      name: module_sz_display_type
+      value: '404'
+      property_options:
+        virtual: true
+    module_field_14/discount_code_1:
+      name: Code
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: true
+      validation:
+        presence: true
+    module_field_14/discount_code_2:
+      name: Type
+      type: select
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      default_value: Value
+      options: Value,Percentage
+      required: false
+      validation: {}
+    module_field_14/discount_code_3:
+      name: Discount Value
+      type: input_number
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      default_value: 0
+      num_min: '0'
+      num_max: undefined
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/discount_code_4:
+      name: Minimum Spend
+      type: input_number
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      default_value: 0
+      num_min: '0'
+      num_max: undefined
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/discount_code_5:
+      name: Uses Remaining
+      type: input_number
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      default_value: 0
+      num_min: '0'
+      num_max: undefined
+      num_step: '1'
+      num_precision: '0'
+      required: false
+      validation: {}
+    module_field_14/discount_code_6:
+      name: Valid on Payment Form Type
+      type: input_radio
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      default_value: Checkout
+      options: Checkout,Basic Payment
+      required: false
+      validation: {}
+    module_field_14/discount_code_7:
+      name: Number of Months to Discount
+      type: input_number
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: 1
+      num_min: '0'
+      num_max: undefined
+      num_step: '1'
+      num_precision: '0'
+      required: false
+      validation: {}
+    module_field_14/discount_code_8:
+      name: Stripe Coupon ID (Live)
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/discount_code_9:
+      name: Stripe Coupon ID (Test)
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/discount_code_10:
+      name: Products this Discount can be applied to
+      type: datasource_multi
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      datasource_id: module_14/product
+      required: false
+      validation: {}
+    name:
+      name: name
+      type: string
+      required: false
+      validation: {}
+    slug:
+      name: slug
+      type: string
+      required: false
+      validation: {}
+    weighting:
+      name: weighting
+      type: integer
+      required: false
+      validation: {}
+    release_date:
+      name: release_date
+      type: integer
+      required: false
+      validation: {}
+    expiry_date:
+      name: expiry_date
+      type: integer
+      required: false
+      validation: {}
+    enabled:
+      name: enabled
+      type: boolean
+      required: false
+      validation: {}
+    category_array:
+      name: category_array
+      type: array
+      required: false
+      validation: {}
+    meta_title:
+      name: meta_title
+      type: string
+      required: false
+      validation: {}
+    meta_desc:
+      name: meta_desc
+      type: string
+      required: false
+      validation: {}
+    og_title:
+      name: og_title
+      type: string
+      required: false
+      validation: {}
+    og_desc:
+      name: og_desc
+      type: string
+      required: false
+      validation: {}
+    og_image:
+      name: og_image
+      type: string
+      required: false
+      validation: {}
+    og_type:
+      name: og_type
+      type: string
+      required: false
+      validation: {}
+    og_url:
+      name: og_url
+      type: string
+      required: false
+      validation: {}
+    twitter_type:
+      name: twitter_type
+      type: string
+      required: false
+      validation: {}
+    secure_zone_array:
+      name: secure_zone_array
+      type: array
+      required: false
+      validation: {}
+    location:
+      name: location
+      type: geojson
+      required: false
+      validation: {}
+    address:
+      name: address
+      type: string
+      required: false
+      validation: {}
+name: module_14/discount_code
+resource: module_14/discount_code
+resource_owner: anyone
+---
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/modules/module_14/discount_code/form/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

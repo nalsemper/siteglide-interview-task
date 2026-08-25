@@ -1,0 +1,42 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-9">
+				<h2 class="text-center">Contact</h2>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<input name="{{ form_builder.fields.properties.user_id.name }}" id="s_user_id" type="hidden" value="{{session.current_user.id}}" />
+					<div class="row mt-4">
+						<div class="col">
+							<label for="s_name">Name</label>
+							<input type="text" id="s_name" class="form-control sg-form-control required" name="{{ form_builder.fields.properties.name.name }}" {% if context.exports.is_logged_in.data -%}readonly value="{{ session.current_user.name }}"{% endif %}>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col">
+							<label for="s_email">Email Address</label>
+							<input type="email" id="s_email" class="form-control sg-form-control required" name="{{ form_builder.fields.properties.email.name }}" {% if context.exports.is_logged_in.data -%}readonly value="{{ session.current_user.email }}"{% endif %}>
+						</div>
+					</div>
+					<div class="row mt-4 textarea">
+						<div class="col">
+							<label for="form_field_1_1">Message</label>
+							<textarea class="form-control sg-form-control required" name="{{ form_builder.fields.properties['form_field_1_1'].name }}" rows="5" cols="30"></textarea>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-12 d-flex justify-content-end">
+							{% spam_protection 'hcaptcha' %}
+							<button type="button" class="buttonAccent btn btn-primary sg-btn sg-btn-primary" onClick="s_form_submit_v2(this,'form_1')">Submit</button>
+						</div>
+					</div>
+					<input class="upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input id="s_redirect" value="/" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

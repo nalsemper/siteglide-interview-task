@@ -1,0 +1,68 @@
+{%- comment -%}
+  RHS nested category filter panel.
+  Expects `all_categories` and `all_items` in scope.
+{%- endcomment -%}
+<aside class="todo-app__category-filter" id="todo-category-filter" aria-label="Filter by category">
+  <h2 class="category-filter__title">
+    Categories
+    {% include 'todos/bug_hint', bug: 6, hint: 'Clicking a category filters the list to todos in that category.' %}
+    {% include 'todos/bug_hint', bug: 5, hint: 'Shows how many todos are in each category.' %}
+  </h2>
+  <ul class="category-filter__list">
+    <li class="category-filter__item">
+      <button type="button" class="category-filter__btn category-filter__btn--active" data-action="filter-category" data-category="" aria-pressed="true">
+        All categories
+      </button>
+    </li>
+    {%- for category in all_categories -%}
+      {%- assign parent_id = category.properties.module_field_987_1 | append: '' | strip -%}
+      {%- if parent_id == blank or parent_id == '0' -%}
+        {%- assign root_id_str = category.id | append: '' -%}
+        {%- assign root_todo_count = 0 -%}
+        {%- for item in all_items -%}
+          {%- assign item_cat_id = item.properties.module_field_985_6 | append: '' | strip -%}
+          {%- if item_cat_id == root_id_str -%}
+            {%- assign root_todo_count = root_todo_count | plus: 1 -%}
+          {%- else -%}
+            {%- for child_cat in all_categories -%}
+              {%- assign child_id_str = child_cat.id | append: '' -%}
+              {%- if child_id_str == item_cat_id -%}
+                {%- assign child_parent = child_cat.properties.module_field_987_1 | append: '' | strip -%}
+                {%- if child_parent == root_id_str -%}
+                  {%- assign root_todo_count = root_todo_count | plus: 1 -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <li class="category-filter__group">
+          <button type="button" class="category-filter__btn" data-action="filter-category" data-category="{{ category.id }}" aria-pressed="false">
+            {{ category.properties.name }}
+            <span class="category-filter__count" data-category-count="{{ category.id }}">{{ root_todo_count }}</span>
+          </button>
+          <ul class="category-filter__children">
+            {%- assign child_todo_count = 0 -%}
+            {%- for child in all_categories -%}
+              {%- assign child_parent = child.properties.module_field_987_1 | append: '' | strip -%}
+              {%- if child_parent == root_id_str -%}
+                {%- assign child_id_str = child.id | append: '' -%}
+                {%- for item in all_items -%}
+                  {%- assign item_cat_id = item.properties.module_field_985_6 | append: '' | strip -%}
+                  {%- if item_cat_id == child_id_str -%}
+                    {%- assign child_todo_count = child_todo_count | plus: 1 -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                <li class="category-filter__item category-filter__item--child">
+                  <button type="button" class="category-filter__btn category-filter__btn--child" data-action="filter-category" data-category="{{ child.id }}" aria-pressed="false">
+                    {{ child.properties.name }}
+                    <span class="category-filter__count" data-category-count="{{ child.id }}">{{ child_todo_count }}</span>
+                  </button>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</aside>

@@ -1,0 +1,14 @@
+---
+layout: templates/1
+redirect_to: ''
+redirect_url: ''
+slug: siteglide-blog
+---
+{% include 'modules/siteglide_system/constants' -%}
+{%- assign _slug = context.location.pathname | replace: '/siteglide-blog/', '' | replace: '/siteglide-blog', '' -%}
+{%- if _slug == blank -%}
+{%- response_status 404 -%}
+{%- include '404' -%}
+{%- else -%}
+  {% include 'module', id: '3', type: 'detail', slug: _slug, layout: 'sg-blog-02' -%}
+{%- endif -%}

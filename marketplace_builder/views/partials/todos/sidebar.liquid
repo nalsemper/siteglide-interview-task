@@ -1,0 +1,18 @@
+<aside class="todo-app__sidebar">
+  <a href="/todos" class="todo-app__brand">
+    <img src="{{ 'images/logos/logoipsum-426.png' | asset_url }}" alt="App logo" width="160" height="40">
+    <span class="todo-app__brand-text">Candidate Todos</span>
+  </a>
+  {%- assign current_path = context.location.pathname | default: '' -%}
+  <nav class="todo-app__nav" aria-label="App navigation">
+    <a href="/todos" class="todo-app__nav-link{% if current_path == '/todos' %} todo-app__nav-link--active{% endif %}">
+      <span class="todo-app__nav-link-text">Todos</span>
+      {% include 'todos/nav_bug_badges', bugs: '1,2,3,4,5,6,8' %}
+    </a>
+    <a href="/todo-statuses" class="todo-app__nav-link{% if current_path == '/todo-statuses' %} todo-app__nav-link--active{% endif %}">
+      <span class="todo-app__nav-link-text">Statuses</span>
+      {% include 'todos/nav_bug_badges', bugs: '7' %}
+    </a>
+    <a href="/todo-categories" class="todo-app__nav-link{% if current_path == '/todo-categories' %} todo-app__nav-link--active{% endif %}">Categories</a>
+  </nav>
+</aside>

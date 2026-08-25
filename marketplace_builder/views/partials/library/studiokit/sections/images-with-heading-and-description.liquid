@@ -1,0 +1,89 @@
+---
+metadata:
+  name: Images with Heading and Description
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: We didn't reinvent the wheel
+  - id: content_one
+    type: textarea
+    label: Content One
+    default: We are strategists, designers and developers. Innovators and problem
+      solvers. Small enough to be simple and quick, but big enough to deliver the
+      scope you want at the pace you need.
+  - id: content_two
+    type: textarea
+    label: Content Two
+    default: We are strategists, designers and developers. Innovators and problem
+      solvers. Small enough to be simple and quick.
+  - id: image_one
+    type: image_picker
+    label: Image One
+    default: ''
+  - id: image_one_alt_text
+    type: text
+    label: Image One Alt Text
+    default: ''
+  - id: image_two
+    type: image_picker
+    label: Image Two
+    default: ''
+  - id: image_two_alt_text
+    type: text
+    label: Image Two Alt Text
+    default: ''
+  hide_on:
+  - header
+  - footer
+  category: content
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="grid items-center gap-12 @lg:grid-cols-2 @lg:gap-16" data-motion-group>
+
+      <div data-motion-group>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        {% if this.content_one != blank %}
+          <p data-motion-text>{{ this.content_one }}</p>
+        {% endif %}
+        {% if this.content_two != blank %}
+          <p data-motion-text>{{ this.content_two }}</p>
+        {% endif %}
+      </div>
+
+      <div class="grid grid-cols-2 gap-4" data-motion-group>
+        {% if this.image_one != blank %}
+          {% include 'img',
+            path: this.image_one,
+            classes: 'w-full',
+            attributes: 'alt="{{ this.image_one_alt_text | default: "" }}" loading="lazy" data-motion-card'
+          %}
+        {% endif %}
+        {% if this.image_two != blank %}
+          {% include 'img',
+            path: this.image_two,
+            classes: 'mt-8 w-full @lg:mt-12',
+            attributes: 'alt="{{ this.image_two_alt_text | default: "" }}" loading="lazy" data-motion-card'
+          %}
+        {% endif %}
+      </div>
+
+    </div>
+
+  </div>
+</section>

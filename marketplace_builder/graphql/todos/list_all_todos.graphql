@@ -1,0 +1,20 @@
+query list_all_todos(
+  $per_page: Int = 200
+  $page: Int = 1
+  $sort_order: SortOrderEnum = DESC
+) {
+  records(
+    per_page: $per_page
+    page: $page
+    filter: {
+      table: { value: "module_985" }
+    }
+    sort: { properties: [{ name: "module_field_985_2", order: $sort_order }] }
+  ) {
+    total_entries
+    results {
+      id
+      properties
+    }
+  }
+}

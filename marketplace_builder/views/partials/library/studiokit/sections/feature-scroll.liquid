@@ -1,0 +1,233 @@
+---
+metadata:
+  name: Feature Scroll
+  tags:
+  class: section
+  lists:
+  - name: Features
+    type: features
+    fields:
+    - id: nav_label
+      type: text
+      label: Navigation Label
+      default: Feature One
+    - id: icon
+      type: text
+      label: Icon Name
+      default: diamond
+    - id: heading
+      type: text
+      label: Card Heading
+      default: Feature One
+    - id: description_bold
+      type: text
+      label: Bold Intro Text
+      default: Drop manual work.
+    - id: description
+      type: richtext
+      label: Description
+      default: This feature lets you design custom workflows that automate tasks,
+        so you can spend your time on other things.
+    - id: image
+      type: image_picker
+      label: Card Image
+      default: ''
+    - id: image_alt
+      type: text
+      label: Card Image Alt Text
+      default: ''
+    - id: cta_url
+      type: url
+      label: Card Link URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Platform
+  - id: heading
+    type: richtext
+    label: Heading
+    default: One home for operating and scaling your products.
+  - id: secondary_heading
+    type: richtext
+    label: Secondary Heading (muted)
+    default: However many you have.
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: Explore our platform
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  hide_on: []
+  category: features
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+  updated_at: 1781817816
+  collections:
+  global_data:
+  global_fields: []
+---
+<section class=" {{selection-index}}" data-ui-kit-feature-scroll data-motion-group>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="w-full mb-14 md:mb-16" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-motion-text>
+        <h2 class="mb-0 max-w-2xl tracking-tight" data-motion-text>{{ this.heading }}</h2>
+
+        {% if this.cta_label != blank %}
+          <a href="{{ this.cta_url }}" class="button-secondary group" data-motion-text>
+            {{ this.cta_label }}
+            <span class="material-symbols-outlined text-sm leading-none transition-transform duration-200 group-hover:translate-x-0.5">arrow_forward</span>
+          </a>
+        {% endif %}
+      </div>
+     
+    </div>
+
+    <!-- Two-column: sticky nav + scrolling cards -->
+    <div class="flex flex-col gap-8 lg:flex-row lg:gap-16">
+
+      <!-- Sticky left nav -->
+      <div class="flex-none lg:w-44 lg:sticky lg:top-24 lg:h-fit" data-motion-group>
+        <nav class="flex flex-row gap-4 overflow-x-auto lg:flex-col lg:gap-1 lg:overflow-visible pt-10" data-feature-nav-list aria-label="Feature navigation">
+          {% for item in lists.features %}
+            <button
+              type="button"
+              data-feature-nav="{{ forloop.index0 }}"
+              class="whitespace-nowrap !bg-transparent !border-none py-1.5 text-2xl tracking-tighter {% if forloop.first %}text-neutral-900 font-bold opacity-100{% else %}text-neutral-500 opacity-50{% endif %}"
+            >
+              {{ item.nav_label }}
+            </button>
+          {% endfor %}
+        </nav>
+      </div>
+
+      <!-- Scrolling feature cards -->
+      <div class="flex flex-1 flex-col gap-5" data-feature-cards>
+        {% for item in lists.features %}
+          <article
+  data-studio-list="{{ item._list }}"
+  data-feature-card="{{ forloop.index0 }}"
+  class="card overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20"
+>
+
+  <div class="flex items-center gap-3 px-6 pt-6 pb-4">
+    <div class="h-8 w-8 flex-none flex items-center justify-center rounded-sm border border-base-50 text-base leading-none">
+      <span class="material-symbols-outlined text-base leading-none">{{ item.icon | default: 'diamond' }}</span>
+    </div>
+    <span class="text-sm font-medium">{{ item.heading }}</span>
+  </div>
+
+  {% if item.image != blank %}
+    <div class="w-full overflow-hidden">
+      {% capture image_attributes %}
+        alt="{{ item.image_alt | default: item.heading }}"
+        loading="lazy"
+      {% endcapture %}
+
+{% include 'img',
+  path: item.image,
+  classes: 'block w-full',
+  attributes: 'alt="Test" loading="lazy"'
+%}
+    </div>
+  {% else %}
+    <div class="aspect-[16/9] w-full bg-base-50 dark:bg-base-900/20 flex items-center justify-center">
+      <span class="material-symbols-outlined text-4xl opacity-20 leading-none" aria-hidden="true">image</span>
+    </div>
+  {% endif %}
+
+  <div class="flex items-end justify-between gap-6 px-6 py-5">
+    <p class="text-sm leading-relaxed text-neutral-400">
+      {% if item.description_bold != blank %}
+        <strong class="font-semibold text-current">{{ item.description_bold }}</strong>
+      {% endif %}
+      {{ item.description }}
+    </p>
+
+    {% if item.cta_url != blank and item.cta_url != '#' %}
+      <a
+        href="{{ item.cta_url }}"
+        class="h-9 w-9 flex-none flex items-center justify-center rounded-full border border-base-50 text-sm hover:bg-base-100 dark:bg-base-900/20 transition-colors duration-200"
+        aria-label="Learn more about {{ item.heading }}"
+      >
+        <span class="material-symbols-outlined text-sm leading-none">north_east</span>
+      </a>
+    {% endif %}
+  </div>
+
+</article>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-ui-kit-feature-scroll]').forEach(function (section) {
+    var navLinks = section.querySelectorAll('[data-feature-nav]');
+    var cards = section.querySelectorAll('[data-feature-card]');
+
+    if (!navLinks.length || !cards.length) return;
+
+    function setActive(index) {
+      navLinks.forEach(function (link) {
+        link.classList.remove('text-neutral-900');
+        link.classList.remove('font-bold');
+        link.classList.remove('opacity-100');
+        link.classList.add('text-neutral-500');
+        link.classList.add('opacity-50');
+      });
+      var target = section.querySelector('[data-feature-nav="' + index + '"]');
+      if (target) {
+        target.classList.remove('text-neutral-500');
+        target.classList.remove('opacity-50');
+        target.classList.add('text-neutral-900');
+        target.classList.add('font-bold');
+        target.classList.add('opacity-100');
+      }
+    }
+
+    // Click nav link — scroll to matching card
+    navLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        var index = parseInt(link.getAttribute('data-feature-nav'), 10);
+        var card = section.querySelector('[data-feature-card="' + index + '"]');
+        if (!card) return;
+        var offset = 96; // account for sticky header
+        var top = card.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      });
+    });
+
+    // IntersectionObserver — update nav as cards enter viewport
+    if (!('IntersectionObserver' in window)) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) { 
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var index = parseInt(entry.target.getAttribute('data-feature-card'), 10);
+            setActive(index);
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+
+    cards.forEach(function (card) { observer.observe(card); });
+  });
+})();
+</script>

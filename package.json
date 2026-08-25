@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "workspaces": [
+    "marketplace_builder/assets"
+  ],
+  "scripts": {
+    "build:js": "npm run build -w candidate-todos-assets",
+    "dev:js": "npm run dev -w candidate-todos-assets"
+  }
+}

@@ -1,0 +1,174 @@
+---
+metadata:
+  name: Features Accordion
+  class: section
+  lists:
+  - name: Features
+    type: features
+    fields:
+    - id: icon
+      type: text
+      label: Icon Name
+      default: bolt
+    - id: title
+      type: text
+      label: Feature Title
+      default: Throughput Acceleration
+      is_title: true
+    - id: description
+      type: textarea
+      label: Description
+      default: Node entities on our platform process operations with elevated efficiency
+        due to specialized load-balancing, heuristic mentorship, and direct access
+        to top-tier algorithmic capital.
+    - id: image
+      type: image_picker
+      label: Item Image
+      default: ''
+    - id: image_alt
+      type: text
+      label: Item Image Alt Text
+      default: ''
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: Strategic Advantage
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Enhance Network Resilience
+  - id: body
+    type: textarea
+    label: Body
+    default: Our infrastructure provides distinct advantages for high-tier protocols
+      and automated entities looking to drive meaningful computational change.
+  - id: image
+    type: image_picker
+    label: Right Panel Image
+    default: ''
+  hide_on: []
+  category: features
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class="{{selection-index}}" data-ui-kit-features-accordion data-motion-group>
+  {% assign first_feature = lists.features | first %}
+
+  <div class="container">
+
+    <div class="mb-10 flex flex-col gap-4 md:mb-14 lg:mb-16 lg:flex-row lg:items-end lg:justify-between lg:gap-12 xl:gap-16" data-motion-group>
+      <div class="max-w-xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 dark:text-base-300 opacity-60" data-motion-text>
+          {{ this.eyebrow }}
+        </p>
+        <h2 data-motion-text>{{ this.heading }}</h2>
+      </div>
+
+      <div class="max-w-sm">
+        <p data-motion-text>{{ this.body }}</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start lg:gap-8">
+
+      <!-- Image First On Mobile -->
+     <div class="order-1 lg:order-2">
+  <div
+    class="card !p-0 relative overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20"
+    data-motion-card
+  >
+    {% assign initial_feature_image = first_feature.image | default: this.image %}
+
+    {% if initial_feature_image != blank %}
+      {% if first_feature.image_alt != blank %}{% assign _feat_img_alt = first_feature.image_alt %}{% elsif first_feature.title != blank %}{% assign _feat_img_alt = first_feature.title %}{% else %}{% assign _feat_img_alt = this.heading %}{% endif %}
+      {% include 'img',
+        path: initial_feature_image,
+        classes: 'block w-full aspect-[4/3] lg:aspect-[16/10] object-cover',
+        attributes: 'data-feature-image-panel alt="{{ _feat_img_alt }}" loading="lazy"'
+      %}
+    {% endif %}
+  </div>
+</div>
+
+      <!-- Accordion -->
+      <div
+        id="accordion-features"
+        data-accordion="collapse"
+        class="order-2 lg:order-1 flex flex-col gap-3"
+        data-motion-group
+      >
+        {% for item in lists.features %}
+          <div
+            data-studio-list="{{ item._list }}"
+            class="card rounded-2xl select-none transition-colors duration-200 !bg-base-50 dark:!bg-base-900/20 !border-none"
+            data-motion-card
+          >
+            <div
+              id="accordion-heading-features-{{ forloop.index0 }}"
+              data-accordion-target="#accordion-body-features-{{ forloop.index0 }}"
+              data-feature-image="{% if item.image != blank %}{% if item.image contains 'http' %}{{ item.image }}{% else %}{{ item.image | asset_url }}{% endif %}{% endif %}"
+              data-feature-alt="{{ item.image_alt | default: item.title | escape }}"
+              aria-expanded="false"
+              aria-controls="accordion-body-features-{{ forloop.index0 }}"
+              class="flex w-full items-center gap-3 md:gap-4 p-4 md:p-6 text-left rounded-2xl !bg-base-50 dark:!bg-base-900/20 !text-neutral-900 dark:!text-neutral-50"
+            >
+
+            <div class="flex items-center gap-3 md:gap-4 flex-1">
+              <div class="h-10 w-10 flex-none flex items-center justify-center rounded-sm text-base leading-none !border-none">
+                <span class="material-symbols-outlined text-base leading-none">
+                  {{ item.icon | default: 'bolt' }}
+                </span>
+              </div>
+
+              <span class="text-sm uppercase tracking-[0.12em] !text-neutral-900 dark:!text-neutral-50">
+                {{ item.title }}
+              </span>
+
+              </div>
+                <span class="material-symbols-outlined text-base leading-none">
+                  {{ 'add' }}
+                </span>
+            </div>
+
+            <div
+              id="accordion-body-features-{{ forloop.index0 }}"
+              class="hidden px-4 pb-4 md:px-6 md:pb-6"
+              aria-labelledby="accordion-heading-features-{{ forloop.index0 }}"
+            >
+              <p class="text-sm leading-relaxed !text-neutral-400">
+                {{ item.description }}
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-ui-kit-features-accordion]').forEach(function (section) {
+    var imagePanel = section.querySelector('[data-feature-image-panel]');
+    var triggers = section.querySelectorAll('[data-feature-image]');
+
+    if (!imagePanel || !triggers.length) return;
+
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        var src = trigger.getAttribute('data-feature-image');
+        var alt = trigger.getAttribute('data-feature-alt') || '';
+
+        if (!src) return;
+
+        imagePanel.setAttribute('src', src);
+        imagePanel.setAttribute('alt', alt);
+      });
+    });
+  });
+})();
+</script>

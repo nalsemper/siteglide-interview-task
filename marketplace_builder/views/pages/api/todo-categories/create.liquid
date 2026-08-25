@@ -1,0 +1,35 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Categories API - Create
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign name = params.name | default: '' | strip -%}
+{%- assign sort_order = params.sort_order | default: 0 | plus: 0 -%}
+{%- assign parent_id = nil -%}
+{%- if params.parent_id != blank and params.parent_id != '0' -%}
+  {%- assign parent_id = params.parent_id | plus: 0 -%}
+{%- endif -%}
+
+{%- if name == blank -%}
+{"error":"Category name is required"}
+{%- else -%}
+  {%- graphql result = "todo_categories/create_todo_category", name: name, parent_id: parent_id, sort_order: sort_order -%}
+  {%- assign record = result.record_create -%}
+  {%- if record.id == blank -%}
+{"error":"Failed to create category"}
+  {%- else -%}
+    {%- assign category = record -%}
+{"category":{%- include 'todos/category_crud_json', category: category -%}}
+  {%- endif -%}
+{%- endif -%}

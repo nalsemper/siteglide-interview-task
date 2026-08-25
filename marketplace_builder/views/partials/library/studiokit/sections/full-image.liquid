@@ -1,0 +1,33 @@
+---
+metadata:
+  name: Full Image
+  class: section
+  lists: []
+  fields:
+  - id: image
+    type: image_picker
+    label: Image
+    default: ''
+  - id: image_alt
+    type: text
+    label: Image Alt Text
+    default: ''
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container pb-28 md:pb-32" data-motion-card>
+    {% if this.image != blank %}
+      {% include 'img',
+        path: this.image,
+        classes: 'w-full rounded-sm object-cover',
+        attributes: 'alt="{{ this.image_alt }}" loading="lazy"'
+      %}
+    {% else %}
+      <div class="card w-full rounded-sm bg-base-50 dark:bg-base-950/5" style="aspect-ratio: 16/9;"></div>
+    {% endif %}
+  </div>
+</section>

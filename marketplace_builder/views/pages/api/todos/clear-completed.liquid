@@ -1,0 +1,20 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todos API - Clear Completed
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- graphql todo_statuses_data = "todo_statuses/list_todo_statuses", per_page: 100, page: 1 -%}
+{%- assign todo_statuses = todo_statuses_data.records.results -%}
+{%- graphql all_data = "todos/list_all_todos", per_page: 200, page: 1 -%}
+{%- assign all_items = all_data.records.results -%}
+{%- assign deleted_count = 0 -%}
+
+{%- capture deleted_ids -%}[{%- assign first_deleted = true -%}{%- for item in all_items -%}{%- assign item_status_id = item.properties.module_field_985_5 | append: '' | strip -%}{%- assign item_completed = item.properties.module_field_985_1 -%}{%- if item_status_id != blank -%}{%- for status_record in todo_statuses -%}{%- assign status_id_str = status_record.id | append: '' -%}{%- if status_id_str == item_status_id -%}{%- if status_record.properties.module_field_986_1 == true -%}{%- assign item_completed = true -%}{%- else -%}{%- assign item_completed = false -%}{%- endif -%}{%- endif -%}{%- endfor -%}{%- endif -%}{%- if item_completed == true -%}{%- graphql del = "todos/delete_todo", id: item.id -%}{%- if del.record_delete.id != blank -%}{%- assign deleted_count = deleted_count | plus: 1 -%}{%- unless first_deleted -%},{%- endunless -%}"{{ del.record_delete.id }}"{%- assign first_deleted = false -%}{%- endif -%}{%- endif -%}{%- endfor -%}]{%- endcapture -%}
+
+{"success":true,"deleted_count":{{ deleted_count }},"deleted_ids":{{ deleted_ids }}}

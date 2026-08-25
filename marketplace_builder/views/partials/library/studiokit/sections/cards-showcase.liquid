@@ -1,0 +1,86 @@
+---
+metadata:
+  name: Cards Showcase
+  class: section
+  lists:
+  - name: Cards
+    type: cards
+    fields:
+    - id: card_title
+      type: text
+      label: Card Title
+      default: Card Title
+      is_title: true
+    - id: card_description
+      type: textarea
+      label: Card Description
+      default: Add a short supporting line for this showcase card.
+    - id: card_image
+      type: image_picker
+      label: Card Image
+      default: ''
+    - id: card_url
+      type: url
+      label: Card URL
+      default: "#"
+  fields:
+  - id: heading
+    type: textarea
+    label: Section Heading
+    default: We're a design studio for product and brand teams who mean business.
+  - id: primary_cta_label
+    type: text
+    label: Primary CTA Label
+    default: Register
+  - id: primary_cta_url
+    type: url
+    label: Primary CTA URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-motion-group>
+  <div class="container py-28 md:py-32">
+
+    <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between" data-motion-group>
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      <a href="{{ this.primary_cta_url }}" class="button">{{ this.primary_cta_label }}</a>
+    </div>
+
+    <div class="mt-10 border-t border-base-50"></div>
+
+    <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" data-motion-group>
+      {% for item in lists.cards %}
+<article
+  data-studio-list="{{ item._list }}"
+  class="card group relative min-h-[420px] rounded-2xl bg-base-50 dark:bg-base-900/20 p-6 md:min-h-[480px]"
+>
+  <a
+    href="{{ item.card_url }}"
+    class="flex h-full flex-col"
+  >
+    <div class="flex-1 rounded-xl overflow-hidden bg-base-100 dark:bg-base-950 p-4">
+      {% include 'img',
+        path: item.card_image,
+        classes: 'h-full w-full object-contain transition-transform duration-300 group-hover:scale-105',
+        attributes: 'alt="{{ item.card_title }}" loading="lazy"'
+      %}
+    </div>
+
+    <div class="mt-6">
+      <h3 data-motion-text>{{ item.card_title }}</h3>
+
+      {% if item.card_description != blank %}
+        <p>{{ item.card_description }}</p>
+      {% endif %}
+    </div>
+  </a>
+</article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

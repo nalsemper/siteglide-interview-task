@@ -1,0 +1,23 @@
+<div class="row no-gutters">
+  <div class="col-12">
+    <h2>Search Events by Keyword</h2>
+    <form title="Search events by Keyword" id="events-archive-search">
+      <div class="form-group">
+	<label for="eventsSearch">Add Search Keyword</label>
+	<input id="eventsSearch" type="text">
+      </div>
+      <input value="Search" class="btn btn-primary" type="submit" data-slug="/module-12" onclick="events_search()">
+    </form>
+  </div>
+</div>
+
+
+{% comment %}This example function will search for events by keyword. You'll need to use the "use_search" parameter in your Liquid tag.{% endcomment %}
+<script>
+  function events_search() {
+    event.preventDefault();
+    var keyword = document.querySelector("#eventsSearch").value;
+    var url_string = window.location.pathname+"?keyword="+keyword;
+    location.assign(url_string);
+  }
+</script> 

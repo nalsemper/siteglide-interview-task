@@ -1,0 +1,64 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart.liquid
+  - views/partials/layouts/modules/module_14/checkout/checkout-form-with-embedded-cart/empty.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/boolean.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/checkout_standard.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/basic_payment.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/quote_only.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/subscription_detail.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/datasource_multi.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/datasource.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/date.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/email.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/file.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/image.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/hidden_fields.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/input_checkbox.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/input_radio.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/name_field.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/password.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/recaptcha.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/select_multi.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/select.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/string.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/textarea.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/subheading.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/heading.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/array_custom.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/folder.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/image_array.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/number_float.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/number_integer.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/email_edit.liquid
+  - views/partials/layouts/forms/form_1/checkout-form-with-embedded-cart_components/password_edit.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: checkout-form-with-embedded-cart
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_s1
+  studio_dynamic/layout_name: Checkout form with embedded cart
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Checkout form with embedded cart
+  studio_dynamic/sub_module_id: '7'
+---
+{% if context.current_user.id != blank %}
+  <div class="mb-6">
+    <div class="">
+      <label class="block mb-2 text-sm font-medium text-base-900 dark:text-base-200" for="s_email_edit">New Email Address *</label>
+      <input required type="email" id="s_email_edit" class="bg-base-50 border border-base-200 text-base-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-base-900/40 dark:border-base-700 dark:placeholder-base-500 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 required valid:bg-success-50 valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700 valid:text-sm valid:rounded-lg valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-base-900/40  dark:valid:border-success-400  group-focus-within:invalid:bg-danger-50 group-focus-within:invalid:border group-focus-within:invalid:border-danger-500 group-focus-within:invalid:text-danger-900 group-focus-within:invalid:placeholder-danger-700 group-focus-within:invalid:focus:ring-danger-500  dark:group-focus-within:invalid:bg-base-900/40 group-focus-within:invalid:focus:border-danger-500  dark:group-focus-within:invalid:text-danger-500  dark:group-focus-within:invalid:placeholder-danger-500  dark:group-focus-within:invalid:border-danger-500"  >
+    </div>
+  </div>
+  {% if confirm_email_password == 'true' %}
+    <div class="mb-6">
+      <div class="">
+        <label class="block mb-2 text-sm font-medium text-base-900 dark:text-base-200" for="s_email_edit_confirm">Confirm New Email Address *</label>
+        <input required type="email" id="s_email_edit_confirm" class="bg-base-50 border border-base-200 text-base-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-base-900/40 dark:border-base-700 dark:placeholder-base-500 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 required valid:bg-success-50 valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700 valid:text-sm valid:rounded-lg valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-base-900/40  dark:valid:border-success-400  group-focus-within:invalid:bg-danger-50 group-focus-within:invalid:border group-focus-within:invalid:border-danger-500 group-focus-within:invalid:text-danger-900 group-focus-within:invalid:placeholder-danger-700 group-focus-within:invalid:focus:ring-danger-500  dark:group-focus-within:invalid:bg-base-900/40 group-focus-within:invalid:focus:border-danger-500  dark:group-focus-within:invalid:text-danger-500  dark:group-focus-within:invalid:placeholder-danger-500  dark:group-focus-within:invalid:border-danger-500"  >
+      </div>
+    </div>
+  {% endif %}
+{% endif %}

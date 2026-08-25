@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-12">
+		<h3 class="searchTitle">Search</h3>
+	</div>
+	<form>
+		<div class="col-12 columnPadding">
+			<div class="blogSearch">
+				<div class="form-group">
+					<input data-sg-blog type="text" placeholder="Search the Blog" name="query" value="{{context.params.keyword}}">
+				</div>
+				<div class="form-group">
+					<button type="button" id="searchSubmit" class="btn btn-primary">Submit</button>
+				</div>
+				{% comment %}This example function will search for blog posts by keyword. You'll need to use the "use_search" parameter in your Liquid tag.{% endcomment %}
+				<script type="text/javascript">
+					document.querySelector('#searchSubmit').addEventListener("click", function(event){
+						event.preventDefault();
+						window.location.assign(window.location.pathname+"?keyword="+document.querySelector('.blogSearch input').value.replace(/[^a-z0-9\s]/gi, ''));
+					});
+					document.querySelector('#blogSearch').addEventListener("keyup", function(event) {
+						if(event.keyCode===13){
+							event.preventDefault();
+							document.querySelector('#searchSubmit').click();
+						}
+					});
+				</script>
+			</div>
+		</div>
+	</form>
+</div>

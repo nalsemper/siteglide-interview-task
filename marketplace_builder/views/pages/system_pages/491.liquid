@@ -1,0 +1,14 @@
+---
+layout: templates/blank_page
+metadata:
+  id: 491
+  name: Reset-Password
+  file_type: system_page
+slug: system/reset-password
+---
+<h1>Reset Password</h1>
+{% include 'reset_password'
+	failContent: 'The provided token is no longer valid. Please request password instructions again.',
+	buttonText: 'Submit',
+	redirect: '/'
+-%}

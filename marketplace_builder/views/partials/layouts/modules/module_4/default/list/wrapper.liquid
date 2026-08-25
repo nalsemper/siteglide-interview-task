@@ -1,0 +1,61 @@
+{% if total_items > 0 %}
+	<section class="slider slider-01">
+		<div class="container">
+			<div class="glide-01 slide {% if uniq_slider_id %}glide-id-{{uniq_slider_id}}{% endif %}">
+				<h2 class="text-center">Siteglide Design System</h2>
+				<div class="row">
+					<div class="col-12">
+						<div class="glide">
+							<div data-glide-el="controls[nav]">
+								{% if _per_page > total_items %}
+									{% assign slides = total_items | minus: 1 %} <!--minus 1 because forloops starts on 0-->
+								{% else %}
+									{% assign slides = _per_page | minus: 1 %}
+								{% endif %}
+								{% for slide in (0..slides) %}
+									<button class="glide-link {% if forloop.first %}active{% endif %}" data-glide-dir="={{slide}}">{{slide | plus: 1}}</button>
+									{% assign tabs = forloop.index | modulo: 12 %}
+									{% if tabs == 0 %}
+										<br>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="glide__track" data-glide-el="track">
+					<ul class="glide__slides">
+						{%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% content_for 'siteglide_footer_scripts' %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js" integrity="sha512-BXASbMmKLu+RC5TDnkupyhvrjiOQXILh/5zgIS8k5JAC71a73lNweVEg/X+9XJQ7GK22PH9WpztY3zqrji+xrQ==" crossorigin="anonymous"></script>,,
+	{% endcontent_for %}
+	{% content_for 'siteglide_head_scripts' %}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.min.css" integrity="sha512-wYsVD8ho6rJOAo1Xf92gguhOGQ+aWgxuyKydjyEax4bnuEmHUt6VGwgpUqN8VlB4w50d0nt+ZL+3pgaFMAmdNQ==" crossorigin="anonymous" />,,
+		<link rel="stylesheet" type="text/css" href="{{'css/modules/module_4/glide.css' | asset_url }}" />,,
+		<link rel="stylesheet" type="text/css" href="{{'css/modules/module_4/layouts/default.css' | asset_url }}" />,,
+	{% endcontent_for %}
+	<script>
+
+	document.addEventListener('DOMContentLoaded', function() {
+		var config = {
+			perView: 1
+		};
+		function mount_slider(id) {
+			if(id) {
+				var glide_ref = '.glide-id-' + id
+				new Glide(glide_ref,config).mount()
+			} 
+			else {
+				new Glide('.glide-01',config).mount()
+			}
+		}
+		mount_slider({{uniq_slider_id}})
+	});
+
+	</script>
+{% endif %}

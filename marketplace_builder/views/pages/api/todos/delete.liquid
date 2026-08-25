@@ -1,0 +1,29 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todos API - Delete
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign id = params.id | default: '' | strip -%}
+
+{%- if id == blank -%}
+{"error":"Todo id is required"}
+{%- else -%}
+  {%- graphql result = "todos/delete_todo", id: id -%}
+  {%- assign record = result.record_delete -%}
+  {%- if record.id == blank -%}
+{"error":"Failed to delete todo"}
+  {%- else -%}
+{"success":true,"id":"{{ record.id }}"}
+  {%- endif -%}
+{%- endif -%}

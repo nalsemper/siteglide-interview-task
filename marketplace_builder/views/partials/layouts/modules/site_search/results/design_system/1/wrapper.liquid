@@ -1,0 +1,18 @@
+<link rel="stylesheet" type="text/css" href="{{'css/includes/site_search/results/1.min.css' | asset_url}}">
+<section class="site_search_results_1 backgroundLight fdb-block sectionPadding">
+	<div class="container">
+		<div class="row sectionPaddingBottom align_center">
+			<div class="col contentCenter">
+				<h2>Search Results</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 columnPadding">
+				<ul>
+					{%- include 'modules/siteglide_system/get/get_site_search_result_items', item_layout: 'item' -%}
+				</ul>
+				<hr />
+			</div>
+	</div>
+	{%- include 'modules/siteglide_system/get/get_site_search_result_pagination' -%}
+</section>

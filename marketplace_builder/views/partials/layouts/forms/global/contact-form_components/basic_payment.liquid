@@ -1,0 +1,16 @@
+
+{% assign form_min_payment_amount_int = form_payment_amount | plus: 0.0 %}
+{% if form_min_payment_amount_int > 0 %}
+  <div>
+    <div class="">
+      <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 d-block">Enter Payment Details</span>
+      <input {{attributes}} name="{{ form_builder.fields.properties.order_id.name }}" id="s_e_order_id" type="hidden" />
+      <input id="s_e_form" value="true" type="hidden">
+      <div class="form-control">
+        {%- include 'ecommerce/basic_payment', amount: form_payment_amount, currency: form_payment_currency -%}
+      </div>
+    </div>
+  </div>
+{% else %}
+  <p class="mb-2">No payment is required.</p>
+{% endif %}

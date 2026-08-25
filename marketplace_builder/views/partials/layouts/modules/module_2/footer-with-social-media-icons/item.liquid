@@ -1,0 +1,43 @@
+---
+metadata:
+  studio_theme: flowbite
+  studio_dynamic/type: default
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_2/footer-with-social-media-icons/item.liquid
+  - views/partials/layouts/modules/module_2/footer-with-social-media-icons/wrapper.liquid
+  studio_dynamic/theme: Flowbite
+  studio_dynamic/layout: footer-with-social-media-icons
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_2
+  studio_dynamic/layout_name: Footer with social media icons
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Social media icons
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+  {%- comment -%} If this item has children, output the item. This layout does not support more than two levels of menu. {%- endcomment -%}
+  {%- if this['is_parent'] and _level == 1 -%}
+    <div>
+      <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">{{this['link_name']}}</h2>
+      <ul class="text-gray-600 dark:text-gray-400">
+        {%- assign _next_level = _level | plus: 1 -%}
+        {%- include 'modules/siteglide_menu/get/get_items', level: _next_level, parent_id: this['forced_id'], item_layout: 'item' -%}
+      </ul>
+    </div>
+  {%- else -%}
+    {% if _level == 1 %}
+      <div>
+        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">{{this['link_name']}}</h2>
+        <ul class="text-gray-600 dark:text-gray-400">
+          <li class="mb-4 last:mb-0">
+            <a class=" hover:underline" {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">{{this['link_name']}}</a>
+          </li>
+        </ul>
+      </div>
+    {% else %}
+      <li class="mb-4 last:mb-0">
+        <a class="hover:underline" {% if this['link_target'] %} target="{{this['link_target']}}"{% endif %} href="{{this['link_url']}}">{{this['link_name']}}</a>
+      </li>
+    {% endif %}
+  {%- endif -%}

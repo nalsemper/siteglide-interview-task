@@ -1,0 +1,423 @@
+---
+metadata:
+  name: Header Navigation
+  class: section
+  lists:
+  - name: Navigation Items
+    type: nav_items
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Home
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Side Links
+    type: side_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Contact
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: logo_text
+    type: text
+    label: Logo Text
+    default: MONO
+  - id: logo_url
+    type: url
+    label: Logo URL
+    default: "/"
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: GET A QUOTE
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "/contact"
+  - id: menu_label
+    type: text
+    label: Menu Label
+    default: MENU
+  hide_on: []
+  category: headers
+  requires: []
+  settings: []
+  collections:
+  - mono
+---
+<header class="@container fixed inset-x-0 top-0 z-50 pointer-events-none">
+  <div id="mono-side-nav" class="hidden @lg:flex fixed left-6 top-6 h-[calc(100vh-3rem)] w-16 backdrop-blur-sm z-50 flex-col items-center justify-between py-6 px-2 shadow-lg pointer-events-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] bg-base-50 border">
+    <button id="mono-side-menu-label" type="button" class="text-xs tracking-wide -rotate-90 whitespace-nowrap transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] min-w-[44px] min-h-[44px] cursor-pointer" aria-controls="mono-fullscreen-nav" aria-expanded="false" aria-label="Open menu">
+      {{ this.menu_label }}
+    </button>
+    <button id="mono-side-hamburger" type="button" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-90 opacity-0 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] min-w-[44px] min-h-[44px] flex flex-col items-start justify-center" aria-label="Open menu">
+      <span class="sr-only">Open menu</span>
+      <span class="block w-5 h-0.5 mb-1 bg-neutral-50"></span>
+      <span class="block w-3.5 h-0.5 mb-1 bg-neutral-50"></span>
+      <span class="block w-2 h-0.5 bg-neutral-50"></span>
+    </button>
+    <div id="mono-side-links" class="flex flex-col items-center gap-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] opacity-100">
+      {% for item in lists.side_links %}
+        <a data-studio-list="{{ item._list }}" href="{{ item.link_url }}" class="text-xs tracking-wide -rotate-90 whitespace-nowrap transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 mb-10">
+          {{ item.link_text }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <nav class="mx-auto px-4 @sm:px-6 pt-4 @sm:pt-6 @lg:pl-28 pointer-events-auto" aria-label="Main navigation">
+    <div id="mono-top-nav-row" class="flex items-center justify-between gap-6">
+      <a href="{{ this.logo_url }}" class="mix-blend-difference antialiased text-2xl @sm:text-3xl font-semibold tracking-wide transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2">
+        {{ this.logo_text }}
+      </a>
+
+      <div class="flex items-center gap-3 @sm:gap-5">
+        <a href="{{ this.cta_url }}" class="mix-blend-difference antialiased inline-flex items-center gap-2 @sm:gap-3 min-w-[44px] min-h-[44px] text-xs @sm:text-sm font-semibold uppercase tracking-wide transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2">
+          <span>{{ this.cta_label }}</span>
+          <svg aria-hidden="true" class="w-4 h-4 @sm:w-5 @sm:h-5 -rotate-45" viewBox="0 0 24 24" fill="none">
+            <path d="M3 12h17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M13 4l8 8-8 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+
+        <button id="mono-mobile-hamburger" type="button" class="mix-blend-difference antialiased @lg:hidden inline-flex min-w-[44px] min-h-[44px] items-center justify-center text-xs font-semibold uppercase tracking-[0.24em] transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2" aria-controls="mono-fullscreen-nav" aria-expanded="false">
+          {{ this.menu_label }}
+        </button>
+      </div>
+    </div>
+
+    <ul id="mono-mobile-nav" class="mt-5 hidden @lg:hidden flex-wrap items-center gap-4" aria-hidden="true">
+      {% for item in lists.nav_items %}
+        <li data-studio-list="{{ item._list }}">
+          <a href="{{ item.link_url }}" class="mix-blend-difference antialiased text-xs @md:text-sm uppercase tracking-wide transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2">
+            {{ item.link_text }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+<div id="mono-fullscreen-nav" class="fixed inset-0 z-[70] opacity-0 pointer-events-none transition-opacity duration-[640ms] ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true">
+
+  <!-- Split wipe layer -->
+  <div id="mono-split-layer"
+    class="absolute inset-0 origin-top scale-y-0 z-0
+           transition-transform duration-[700ms] ease-[cubic-bezier(0.16,1,0.3,1)] bg-base-50 dark:bg-base-950">
+  </div>
+
+  <!-- Backdrop -->
+  <div id="mono-fullscreen-backdrop"
+    class="absolute inset-0 opacity-0 transition-opacity duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] bg-base-50 dark:bg-base-950">
+  </div>
+
+  <!-- Panel -->
+  <div id="mono-fullscreen-panel"
+    class="relative h-full w-full px-4 @sm:px-6 @md:px-10 py-4 @sm:py-6 flex flex-col
+           opacity-0 translate-y-6 scale-[0.985]
+        transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto">
+
+      <div class="relative flex-1 overflow-hidden border bg-base-50 dark:bg-base-950">
+
+      <!-- Split divider -->
+      <div class="absolute left-0 top-0 h-full w-[57%] pointer-events-none border-r hidden @md:block"></div>
+
+      <!-- CLOSE BUTTON (fixed top-right) -->
+      <button id="mono-close-menu"
+        class="absolute top-6 right-6 z-50 inline-flex items-center justify-center
+               text-xs font-semibold uppercase tracking-[0.24em] min-w-[44px] min-h-[44px]
+               hover:opacity-60 transition-all duration-300">
+        CLOSE
+      </button>
+
+      <div class="relative h-full px-4 @sm:px-6 @md:px-8 py-5 @md:py-8 grid @md:grid-cols-[minmax(0,1fr)_260px] gap-8 @md:gap-14 items-start">
+
+        <!-- LEFT -->
+        <div>
+          <div class="flex items-center justify-between gap-4 mb-8 @md:mb-12">
+            <a href="{{ this.logo_url }}"
+              class="text-xl @sm:text-2xl @md:text-3xl font-semibold tracking-wide hover:opacity-70 transition">
+              {{ this.logo_text }}
+            </a>
+          </div>
+
+          <ul class="space-y-5 @md:space-y-6">
+            {% for item in lists.nav_items %}
+              <li class="mono-fullscreen-item opacity-0 translate-y-6 transition-all duration-[460ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style="transition-delay: {{ forloop.index0 | times: 55 }}ms;">
+                <a href="{{ item.link_url }}"
+                  class="inline-flex text-2xl @sm:text-4xl @md:text-6xl leading-none tracking-tight font-semibold
+                         hover:opacity-60 transition">
+                  {{ item.link_text }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-6 @md:pt-2 self-start @md:self-start">
+          <p class="text-[11px] uppercase tracking-[0.24em]">Quick Links</p>
+
+          <ul class="space-y-3">
+            {% for item in lists.side_links %}
+              <li class="mono-fullscreen-item opacity-0 translate-y-6 transition-all duration-[460ms] ease-[cubic-bezier(0.16,1,0.3,1)]" style="transition-delay: {{ forloop.index0 | times: 55 | plus: 120 }}ms;">
+                <a href="{{ item.link_url }}"
+                  class="inline-flex text-base @md:text-lg tracking-wide uppercase
+                         hover:opacity-60 transition">
+                  {{ item.link_text }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+<script>
+  (function () {
+    var sideNav = document.getElementById('mono-side-nav');
+    var sideLinks = document.getElementById('mono-side-links');
+    var sideMenuLabel = document.getElementById('mono-side-menu-label');
+    var sideHamburger = document.getElementById('mono-side-hamburger');
+    var mobileHamburger = document.getElementById('mono-mobile-hamburger');
+    var topNavRow = document.getElementById('mono-top-nav-row');
+    var fullscreenNav = document.getElementById('mono-fullscreen-nav');
+    var fullscreenBackdrop = document.getElementById('mono-fullscreen-backdrop');
+    var fullscreenClose = document.getElementById('mono-close-menu');
+    var fullscreenLinks = fullscreenNav ? fullscreenNav.querySelectorAll('a') : [];
+    var isMenuOpen = false;
+    var bodyOverflowBeforeOpen = '';
+    var splitLayer = document.getElementById('mono-split-layer');
+
+    if (!sideNav || !fullscreenNav || sideNav.dataset.scrollBound === 'true') {
+      return;
+    }
+
+    sideNav.dataset.scrollBound = 'true';
+
+    function syncCollapsedTop() {
+      if (!topNavRow) {
+        return;
+      }
+
+      var rect = topNavRow.getBoundingClientRect();
+      var collapsedSize = 64;
+      var computedTop = rect.top + (rect.height / 2) - (collapsedSize / 2);
+      var safeTop = Math.max(8, computedTop);
+      sideNav.dataset.collapsedTop = safeTop + 'px';
+
+      if (sideNav.dataset.state === 'collapsed') {
+        sideNav.style.top = sideNav.dataset.collapsedTop;
+      }
+    }
+
+    function setCollapsedState(collapsed) {
+      var collapsedTop = sideNav.dataset.collapsedTop || '1.5rem';
+
+      sideNav.dataset.state = collapsed ? 'collapsed' : 'expanded';
+
+      if (collapsed) {
+        sideNav.style.top = collapsedTop;
+        sideNav.classList.remove('h-[calc(100vh-3rem)]', 'py-6', 'backdrop-blur-sm', 'shadow-lg', 'bg-base-50', 'border');
+        sideNav.classList.add('h-16', 'py-0', 'backdrop-blur-0', 'shadow-none', 'bg-transparent', 'border-transparent');
+      } else {
+        sideNav.style.top = '1.5rem';
+        sideNav.classList.remove('h-16', 'py-0', 'backdrop-blur-0', 'shadow-none', 'bg-transparent', 'border-transparent');
+        sideNav.classList.add('h-[calc(100vh-3rem)]', 'py-6', 'backdrop-blur-sm', 'shadow-lg', 'bg-base-50', 'border');
+      }
+
+      if (sideLinks) {
+        sideLinks.classList.toggle('opacity-0', collapsed);
+        sideLinks.classList.toggle('translate-y-2', collapsed);
+        sideLinks.classList.toggle('scale-[0.98]', collapsed);
+        sideLinks.classList.toggle('pointer-events-none', collapsed);
+        sideLinks.classList.toggle('absolute', collapsed);
+        sideLinks.classList.toggle('opacity-100', !collapsed);
+        sideLinks.classList.toggle('translate-y-0', !collapsed);
+        sideLinks.classList.toggle('scale-100', !collapsed);
+        sideLinks.setAttribute('aria-hidden', collapsed ? 'true' : 'false');
+      }
+
+      if (sideMenuLabel) {
+        sideMenuLabel.classList.toggle('opacity-0', collapsed);
+        sideMenuLabel.classList.toggle('-rotate-90', !collapsed);
+        sideMenuLabel.classList.toggle('rotate-0', collapsed);
+        sideMenuLabel.classList.toggle('scale-95', collapsed);
+        sideMenuLabel.classList.toggle('pointer-events-none', collapsed);
+        sideMenuLabel.classList.toggle('absolute', collapsed);
+        sideMenuLabel.classList.toggle('opacity-100', !collapsed);
+      }
+
+      if (sideHamburger) {
+        sideHamburger.classList.toggle('opacity-100', collapsed);
+        sideHamburger.classList.toggle('pointer-events-auto', collapsed);
+        sideHamburger.classList.toggle('scale-100', collapsed);
+        sideHamburger.classList.toggle('opacity-0', !collapsed);
+        sideHamburger.classList.toggle('pointer-events-none', !collapsed);
+        sideHamburger.classList.toggle('scale-90', !collapsed);
+      }
+    }
+
+    function onScroll() {
+      syncCollapsedTop();
+
+      if (isMenuOpen) {
+        return;
+      }
+
+      if (!window.matchMedia('(min-width: 1024px)').matches) {
+        setCollapsedState(false);
+        return;
+      }
+
+      setCollapsedState(window.scrollY > 120);
+    }
+
+    function onEscape(event) {
+      if (event.key === 'Escape') {
+        closeMenu();
+      }
+    }
+
+    function setTriggerState(expanded) {
+      if (sideMenuLabel) {
+        sideMenuLabel.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      }
+
+      if (sideHamburger) {
+        sideHamburger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      }
+
+      if (mobileHamburger) {
+        mobileHamburger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      }
+    }
+
+    function openMenu() {
+      if (isMenuOpen) {
+        return;
+      }
+
+      isMenuOpen = true;
+      fullscreenNav.classList.remove('opacity-0', 'pointer-events-none');
+      fullscreenNav.classList.add('opacity-100', 'pointer-events-auto');
+
+      if (splitLayer) {
+        splitLayer.classList.remove('scale-y-0');
+        splitLayer.classList.add('scale-y-100');
+      }
+
+      if (fullscreenBackdrop) {
+        fullscreenBackdrop.classList.remove('opacity-0');
+        fullscreenBackdrop.classList.add('opacity-100');
+      }
+
+      var fullscreenPanel = document.getElementById('mono-fullscreen-panel');
+
+      if (fullscreenPanel) {
+        fullscreenPanel.classList.remove('opacity-0', 'translate-y-6', 'scale-[0.985]');
+        fullscreenPanel.classList.add('opacity-100', 'translate-y-0', 'scale-100');
+      }
+
+      fullscreenNav.querySelectorAll('.mono-fullscreen-item').forEach(function (item) {
+        item.classList.remove('opacity-0', 'translate-y-6');
+        item.classList.add('opacity-100', 'translate-y-0');
+      });
+
+      fullscreenNav.setAttribute('aria-hidden', 'false');
+      bodyOverflowBeforeOpen = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      setTriggerState(true);
+      document.addEventListener('keydown', onEscape);
+    }
+
+    function closeMenu() {
+      if (!isMenuOpen) {
+        return;
+      }
+
+      isMenuOpen = false;
+      fullscreenNav.classList.remove('opacity-100', 'pointer-events-auto');
+      fullscreenNav.classList.add('opacity-0', 'pointer-events-none');
+
+      if (splitLayer) {
+        splitLayer.classList.remove('scale-y-100');
+        splitLayer.classList.add('scale-y-0');
+      }
+
+      if (fullscreenBackdrop) {
+        fullscreenBackdrop.classList.remove('opacity-100');
+        fullscreenBackdrop.classList.add('opacity-0');
+      }
+
+      var fullscreenPanel = document.getElementById('mono-fullscreen-panel');
+
+      if (fullscreenPanel) {
+        fullscreenPanel.classList.remove('opacity-100', 'translate-y-0', 'scale-100');
+        fullscreenPanel.classList.add('opacity-0', 'translate-y-6', 'scale-[0.985]');
+      }
+
+      fullscreenNav.querySelectorAll('.mono-fullscreen-item').forEach(function (item) {
+        item.classList.remove('opacity-100', 'translate-y-0');
+        item.classList.add('opacity-0', 'translate-y-6');
+      });
+
+      fullscreenNav.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = bodyOverflowBeforeOpen;
+      setTriggerState(false);
+      document.removeEventListener('keydown', onEscape);
+      onScroll();
+    }
+
+    function toggleMenu() {
+      if (isMenuOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+
+    if (sideHamburger) {
+      sideHamburger.setAttribute('aria-controls', 'mono-fullscreen-nav');
+      sideHamburger.setAttribute('aria-expanded', 'false');
+      sideHamburger.addEventListener('click', toggleMenu);
+    }
+
+    if (sideMenuLabel) {
+      sideMenuLabel.addEventListener('click', openMenu);
+    }
+
+    if (mobileHamburger) {
+      mobileHamburger.addEventListener('click', toggleMenu);
+    }
+
+    if (fullscreenClose) {
+      fullscreenClose.addEventListener('click', closeMenu);
+    }
+
+    if (fullscreenBackdrop) {
+      fullscreenBackdrop.addEventListener('click', closeMenu);
+    }
+
+    fullscreenLinks.forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  })();
+</script>

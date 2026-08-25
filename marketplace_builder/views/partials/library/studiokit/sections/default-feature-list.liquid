@@ -1,0 +1,74 @@
+---
+metadata:
+  name: Feature List
+  class: section
+  lists:
+  - name: Features
+    type: features
+    fields:
+    - id: title
+      type: text
+      label: Title
+      default: Marketing
+      is_title: true
+    - id: description
+      type: textarea
+      label: Description
+      default: Plan it, create it, launch it. Collaborate seamlessly with all the
+        organization and hit your marketing goals every month with our marketing plan.
+    - id: icon
+      type: text
+      label: Icon Name
+      default: rocket_launch
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Designed for business teams like yours
+  - id: body
+    type: textarea
+    label: Body
+    default: Here at Flowbite we focus on markets where technology, innovation, and
+      capital can unlock long-term value and drive economic growth.
+  hide_on: []
+  category: features
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="max-w-3xl" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p data-motion-text>{{ this.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 gap-6 @md:grid-cols-2 @lg:grid-cols-3" data-motion-group>
+      {% for item in lists.features %}
+        <div data-studio-list="{{ item._list }}" class="card group rounded-2xl bg-base-50 p-6 dark:bg-base-900/20" data-motion-card>
+          {% if item.icon != blank %}
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/10">
+              <span class="material-symbols-outlined text-2xl text-primary-500" aria-hidden="true">{{ item.icon }}</span>
+            </div>
+          {% endif %}
+          <h3 data-motion-text>{{ item.title }}</h3>
+          {% if item.description != blank %}
+            <p data-motion-text>{{ item.description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

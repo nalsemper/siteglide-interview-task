@@ -1,0 +1,45 @@
+{%- comment -%} <ul> wrapper, and then output the items within it {%- endcomment -%}
+<ul class="navbar-nav d-flex-lg align-items-lg-center flex-grow-1">
+	{%- include 'modules/siteglide_menu/get/get_items', item_layout: 'item' -%}
+</ul>
+<ul class="navbar-nav d-flex-lg align-items-lg-center">
+	<li class="nav-item">
+		{% assign items_in_cart = 0 %}
+		{% if context.session.cart != blank %}
+			{% assign cart = context.session.cart | to_hash | to_hash %}
+			{% for item in cart %}
+				{% assign item_quantity = item[1].quantity | plus: 0 %}
+				{% assign items_in_cart = items_in_cart | plus: item_quantity %}
+			{% endfor %}
+		{% endif %}
+			<a class="nav-link" href="/cart"><span class="sr-only">Cart</span><i class="fas fa-shopping-cart"></i>(<span data-s-e-live-cart-quantity>{{items_in_cart}}</span>)</a>
+	</li>
+	<li class="nav-item"> 
+		{% if context.current_user != blank %}
+			<div class="dropdown">
+				<a class="btn btn-primary dropdown-toggle sg-btn sg-btn-primary" type="button" id="userMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user mr-2"></i><span class="sr-only">My Account Menu</span><span class="userMenuItem">{{context.current_user.first_name}}</span></a>
+				<ul class="dropdown-menu" aria-labelledby="userMenu">
+					<li class="dropdown-item">
+						<a href="/account" class="nav-link">My Account</a>
+					</li>
+					<li class="dropdown-item">
+						<a href="/product-wishlist" class="nav-link">My Wishlist</a>
+					</li>
+					<li class="dropdown-item">
+						{%- include 'logout_button', layout: 'sg-logout' -%}
+					</li>
+				</div>
+			</div>
+		{% else %}
+			<a class="btn btn-primary sg-btn sg-btn-primary" href="/login"><i class="fas fa-user mr-2"></i>Login/ Sign Up</a>
+		{% endif %}
+	</li>
+</ul>
+<style>
+	.nav-link {
+		color: white !important;
+	}
+	.dropdown-menu {
+		background-color: #001A31;
+	}
+</style>

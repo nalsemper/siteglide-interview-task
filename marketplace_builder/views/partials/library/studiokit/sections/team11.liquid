@@ -1,0 +1,124 @@
+---
+metadata:
+  name: Team Cards
+  class: section
+  lists:
+  - name: Team Members
+    type: team_members
+    fields:
+    - id: name
+      type: text
+      label: Name
+      default: Bonnie Green
+      is_title: true
+    - id: job_title
+      type: text
+      label: Job Title
+      default: CEO & Web Developer
+    - id: description
+      type: textarea
+      label: Description
+      default: Bonnie drives the technical strategy of the flowbite platform and brand.
+    - id: image
+      type: image_picker
+      label: Member Image
+      default: ''
+    - id: facebook_url
+      type: url
+      label: Facebook URL
+      default: "#"
+    - id: twitter_url
+      type: url
+      label: Twitter URL
+      default: "#"
+    - id: github_url
+      type: url
+      label: GitHub URL
+      default: "#"
+    - id: dribbble_url
+      type: url
+      label: Dribbble URL
+      default: "#"
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Our Team
+  - id: body
+    type: textarea
+    label: Body
+    default: Explore the whole collection of open-source web components and elements
+      built with the utility classes from Tailwind.
+  hide_on: []
+  category: team
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="mx-auto max-w-2xl text-center" data-motion-group>
+      {% if this.eyebrow != blank %}
+        <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+      {% endif %}
+      <h2 data-motion-text>{{ this.heading }}</h2>
+      {% if this.body != blank %}
+        <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+      {% endif %}
+    </div>
+
+    <div class="mt-12 grid gap-6 @md:grid-cols-2" data-motion-group>
+      {% for item in lists.team_members %}
+        <article data-studio-list="{{ item._list }}" class="card group flex flex-col overflow-hidden rounded-2xl bg-base-50 dark:bg-base-900/20 @sm:flex-row" data-motion-card>
+          {% if item.image != blank %}
+            <div class="flex-none">
+              {% include 'img',
+                path: item.image,
+                classes: 'h-56 w-full object-cover @sm:h-full @sm:w-48',
+                attributes: 'alt="{{ item.name }} Avatar" loading="lazy"'
+              %}
+            </div>
+          {% endif %}
+          <div class="flex flex-1 flex-col justify-between p-5">
+            <div>
+              <h3 class="!mb-0.5" data-motion-text>{{ item.name }}</h3>
+              <p class="!mb-3 text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>{{ item.job_title }}</p>
+              {% if item.description != blank %}
+                <p class="!mb-4 text-sm" data-motion-text>{{ item.description }}</p>
+              {% endif %}
+            </div>
+            <div class="flex items-center gap-4">
+              {% if item.facebook_url != blank %}
+                <a href="{{ item.facebook_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="Facebook">
+                  <iconify-icon icon="mdi:facebook" width="18" aria-hidden="true"></iconify-icon>
+                </a>
+              {% endif %}
+              {% if item.twitter_url != blank %}
+                <a href="{{ item.twitter_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="Twitter">
+                  <iconify-icon icon="mdi:twitter" width="18" aria-hidden="true"></iconify-icon>
+                </a>
+              {% endif %}
+              {% if item.github_url != blank %}
+                <a href="{{ item.github_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="GitHub">
+                  <iconify-icon icon="mdi:github" width="18" aria-hidden="true"></iconify-icon>
+                </a>
+              {% endif %}
+              {% if item.dribbble_url != blank %}
+                <a href="{{ item.dribbble_url }}" class="text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-50" aria-label="Dribbble">
+                  <iconify-icon icon="mdi:dribbble" width="18" aria-hidden="true"></iconify-icon>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

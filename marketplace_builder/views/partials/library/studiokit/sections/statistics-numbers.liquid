@@ -1,0 +1,58 @@
+---
+metadata:
+  name: Statistics Numbers
+  class: section
+  lists:
+  - name: Statistics
+    type: statistics
+    fields:
+    - id: description
+      type: text
+      label: Description
+      default: developers
+      is_title: true
+    - id: number
+      type: text
+      label: Number
+      default: 73M+
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: ''
+  hide_on: []
+  category: social-proof
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    {% if this.eyebrow != blank or this.heading != blank %}
+      <div class="mx-auto mb-12 max-w-2xl text-center" data-motion-group>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        {% if this.heading != blank %}
+          <h2 data-motion-text>{{ this.heading }}</h2>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <dl class="mx-auto grid max-w-3xl grid-cols-1 gap-8 text-center @sm:grid-cols-3" data-motion-group>
+      {% for item in lists.statistics %}
+        <div data-studio-list="{{ item._list }}" class="flex flex-col items-center justify-center" data-motion-card>
+          <dt class="!mb-2 !text-4xl !font-bold text-primary-500 @md:!text-5xl" data-motion-text>{{ item.number }}</dt>
+          <dd class="text-sm text-neutral-500 dark:text-neutral-400" data-motion-text>{{ item.description }}</dd>
+        </div>
+      {% endfor %}
+    </dl>
+
+  </div>
+</section>

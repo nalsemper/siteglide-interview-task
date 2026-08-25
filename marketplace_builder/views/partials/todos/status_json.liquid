@@ -1,0 +1,5 @@
+{%- comment -%}
+  Builds JSON for a single status record.
+  Expects `status` to be set in the including scope.
+{%- endcomment -%}
+{"id":"{{ status.id }}","name":{{ status.properties.name | json }},"is_completed":{% if status.properties.module_field_986_1 == true %}true{% else %}false{% endif %},"sort_order":{{ status.properties.module_field_986_2 | default: 0 }},"is_default":{% if status.properties.module_field_986_3 == true %}true{% else %}false{% endif %},"color":{{ status.properties.module_field_986_4 | json }}}

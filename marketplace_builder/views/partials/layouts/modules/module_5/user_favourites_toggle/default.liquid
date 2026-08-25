@@ -1,0 +1,7 @@
+{% if context.current_user %}
+	{% if is_favourite != true %}
+		<button class="btn btn-success" onClick="user_add_to_favourites({{this.favourite_item}})">Add to favourites</button>
+	{% elsif is_favourite == true %}
+		<button class="btn btn-danger" onClick="user_remove_from_favourites({{this.favourite_item}})">Remove from favourites</button>
+	{% endif %}
+{% endif %}

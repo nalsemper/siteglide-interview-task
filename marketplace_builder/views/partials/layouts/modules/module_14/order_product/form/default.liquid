@@ -1,0 +1,119 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Order Products</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_1">Order ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_2">Product ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_2'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_3">Quantity</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_3'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_4">Currency</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_4'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_5">Price</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_5'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_6">Product Name</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_6'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_7">Product Code</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_7'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_8">Volume Discounts Original Price</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_8'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_9">Volume Discounts Threshold</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_9'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_10">Price - Before Tax</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_10'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_11">Price - Tax Amount</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_11'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_12">Tax Applied?</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_12'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_13">Price - Display</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_13'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/order_product_14">Product Description</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/order_product_14'].name }}" type="text">
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/order_product')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

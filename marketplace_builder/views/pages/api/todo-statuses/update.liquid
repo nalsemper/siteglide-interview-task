@@ -1,0 +1,65 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Statuses API - Update
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign id = params.id | default: '' | strip -%}
+
+{%- if id == blank -%}
+{"error":"Status id is required"}
+{%- else -%}
+  {%- graphql current_data = "todo_statuses/get_todo_status", id: id -%}
+  {%- assign current = current_data.records.results | first -%}
+  {%- if current.id == blank -%}
+{"error":"Status not found"}
+  {%- else -%}
+    {%- assign name = current.properties.name -%}
+    {%- if params.title != blank -%}
+      {%- assign name = params.title | strip -%}
+    {%- endif -%}
+
+    {%- assign color = current.properties.module_field_986_4 | default: '' | strip -%}
+    {%- if params.color != blank -%}
+      {%- assign color = params.color | strip -%}
+    {%- endif -%}
+
+    {%- assign sort_order = current.properties.module_field_986_2 | default: 0 | plus: 0 -%}
+    {%- if params.sort_order != blank -%}
+      {%- assign sort_order = params.sort_order | plus: 0 -%}
+    {%- endif -%}
+
+    {%- assign is_completed = current.properties.module_field_986_1 -%}
+    {%- if params.is_completed == true or params.is_completed == 'true' or params.is_completed == '1' or params.is_completed == 1 -%}
+      {%- assign is_completed = true -%}
+    {%- elsif params.is_completed == false or params.is_completed == 'false' or params.is_completed == '0' or params.is_completed == 0 -%}
+      {%- assign is_completed = false -%}
+    {%- endif -%}
+
+    {%- assign is_default = current.properties.module_field_986_3 -%}
+    {%- if params.is_default == true or params.is_default == 'true' or params.is_default == '1' or params.is_default == 1 -%}
+      {%- assign is_default = true -%}
+    {%- elsif params.is_default == false or params.is_default == 'false' or params.is_default == '0' or params.is_default == 0 -%}
+      {%- assign is_default = false -%}
+    {%- endif -%}
+
+    {%- graphql result = "todo_statuses/update_todo_status", id: id, name: name, is_completed: is_completed, sort_order: sort_order, is_default: is_default, color: color -%}
+    {%- assign record = result.record_update -%}
+    {%- if record.id == blank -%}
+{"error":"Failed to update status"}
+    {%- else -%}
+      {%- assign status = record -%}
+{"status":{%- include 'todos/status_json', status: status -%}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

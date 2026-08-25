@@ -1,0 +1,15 @@
+<button class="btn btn-danger" onclick="s_owned_webapp_delete('{{this.id}}', '{{token}}', webapp_delete_success, webapp_delete_fail)" title="Delete {{this.name}}">x</button>
+{%- content_for 'siteglide_footer_scripts' -%}
+<script>
+	function webapp_delete_success(id, name) {
+		/*Add optional success callback function name as 2nd argument */
+		alert('You have successfully deleted ' + name );
+		/*Reload the Page to see the item removed - or remove from DOM */
+		window.location.reload();
+	};
+	function webapp_delete_fail(error, status) {
+		/*Add optional fail callback function name as 3rd argument */
+		alert(status + ' ' + error);
+	};
+</script>,,
+{%- endcontent_for -%}

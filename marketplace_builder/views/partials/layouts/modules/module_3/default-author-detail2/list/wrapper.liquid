@@ -1,0 +1,77 @@
+---
+metadata:
+  fields:
+  - id: main_heading
+    type: text
+    label: Main Heading
+    default: Latest Articles
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/detail/item.liquid
+  - views/partials/layouts/modules/module_6/default-author-detail2/structured_data.liquid
+  - views/partials/layouts/pagination/default-author-detail2.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-author-detail2/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-author-detail2
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_6
+  studio_dynamic/layout_name: Default Author Detail2
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Author Detail
+  studio_dynamic/sub_module_id: '1'
+---
+{% comment %}---Settings---{% endcomment %}
+{% comment %}---End Settings---{% endcomment %}
+{% comment %} {% capture sitegurus_ui_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %} {% endcomment %}
+
+{% if context.exports.sitebuilder.live_update_JS_loaded == blank %}
+  <script async src="{{'modules/module_357/js/v1-6/sitegurus_live_update_javascript_api.min.js' | asset_url }}"></script>
+  {% assign live_update_JS_loaded = true %}
+  {% export live_update_JS_loaded, namespace: sitebuilder %}
+{% endif %}
+
+{% function public_key = "modules/module_357/front_end/functions/v1/live_update_params_encode", layout: layout, model: _model %}
+
+{% if params.sitebuilder_uniq_component_id %}
+  {% assign sitebuilder_uniq_component_id = params.sitebuilder_uniq_component_id %}
+{% else %}
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% endif %}
+
+<div id="{{sitebuilder_uniq_component_id}}_author" data-sg-live-update-section="{{sitebuilder_uniq_component_id}}" data-sg-live-update-key="{{public_key}}">
+  <form data-sg-live-update-controls="hidden_fields">
+    <input type="hidden" name="module_field_3_4" value={{ author_id }}>
+    <input type="hidden" name="sort_type" value="created_at">
+    <input type="hidden" name="sort_order" value="desc">
+  </form>
+
+  <div data-motion-group>
+    <div>
+      <div class="mb-10 border-b border-base-200 pb-10 dark:border-base-600" data-motion-group>
+        <h3 data-motion-text>{{this.main_heading | default: "Latest Articles"}}</h3>
+      </div>
+      <div data-sg-live-update-component="results" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {% if params.public_key != blank %}
+          {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+        {% endif %}
+      </div>
+
+      <div class="mt-8" data-sg-live-update-component="pagination">
+        <div data-sg-live-update-controls="pagination">
+          <input type="hidden" name="per_page" value="{{per_page}}">
+          <input type="hidden" name="show_pagination" value="{{show_pagination}}">
+          <input type="hidden" name="pagination_layout" value="{{pagination_layout}}">
+          {%- if _show_pagination == 'false' and pagination_layout != blank and pagination_layout != "default" and params.public_key != blank -%}
+            {%- include 'modules/siteglide_system/get/get_pagination', pagination_layout: _pagination_layout -%}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

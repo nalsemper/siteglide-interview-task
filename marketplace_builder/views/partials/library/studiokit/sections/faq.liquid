@@ -1,0 +1,82 @@
+---
+metadata:
+  name: FAQ
+  class: section
+  lists:
+  - name: FAQs
+    type: faqs
+    fields:
+    - id: question
+      type: text
+      label: Question
+      default: When is the product going to launch?
+      is_title: true
+    - id: answer
+      type: textarea
+      label: Answer
+      default: We're targeting a launch in Q3 2026. Sign up to be notified the moment
+        doors open and get early access pricing.
+  fields:
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Everything you need to know
+  - id: cta_label
+    type: text
+    label: CTA Label
+    default: Ask a question
+  - id: cta_url
+    type: url
+    label: CTA URL
+    default: "#"
+  hide_on: []
+  category: content
+  requires: []
+  settings: []
+  collection: studiokit
+---
+<section class=" {{selection-index}}" data-ui-kit-faq data-motion-group>
+  <div class="container">
+
+    <div class="flex flex-col gap-10 lg:flex-row lg:gap-20">
+
+      <div class="flex-none lg:w-64 xl:w-80" data-motion-group>
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        {% if this.cta_label != blank %}
+          <a href="{{ this.cta_url }}" class="button mt-6" data-motion-text>{{ this.cta_label }}</a>
+        {% endif %}
+      </div>
+
+      <div class="flex-1" data-motion-group>
+        <div id="accordion-faq" data-accordion="collapse" class="flex flex-col gap-4">
+          {% for item in lists.faqs %}
+            <button
+              type="button"
+              id="accordion-heading-{{ forloop.index0 }}"
+              data-studio-list="{{ item._list }}"
+              data-motion-text
+              class="flex w-full items-center justify-between gap-6 rounded-2xl bg-base-50 px-8 py-8 text-left text-neutral-900 focus:outline-none dark:bg-base-900/20 dark:text-neutral-50 hover:bg-base-50 dark:hover:bg-base-900/20 active:bg-base-50 dark:active:bg-base-900/20 border-0"
+              data-accordion-target="#accordion-body-{{ forloop.index0 }}"
+              aria-expanded="false"
+              aria-controls="accordion-body-{{ forloop.index0 }}"
+            >
+              <span class="font-sans tracking-normal text-lg md:text-xl font-medium text-neutral-900 dark:text-neutral-50">{{ item.question }}</span>
+              <span data-accordion-icon class="material-symbols-outlined w-5 h-5 flex-none text-neutral-500 dark:text-neutral-400 shrink-0 transition-transform duration-300 text-[20px] leading-none" aria-hidden="true">expand_more</span>
+            </button>
+            <div
+              id="accordion-body-{{ forloop.index0 }}"
+              class="hidden"
+              aria-labelledby="accordion-heading-{{ forloop.index0 }}"
+            >
+              <div class="py-5 px-8">
+                <p class="font-sans tracking-normal !mb-0 text-body" data-motion-text>{{ item.answer }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,531 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    module_name:
+      name: module_name
+      value: Products
+      property_options:
+        virtual: true
+    module_slug:
+      name: module_slug
+      value: siteglide-products
+      property_options:
+        virtual: true
+    module_detail:
+      name: module_detail
+      value: true
+      property_options:
+        virtual: true
+    module_detail_template:
+      name: module_detail_template
+      value: templates/1
+      property_options:
+        virtual: true
+    module_detail_default_layout:
+      name: module_detail_default_layout
+      value: default
+      property_options:
+        virtual: true
+    module_sz:
+      name: module_sz
+      value: false
+      property_options:
+        virtual: true
+    module_sz_updated:
+      name: module_sz_updated
+      value: '{"value":true}'
+      property_options:
+        virtual: true
+    module_sz_display_type:
+      name: module_sz_display_type
+      value: '404'
+      property_options:
+        virtual: true
+    module_field_14/product_1:
+      name: Description
+      type: textarea
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      rich_text: true
+      required: false
+      validation: {}
+    module_field_14/product_2:
+      name: Image
+      type: image
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/product_3:
+      name: CFS
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product_4:
+      name: Product Code (SKU)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/product_5:
+      name: Image Alt
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/product_6:
+      name: Volume Pricing Enabled
+      type: boolean
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/product_7:
+      name: Volume Pricing
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/product/price/aud/1:
+      name: Chargeable Price AUD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/aud/2:
+      name: Display Only Price AUD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/aud/3:
+      name: Currency Symbol AUD
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: "$"
+      required: false
+      validation: {}
+    module_field_14/product/price/aud/4:
+      name: Tax Code AUD
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: ''
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product/price/cad/1:
+      name: Chargeable Price CAD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/cad/2:
+      name: Display Only Price CAD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/cad/3:
+      name: Currency Symbol CAD
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: "$"
+      required: false
+      validation: {}
+    module_field_14/product/price/cad/4:
+      name: Tax Code CAD
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: ''
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product/price/eur/1:
+      name: Chargeable Price EUR
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/eur/2:
+      name: Display Only Price EUR
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/eur/3:
+      name: Currency Symbol EUR
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: "&euro;"
+      required: false
+      validation: {}
+    module_field_14/product/price/eur/4:
+      name: Tax Code EUR
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: ''
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product/price/gbp/1:
+      name: Chargeable Price GBP
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/gbp/2:
+      name: Display Only Price GBP
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/gbp/3:
+      name: Currency Symbol GBP
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: "&pound;"
+      required: false
+      validation: {}
+    module_field_14/product/price/gbp/4:
+      name: Tax Code GBP
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: ''
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product/price/nzd/1:
+      name: Chargeable Price NZD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/nzd/2:
+      name: Display Only Price NZD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/nzd/3:
+      name: Currency Symbol NZD
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: "$"
+      required: false
+      validation: {}
+    module_field_14/product/price/nzd/4:
+      name: Tax Code NZD
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: ''
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product/price/usd/1:
+      name: Chargeable Price USD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/usd/2:
+      name: Display Only Price USD
+      type: number_float
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      default_value: '0'
+      num_min: '0'
+      num_max: 'null'
+      num_step: '0.01'
+      num_precision: '2'
+      required: false
+      validation: {}
+    module_field_14/product/price/usd/3:
+      name: Currency Symbol USD
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: "$"
+      required: false
+      validation: {}
+    module_field_14/product/price/usd/4:
+      name: Tax Code USD
+      type: select_multi
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      value: ''
+      options: ''
+      required: false
+      validation: {}
+    module_field_14/product/inventory/1:
+      name: Inventory Quantity
+      type: input_number
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      num_min: '0'
+      num_max: 'null'
+      num_step: '1'
+      num_precision: '0'
+      required: false
+      validation: {}
+    module_field_14/product/inventory/2:
+      name: Inventory Type
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/product/inventory/3:
+      name: Inventory Display Type
+      type: input_text
+      live: true
+      hidden: true
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    name:
+      name: name
+      type: string
+      required: false
+      validation: {}
+    slug:
+      name: slug
+      type: string
+      required: false
+      validation: {}
+    weighting:
+      name: weighting
+      type: integer
+      required: false
+      validation: {}
+    release_date:
+      name: release_date
+      type: integer
+      required: false
+      validation: {}
+    expiry_date:
+      name: expiry_date
+      type: integer
+      required: false
+      validation: {}
+    enabled:
+      name: enabled
+      type: boolean
+      required: false
+      validation: {}
+    category_array:
+      name: category_array
+      type: array
+      required: false
+      validation: {}
+    meta_title:
+      name: meta_title
+      type: string
+      required: false
+      validation: {}
+    meta_desc:
+      name: meta_desc
+      type: string
+      required: false
+      validation: {}
+    og_title:
+      name: og_title
+      type: string
+      required: false
+      validation: {}
+    og_desc:
+      name: og_desc
+      type: string
+      required: false
+      validation: {}
+    og_image:
+      name: og_image
+      type: string
+      required: false
+      validation: {}
+    og_type:
+      name: og_type
+      type: string
+      required: false
+      validation: {}
+    og_url:
+      name: og_url
+      type: string
+      required: false
+      validation: {}
+    twitter_type:
+      name: twitter_type
+      type: string
+      required: false
+      validation: {}
+    secure_zone_array:
+      name: secure_zone_array
+      type: array
+      required: false
+      validation: {}
+    location:
+      name: location
+      type: geojson
+      required: false
+      validation: {}
+    address:
+      name: address
+      type: string
+      required: false
+      validation: {}
+name: module_14/product
+resource: module_14/product
+resource_owner: anyone
+---
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/modules/module_14/product/form/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

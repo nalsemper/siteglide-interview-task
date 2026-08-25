@@ -1,0 +1,115 @@
+---
+metadata:
+  name: Hero Section
+  class: section
+  lists:
+  - name: Featured In Logos
+    type: featured_in_logos
+    fields:
+    - id: logo_alt_text
+      type: text
+      label: Logo Alt Text
+      default: Company Logo
+      is_title: true
+    - id: logo_image
+      type: image_picker
+      label: Logo Image
+      default: ''
+    - id: logo_url
+      type: url
+      label: Logo URL
+      default: "#"
+  fields:
+  - id: alert_text
+    type: text
+    label: Alert Badge Text
+    default: Flowbite is out! See what's new
+  - id: alert_link
+    type: url
+    label: Alert Badge URL
+    default: "#"
+  - id: heading
+    type: textarea
+    label: Heading
+    default: We invest in the world's potential
+  - id: body
+    type: textarea
+    label: Body
+    default: Here at Flowbite we focus on markets where technology, innovation, and
+      capital can unlock long-term value and drive economic growth.
+  - id: cta_one_text
+    type: text
+    label: Primary CTA Text
+    default: Learn more
+  - id: cta_one_url
+    type: url
+    label: Primary CTA URL
+    default: "#"
+  - id: cta_two_text
+    type: text
+    label: Secondary CTA Text
+    default: Watch video
+  - id: cta_two_url
+    type: url
+    label: Secondary CTA URL
+    default: "#"
+  hide_on: []
+  category: hero
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container text-center">
+
+    {% if this.alert_text != blank %}
+      <a href="{{ this.alert_link }}" class="mb-8 inline-flex items-center gap-3 rounded-full bg-base-100 px-4 py-2 text-sm dark:bg-base-800" data-motion-text>
+        <span class="rounded-full bg-primary-500 px-3 py-1 text-xs font-medium text-neutral-50">New</span>
+        <span class="font-medium text-neutral-700 dark:text-neutral-300">{{ this.alert_text }}</span>
+        <span class="material-symbols-outlined text-[18px] leading-none text-neutral-400" aria-hidden="true">chevron_right</span>
+      </a>
+    {% endif %}
+
+    <h1 class="mx-auto max-w-4xl" data-motion-text>{{ this.heading }}</h1>
+
+    {% if this.body != blank %}
+      <p class="mx-auto !max-w-2xl" data-motion-text>{{ this.body }}</p>
+    {% endif %}
+
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-4" data-motion-group>
+      {% if this.cta_one_text != blank %}
+        <a href="{{ this.cta_one_url }}" class="button inline-flex items-center gap-2">
+          {{ this.cta_one_text }}
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+        </a>
+      {% endif %}
+      {% if this.cta_two_text != blank %}
+        <a href="{{ this.cta_two_url }}" class="button-secondary inline-flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">play_circle</span>
+          {{ this.cta_two_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if lists.featured_in_logos != blank %}
+      <div class="mt-16" data-motion-group>
+        <p class="eyebrow_text mb-6" data-motion-text>Featured in</p>
+        <div class="flex flex-wrap items-center justify-center gap-8">
+          {% for item in lists.featured_in_logos %}
+            <a href="{{ item.logo_url | default: '#' }}" data-studio-list="{{ item._list }}" class="group" aria-label="{{ item.logo_alt_text }}" data-motion-card>
+              {% if item.logo_image != blank %}
+                {% include 'img',
+                  path: item.logo_image,
+                  classes: 'h-10 object-contain opacity-50 transition-opacity duration-200 group-hover:opacity-100',
+                  attributes: 'alt="{{ item.logo_alt_text | default: "" }}" loading="lazy"'
+                %}
+              {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>

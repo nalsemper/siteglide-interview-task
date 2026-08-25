@@ -1,0 +1,10 @@
+---
+name: form_6
+properties:
+- name: user_id
+  type: string
+- name: name
+  type: string
+- name: email
+  type: string
+---

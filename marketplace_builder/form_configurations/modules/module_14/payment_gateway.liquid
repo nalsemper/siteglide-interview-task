@@ -1,0 +1,227 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    module_name:
+      name: module_name
+      value: Payment Gateway
+      property_options:
+        virtual: true
+    module_slug:
+      name: module_slug
+      value: ''
+      property_options:
+        virtual: true
+    module_detail:
+      name: module_detail
+      value: false
+      property_options:
+        virtual: true
+    module_detail_template:
+      name: module_detail_template
+      value: templates/blank_page
+      property_options:
+        virtual: true
+    module_detail_default_layout:
+      name: module_detail_default_layout
+      value: default
+      property_options:
+        virtual: true
+    module_path:
+      name: module_path
+      value: siteglide_ecommerce
+      property_options:
+        virtual: true
+    module_sz:
+      name: module_sz
+      value: false
+      property_options:
+        virtual: true
+    module_sz_updated:
+      name: module_sz_updated
+      value: true
+      property_options:
+        virtual: true
+    module_sz_display_type:
+      name: module_sz_display_type
+      value: '404'
+      property_options:
+        virtual: true
+    module_field_14/payment_gateway_1:
+      name: Name
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_2:
+      name: Active
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_3:
+      name: Public Key (Live)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_4:
+      name: Secret Key (Live)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_5:
+      name: Type
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_6:
+      name: Public Key (Test)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_7:
+      name: Secret Key (Test)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_8:
+      name: In Test Mode?
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_9:
+      name: Webhook Secret (Live)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_10:
+      name: Webhook Secret (Test)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_11:
+      name: PayPal Client ID (Sandbox)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_12:
+      name: PayPal Client Secret (Sandbox)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_13:
+      name: PayPal Token (Sandbox)
+      type: input_text
+      live: false
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_14:
+      name: PayPal Token Timestamp (Sandbox)
+      type: input_text
+      live: false
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_15:
+      name: PayPal Client ID (Live)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_16:
+      name: PayPal Client Secret (Live)
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_17:
+      name: PayPal Token (Live)
+      type: input_text
+      live: false
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_18:
+      name: PayPal Token Timestamp (Live)
+      type: input_text
+      live: false
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/payment_gateway_19:
+      name: Custom Payment Gateway Partial Path
+      type: input_text
+      live: false
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+name: module_14/payment_gateway
+resource: module_14/payment_gateway
+resource_owner: anyone
+---
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/modules/module_14/payment_gateway/form/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

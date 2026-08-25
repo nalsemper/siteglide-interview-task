@@ -1,0 +1,89 @@
+---
+metadata:
+  settings:
+  - id: events_list_page_url
+    type: text
+    label: Event List View URL
+    default: "/events"
+  - id: sidebar
+    type: boolean
+    label: Show Sidebar
+    default: true
+  - id: event_parent_category
+    type: text
+    label: Event Parent Category
+    default:
+  - id: cf_physical_street_address
+    type: text
+    label: Physical Street Address Field ID
+    default:
+  - id: cf_physical_address_locality
+    type: text
+    label: Physical Address Locality Field ID
+    default:
+  - id: cf_physical_postal_code
+    type: text
+    label: Physical Postal Code Field ID
+    default:
+  - id: cf_physical_address_region
+    type: text
+    label: Physical Address Region Field ID
+    default:
+  - id: cf_physical_address_country
+    type: text
+    label: Physical Address Country Field ID
+    default:
+  - id: cf_virtual_event_url
+    type: text
+    label: Virtual Event URL Field ID
+    default:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/default-events-details/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/detail/item.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/structured_data.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/search.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/sidebar.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/archive.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-events-details
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Default events details
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default events details
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %}---Settings---{% endcomment %}
+  {% comment %}------Insert your Event List View URL here to go there for sorting, searching and filtering results.  {% endcomment %}
+  {% assign events_list_page_url = settings.events_list_page_url | downcase | default: "/events" %}
+  {% comment %}------Show a sidebar?  {% endcomment %}
+  {% assign sidebar = settings.sidebar | downcase | default: 'true' %}
+  {% comment %} Default (null) is to show all categories in the sidebar. Alternatively, pass in an id (in quotes e.g. '2') for a category which is the parent of event categories to only show relevant categories. {% endcomment %}
+  {% assign event_parent_category = settings.event_parent_category | downcase | default: null %}
+{% comment %}---End Settings---{% endcomment %}
+
+{% comment %}----- Custom fields for events structured data -----{% endcomment %}
+{% comment %} Pass in the ID of each custom field which contains the dynamic data for this {% endcomment %}
+{% comment %} e.g. "module_field_custom_12_1" ------{% endcomment %}
+
+  {% comment %} Physical address required for physical or mixed event types {% endcomment %}
+  {% assign cf_physical_street_address = settings.cf_physical_street_address | downcase | default: null %}
+  {% assign cf_physical_address_locality = settings.cf_physical_address_locality | downcase | default: null %}
+  {% assign cf_physical_postal_code = settings.cf_physical_postal_code | downcase | default: null %}
+  {% assign cf_physical_address_region = settings.cf_physical_address_region | downcase | default: null %}
+  {% assign cf_physical_address_country = settings.cf_physical_address_country | downcase | default: null %}
+
+  {% comment %} Virtual location (url) required for virtual or mixed event types {% endcomment %}
+  {% assign cf_virtual_event_url = settings.cf_virtual_event_url | downcase | default: null %}
+{% comment %}----- End Custom Field Settings  -----{% endcomment %}
+
+{% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+
+{% assign now = "now" | date: "%s" %}
+
+{%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}

@@ -1,0 +1,158 @@
+---
+metadata:
+  fields:
+  - id: main_heading
+    type: text
+    label: Main Heading
+    default: Our Blog
+  settings:
+  - id: blog_parent_category
+    type: text
+    label: Blog Parent Category
+    default:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_3/default-blog-card/list/wrapper.liquid
+  - views/partials/layouts/modules/module_3/default-blog-card/list/item.liquid
+  - views/partials/layouts/modules/module_3/default-blog-card/search.liquid
+  - views/partials/layouts/modules/module_3/default-blog-card/sidebar.liquid
+  - views/partials/layouts/modules/module_3/default-blog-card/archive.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-blog-card
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_3
+  studio_dynamic/layout_name: Default blog card
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default blog card
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% comment %}---Settings---{% endcomment %}
+  {% comment %}------Show a sidebar?  {% endcomment %}
+  {% assign sidebar = true %}
+  {% comment %} ------ Parent Category ------
+  Default (null) is to show all categories in the sidebar. Alternatively, pass in an id (in quotes e.g. '6') for a category which is the parent of blog categories to only show relevant categories. {% endcomment %}
+  {% assign blog_parent_category = settings.blog_parent_category | downcase | default: null %}
+  {% comment %}------Set filter default values from URL------
+  Boolean, if true any sidebar filters will set their initial values from the URL on page load. Useful if returning to the list view from a filter in the detail page. Note we wouldn't normally recommend having more than one live update layout on the page with this setting set to true. If you are setting this value, you may remove the if statement, this is just to set a default.{% endcomment %}
+  {% if _use_adv_search == 'true' or _use_search == 'true' %}
+    {% assign filters_values_from_URL = true %}
+  {% endif %}
+{% comment %}---End Settings---{% endcomment %}
+{% if context.exports.sitebuilder.live_update_JS_loaded == blank %}
+  <script async src="{{'modules/module_357/js/v1-6/sitegurus_live_update_javascript_api.min.js' | asset_url }}"></script>
+  {% assign live_update_JS_loaded = true %}
+  {% export live_update_JS_loaded, namespace: sitebuilder %}
+{% endif %}
+{% function public_key = "modules/module_357/front_end/functions/v1/live_update_params_encode", layout: layout, model: _model %}
+{% if params.sitebuilder_uniq_component_id %}
+  {% assign sitebuilder_uniq_component_id = params.sitebuilder_uniq_component_id %}
+{% else %}
+  {% capture sitebuilder_uniq_component_id %}sitegurus_component_{% increment sitegurus_gen_uniq_component_id %}{% endcapture %}
+{% endif %}
+
+{% assign authors = "" | split: "," %}
+{% for blog_post in context.exports['module_3'].data.result.items %}
+  {% assign authors = authors | add_to_array: blog_post.properties.module_field_3_4 %}
+{% endfor %}
+{% assign authors = authors | flatten | compact | uniq %}
+
+{% comment %} We are temporarily using GraphQl here while a Siteglide bug is fixed. {% endcomment %}
+{% graphql author_results, item_ids: authors, per_page: 2000 %}
+  query author_results($item_ids: [ID!]!, $per_page: Int!) {
+    records(
+      per_page: $per_page,
+      filter: {
+        id: {
+          value_in: $item_ids
+        }
+      }
+    ) {
+      results {
+        id
+        properties
+      }
+    }
+  }
+{% endgraphql %}
+
+<section id="{{sitebuilder_uniq_component_id}}_blog" data-sg-live-update-section="{{sitebuilder_uniq_component_id}}" data-sg-live-update-key="{{public_key}}" {% if filters_values_from_URL == true %}data-sg-live-update-modify-history-enabled="true" data-sg-live-update-modify-history-include-hidden-fields="false" {% endif %} data-motion-group>
+  <div class="container py-16 md:py-20">
+    <div class="mb-10 flex flex-col gap-6 border-b border-base-200 pb-10 md:flex-row md:items-end md:justify-between dark:border-base-600" data-motion-group>
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.12em] text-base-600 opacity-60 dark:text-base-300" data-motion-text>Latest Articles</p>
+        <h3 data-motion-text>{{ this.main_heading | default: "Our Blog" }}</h3>
+      </div>
+      <p class="font-light text-neutral-500 sm:text-lg dark:text-gray-400" data-motion-text>
+        {% if context.params.range_type == "between" %}
+          <span class="text-lg font-bold dark:text-white">
+          Posts between {{context.params.range_gt | date: "%d-%b-%y"}}
+          {{context.params.range_gte | date: "%d-%b-%y"}} 
+          and 
+          {{context.params.range_lt | date: "%d-%b-%y"}}
+          {{context.params.range_lte | date: "%d-%b-%y"}}
+          </span>
+        {% elsif context.params.range_type == "month" %}
+          <span class="text-lg font-bold dark:text-white">
+          Posts from {{context.params.range_gt | date: "%b-%y"}}
+          {{context.params.range_gte | date: "%b-%y"}}
+          </span>
+        {% elsif context.params.category != blank %}
+          <span class="text-lg font-bold dark:text-white">Posts about {{context.exports.categories.data[context.params.category].name}}</span>
+        {% elsif context.params.module_field_3_4 != blank %}
+          <span class="text-lg font-bold dark:text-white">Posts by {{context.params.author_name | url_decode}}</span>
+        {% elsif context.params.keyword != blank %}
+          <span class="text-lg font-bold dark:text-white">Search Results for "{{context.params.keyword | url_decode}}" in Blog</span>
+        {% else %}
+          All Posts
+        {% endif %}
+      </p>
+    </div>
+
+    <div class="grid gap-8 {% if sidebar == true %}grid-cols-3{% else %}grid-cols-2{% endif %}">
+      <div class="{% if sidebar == true %}col-span-3 lg:col-span-2{% else %}col-span-2{% endif %}">
+        <div class="mb-auto grid gap-6 md:grid-cols-2" data-sg-live-update-component="main_results">
+          {%- include 'modules/siteglide_system/get/get_items', item_layout: 'item' -%}
+        </div>
+        <div class="flex flex-col gap-4 p-4 md:flex-row md:items-center md:justify-between" aria-label="Blog pagination">
+          {% comment %} For screenreaders, this section will announce when filters change the number of results. {% endcomment %}
+          <div class="py-8" aria-live="polite">
+            <div data-sg-live-update-component="total_results">
+              {% capture exports_key %}module_3{% endcapture %}
+              {% assign per_page = per_page | default: context.params.per_page | default: 20 %}
+              {% assign total_entries = context.exports[exports_key].data.result.total_entries %}
+              {% assign total_pages = total_entries | plus: 0.0 | divided_by: per_page | ceil %}
+              {% assign current_page = context.params.page | default: 1 %}
+              <span class="text-xs uppercase tracking-[0.08em] text-neutral-500">
+                Page <span class="font-semibold">{{current_page}}</span> of <span class="font-semibold">{{total_pages}}</span>
+              </span>
+            </div>
+          </div>
+          <form class="flex items-center gap-3" data-sg-live-update-controls="per_page">
+            <label for="rows" class="text-xs uppercase tracking-[0.08em] text-neutral-500">
+              Rows per page
+            </label>
+            <select name="per_page" id="rows" class="rounded-lg border border-base-200 bg-base-50 px-3 py-1.5 text-sm dark:border-base-700 dark:bg-base-900">
+              <option selected value="{{per_page}}">{{per_page}}</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </form>
+          <div>
+            {% include "modules/module_357/front_end/includes/v1/pagination", live_updates: 'true', lock_per_page: 'false' %}
+          </div>
+        </div>
+      </div>
+      {% if sidebar == true %}
+        <div class="col-span-3 lg:col-span-1">
+          {% capture sidebar %}layouts/modules/module_3/{{layout}}/sidebar{% endcapture %}
+          {%- include sidebar -%}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

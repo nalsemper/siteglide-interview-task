@@ -1,0 +1,61 @@
+---
+format: json
+layout: ''
+metadata:
+  name: Todo Categories API - Update
+  enabled: true
+  file_type: page
+method: post
+redirect_to: ''
+redirect_url: ''
+---
+{%- if context.post_params != blank -%}
+{%- parse_json params -%}{{ context.post_params }}{%- endparse_json -%}
+{%- else -%}
+{%- assign params = context.params -%}
+{%- endif -%}
+{%- assign id = params.id | default: '' | strip -%}
+
+{%- if id == blank -%}
+{"error":"Category id is required"}
+{%- else -%}
+  {%- graphql current_data = "todo_categories/get_todo_category", id: id -%}
+  {%- assign current = current_data.records.results | first -%}
+  {%- if current.id == blank -%}
+{"error":"Category not found"}
+  {%- else -%}
+    {%- assign name = current.properties.name -%}
+    {%- if params.name != blank -%}
+      {%- assign name = params.name | strip -%}
+    {%- endif -%}
+
+    {%- assign sort_order = current.properties.module_field_987_2 | default: 0 | plus: 0 -%}
+    {%- if params.sort_order != blank -%}
+      {%- assign sort_order = params.sort_order | plus: 0 -%}
+    {%- endif -%}
+
+    {%- assign parent_id = current.properties.module_field_987_1 | plus: 0 -%}
+    {%- assign current_parent_str = current.properties.module_field_987_1 | append: '' | strip -%}
+    {%- if current_parent_str == blank or current_parent_str == '0' -%}
+      {%- assign parent_id = nil -%}
+    {%- endif -%}
+    {%- if params.parent_id != blank -%}
+      {%- if params.parent_id == '0' or params.parent_id == 0 -%}
+        {%- assign parent_id = nil -%}
+      {%- else -%}
+        {%- assign parent_id = params.parent_id | plus: 0 -%}
+      {%- endif -%}
+    {%- elsif params.parent_id_cleared == true or params.parent_id_cleared == 'true' -%}
+      {%- assign parent_id = nil -%}
+    {%- endif -%}
+
+    {%- graphql result = "todo_categories/update_todo_category", id: id, name: name, parent_id: parent_id, sort_order: sort_order -%}
+    {%- assign record = result.record_update -%}
+    {%- if record.id == blank -%}
+{"error":"Failed to update category"}
+    {%- else -%}
+      {%- assign category = record -%}
+{"category":{%- include 'todos/category_crud_json', category: category -%}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

@@ -1,0 +1,51 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/list/wrapper.liquid
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/list/item.liquid
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/list/delete_modal.liquid
+  - views/partials/layouts/modules/module_10/faq-live-updating-table/structured_data.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/faq-live-updating-table.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/boolean.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/datasource.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/date.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/file.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/image.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_14/product/faq-live-updating-table/components/collection.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/input_radio.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/select_multi.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/select.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/string.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/textarea.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/subheading.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/heading.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/array_custom.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/folder.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/image_array.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/number_float.liquid
+  - views/partials/layouts/modules/module_10/form/faq-live-updating-table_components/number_integer.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: faq-live-updating-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_10
+  studio_dynamic/layout_name: FAQ live-updating table
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: FAQ live-updating table
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<div class="w-full">
+  <div class="">
+    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="{{field_id}}">{{label}} {% if validation contains 'required' %}<span>*</span>{% endif %}</label>
+    <input {{attributes}} {{validation}} id="{{field_id}}" name="{{name}}" {% if label != blank %}data-sg-validation-label="{{label}}" data-sg-validation-id="{{field_id}}" {% endif %} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-info-500 focus:border-info-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-info-500 dark:focus:border-info-500 {{validation}} {% if validation != blank %}valid:bg-success-50 valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700 valid:text-sm valid:rounded-lg valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-gray-700  dark:valid:border-success-400   group-focus-within:invalid:bg-danger-50  group-focus-within:invalid:border  group-focus-within:invalid:border-danger-500  group-focus-within:invalid:text-danger-900  group-focus-within:invalid:placeholder-danger-700  group-focus-within:invalid:focus:ring-danger-500   dark:group-focus-within:invalid:bg-gray-700  group-focus-within:invalid:focus:border-danger-500   dark:group-focus-within:invalid:text-danger-500   dark:group-focus-within:invalid:placeholder-danger-500   dark:group-focus-within:invalid:border-danger-500{% endif %}" type="text" value="{{value}}">
+  </div>
+</div>

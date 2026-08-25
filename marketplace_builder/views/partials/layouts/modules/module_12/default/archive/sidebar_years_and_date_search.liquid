@@ -1,0 +1,33 @@
+<h2>Archive by Years</h2>
+<ul>
+	{% assign events_archive_years = events_archive_years | sort: "start" %}
+	{% for year in events_archive_years %}
+		<li>{{year.start | date: "%Y"}}</li>
+		<ul>
+			{% assign months_by_year = events_archive_months | sort: "start" | group_by: "year" %}
+			{% for month in months_by_year[year.start] %}
+				<li><a href="{{context.headers.PATH_INFO}}?range_gte={{month.start}}&range_lt={{month.end}}&range_type=month&range_field=events">{{month.start | date: "%b" }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endfor %}
+</ul>
+
+{% assign now = "now" | date: "%s" %}
+<h2><a href="{{context.headers.PATH_INFO}}?range_field=events&range_lt={{now}}&range_type=past">All Past Events</a></h2>
+<h2><a href="{{context.headers.PATH_INFO}}?range_field=events&range_gte={{now}}&range_type=future">All Future Events</a></h2>
+
+<h2>Search by Date</h2>
+<form title="Search events by Date" id="events-archive-search">
+	<label for="range_gt">Start Date</label>
+	<input data-sg-events="start-date" id="range_gt" name="range_gt" type="date">
+	<label for="range_gt">End Date</label>
+	<input data-sg-events="end-date" id="range_lte" name="range_lte" type="date">
+	<input value="Search" type="submit" data-slug="/module-12" onclick="s_events_date_search(s_events_date_search_error)">
+</form>
+
+{% comment %}Add your custom error message here- it can be renamed by changing its name in the argument for the s_events_date_search function and in the definition below.{% endcomment %}
+<script>
+	function s_events_date_search_error() {
+		alert("Please enter valid dates before searching.");
+	}
+</script>

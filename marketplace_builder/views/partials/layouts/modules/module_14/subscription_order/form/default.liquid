@@ -1,0 +1,151 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Subscription Orders</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_1">User ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_2">Subscription ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_2'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_3">Status</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_3'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_4">Billing Address</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_4'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_5">Payment Method</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_5'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_6">Total Price</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_6'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_7">Currency</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_7'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_8">Stripe Subscription ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_8'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_9">Cancel At Period End</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_9'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_10">Stripe Plan ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_10'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_11">Plan Chargeable Price</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_11'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_12">Plan Display Only Price</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_12'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_13">Plan Interval</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_13'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_14">Plan Interval Count</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_14'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_15">Discount Code Redeemed</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_15'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_16">Plan Amount Reduced By</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_16'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/subscription_order_17">Plan Reduced Chargeable Price</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/subscription_order_17'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 date">
+						<div class="col">
+							<label for="module_field_14/subscription_order_18">Plan Discount Begins At</label>
+							<input id="module_field_14/subscription_order_18" name="{{ form_builder.fields.properties['module_field_14/subscription_order_18'].name }}" type="number" style="display:none">
+							<input class="form-control sg-form-control" type="datetime-local" onchange="document.querySelector('#module_field_14/subscription_order_18').value=new Date(this.value).getTime()/1000">
+						</div>
+					</div>
+					<div class="row mt-4 date">
+						<div class="col">
+							<label for="module_field_14/subscription_order_19">Plan Discount Ends At</label>
+							<input id="module_field_14/subscription_order_19" name="{{ form_builder.fields.properties['module_field_14/subscription_order_19'].name }}" type="number" style="display:none">
+							<input class="form-control sg-form-control" type="datetime-local" onchange="document.querySelector('#module_field_14/subscription_order_19').value=new Date(this.value).getTime()/1000">
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/subscription_order')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>

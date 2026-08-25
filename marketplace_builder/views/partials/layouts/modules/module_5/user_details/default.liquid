@@ -1,0 +1,22 @@
+<p>Name: {{this.name}}</p>
+<p>First Name: {{this.first_name}}</p>
+<p>Last Name: {{this.last_name}}</p>
+<p>Email: {{this.email}}</p>
+<p>Sign Up Date: {{this.created_at | date: '%d/%m/%Y'}}</p>
+<p>Last updated: {{this.updated_at | date: '%d/%m/%Y'}}</p>
+<div>
+	<p>Secure Zones:</p>
+	<ul>{%- include 'user_secure_zones', layout: 'default' -%}</ul>
+</p>
+<div>
+	<p>Orders:</p>
+	<ul>{%- include 'user_orders', layout: 'default' -%}</ul>
+</p>
+<div>
+	<p>Form Submissions:</p>
+	<ul>{%- include 'user_form_submissions', layout: 'default' -%}</ul>
+</p>
+<div>
+	<p>Subscriptions:</p>
+	<ul>{%- include 'user_subscriptions', layout: 'default' -%}</ul>
+</p>

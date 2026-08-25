@@ -1,0 +1,197 @@
+{% comment %} We suggest not editing this file, as it may be updated by new versions of the library, and in that case it will be useful to have your changes in a separate file which you can copy across to the new version. {% endcomment %}
+[
+	{
+		"id": "soft-reveal",
+		"animation_library_id": "studio_motion",
+		"name": "Soft Reveal",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateY(8px)", "filter": "blur(8px)" },
+			"textAnimate": { "opacity": [0, 1], "y": [8, 0], "filter": ["blur(8px)", "blur(0px)"] },
+			"textDuration": 0.8,
+			"textDelay": 0.05,
+
+			"cardInitial": { "opacity": "0", "transform": "translateY(12px)", "filter": "blur(10px)" },
+			"cardAnimate": { "opacity": [0, 1], "y": [12, 0], "filter": ["blur(10px)", "blur(0px)"] },
+			"cardDuration": 0.9,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "lift-in",
+		"animation_library_id": "studio_motion",
+		"name": "Lift In",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateY(16px) scale(0.985)" },
+			"textAnimate": { "opacity": [0, 1], "y": [16, 0], "scale": [0.985, 1] },
+			"textDuration": 0.75,
+			"textDelay": 0.05,
+
+			"cardInitial": { "opacity": "0", "transform": "translateY(20px) scale(0.98)" },
+			"cardAnimate": { "opacity": [0, 1], "y": [20, 0], "scale": [0.98, 1] },
+			"cardDuration": 0.85,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "depth-focus",
+		"animation_library_id": "studio_motion",
+		"name": "Depth Focus",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "scale(1.02)", "filter": "blur(12px)" },
+			"textAnimate": { "opacity": [0, 1], "scale": [1.02, 1], "filter": ["blur(12px)", "blur(0px)"] },
+			"textDuration": 0.9,
+			"textDelay": 0.05,
+
+			"cardInitial": { "opacity": "0", "transform": "scale(1.03)", "filter": "blur(14px)" },
+			"cardAnimate": { "opacity": [0, 1], "scale": [1.03, 1], "filter": ["blur(14px)", "blur(0px)"] },
+			"cardDuration": 1.0,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "gentle-slide",
+		"animation_library_id": "studio_motion",
+		"name": "Gentle Slide",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateX(-10px)" },
+			"textAnimate": { "opacity": [0, 1], "x": [-10, 0] },
+			"textDuration": 0.7,
+			"textDelay": 0.05,
+
+			"cardInitial": { "opacity": "0", "transform": "translateX(-14px)" },
+			"cardAnimate": { "opacity": [0, 1], "x": [-14, 0] },
+			"cardDuration": 0.8,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "micro-zoom",
+		"animation_library_id": "studio_motion",
+		"name": "Micro Zoom",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "scale(0.99)" },
+			"textAnimate": { "opacity": [0, 1], "scale": [0.99, 1] },
+			"textDuration": 0.7,
+			"textDelay": 0.05,
+
+			"cardInitial": { "opacity": "0", "transform": "scale(0.97)" },
+			"cardAnimate": { "opacity": [0, 1], "scale": [0.97, 1] },
+			"cardDuration": 0.85,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "cinematic-reveal",
+		"animation_library_id": "studio_motion",
+		"name": "Cinematic Reveal",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateY(10px)", "filter": "blur(16px)" },
+			"textAnimate": { "opacity": [0, 1], "y": [10, 0], "filter": ["blur(16px)", "blur(0px)"] },
+			"textDuration": 1.0,
+			"textDelay": 0.06,
+
+			"cardInitial": { "opacity": "0", "transform": "translateY(14px) scale(0.985)", "filter": "blur(18px)" },
+			"cardAnimate": {
+				"opacity": [0, 1],
+				"y": [14, 0],
+				"scale": [0.985, 1],
+				"filter": ["blur(18px)", "blur(0px)"]
+			},
+			"cardDuration": 1.1,
+			"cardDelay": 0.1
+		}
+	},
+	
+	{
+		"id": "none",
+		"animation_library_id": "studio_motion",
+		"name": "None",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "1", "transform": "none", "filter": "none" },
+			"textAnimate": null,
+			"textDuration": 0,
+			"textDelay": 0,
+
+			"cardInitial": { "opacity": "1", "transform": "none", "filter": "none" },
+			"cardAnimate": null,
+			"cardDuration": 0,
+			"cardDelay": 0
+		}
+	},
+	{% comment %} Plain defaults {% endcomment %}
+	{
+		"id": "fade-left",
+		"animation_library_id": "studio_motion",
+		"name": "Fade Left",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateX(-16px)" },
+			"textAnimate": { "opacity": [0, 1], "x": [-16, 0] },
+			"textDuration": 0.55,
+			"textDelay": 0.06,
+
+			"cardInitial": { "opacity": "0", "transform": "translateX(-20px) scale(0.98)" },
+			"cardAnimate": { "opacity": [0, 1], "x": [-20, 0], "scale": [0.98, 1] },
+			"cardDuration": 0.65,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "fade-right",
+		"animation_library_id": "studio_motion",
+		"name": "Fade Right",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateX(16px)" },
+			"textAnimate": { "opacity": [0, 1], "x": [16, 0] },
+			"textDuration": 0.55,
+			"textDelay": 0.06,
+
+			"cardInitial": { "opacity": "0", "transform": "translateX(20px) scale(0.98)" },
+			"cardAnimate": { "opacity": [0, 1], "x": [20, 0], "scale": [0.98, 1] },
+			"cardDuration": 0.65,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "scale-in",
+		"animation_library_id": "studio_motion",
+		"name": "Scale In",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "scale(0.96)" },
+			"textAnimate": { "opacity": [0, 1], "scale": [0.96, 1] },
+			"textDuration": 0.55,
+			"textDelay": 0.05,
+
+			"cardInitial": { "opacity": "0", "transform": "scale(0.96)" },
+			"cardAnimate": { "opacity": [0, 1], "scale": [0.96, 1] },
+			"cardDuration": 0.65,
+			"cardDelay": 0.08
+		}
+	},
+	{
+		"id": "slide-up",
+		"animation_library_id": "studio_motion",
+		"name": "Slide Up",
+		"libraryDefault": true,
+		"settings": {
+			"textInitial": { "opacity": "0", "transform": "translateY(20px)" },
+			"textAnimate": { "opacity": [0, 1], "y": [20, 0] },
+			"textDuration": 0.55,
+			"textDelay": 0.06,
+
+			"cardInitial": { "opacity": "0", "transform": "translateY(24px)" },
+			"cardAnimate": { "opacity": [0, 1], "y": [24, 0] },
+			"cardDuration": 0.65,
+			"cardDelay": 0.08
+		}
+	}
+]

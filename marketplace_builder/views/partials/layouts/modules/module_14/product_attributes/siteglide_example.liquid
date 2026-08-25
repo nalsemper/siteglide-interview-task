@@ -1,0 +1,6 @@
+<label>Example Attribute</label>
+<select name="attr1" class="form-control" data-attribute-control="{{product_attribute_id}}" onchange="s_e_update_price()">
+	{% for option in product_attribute_options -%}
+		<option value="{{option.id}}" data-attribute-price-control="{{option.price_raw}}">{{option.name}} ({{this.price.currency_symbol}}{{option.price}})</option>
+	{% endfor -%}
+</select>

@@ -1,0 +1,137 @@
+---
+authorization_policies:
+- modules/siteglide_system/direct_access
+fields:
+  properties:
+    module_name:
+      name: module_name
+      value: Order Product Attribute
+      property_options:
+        virtual: true
+    module_slug:
+      name: module_slug
+      value: ''
+      property_options:
+        virtual: true
+    module_detail:
+      name: module_detail
+      value: false
+      property_options:
+        virtual: true
+    module_detail_template:
+      name: module_detail_template
+      value: templates/blank_page
+      property_options:
+        virtual: true
+    module_detail_default_layout:
+      name: module_detail_default_layout
+      value: default
+      property_options:
+        virtual: true
+    module_path:
+      name: module_path
+      value: siteglide_ecommerce
+      property_options:
+        virtual: true
+    module_sz:
+      name: module_sz
+      value: false
+      property_options:
+        virtual: true
+    module_sz_updated:
+      name: module_sz_updated
+      value: true
+      property_options:
+        virtual: true
+    module_sz_display_type:
+      name: module_sz_display_type
+      value: '404'
+      property_options:
+        virtual: true
+    module_field_14/order_product_attribute_1:
+      name: Order Product ID
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_2:
+      name: Product Attribute Name
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_3:
+      name: Price
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_4:
+      name: Product Attribute Option Name
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_5:
+      name: Product Attribute Option Code
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_6:
+      name: Product Attribute Option ID
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_7:
+      name: Price - Before Tax
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_8:
+      name: Price - Tax Amount
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+    module_field_14/order_product_attribute_9:
+      name: Tax Applied?
+      type: input_text
+      live: true
+      hidden: false
+      order: 0
+      editable: true
+      required: false
+      validation: {}
+name: module_14/order_product_attribute
+resource: module_14/order_product_attribute
+resource_owner: anyone
+---
+{%- capture form_layout -%}{{_marketplace_layout_prefix}}layouts/modules/module_14/order_product_attribute/form/{{_layout}}{%- endcapture -%}
+{%- include form_layout -%}

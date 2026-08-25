@@ -1,0 +1,20 @@
+---
+layout: templates/blank_page
+redirect_to: ''
+redirect_url: ''
+slug: tech
+---
+{%- include 'modules/siteglide_system/constants' -%}
+{% assign is_detail_page = true %}
+{% export is_detail_page %}
+{%- assign category_id = context.exports.categories.path[context.location.pathname] -%}
+{%- assign category = context.exports.categories.items[category_id] -%}
+{%- assign this = category -%}
+{%- if this == blank or this.enabled == 'false' -%}
+  {%- response_status 404 -%}
+  {%- include '404' -%}
+{%- else -%}
+  {%- include 'model_seo' -%}
+  {%- capture includeURL -%}layouts/categories/detail/default{%- endcapture -%}
+  {%- include includeURL -%}
+{%- endif -%}

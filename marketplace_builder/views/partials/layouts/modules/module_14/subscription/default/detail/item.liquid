@@ -1,0 +1,36 @@
+<section class="large detail-view ecommerce">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<img src="{{this['Image'] | asset_url}}" class="img-fluid" />
+			</div>
+			<div class="col-lg-5 offset-lg-1">
+				<div>
+					<h2 class="product-title">{{this['name']}}</h2>
+					{% assign interval = subscription_order['Plan Interval'] | default: this['Interval'] %}
+					{% assign interval_count = subscription_order['Plan Interval Count'] | default: this['Interval Count']%}
+					<p class="product-price" data-price-control="{{subscription_order['Plan Chargeable Price'] | default: this.price.price_charge}}" data-currency-control="{{this.price.currency_symbol}}">{{this.price.currency_symbol}}{{this.price.price_charge_formatted}} {% if interval_count == "1" %}per {{interval | pluralize: 1}}{% else %}(every {{interval_count}} {{interval}}){% endif %}</p>
+				</div> 
+				<hr class="mt-4 mb-4" />
+				<h4>Product Description</h4>
+				{{this['Description']}}
+			</div>
+			<div class="col-lg-12">
+				{% if context.params.slug == "subscription-action-required" %}
+					{% comment %} Content to display when customer is responding to an email notification which asked them to update or authorise payment details. {% endcomment %}
+					<p>Please update your payment details in order to continue your subscription.</p>
+				{%- elsif active_subscriptions contains this.id and context.current_user.id -%}
+					{% comment %} Content to display when customer has already signed up to this subscription and its status is active. {% endcomment %}
+					<p>You already have an active subscription. If you would like to update your payment details before the next billing cycle, you can use the form below.</p>
+				{% elsif subscription_order_id and context.current_user.id %}
+					{% comment %} Content to display when customer has already signed up to this subscription and its status is not active. {% endcomment %}
+				  <p>You already have a subscription for this product, but its status is: {{subscription_order.status}}. Use the Form below if you would like to update your payment details and re-activate your subscription.</p>
+				{%- else -%}
+					{% comment %} Content to display when the User is not logged in or has not yet signed up to this subscription. {% endcomment %}
+					<p>Payment/Signup</p>
+				{%- endif -%}
+				{% comment %} INSERT YOUR PAYMENT FORM HERE {% endcomment %}
+			</div>
+		</div>
+	</div>
+</section>

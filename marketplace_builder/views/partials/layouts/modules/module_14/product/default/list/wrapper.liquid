@@ -1,0 +1,12 @@
+<section class="large featured-02 ecommerce">
+	<div class="container">
+		<h2>Products</h2>
+		<div class="row">
+			{%- include 'modules/siteglide_ecommerce/ecommerce/get/get_products', item_layout: 'item' -%}
+		</div>
+	</div>
+</section>
+{% content_for 'siteglide_head_scripts' %}
+	<link href="https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,600,700" rel="stylesheet">,,
+	<link href="{{ 'css/modules/module_14/siteglide_example.css' | asset_url}}" rel="stylesheet">,,
+{% endcontent_for %}

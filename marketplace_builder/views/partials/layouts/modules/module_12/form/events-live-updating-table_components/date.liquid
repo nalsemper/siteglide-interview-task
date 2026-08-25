@@ -1,0 +1,89 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/wrapper.liquid
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/item.liquid
+  - views/partials/layouts/modules/module_12/events-live-updating-table/list/delete_modal.liquid
+  - views/partials/layouts/webapp_components/webapp_delete/events-live-updating-table.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/boolean.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/datasource_multi.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/datasource.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/date.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/file.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/image.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/hidden_fields.liquid
+  - views/partials/layouts/modules/module_14/product/events-live-updating-table/components/collection.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/input_checkbox.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/input_radio.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/recaptcha.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/select_multi.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/select.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/string.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/textarea.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/subheading.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/heading.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/array_custom.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/folder.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/image_array.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/number_float.liquid
+  - views/partials/layouts/modules/module_12/form/events-live-updating-table_components/number_integer.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: events-live-updating-table
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Events live-updating table
+  studio_dynamic/live_updates: 'true'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Event live-updating table
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% if value == blank %}
+  {% comment %} Default for most dates is the beginning of unix epoch (stands in for "past"), but expiry should be end of unix epoch (stands in for "does not expire"). {% endcomment %}
+  {% if field_id == "expiry_date" %}
+    {% assign value = 2147483647 %}
+  {% else %}
+    {% assign value = 0 %}
+  {% endif %}
+{% endif %}
+<div class="w-full">
+  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="{{field_id }}_display">{{label}} {% if validation contains 'required' %}<span>*</span>{% endif %}</label>
+  <div class="relative">
+    <input hidden {{attributes}} id="{{field_id }}" name="{{name}}" {% if label != blank %}data-sg-validation-label="{{label}}" data-sg-validation-id="{{field_id}}" {% endif %} type="number"  value="{{value}}" {% if validation != blank and value == blank %}class="{{validation}}" {{validation}} {% endif %}>
+    <input  max="2038-01-01T00:00" min="1970-01-01-T00:00" id="{{field_id }}_display" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-info-500 focus:border-info-500 block w-full  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-info-500 dark:focus:border-info-500 {{validation}} {% if validation != blank %}valid:bg-success-50 valid:border valid:border-success-500 valid:text-success-900 valid:placeholder-success-700 valid:text-sm valid:rounded-lg valid:focus:ring-success-500 valid:focus:border-success-500   dark:valid:bg-gray-700  dark:valid:border-success-400   group-focus-within:invalid:bg-danger-50  group-focus-within:invalid:border  group-focus-within:invalid:border-danger-500  group-focus-within:invalid:text-danger-900  group-focus-within:invalid:placeholder-danger-700  group-focus-within:invalid:focus:ring-danger-500   dark:group-focus-within:invalid:bg-gray-700  group-focus-within:invalid:focus:border-danger-500   dark:group-focus-within:invalid:text-danger-500   dark:group-focus-within:invalid:placeholder-danger-500   dark:group-focus-within:invalid:border-danger-500{% endif %}" placeholder="Select date" {{validation}} type="datetime-local" onchange="document.querySelector('#{{field_id }}').value=new Date(this.value ).getTime()/1000" onclick="if ('showPicker' in HTMLInputElement.prototype) {this.showPicker()}">
+  </div>
+</div>
+
+<script>
+  (function(){
+    //This script converts the intial unix timestamp value of the field into the browser's local time, then sets the field's value.
+    {% if form_html_id %}
+      const form = document.querySelector('#{{form_html_id}}');
+      const dateElement = form.querySelector("#{{field_id}}_display");
+    {% else %}
+      const dateElement = document.querySelector("#{{field_id}}_display");
+    {% endif %}
+    function dateZeroPadding(val, plus = 0) {
+      var valInt = parseInt(val) + plus;
+      var valStr = (valInt+plus)+'';
+      if(valInt < 10) {
+        return "0"+valInt;
+      } else {
+        return valStr;
+      }
+    }
+    const observer = new MutationObserver(function(mutations) {
+      if (document.contains(dateElement)) {
+
+        const date = new Date({{value | times: 1000 }});
+        dateElement.value = `${date.getFullYear()}-${dateZeroPadding(date.getMonth(),1)}-${dateZeroPadding(date.getDate())}T${dateZeroPadding(date.getHours())}:${dateZeroPadding(date.getMinutes())}`
+        observer.disconnect();
+      }
+    });
+    observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
+  })();
+</script>

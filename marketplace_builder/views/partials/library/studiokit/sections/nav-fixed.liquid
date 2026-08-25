@@ -1,0 +1,201 @@
+---
+metadata:
+  name: Sitegurus Navigation
+  class: section
+  lists:
+  - name: Nav Links
+    type: sitegurus_nav_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Features
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: contact_label
+    type: text
+    label: Contact Label
+    default: Contact Us
+  - id: contact_url
+    type: url
+    label: Contact URL
+    default: "#"
+  - id: signin_label
+    type: text
+    label: Sign In Label
+    default: Sign In
+  - id: signin_url
+    type: url
+    label: Sign In URL
+    default: "#"
+  - id: cta_label
+    type: text
+    label: CTA Button Label
+    default: Start Free Trial
+  - id: cta_url
+    type: url
+    label: CTA Button URL
+    default: "#"
+  hide_on: []
+  category: headers
+  requires: []
+  settings: []
+  collection: studiokit
+  components: []
+---
+<div class="w-full bg-indigo-600 text-center py-2 relative z-40">
+  <a href="#" class="text-xs font-medium text-white dark:text-neutral-50 hover:text-indigo-100 dark:hover:text-neutral-200 tracking-wide inline-flex items-center gap-1">
+      Meet Platform 2.0: Instant access to your media from anywhere. No downloads. No syncing. Learn more <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+    </a>
+  </div>
+
+<nav class="sticky top-0 bg-base-100 dark:bg-base-950 backdrop-blur-xl z-50 border border-base-400/40 max-w-[120rem] mx-auto w-full" data-sitegurus-nav>
+    <div class="px-6 lg:px-10 py-5 flex justify-between items-center">
+        <!-- Left side: Menu toggle button -->
+        <div class="flex items-center gap-4">
+            <button 
+              type="button" 
+              data-collapse-toggle="navbar-menu" 
+              aria-controls="navbar-menu" 
+              aria-expanded="false"
+              class="md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-sm rounded-base text-neutral-900 dark:text-neutral-50 hover:bg-neutral-200 dark:hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 transition-colors">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Center: Navigation Links - Hidden on mobile -->
+        <div class="hidden md:flex items-center gap-8 flex-1 justify-center">
+            <div class="flex items-center gap-8 text-sm font-medium text-neutral-900 dark:text-neutral-50">
+                {% for item in lists.sitegurus_nav_links %}
+                <a 
+                  href="{{ item.link_url }}" 
+                  class="hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors flex items-center gap-1" 
+                  data-studio-list="{{ item._list }}">
+                    {{ item.link_text }}
+                    <span class="material-symbols-outlined text-xs leading-none text-neutral-500" aria-hidden="true">expand_more</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Right side: Theme toggle, Contact, Sign in, CTA -->
+        <div class="flex items-center gap-4 md:gap-6">
+            <button type="button" aria-label="toggle dark mode" data-theme-toggle class="button-secondary text-neutral-500 dark:text-neutral-400">
+              <svg data-theme-toggle-dark-icon class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+              </svg>
+              <svg data-theme-toggle-light-icon class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <a href="{{ this.contact_url }}" class="hidden md:block text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-50 transition-colors">{{ this.contact_label }}</a>
+            <a href="{{ this.signin_url }}" class="hidden md:block text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-50 transition-colors">{{ this.signin_label }}</a>
+            <a href="{{ this.cta_url }}" class="button">{{ this.cta_label }}</a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu - Hidden by default, shown with Flowbite collapse -->
+    <div class="hidden" id="navbar-menu" data-collapse-target>
+        <div class="px-6 lg:px-10 py-4 md:hidden border-t border-base-400/40">
+            <div class="flex flex-col gap-4">
+                <!-- Mobile Navigation Links -->
+                <div class="space-y-2">
+                    {% for item in lists.sitegurus_nav_links %}
+                    <a 
+                      href="{{ item.link_url }}" 
+                      class="block py-2 px-3 text-sm font-medium text-neutral-900 dark:text-neutral-50 rounded-base hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors" 
+                      data-studio-list="{{ item._list }}">
+                        {{ item.link_text }}
+                    </a>
+                    {% endfor %}
+                </div>
+                
+                <!-- Mobile Contact and Sign in buttons -->
+                <div class="pt-2 border-t border-base-400/40 space-y-2">
+                    <a href="{{ this.contact_url }}" class="block py-2 px-3 text-sm font-medium text-neutral-900 dark:text-neutral-50 rounded-base hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">{{ this.contact_label }}</a>
+                    <a href="{{ this.signin_url }}" class="block py-2 px-3 text-sm font-medium text-neutral-900 dark:text-neutral-50 rounded-base hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">{{ this.signin_label }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-sitegurus-nav]').forEach(function (nav) {
+    if (nav.dataset.siteGurusReady === 'true') return;
+
+    // Theme Toggle Setup
+    var toggle = nav.querySelector('[data-theme-toggle]');
+    var darkIcon = nav.querySelector('[data-theme-toggle-dark-icon]');
+    var lightIcon = nav.querySelector('[data-theme-toggle-light-icon]');
+
+    if (toggle && darkIcon && lightIcon) {
+      function isDarkMode() {
+        return document.documentElement.classList.contains('dark');
+      }
+
+      function syncIcons() {
+        var dark = isDarkMode();
+        darkIcon.classList.toggle('hidden', dark);
+        lightIcon.classList.toggle('hidden', !dark);
+      }
+
+      toggle.addEventListener('click', function () {
+        var dark = isDarkMode();
+
+        if (dark) {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
+        } else {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        }
+
+        syncIcons();
+      });
+
+      syncIcons();
+    }
+
+    // Mobile Menu Collapse Setup (Flowbite-style)
+    var collapseButtons = nav.querySelectorAll('[data-collapse-toggle]');
+    collapseButtons.forEach(function (button) {
+      var targetId = button.getAttribute('data-collapse-toggle');
+      var target = document.getElementById(targetId);
+      
+      if (!target) return;
+
+      button.addEventListener('click', function () {
+        var isHidden = target.classList.contains('hidden');
+        
+        if (isHidden) {
+          target.classList.remove('hidden');
+          button.setAttribute('aria-expanded', 'true');
+        } else {
+          target.classList.add('hidden');
+          button.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close menu when clicking on a link
+      var links = target.querySelectorAll('a[href]');
+      links.forEach(function (link) {
+        link.addEventListener('click', function () {
+          target.classList.add('hidden');
+          button.setAttribute('aria-expanded', 'false');
+        });
+      });
+    });
+
+    nav.dataset.siteGurusReady = 'true';
+  });
+})();
+</script>

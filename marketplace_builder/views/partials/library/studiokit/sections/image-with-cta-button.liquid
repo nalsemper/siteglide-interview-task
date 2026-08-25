@@ -1,0 +1,74 @@
+---
+metadata:
+  name: Image with CTA
+  class: section
+  lists: []
+  fields:
+  - id: eyebrow
+    type: text
+    label: Eyebrow
+    default: ''
+  - id: heading
+    type: textarea
+    label: Heading
+    default: Let's create more tools and ideas that brings us together.
+  - id: body
+    type: textarea
+    label: Body
+    default: Flowbite helps you connect with friends and communities of people who
+      share your interests. Connecting with your friends and family as well as discovering
+      new ones is easy with features like Groups.
+  - id: dashboard_image_light
+    type: image_picker
+    label: Image
+    default: ''
+  - id: button_text
+    type: text
+    label: Button Text
+    default: Get started
+  - id: button_url
+    type: url
+    label: Button URL
+    default: "#"
+  hide_on: []
+  category: cta
+  requires: []
+  settings: []
+  collection: flowbite_free
+  components: []
+---
+<section class="@container  {{selection-index}}" data-motion-group>
+  <div class="container">
+
+    <div class="grid items-center gap-8 @md:grid-cols-2 @md:gap-16" data-motion-group>
+
+      {% if this.dashboard_image_light != blank %}
+        <div data-motion-card>
+          {% include 'img',
+            path: this.dashboard_image_light,
+            classes: 'w-full',
+            attributes: 'alt="{{ this.heading | default: "" }}" loading="lazy"'
+          %}
+        </div>
+      {% endif %}
+
+      <div data-motion-group>
+        {% if this.eyebrow != blank %}
+          <p class="eyebrow_text" data-motion-text>{{ this.eyebrow }}</p>
+        {% endif %}
+        <h2 data-motion-text>{{ this.heading }}</h2>
+        {% if this.body != blank %}
+          <p class="mx-auto" data-motion-text>{{ this.body }}</p>
+        {% endif %}
+        {% if this.button_text != blank %}
+          <a href="{{ this.button_url }}" class="button inline-flex items-center gap-2">
+            {{ this.button_text }}
+            <span class="material-symbols-outlined text-sm leading-none" aria-hidden="true">arrow_forward</span>
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+
+  </div>
+</section>

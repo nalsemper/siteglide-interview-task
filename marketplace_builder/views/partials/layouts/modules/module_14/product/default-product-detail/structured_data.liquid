@@ -1,0 +1,56 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/detail/item.liquid
+  - views/partials/layouts/modules/module_14/components/add_to_cart_button/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product_attributes/default-product-detail.liquid
+  - views/partials/layouts/modules/module_14/product/default-product-detail/structured_data.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-product-detail
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_14
+  studio_dynamic/layout_name: Default Product Detail
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default Product Detail
+  studio_dynamic/sub_module_id: '2'
+  studio_dynamic/make_global_form: false
+---
+{% if this.inventory.quantity != '0' and this.inventory.quantity != "" and this.inventory.quantity != blank %}
+  {% assign availability = 'https://schema.org/InStock' %}
+{% else %}
+  {% assign availability = 'https://schema.org/OutOfStock' %}
+{% endif %}
+
+{% if product_brand != blank %}
+  {%- capture brand_data -%}
+    "brand": {
+      "@type": "Brand",
+      "name": "{{ product_brand }}"
+    },
+  {%- endcapture -%}
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "{{ this['name'] }}",
+  "image": "{{ this['Image'] |  asset_url }}",
+  "description": "{{ this['Description'] |  strip_html }}",
+  "sku": "{{ this['Product Code (SKU)'] }}",
+  {{ brand_data }}
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ context.location.url }}",
+    "priceCurrency": "{{ this.price.currency }}",
+    "price": {{ this.price.original_price_charge_formatted | format_number: precision: 2 }},
+    "availability": "{{ availability }}"
+  }
+}
+</script>
+

@@ -1,0 +1,96 @@
+---
+metadata:
+  name: Footer Section
+  class: section
+  lists:
+  - name: Primary Links
+    type: primary_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Home
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Secondary Links
+    type: secondary_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Home
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  - name: Tertiary Links
+    type: tertiary_links
+    fields:
+    - id: link_text
+      type: text
+      label: Link Text
+      default: Home
+      is_title: true
+    - id: link_url
+      type: url
+      label: Link URL
+      default: "#"
+  fields:
+  - id: brand_text
+    type: text
+    label: Brand Text
+    default: INC.
+  - id: bottom_text
+    type: text
+    label: Bottom Text
+    default: "©2026 SiteGlide all rights reserved"
+  hide_on: []
+  category: footers
+  requires: []
+  settings: []
+  collections:
+  - mono
+---
+<footer class="@container bg-neutral-950 text-neutral-50" data-motion-group>
+  <div class="container py-8 @md:py-12 @lg:py-16">
+    <p class="font-serif text-6xl @md:text-8xl @lg:text-9xl tracking-wider leading-none mb-12">{{ this.brand_text }}</p>
+
+    <div class="grid grid-cols-2 @md:grid-cols-4 gap-8 items-end">
+      <ul class="space-y-2">
+        {% for item in lists.primary_links %}
+          <li data-studio-list="{{ item._list }}">
+            <a href="{{ item.link_url }}" class="text-sm">
+              {{ item.link_text }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <ul class="space-y-2">
+        {% for item in lists.secondary_links %}
+          <li data-studio-list="{{ item._list }}">
+            <a href="{{ item.link_url }}" class="text-sm">
+              {{ item.link_text }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <ul class="space-y-2">
+        {% for item in lists.tertiary_links %}
+          <li data-studio-list="{{ item._list }}">
+            <a href="{{ item.link_url }}" class="text-sm">
+              {{ item.link_text }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <p class="text-sm @md:text-right">{{ this.bottom_text }}</p>
+    </div>
+  </div>
+</footer>

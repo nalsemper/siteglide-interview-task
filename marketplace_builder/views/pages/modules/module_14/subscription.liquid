@@ -1,0 +1,14 @@
+---
+layout: templates/blank_page
+redirect_to: ''
+redirect_url: ''
+slug: siteglide-subscriptions
+---
+{% include 'modules/siteglide_system/constants' -%}
+{%- assign _slug = context.location.pathname | replace: '/siteglide-subscriptions/', '' | replace: '/siteglide-subscriptions', '' -%}
+{%- if _slug == blank -%}
+{%- response_status 404 -%}
+{%- include '404' -%}
+{%- else -%}
+  {% include 'module', id: '14/subscription', type: 'detail', slug: _slug, layout: 'default' -%}
+{%- endif -%}

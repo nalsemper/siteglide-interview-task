@@ -1,0 +1,217 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: detail
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_12/default-events-details/detail/wrapper.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/detail/item.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/structured_data.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/search.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/sidebar.liquid
+  - views/partials/layouts/modules/module_12/default-events-details/archive.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: default-events-details
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_12
+  studio_dynamic/layout_name: Default events details
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Default events details
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+{% include 'module', id: '6', item_ids: this['Host'], collection: 'true', per_page: '1', datasource: 'true', type: 'list' %}
+{% assign host = context.exports.module_6.data.result.items[0] %}
+{% capture structured_data %}layouts/modules/module_12/{{layout}}/structured_data{% endcapture %}
+{%- include structured_data, virtual_event_url: this.properties[cf_virtual_event_url], physical_street_address: this.properties[cf_physical_street_address], physical_address_locality: this.properties[cf_physical_address_locality], physical_postal_code: this.properties[cf_physical_postal_code], physical_address_region: this.properties[cf_physical_address_region], physical_address_country: this.properties[cf_physical_address_country] -%}
+
+<section data-motion-group>
+  <div class="container py-16 md:py-20">
+    <div class="flex justify-between gap-12">
+      <article class="mx-auto w-full max-w-2xl format dark:format-invert" data-motion-card>
+        <header class="not-format">
+          <h1>{{this['name']}}</h1>
+          <div class="mt-3 text-sm text-base-500 dark:text-base-300">
+            <address class="inline">
+              By
+              <a rel="host" href="{{events_list_page_url}}?module_field_12_4={{host.id}}&host_name={{host.properties.name | url_encode}}">{{host.properties.module_field_6_1}}</a>
+            </address>
+            in
+            {% for category in this['category_array'] %}
+              <a href="{{events_list_page_url}}?category={{context.exports.categories.data[category].id}}">{{context.exports.categories.data[category].name | replace: " ", "&nbsp;" -}}</a>
+              {%- assign position = forloop.index | plus: 1 -%}
+              {%- if this['category_array'].size == position -%}&nbsp;and{%- elsif forloop.last != true -%}, {% endif %}
+            {% endfor %}
+
+            {% assign time_diff = this['Event Start'] | time_diff: this['Event End'] %}
+            {% if time_diff < 86400000 %}
+              Starts at <time pubdate class="uppercase text-xs tracking-[0.12em] text-base-500" datetime="{{this['Event Start'] | date: '%d %^b. %Y'}}" title="{{this['Event Start'] | date: '%b %d %Y'}}">{{this['Event Start'] | date: '%d/%m/%y %H:%M'}}</time>, Ends at <time pubdate class="uppercase text-xs tracking-[0.12em] text-base-500" datetime="{{this['Event End'] | date: '%d %^b. %Y'}}" title="{{this['Event End'] | date: '%b %d %Y'}}">{{this['Event End'] | date: '%H:%M'}}</time>
+            {% else %}
+              Starts on <time pubdate class="uppercase text-xs tracking-[0.12em] text-base-500" datetime="{{this['Event Start'] | date: '%d %^b. %Y'}}" title="{{this['Event Start'] | date: '%b %d %Y'}}">{{this['Event Start'] | date: '%d/%m/%y %H:%M'}}</time>, Ends on <time pubdate class="uppercase text-xs tracking-[0.12em] text-base-500" datetime="{{this['Event End'] | date: '%d %^b. %Y'}}" title="{{this['Event End'] | date: '%b %d %Y'}}">{{this['Event End'] | date: '%d/%m/%y %H:%M'}}</time>
+            {% endif %}
+          </div>
+
+          {% assign now = "now" | date: "%s" | plus: 0 %}
+          {% assign event_start = this['Event Start'] | date: "%s" | plus: 0 %}
+          {% assign event_end = this['Event End'] | date: "%s" | plus: 0 %}
+          {% if event_start < now and event_end > now %}
+            <div class="card rounded-xl bg-primary-100 dark:bg-primary-900/30 p-4 my-4 text-sm text-primary-700 dark:text-primary-300" role="alert">
+              <span class="font-medium">This Event Is In Progress</span> Sorry! Please let us know if you'd like to see another event like this soon!
+            </div>
+          {% elsif event_start < now and event_end < now %}
+            <div class="card rounded-xl bg-primary-100 dark:bg-primary-900/30 p-4 my-4 text-sm text-primary-700 dark:text-primary-300" role="alert">
+              <span class="font-medium">This Event Has Finished</span> Sorry! Please let us know if you'd like to see another event like this soon!
+            </div>
+          {% endif %}
+        </header>
+        <aside class="mt-6 flex flex-wrap items-center gap-3 border-b border-base-200 pb-6 dark:border-base-700" aria-label="Share social media">
+          {% if event_end > now %}
+            <a data-s-g-option-id="{{this.id}}"
+            data-s-g-option-start-date="{{this['Event Start'] | date: '%Y%m%dT%H%M%SZ'}}"
+            data-s-g-option-end-date="{{this['Event End'] | date: '%Y%m%dT%H%M%SZ'}}"
+            data-s-g-option-summary="{{this.properties['name']}}"
+            data-s-g-option-description="{{this['Description']}}"
+            data-s-g-option-address="{{this.properties.module_field_12_6}}"
+            data-s-g-option-location="{{this.properties.module_field_12_7}}" class="hidden button-secondary" data-s-g-events-feature="ics-link" download="event.ics">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Get Calendar Invite
+            </a>
+            {% if context.exports.module_86.sitegurus_events_api != true %}
+              <script async id="sitegurus_events_javascript_api" src="{{'modules/module_357/js/sitegurus_events_javascript_api.min.js' | asset_url}}" charset="utf-8"></script>
+              {% assign sitegurus_events_api = true %}
+              {% export sitegurus_events_api, namespace: "module_86" %}
+            {% endif %}
+          {% endif %}
+
+          <button data-s-g-social-feature="fbButton" class="button-secondary">
+            <svg class="mr-2 w-4 h-4" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" />
+            </svg>
+            Share
+          </button>
+          <button data-s-g-social-feature="tw" class="button-secondary">
+            <svg class="mr-2 w-4 h-4" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z" />
+            </svg>
+            Tweet
+          </button>
+          <button data-s-g-social-feature="clipboard" class="button-secondary">
+            <svg class="mr-2 w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"></path>
+            </svg>
+            Copy link
+          </button>
+        </aside>
+        <div class="mt-6">
+          {{this['Description'] | html_safe }}
+        </div>
+        {% if this.properties['module_field_12_6'] != blank or this.properties['module_field_12_7'] != blank %}
+          <h2>Getting Here</h2>
+        {% endif %}
+        {% if this.properties['module_field_12_6'] != blank %}
+          <p>{{this.properties.module_field_12_6}}</p>
+        {% endif %}
+        {% if this.properties['module_field_12_7'] != blank and context.exports.integrations.properties.google_api_key != blank %}
+          <iframe
+            class="my-8"
+            width="100%"
+            height="450"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?key={{context.exports.integrations.properties.google_api_key}}&q={{this.properties['module_field_12_7']}}">
+          </iframe>
+        {% endif %}
+      </article>
+      {% if sidebar == true %}
+        <aside class="hidden lg:block lg:w-72" aria-labelledby="sidebar-label">
+          {% capture sidebar %}layouts/modules/module_12/{{layout}}/sidebar{% endcapture %}
+          {%- include sidebar -%}
+        </aside>
+      {% endif %}
+    </div>
+  </div>
+
+  <div aria-label="Related articles">
+    {% assign category_ids = this['category_array'] | join: "," %}
+    {% comment %} category_ids: {{category_ids}} {% endcomment %}
+    {% assign now_string = now | downcase %}
+    {% graphql related_events, category_array: this.category_array, id: this.id, now_string: now_string %}
+      query related_events($category_array: [String!]=["00000"], $id: ID!, $now_string: String){
+        records(
+          per_page: 4,
+          filter: {
+            table: {
+              value: "module_12"
+            }
+            properties: [
+              {
+                name: "category_array",
+                array_overlaps: $category_array
+              },
+              {
+                name: "module_field_12_2",
+                range: {
+                  gt: $now_string
+                }
+              }
+            ],
+            id: {
+              not_value_in: $id
+            }
+          },
+          sort: {
+            properties: {
+              name: "module_field_12_2",
+              order: ASC
+            }
+          }
+        ) {
+          results {
+            id
+            properties
+          }
+        }
+      }
+    {% endgraphql %}
+    {% if related_events.records.results.size > 0 %}
+      <div class="container pb-16 md:pb-20">
+        <h2>Related Upcoming Events</h2>
+        <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          {% for article in related_events.records.results %}
+            {% assign event_start = article.properties['module_field_12_2'] | date: "%s" | plus: 0 %}
+            <article class="max-w-xs">
+              <img src="{{article.properties.module_field_3_7 | asset_url}}" class="mb-5 rounded-lg" alt="{{article.properties.module_field_3_8}}">
+              <h2>
+                <a href="/{{context.params.slug}}/{{article.properties.slug}}">{{article.properties.name}}</a>
+              </h2>
+              <p>
+                {% assign time_diff = article.properties.module_field_12_2 | time_diff: article.properties.module_field_12_3 %}
+                {% if time_diff < 86400000 %}
+                  Starts at&nbsp;<time pubdate class="uppercase" datetime="{{article.properties.module_field_12_2 | date: '%d %^b. %Y'}}" title="{{article.properties.module_field_12_2 | date: '%b %d %Y'}}">{{article.properties.module_field_12_2 | date: '%d/%m/%y %H:%M'}}</time>, Ends at&nbsp;<time pubdate class="uppercase" datetime="{{article.properties.module_field_12_3 | date: '%d %^b. %Y'}}" title="{{article.properties.module_field_12_3 | date: '%b %d %Y'}}">{{article.properties.module_field_12_3 | date: '%H:%M'}}</time>
+                {% else %}
+                  Starts on&nbsp;<time pubdate class="uppercase" datetime="{{article.properties.module_field_12_2 | date: '%d %^b. %Y'}}" title="{{article.properties.module_field_12_2 | date: '%b %d %Y'}}">{{article.properties.module_field_12_2 | date: '%d/%m/%y %H:%M'}}</time>, Ends on&nbsp;<time pubdate class="uppercase" datetime="{{article.properties.module_field_12_3 | date: '%d %^b. %Y'}}" title="{{article.properties.module_field_12_3 | date: '%b %d %Y'}}">{{article.properties.module_field_12_3 | date: '%d/%m/%y %H:%M'}}</time>
+                {% endif %}
+              </p>
+              {% if article.properties.module_field_12_6 != blank %}
+                <p>{{article.properties.module_field_12_6}}</p>
+              {% endif %}
+              <a href="/{{context.params.slug}}/{{article.properties.slug}}">
+                Event Details
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% if context.exports.module_86.sitegurus_social_share_api != true %}
+  <script async id="sitegurus_social_share_api" src="{{'modules/module_357/js/sitegurus_social_share_api.min.js' | asset_url}}" charset="utf-8"></script>
+  {% assign sitegurus_social_share_api = true %}
+  {% export sitegurus_social_share_api, namespace: "module_86" %}
+{% endif %}

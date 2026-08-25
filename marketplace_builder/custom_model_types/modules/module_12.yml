@@ -1,0 +1,56 @@
+---
+name: module_12
+properties:
+- name: address
+  type: string
+- name: category_array
+  type: array
+- name: enabled
+  type: boolean
+- name: expiry_date
+  type: integer
+- name: location
+  type: geojson
+- name: meta_desc
+  type: string
+- name: meta_title
+  type: string
+- name: module_field_12_1
+  type: string
+- name: module_field_12_2
+  type: integer
+- name: module_field_12_3
+  type: integer
+- name: module_field_12_6
+  type: string
+- name: module_field_12_7
+  type: string
+- name: module_field_12_8
+  type: array
+- name: name
+  type: string
+- name: og_desc
+  type: string
+- name: og_image
+  type: string
+- name: og_title
+  type: string
+- name: og_type
+  type: string
+- name: og_url
+  type: string
+- name: release_date
+  type: integer
+- name: secure_zone_array
+  type: array
+- name: slug
+  type: string
+- name: twitter_type
+  type: string
+- name: weighting
+  type: integer
+- name: module_field_12_4
+  type: integer
+- name: module_field_12_5
+  type: string
+---

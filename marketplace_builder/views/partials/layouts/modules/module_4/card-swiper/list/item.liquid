@@ -1,0 +1,42 @@
+---
+metadata:
+  studio_theme: studiokit
+  studio_library: studiokit
+  studio_dynamic/type: list
+  studio_dynamic/files:
+  - views/partials/layouts/modules/module_4/card-swiper/list/wrapper.liquid
+  - views/partials/layouts/modules/module_4/card-swiper/list/item.liquid
+  studio_dynamic/theme: studiokit
+  studio_dynamic/layout: card-swiper
+  studio_dynamic/theme_id: theme_01
+  studio_dynamic/module_id: module_4
+  studio_dynamic/layout_name: Card swiper
+  studio_dynamic/live_updates: 'false'
+  studio_dynamic/ui_framework: tailwind
+  studio_dynamic/original_name: Card swiper
+  studio_dynamic/sub_module_id: '0'
+  studio_dynamic/make_global_form: false
+---
+<div class="swiper-slide">
+  <div class="container">
+    <a href="{% if this['Button Link'] != blank %}{{this['Button Link']}}{% else %}javascript:void(0);{% endif %}">
+      <img class="rounded-t-lg min-h-[16rem]" src="{{ this['Image'] | asset_url }}" alt="{{ this['Image Alt'] }}" />
+    </a>
+    <div class="p-5 space-y-2 min-h-[8rem] flex flex-col justify-center items-center">
+      {% if this['Title'] != blank %}
+        <a href="{{this['Button Link']}}">
+          <h3 class="">{{ this['Title'] }}</h3>
+        </a>  
+      {% endif %}
+      {% if this['Description'] != blank %}
+        <div class="format dark:format-invert">{{ this['Description'] | html_safe}}</div>
+      {% endif %}
+      {% if this['Button Name'] != blank or this['Button Link'] != blank %}
+        <a href="{{this['Button Link']}}" class="button">
+          {{this['Button Name']}}
+          <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

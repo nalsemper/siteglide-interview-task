@@ -1,0 +1,145 @@
+<div class="sectionPadding">
+	<div class="container">
+		<div class="row text-center justify-content-center">
+			<div class="col-12 col-md-7">
+				<h2>Product Attribute Option</h2>
+				<h4>Submit a new item</h4>
+			</div>
+		</div>
+		<div class="row justify-content-center pt-4">
+			<div class="col-12 col-md-7">
+				{% form -%}
+					<div class="row mt-4">
+						<div class="col">
+							<label for="name">Name</label>
+							<input class="form-control required" name="{{ form_builder.fields.properties.name.name }}" value="{{this.name}}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option_1">Parent ID</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option_1'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option_3">Product Code</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option_3'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 image">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option_5">Image</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option_5'].name }}" type="hidden">
+							<input class="form-control sg-form-control" id="module_field_14/product_attribute_option_5_file" type="file" />
+						</div>
+					</div>
+					<div class="row mt-4 input_text">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option_7">Image Alt</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option_7'].name }}" type="text">
+						</div>
+					</div>
+					<div class="row mt-4 image_array">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option_8">Image Array</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option_8'].name }}[]" type="hidden">
+							<input class="form-control sg-form-control" id="module_field_14/product_attribute_option_8_file" type="file" multiple />
+						</div>
+					</div>
+					<div class="row mt-4 input_number">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/inventory/1">Inventory Quantity</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/inventory/1'].name }}" type="number" step="1">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/aud/1">Chargeable Price AUD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/aud/1'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/aud/2">Display Only Price AUD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/aud/2'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/cad/1">Chargeable Price CAD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/cad/1'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/cad/2">Display Only Price CAD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/cad/2'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/eur/1">Chargeable Price EUR</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/eur/1'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/eur/2">Display Only Price EUR</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/eur/2'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/gbp/1">Chargeable Price GBP</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/gbp/1'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/gbp/2">Display Only Price GBP</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/gbp/2'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/nzd/1">Chargeable Price NZD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/nzd/1'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/nzd/2">Display Only Price NZD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/nzd/2'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/usd/1">Chargeable Price USD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/usd/1'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+					<div class="row mt-4 number_float">
+						<div class="col">
+							<label for="module_field_14/product_attribute_option/price/usd/2">Display Only Price USD</label>
+							<input class="form-control sg-form-control" name="{{ form_builder.fields.properties['module_field_14/product_attribute_option/price/usd/2'].name }}" type="number" value="0" step="0.01">
+						</div>
+					</div>
+
+					<div class="row mt-4">
+						<div class="col">
+							<div class="form-error"></div>
+							<button type="button" class="btn buttonAccent" onClick="s_form_submit_v2(this,'module_14/product_attribute_option')">Submit</button>
+						</div>
+					</div>
+					<input class="form-control" name="{{ form_builder.fields.properties.enabled.name }}" value="{{_enabled}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.expiry_date.name }}" value="{{_expiry_date}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.release_date.name }}" value="{{_release_date}}" type="hidden">
+					<input id="s_redirect" value="" type="hidden">
+					<input class="form-control upload_dir" value="{{_upload_dir}}" type="hidden">
+					<input class="form-control" name="{{ form_builder.fields.properties.slug.name }}" value="{{_slug}}" type="hidden">
+				{% endform -%}
+			</div>
+		</div>
+	</div>
+</div>
